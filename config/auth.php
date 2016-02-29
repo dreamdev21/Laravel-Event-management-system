@@ -59,7 +59,7 @@ return [
 	*/
 
 	'password' => [
-		'email' => 'emails.Auth.Reminder',
+		'email' => 'Emails.Auth.Reminder',
 		'table' => 'password_resets',
 		'expire' => 60,
 	],

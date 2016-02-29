@@ -33,62 +33,69 @@ Route::any('payment/return/stripe', [
 ]);
 
 
-
-/*
- * Login
- */
-Route::get('/login', [
-    'as' => 'login',
-    'uses' => 'UserLoginController@showLogin'
-]);
-Route::post('/login', 'UserLoginController@postLogin');
-
-/*
- * Forgot password
- */
-Route::get('login/forgot-password', [
-    'as' => 'forgotPassword',
-    'uses' => 'RemindersController@getRemind'
-]);
-
-Route::post('login/forgot-password', [
-    'as' => 'postForgotPassword',
-    'uses' => 'RemindersController@postRemind'
-]);
-
-/*
- * Reset Password
- */
-Route::get('login/reset-password/{token}', [
-    'as' => 'showResetPassword',
-    'uses' => 'RemindersController@getReset'
-]);
-
-Route::post('login/reset-password', [
-    'as' => 'postResetPassword',
-    'uses' => 'RemindersController@postReset'
-]);
-
-
 /*
  * Logout
  */
 Route::any('/logout', 'UserLogoutController@doLogout');
 
 
-/*
- * Registration / Account creation
- */
-Route::get('/signup', 'UserSignupController@showSignup');
-Route::post('/signup', 'UserSignupController@postSignup');
+Route::group(array('middleware' => ['installed']), function() {
 
-/*
- * Confirm Email
- */
-Route::get('signup/confirm_email/{confirmation_code}', [
-    'as' => 'confirmEmail',
-    'uses' => 'UserSignupController@confirmEmail'
-]);
+
+    /*
+     * Login
+     */
+    Route::get('/login', [
+        'as' => 'login',
+        'uses' => 'UserLoginController@showLogin'
+    ]);
+    Route::post('/login', 'UserLoginController@postLogin');
+
+    /*
+     * Forgot password
+     */
+    Route::get('login/forgot-password', [
+        'as' => 'forgotPassword',
+        'uses' => 'RemindersController@getRemind'
+    ]);
+
+    Route::post('login/forgot-password', [
+        'as' => 'postForgotPassword',
+        'uses' => 'RemindersController@postRemind'
+    ]);
+
+    /*
+     * Reset Password
+     */
+    Route::get('login/reset-password/{token}', [
+        'as' => 'showResetPassword',
+        'uses' => 'RemindersController@getReset'
+    ]);
+
+    Route::post('login/reset-password', [
+        'as' => 'postResetPassword',
+        'uses' => 'RemindersController@postReset'
+    ]);
+
+
+
+    /*
+     * Registration / Account creation
+     */
+    Route::get('/signup', [
+        'uses' => 'UserSignupController@showSignup',
+        'as' => 'showSignup'
+    ]);
+    Route::post('/signup', 'UserSignupController@postSignup');
+
+    /*
+     * Confirm Email
+     */
+    Route::get('signup/confirm_email/{confirmation_code}', [
+        'as' => 'confirmEmail',
+        'uses' => 'UserSignupController@confirmEmail'
+    ]);
+});
 
 /*
  * Public organiser page routes
@@ -172,10 +179,6 @@ Route::get('order/{order_reference}/tickets', [
  * Begin logged in stuff
  */
 Route::group(array('middleware' => ['auth', 'first.run']), function() {
-
-
-
-    
     
     /*
      * Edit User

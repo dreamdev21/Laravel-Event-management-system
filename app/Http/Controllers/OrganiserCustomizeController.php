@@ -52,7 +52,7 @@ class OrganiserCustomizeController extends MyBaseController
         if (Input::hasFile('organiser_logo') ) {
 
             $the_file = \File::get(Input::file('organiser_logo')->getRealPath());
-            $file_name = '123-test-organiser_logo-' . $organiser->id . '.' . strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
+            $file_name = str_slug($organiser->name).'-logo-' . $organiser->id . '.' . strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
 
             $relative_path_to_file = ORGANISER_IMAGES_PATH . '/' . $file_name;
             $full_path_to_file = public_path().'/'.$relative_path_to_file;

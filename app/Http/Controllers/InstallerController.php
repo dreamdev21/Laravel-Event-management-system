@@ -111,7 +111,11 @@ class InstallerController extends Controller
         }
         Artisan::call('optimize', array('--force' => true));
 
-        return Redirect::route('signup',['first_run' => 'yup']);
+        $fp = fopen(base_path()."/installed", 'w');
+        fwrite($fp, '0.1.0');
+        fclose($fp);
+
+        return Redirect::route('showSignup',['first_run' => 'yup']);
     }
 
 

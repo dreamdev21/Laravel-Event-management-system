@@ -9,6 +9,7 @@ use Input;
 use Redirect;
 use Cache;
 use Session;
+use File;
 use App\Models\Organiser;
 
 class FirstRunMiddleware

@@ -11,9 +11,9 @@ define('APP_NAME', 'Attendize Event Ticketing');
 define('EVENT_DEFAULT_BG_COLOR', '#B23333');
 
 /* paths */
-define('EVENT_IMAGES_PATH', 'user_content/event_images/'.date('my'));
-define('ORGANISER_IMAGES_PATH', 'user_content/organiser_images/'.date('my'));
-define('EVENT_PDF_TICKETS_PATH', 'user_content/pdf_tickets/'.date('my'));
+define('EVENT_IMAGES_PATH', 'user_content/event_images/');
+define('ORGANISER_IMAGES_PATH', 'user_content/organiser_images/');
+define('EVENT_PDF_TICKETS_PATH', 'user_content/pdf_tickets/');
 define('EVENT_BG_IMAGES', 'assets/images/public/EventPage/backgrounds');
 
 

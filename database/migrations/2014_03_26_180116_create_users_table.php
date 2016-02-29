@@ -195,7 +195,7 @@ class CreateUsersTable extends Migration {
             $t->decimal('sales_volume', 13, 2);
             $t->decimal('organiser_fees_volume', 13, 2);
             $t->decimal('organiser_fee_fixed', 13, 2)->default(0);
-            $t->decimal('organiser_fees_percentage', 4, 3)->default(0);
+            $t->decimal('organiser_fee_percentage', 4, 3)->default(0);
             $t->unsignedInteger('organiser_id');
             $t->foreign('organiser_id')->references('id')->on('organisers');
 
