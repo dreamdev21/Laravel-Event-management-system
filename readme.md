@@ -1,3 +1,6 @@
+
+**Documentation & Information still under development.**
+
 # Attendize - Event Ticketing & Event Management Application
 
 https://www.attendize.com
@@ -45,9 +48,7 @@ offer event organisers a simple solution to managing general admission events.
 
 Coming Soon
 
-## Screen Shots
-[Imgur](http://i.imgur.com/xgUprHT.jpg)
 
 ### License
 
-Attendize is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Attendize is open-sourced software licensed under the Attribution Assurance License

@@ -1,9 +1,15 @@
 <?php namespace App\Http\Controllers;
 
+use Mail;
+use Session;
+use Validator;
+use Redirect;
+use Hash;
+use Auth;
+use Input;
+use View;
 use App\Attendize\Utils;
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
-use View, Validator, Redirect, Hash, Auth, Input;
 use App\Models\Account;
 use App\Models\User;
 
@@ -12,15 +18,16 @@ class UserSignupController extends Controller {
     protected $auth;
     
     public function __construct(Guard $auth) {
+
+        if(Account::count() > 0 && !Utils::isAttendize()) {
+            return Redirect::route('login');
+        }
+
         $this->auth = $auth;
         $this->middleware('guest');
     }
     
     public function showSignup() {
-
-        if(Account::count() > 0 && Utils::isAttendize()) {
-            return Redirect::route('login');
-        }
 
         return View::make('Public.LoginAndRegister.Signup');
     }

@@ -59,10 +59,6 @@ class Utils
         return file_exists(storage_path() . '/framework/down');
     }
 
-    public static function isProd()
-    {
-        return App::environment() == ENV_PRODUCTION;
-    }
 
     public static function file_upload_max_size() {
         static $max_size = -1;
