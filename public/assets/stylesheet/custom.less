@@ -1,0 +1,353 @@
+
+
+/*
+-----------------------------------------------------
+MANAGE ORGANISERS 
+-----------------------------------------------------
+*/
+
+
+.page-title .title .organiser_logo {
+    position: absolute;
+    height: 45px;
+    right: 20px;
+    top: 5px;
+    bottom: 5px;
+}
+.page-title .title .organiser_logo img {
+    max-height: 45px;
+}
+
+
+
+/*
+-----------------------------------------------------
+MANAGE EVENT 
+-----------------------------------------------------
+*/
+
+.nav {
+    li {
+        &.nav-button {
+            a {
+                span {
+                    padding:10px;
+                    background-color: lighten(@attendize-base-color, 8%);
+                }
+            }
+        }
+    } 
+} 
+
+
+
+
+
+
+/*
+-----------------------------------------------------
+EVENTS DASHBOARD
+-----------------------------------------------------
+*/
+.event {
+
+    &.panel {
+        /*border-top: 4px solid @default;*/
+        margin-top: 10px;
+    }
+
+    .event-date {
+
+        /*background-color: rgba(0, 0, 0, 0.15);*/
+        border: 1px solid @white;
+        padding-bottom: 9px;
+        padding-top: 7px;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        width: 46px;
+        position: absolute;
+        background-color: #ffffff;
+        top: -13px;
+        border-color: @primary;
+        color: #666;
+
+        .day {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            margin: -2px auto -6px auto;
+        }
+
+        .month {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            margin: -2px auto 0 auto;
+        }
+    }
+
+    .event-meta {
+        margin: 0;
+        padding: 0;
+        margin-left: 60px;
+        height: 55px;
+        margin-top: 10px;
+        color: #ffffff;
+
+        li {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            list-style: none;
+            font-size: 12px;
+
+            a {
+                color: #ffffff;
+            }
+            &.event-title {
+
+                a {
+                    font-size: 16px;
+                }
+
+            }
+            &.event-organiser {
+
+                a {
+                    font-weight: bold;
+                }
+
+            }
+
+
+        }
+
+
+    }
+    .panel-title {
+        height: 60px;
+        padding: 10px;
+
+        a {
+            margin: 0;
+            height: 40px;
+            display: table-cell;
+            vertical-align: middle;
+            text-indent: 50px;
+
+        }
+
+    }
+}
+
+
+/*
+-----------------------------------------------------
+Event Dashboard
+-----------------------------------------------------
+*/
+
+
+
+.stat-box {
+    padding: 20px;
+    background-color: lighten(@attendize-base-color, 15%);
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 4px solid rgba(0,0,0,.2);
+
+
+    h3 {
+        margin-bottom: 5px;
+        margin-top: 0;
+        font-weight: 200;
+    }
+
+    span {
+        text-transform: uppercase;
+        font-weight: lighter;
+        color: #D0F0FE;
+    }
+}
+
+.stat-box:nth-child(odd) {
+    background-color: lighten(@attendize-base-color, 10%);
+}
+
+/*
+-----------------------------------------------------
+GLOBAL
+-----------------------------------------------------
+*/
+
+.top_of_page_alert {
+    border: none;
+    margin: 0;
+    text-align: center;
+    border-bottom: 5px solid;
+}
+
+/*Veritcal align text helper*/
+.v-align-text {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -wekbit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+@media (max-width: @screen-md) {
+    .page-header > [class*=" col-"], .page-header > [class^="col-"] {
+        margin-bottom:10px;
+    }
+}
+
+/*Make the button toolbars responsive.*/
+@media (max-width: @screen-xs) {
+    .btn-group-responsive {
+        margin-bottom: -10px;
+        float: none !important;
+        display: block !important;
+
+        .btn {
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;      
+            margin-bottom: 10px;
+        }
+        .pull-left, .pull-right {
+            float: none !important;
+        }
+    }
+}
+
+/* Little red astrix to indicate required form fields */
+label.required::after {
+    content: '*';
+    color: red;
+    padding-left: 3px;
+    font-size: 9px;
+}
+
+/* Make readonly date inputs look nice */
+.hasDatepicker[disabled], .hasDatepicker[readonly], fieldset[disabled] .hasDatepicker {
+    cursor: pointer !important;
+    background-color: #fff !important;
+    opacity: 1;
+}
+
+
+/* */
+.more-options {
+    display: none;
+}
+
+.col-sort {
+    color: #fff;
+
+    :hover {
+        color: #fff;
+    }
+}
+
+
+/* Google autocomplete */
+.pac-container {
+    z-index: 9999;
+}
+
+.dtpicker-overlay {
+    z-index: 9999;
+}
+
+.dtpicker-close {
+    display: none;
+}
+
+.dtpicker-header .dtpicker-title {
+    color: #AFAFAF;
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.dtpicker-header .dtpicker-value {
+    padding: .8em .2em .2em .2em;
+    color: @primary; 
+    text-align: center;
+    font-size: 1.4em;
+}
+
+/* Datetime picket */
+.dtpicker-buttonCont .dtpicker-button {
+    background: @primary;
+    border-radius: @border-radius;
+}
+
+.dtpicker-content {
+    border-radius: @border-radius; 
+}
+
+
+/* Sidebar hori scroll fix */
+.sidebar-open-ltr {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+.order_options {
+    margin: 10px 0;
+    padding: 5px 15px;
+    margin-top: 0;
+}
+
+.order_options .event_count {
+    font-weight: bold;
+    color: #777;
+    line-height: 30px;
+}
+
+.well {
+    background-color: #f9f9f9;
+    box-shadow: none;
+}
+
+
+.input-group-btn select {
+    width: 115px !important;
+    border-left: 0;
+    font-size: 12px;
+}
+
+/* rotate menu icon
+@todo Make this rotate when it's toggled.
+*/
+.sidebar-open-ltr .toggleMenuIcon {
+}
+
+/* Custom file input */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}
+input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+}

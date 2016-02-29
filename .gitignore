@@ -1,0 +1,5 @@
+/public/vendor
+/vendor
+/node_modules
+.env
+.idea

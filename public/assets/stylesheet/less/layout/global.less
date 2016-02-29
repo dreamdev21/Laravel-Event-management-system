@@ -1,0 +1,30 @@
+html {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+}
+.sidebar-open-rtl,
+.sidebar-open-ltr {
+    overflow: hidden;
+}
+body {
+    font-size: @font-size-global;
+    min-height: 100%;
+    background-color: @maincontent-base-color;
+}
+
+@media (min-width: @screen-xs) and (max-width: @screen-md) {
+    .page-header .btn-toolbar {
+        margin-bottom: 10px;
+    }
+}
+@media (min-width: 1px) and (max-width: @screen-md-max) {
+    li.navbar-main {
+        display: block;
+    }
+}
+@media (min-width: @screen-md-min) {
+    li.navbar-main {
+        display: none !important;
+    }
+}

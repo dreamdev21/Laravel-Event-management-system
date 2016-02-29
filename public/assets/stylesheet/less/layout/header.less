@@ -1,0 +1,430 @@
+/* Push right */
+.csstransforms3d.sidebar-open-ltr {
+    #header.navbar {
+        .translate3d(@sidebar-width, 0, 0);
+    }
+}
+.no-csstransforms3d.sidebar-open-ltr {
+    #header.navbar {
+        left: @sidebar-width;
+        right: auto;
+    }
+}
+/* Push left */
+.csstransforms3d.sidebar-open-rtl {
+    #header.navbar {
+        .translate3d(-@sidebar-width, 0, 0);
+    }
+}
+.no-csstransforms3d.sidebar-open-rtl {
+    #header.navbar {
+        right: @sidebar-width;
+        left: auto;
+    }
+}
+
+/* Header Main */
+#header.navbar {
+    position: relative;
+    z-index: 1030;
+    width: 100%;
+    background-color: @attendize-base-color;
+    height: @header-height;
+    border-width: 0px;
+    border-radius: 0px;
+    margin: 0px;
+    .transition(transform 0.2s ease);
+
+    // Navbar header
+    // -----------------------------------
+    > .navbar-header {
+        height: @header-height;
+        float: none;
+
+        > .navbar-brand {
+            display: block;
+            width: 100%;
+            padding: 0px 15px;
+            line-height: @header-height - 1;
+            height: @header-height;
+            text-align: center;
+            color: @white;
+        }
+    }
+
+    // Navbar toolbar
+    // -----------------------------------
+    > .navbar-toolbar {
+        background-color: @attendize-base-color;
+        //border-bottom: 1px solid darken(@maincontent-base-color, 3%);
+        min-height: @header-height;
+
+        // Navbar toolbar - navbar-collapse
+        // -----------------------------------
+        > .navbar-collapse {
+            width: 100%;
+            padding: 0px;
+            border-color: @border-color;
+
+            > .navbar-nav,
+            > .navbar-nav > li {
+                float: none !important;
+            }
+        }
+
+        // Navbar toolbar - navbar-nav
+        // -----------------------------------
+        > .navbar-nav {
+            margin: 0px;
+            float: left;
+
+            > li {
+                float: left;
+
+                > a {
+                    padding: 0px 15px;
+                    height: @header-height - 1;
+                    line-height: @header-height;
+                    /*color: lighten(@dark, 35%);*/
+                    color: @white;
+                    text-shadow: none;
+
+                    &:hover,
+                    &:focus {
+                        background-color: lighten(@attendize-base-color, 15%);
+                        color: @white;
+                    }
+
+                    &:active,
+                    &.active {
+                        background-color: lighten(@attendize-base-color, 15%);
+                        color: @white;
+                    }
+
+                    > .meta {
+                        display: table;
+                        width: 100%;
+
+                        > .avatar {
+                            display: table-cell;
+                            vertical-align: middle;
+                            width: 32px;
+                            height: 32px;
+
+                            > img {
+                                display: block;
+                                width: 100%;
+                            }
+                        }
+                        > .text {
+                            font-size: 13px;
+                            font-weight: 600;
+                            padding-left: 5px;
+                        }
+                        > .icon {
+                            display: table-cell;
+                            vertical-align: middle;
+                            font-size: 16px;
+                            min-width: 16px;
+                            text-align: center;
+                        }
+                        > .label,
+                        > .badge {
+                            display: block;
+                            position: absolute;
+                            top: 8px;
+                            left: 5px;
+                            min-width: 18px;
+                            background-color: @danger;
+                            border-radius: 50%;
+                            -webkit-box-shadow: 0px 0px 0px 1px fade(@white, 96%);
+                            box-shadow: 0px 0px 0px 1px fade(@white, 96%);
+
+                            &.pull-right {
+                                left: auto;
+                                right: 5px;
+                            }
+                        }
+                        > .hasnotification {
+                            position: absolute;
+                            top: 12px;
+                            left: 10px;
+                            -webkit-box-shadow: 0px 0px 0px 1px fade(@white, 96%);
+                            box-shadow: 0px 0px 0px 1px fade(@white, 96%);
+
+                            &.pull-right {
+                                left: auto;
+                                right: 12px;
+                            }
+                        }
+                        > .arrow {
+                            display: table-cell;
+                            vertical-align: middle;
+                            text-align: right;
+                            font-family: "iconfont";
+                            font-size: 12px;
+                            width: 12px;
+                            height: 12px;
+
+                            &:after {
+                                content: "\e6be";
+                            }
+                        }
+                    }
+                    &.sidebar-minimize {
+                        > .meta {
+                            > .icon:after {
+                                display: inline-block;
+                                vertical-align: top;
+                                font-family: "iconfont";
+                                content: "\e4f3";
+                            }
+                        }
+                        &.minimized {
+                            > .meta {
+                                > .icon:after {
+                                    content: "\e47a";
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.open {
+                    > a {
+                        &:hover,
+                        &:focus,
+                        &:active {
+                            background-color: lighten(@attendize-base-color, 10%);
+                            color: @white;
+                        }
+
+                        // dropdown arrow
+                        &:before,
+                        &:after {
+                            position: absolute;
+                            content: "";
+                            left: 50%;
+                            width: 0px;
+                            height: 0px;
+                            border-style: solid;
+                        }
+                        &:before {
+                            z-index: 1002;
+                            bottom: -6px;
+                            margin-left: -9px;
+                            border-width: 0 9px 9px 9px;
+                            border-color: transparent transparent @border-color transparent;
+                        }
+                        &:after {
+                            z-index: 1003;
+                            bottom: -7px;
+                            margin-left: -8px;
+                            border-width: 0 8px 8px 8px;
+                            border-color: transparent transparent @white transparent;
+                        }
+
+                        > .meta {
+                            > .arrow {
+                                &:after {
+                                    content: "\e6bf";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Navbar-nav - main button
+            // -----------------------------------
+            > .navbar-main {
+                position: absolute;
+                z-index: 1;
+                top: 0px;
+                left: 0px;
+
+                > a {
+                    color: @gray;
+
+                    &:hover {
+                        color: @white;
+                    }
+
+                    &:active,
+                    &:focus {
+                        color: @white;
+                        background-color: darken(@attendize-base-color, 3%);
+                    }
+
+                    > .meta {
+                        > .label,
+                        > .badge,
+                        > .hasnotification {
+                            -webkit-box-shadow: 0px 0px 0px 1px @attendize-base-color;
+                            box-shadow: 0px 0px 0px 1px @attendize-base-color;
+                        }
+                    }
+                }
+            }
+
+            // Navbar-nav - dropdown menu
+            // -----------------------------------
+            > .dropdown {
+                > .dropdown-menu {
+                    position: absolute;
+                    margin-top: 5px;
+                    left: 5px;
+                    background-color: @white;
+                    border: 1px solid @border-color;
+                    border-radius: @border-radius + 1;
+                    -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+                    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+                }
+                &.custom {
+                    position: static;
+
+                    > .dropdown-menu {
+                        top: auto;
+                        left: 5px;
+                        right: 5px;
+                        padding: 0px;
+                        border-color: @border-color;
+
+                        &.dropdown-menu-right {
+                            left: auto;
+                            right: 5px;
+                        }
+
+                        // dropdown - header
+                        // -----------------------------------
+                        > .dropdown-header {
+                            display: table;
+                            width: 100%;
+                            background-color: darken(@white, 3%);
+                            border-bottom: 1px solid @border-color;
+                            padding: 0px 15px !important;
+                            height: @header-height - 14;
+                            line-height: @header-height - 14;
+                            color: lighten(@dark, 10%);
+
+                            border-top-left-radius: @border-radius;
+                            border-top-right-radius: @border-radius;
+
+                            > .title {
+                                display: table-cell;
+                                font-weight: 600;
+                            }
+                            > .option {
+                                display: table-cell;
+                                font-weight: normal;
+                            }
+                        }
+
+                        // dropdown - body and viewport
+                        // -----------------------------------
+                        > .viewport {
+                            height: 220px;
+                        }
+                        .dropdown-body {
+                            height: 220px;
+                            overflow-y: scroll;
+                            -ms-overflow-style: -ms-autohiding-scrollbar;
+                            -webkit-overflow-scrolling: touch;
+                        }
+
+                        // dropdown - form reset
+                        // -----------------------------------
+                        form,
+                        .form-horizontal {
+                            padding: 6px 15px;
+                            background-color: darken(@white, 2%);
+                            border-bottom: 1px solid @border-color;
+                        }
+                    }
+
+                    &.open {
+                        > .dropdown-toggle:before {
+                            border-color: transparent transparent @border-color transparent;
+                        }
+                        > .dropdown-toggle:after {
+                            border-color: transparent transparent darken(@white, 3%) transparent;
+                        }
+                    }
+                }
+            }
+            // Navbar toolbar - navbar nav right
+            // -----------------------------------
+            &.navbar-right {
+                float: right;
+
+                > .navbar-main {
+                    left: auto;
+                    right: 0px;
+                }
+
+                > li {
+                    > .dropdown-menu {
+                        left: auto;
+                        right: 5px;
+                    }
+                }
+            }
+        }
+
+        // Navbar toolbar - navbar form
+        // -----------------------------------
+        > .navbar-form {
+            position: absolute;
+            z-index: 2;
+            top: -@header-height - 10;
+            left: 0px;
+            right: 0px;
+            background-color: @attendize-base-color;
+            border-width: 0px;
+            margin: 0px;
+            padding: 8px 15px;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            .transition(top 300ms ease);
+
+            &.open {
+                top: -1px;
+            }
+
+            .form-group {
+                display: block;
+                margin: 0px;
+            }
+            .form-control {
+                display: block;
+                width: 100%;
+                color: darken(@white, 5%);
+                border-width: 0px;
+                background-color: darken(@attendize-base-color, 5%);
+            }
+            .has-icon {
+                .form-control-icon {
+                    color: darken(@white, 5%);
+                }
+            }
+            
+            // input placeholder
+            .form-control {
+                .placeholder(darken(@white, 5%));
+            }
+        }
+    }
+
+    // Fixed header
+    // -----------------------------------
+    &.navbar-fixed-top {
+        position: fixed;
+
+        // Fixed header toolbar reset
+        // -----------------------------------
+        > .navbar-toolbar {
+            -webkit-box-shadow: 0px 3px 2px -3px rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 3px 2px -3px rgba(0, 0, 0, 0.08);
+        }
+    }
+}
