@@ -130,10 +130,10 @@ class EventOrdersController extends MyBaseController
 
             if ($order->is_refunded) {
                 $error_message = 'This order has already been refunded';
-            } elseif ($order->amount == 0) {
+            } elseif ($order->organiser_amount == 0) {
                 $error_message = 'Nothing to refund';
-            } elseif ($refund_amount > ($order->amount - $order->amount_refunded)) {
-                $error_message = 'The maximum amount you can refund is ' . (money($order->amount - $order->amount_refunded, $order->event->currency->code));
+            } elseif ($refund_amount > ($order->organiser_amount - $order->amount_refunded)) {
+                $error_message = 'The maximum amount you can refund is ' . (money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code));
             }
             if (!$error_message) {
                 try {
@@ -144,7 +144,7 @@ class EventOrdersController extends MyBaseController
 
                     if ($refund_type === 'full') { /* Full refund */
 
-                        $refund_amount = $order->amount - $order->amount_refunded;
+                        $refund_amount = $order->organiser_amount - $order->amount_refunded;
                         $refund = $charge->refund([
                             'refund_application_fee' => floatval($order->booking_fee) > 0 ? true : false
                         ]);
@@ -153,7 +153,7 @@ class EventOrdersController extends MyBaseController
                         $order->event->decrement('sales_volume', $refund_amount);
 
                         $order->is_refunded = 1;
-                        $order->amount_refunded = $order->amount;
+                        $order->amount_refunded = $order->organiser_amount;
                         $order->order_status_id = ORDER_REFUNDED;
 
 
