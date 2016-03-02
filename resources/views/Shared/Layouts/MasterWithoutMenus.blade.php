@@ -62,7 +62,7 @@
         <script>
             $(function() {
                 $.backstretch([
-                 '{{asset('website_assets/images/header/splash.jpg')}}'
+                 '{{asset('assets/images/splash.jpg')}}'
                 ], {duration: 3500, fade: 1000});
             });
         </script>

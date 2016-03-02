@@ -181,8 +181,6 @@ $(function () {
             success: function (data) {
                 hideMessage();
 
-                //history.pushState({}, '', window.location + '#' + modalId);
-
                 $('body').append(data);
 
                 var $modal = $('#' + modalId);

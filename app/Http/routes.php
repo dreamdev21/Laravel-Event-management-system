@@ -12,6 +12,13 @@
  */
 
 
+Route::get('emailtest', function(){
+   return View::make('Emails.Layouts.Master', [
+       'message' => 'Hello.',
+       'email_logo' => asset('assets/images/logo-email.png')
+   ]);
+});
+
 /*
  * Installer
  */
