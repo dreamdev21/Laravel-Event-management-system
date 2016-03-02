@@ -1,7 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\Account;
-use App\Models\Timezone;
 use View;
 use Response;
 use Config;
@@ -11,6 +9,7 @@ use Artisan;
 use DB;
 use File;
 use App\Http\Controllers\Controller;
+use App\Models\Timezone;
 
 
 class InstallerController extends Controller
@@ -18,7 +17,9 @@ class InstallerController extends Controller
 
     public function __construct()
     {
-        set_time_limit(300);
+      if(file_exists(base_path('installed'))) {
+          abort(403, 'Unauthorized action.');
+      }
     }
 
     public function showInstaller()
@@ -35,7 +36,7 @@ class InstallerController extends Controller
             'pdo',
             'mbstring',
             'fileinfo',
-            'tokenizer',
+            'tokenizer'
         ];
 
         return View::make('Installer.Installer', $data);
@@ -43,6 +44,7 @@ class InstallerController extends Controller
 
     public function postInstaller()
     {
+        set_time_limit(300);
 
         $database['type'] = 'mysql';
         $database['host'] = Input::get('database_host');
@@ -61,6 +63,7 @@ class InstallerController extends Controller
 
         $app_url = Input::get('app_url');
         $app_key = str_random(16);
+        $version = file_get_contents(base_path('VERSION'));
 
 
         if (Input::get('test') === 'db') {
@@ -105,6 +108,14 @@ class InstallerController extends Controller
         fwrite($fp, $config);
         fclose($fp);
 
+        Config::set('database.default', $database['type']);
+        Config::set("database.connections.mysql.host", $database['host']);
+        Config::set("database.connections.mysql.database", $database['name']);
+        Config::set("database.connections.mysql.username", $database['username']);
+        Config::set("database.connections.mysql.password", $database['password']);
+
+        DB::reconnect();
+
         Artisan::call('migrate', array('--force' => true));
         if (Timezone::count() == 0) {
             Artisan::call('db:seed', array('--force' => true));
@@ -112,7 +123,7 @@ class InstallerController extends Controller
         Artisan::call('optimize', array('--force' => true));
 
         $fp = fopen(base_path()."/installed", 'w');
-        fwrite($fp, '0.1.0');
+        fwrite($fp, $version);
         fclose($fp);
 
         return Redirect::route('showSignup',['first_run' => 'yup']);

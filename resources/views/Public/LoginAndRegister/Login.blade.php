@@ -42,9 +42,12 @@
                         <button type="submit" class="btn btn-block btn-success">Login</button>
                     </div>
 
+                    @if(Utils::isAttendize())
                     <div class="signup">
                         <span>Don't have any account? <a class="semibold" href="/signup">Sign up</a></span>
                     </div>
+                    @endif
+
                 </div>
 
 

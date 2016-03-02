@@ -127,7 +127,6 @@ return [
         'Intervention\Image\ImageServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Laravel\Socialite\SocialiteServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
         'Nitmedia\Wkhtml2pdf\L5Wkhtml2pdfServiceProvider',
         'Mews\Purifier\PurifierServiceProvider',
         'MaxHoffmann\Parsedown\ParsedownServiceProvider',

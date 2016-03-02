@@ -159,19 +159,6 @@
 
                     <h3>Email Settings</h3>
 
-
-                    <div class="form-group ">
-                        {!! Form::label('mail_driver', 'Mail Driver', array('class'=>' control-label required')) !!}
-                        {!!  Form::text('mail_driver', Input::old('mail_driver'),
-                                    array(
-                                    'class'=>'form-control ',
-                                    'placeholder' => 'mail'
-                                    ))  !!}
-                        <div class="help-block">
-                            To use PHP's <a target="_blank" href="http://php.net/manual/en/function.mail.php">mail</a>
-                            feature simmple enter <b>mail</b> in this box and leave the below fields empty.
-                        </div>
-                    </div>
                     <div class="form-group ">
                         {!! Form::label('mail_from_address', 'Mail From Address', array('class'=>' control-label required')) !!}
                         {!!  Form::text('mail_from_address', Input::old('mail_from_address'),
@@ -186,6 +173,19 @@
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
+                    <div class="form-group ">
+                        {!! Form::label('mail_driver', 'Mail Driver', array('class'=>' control-label required')) !!}
+                        {!!  Form::text('mail_driver', Input::old('mail_driver'),
+                                    array(
+                                    'class'=>'form-control ',
+                                    'placeholder' => 'mail'
+                                    ))  !!}
+                        <div class="help-block">
+                            To use PHP's <a target="_blank" href="http://php.net/manual/en/function.mail.php">mail</a>
+                            feature enter <b>mail</b> in this box and leave the below fields empty.
+                        </div>
+                    </div>
+
                     <div class="form-group ">
                         {!! Form::label('mail_port', 'Mail Port', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_port', Input::old('mail_port'),
@@ -223,8 +223,15 @@
                     </div>
 
                     <div class="well">
-
-                        The install make take several minutes to complete. If you need help you can email us at <a href="mailto:dave@attendize.com" target="_blank">help@attendize.com</a>.
+                       <p>
+                           Installation may make take several minutes to complete. Once you click '<b>Install Attendize</b>' the config settings will be written to this file: <b>{{base_path('.env')}}</b>. You can manually change these settings in the future by editing this file.
+                       </p>
+                        <p>
+                            If the install fails be sure to check the log file in <b>{{storage_path('logs')}}</b> to find the error.
+                        </p>
+                        <p>
+                            If you need help you can email us at <a href="mailto:help@attendize.com" target="_blank">help@attendize.com</a>.
+                        </p>
                     </div>
 
 

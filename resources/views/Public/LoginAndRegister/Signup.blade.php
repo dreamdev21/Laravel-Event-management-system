@@ -53,7 +53,8 @@ Sign Up
                {!! Form::label('password_confirmation', 'Password again') !!}
                {!! Form::password('password_confirmation',  ['class' => 'form-control']) !!}
             </div>
-        
+
+            @if(Utils::isAttendize())
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-12">
@@ -64,6 +65,8 @@ Sign Up
                     </div>
                 </div>
             </div>
+            @endif
+
             <div class="form-group ">
                {!! Form::submit('Sign Up', array('class'=>"btn btn-block btn-success")) !!}
             </div>
