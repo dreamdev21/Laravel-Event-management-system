@@ -8,10 +8,10 @@
 https://www.attendize.com
 
 
-----------
+######Demo Event Page: http://attendize.website/e/1/acmes-amazing-demo-event
 
 
-*Attendize* is an open-source event ticketing and event management application built using the Laravel PHP framework. Attendize was created to offer event organisers a simple solution to managing general admission events.
+*Attendize* is an open-source event ticketing and event management application built using the Laravel PHP framework. Attendize was created to offer event organisers a simple solution to managing general admission events, without paying extortionate service fees.
 
 > PLEASE NOTE: Attendize is still in the early stages development and therefore is likely to contain bugs. Be weary about using Attendize in a production environment. 
 
