@@ -18,7 +18,7 @@ class EventCustomizeController extends MyBaseController {
 
         $images = [];
 
-        $files = File::files(public_path() . '/' . EVENT_BG_IMAGES);
+        $files = File::files(public_path() . '/' . config('attendize.event_bg_images'));
 
         foreach ($files as $image) {
             $images[] = str_replace(public_path(), '', $image);
@@ -31,7 +31,7 @@ class EventCustomizeController extends MyBaseController {
 
         $images = [];
 
-        $files = File::files(public_path() . '/' . EVENT_BG_IMAGES.'/thumbs');
+        $files = File::files(public_path() . '/' . config('attendize.event_bg_images').'/thumbs');
 
         foreach ($files as $image) {
             $images[] = str_replace(public_path(), '', $image);
@@ -174,7 +174,7 @@ class EventCustomizeController extends MyBaseController {
          */
         if (Input::hasFile('bg_image_path') && Input::get('bg_type') == 'custom_image') {
 
-            $path = public_path() . '/' . EVENT_IMAGES_PATH;
+            $path = public_path() . '/' . config('attendize.event_images_path');
             $filename = 'event_bg-'.  md5($event->id) . '.' . strtolower(Input::file('bg_image_path')->getClientOriginalExtension());
 
             $file_full_path = $path . '/' . $filename;
@@ -192,10 +192,10 @@ class EventCustomizeController extends MyBaseController {
             $img->save($file_full_path, 75);
 
 
-            $event->bg_image_path = EVENT_IMAGES_PATH . '/' . $filename;
+            $event->bg_image_path = config('attendize.event_images_path') . '/' . $filename;
             $event->bg_type = 'custom_image';
 
-            \Storage::put(EVENT_IMAGES_PATH.'/'.$filename, file_get_contents($file_full_path));
+            \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
         }
 
         $event->save();

@@ -594,7 +594,7 @@
                             </p>
 
                             <p>
-                                Feel free to <a href="mailto:{{INCOMING_EMAIL}}?subject=HTML Embed Code Help">contact
+                                Feel free to <a href="mailto:{{config('attendize.incoming_email')}}?subject=HTML Embed Code Help">contact
                                     us</a> if you require any further information regarding using the HTML embed code.
                             </p>
 

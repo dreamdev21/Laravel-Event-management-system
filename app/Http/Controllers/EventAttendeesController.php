@@ -129,7 +129,7 @@ class EventAttendeesController extends MyBaseController {
         $order->first_name = $attendee_first_name;
         $order->last_name = $attendee_last_name;
         $order->email = $attendee_email;
-        $order->order_status_id = ORDER_COMPLETE;
+        $order->order_status_id = config('attendize.order_complete');
         $order->amount = $ticket_price;
         $order->account_id = Auth::user()->account_id;
         $order->event_id = $event_id;
@@ -241,7 +241,7 @@ class EventAttendeesController extends MyBaseController {
 
         Mail::send('Emails.messageAttendees', $data, function($message) use ($attendee, $data) {
             $message->to($attendee->email, $attendee->full_name)
-                    ->from(OUTGOING_EMAIL_NOREPLY, $attendee->event->organiser->name)
+                    ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                     ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
                     ->subject($data['subject']);
         });
@@ -250,7 +250,7 @@ class EventAttendeesController extends MyBaseController {
         if (Input::get('send_copy') == '1') {
             Mail::send('Emails.messageAttendees', $data, function($message) use ($attendee, $data) {
                 $message->to($attendee->event->organiser->email, $attendee->event->organiser->name)
-                        ->from(OUTGOING_EMAIL_NOREPLY, $attendee->event->organiser->name)
+                        ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                         ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
                         ->subject($data['subject'] . '[ORGANISER COPY]');
             });
@@ -318,8 +318,8 @@ class EventAttendeesController extends MyBaseController {
             $excel->setTitle('Attendees List');
 
             // Chain the setters
-            $excel->setCreator(APP_NAME)
-                    ->setCompany(APP_NAME);
+            $excel->setCreator(config('attendize.app_name'))
+                    ->setCompany(config('attendize.app_name'));
 
             $excel->sheet('attendees_sheet_1', function($sheet) use ($event_id) {
 
@@ -433,7 +433,7 @@ class EventAttendeesController extends MyBaseController {
         if (Input::get('notify_attendee') == '1') {
             Mail::send('Emails.notifyCancelledAttendee', $data, function($message) use ($attendee) {
                 $message->to($attendee->email, $attendee->full_name)
-                        ->from(OUTGOING_EMAIL_NOREPLY, $attendee->event->organiser->name)
+                        ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                         ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
                         ->subject('You\'re ticket has been cancelled');
             });

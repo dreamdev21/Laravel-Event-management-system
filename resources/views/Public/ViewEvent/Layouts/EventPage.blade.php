@@ -24,7 +24,7 @@
         <meta property="og:type" content="article" />
         <meta property="og:url" content="{{$event->event_url}}?utm_source=fb" />
         @if($event->images->count())
-        <meta property="og:image" content="{{CDN_URL_USER_ASSETS.'/'.$event->images->first()['image_path']}}" />
+        <meta property="og:image" content="{{config('attendize.cdn_url_user_assets').'/'.$event->images->first()['image_path']}}" />
         @endif
         <meta property="og:description" content="{{{Str::words(strip_tags($event->description)), 20}}}" />
         <meta property="og:site_name" content="Attendize.com" />
@@ -34,7 +34,7 @@
         <![endif]-->
         @yield('head')
 
-       {!!HTML::style(CDN_URL_STATIC_ASSETS.'/assets/stylesheet/frontend.css')!!}
+       {!!HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/frontend.css')!!}
 
         <!--Bootstrap placeholder fix-->
         <style>
@@ -76,12 +76,12 @@
         <style>body {background-color: {{(Input::get('bg_color_preview') ? '#'.Input::get('bg_color_preview') : $event->bg_color)}} !important; }</style>
         @endif
 
-       {!!HTML::script(CDN_URL_STATIC_ASSETS.'/assets/javascript/frontend.js')!!}
+       {!!HTML::script(config('attendize.cdn_url_static_assets').'/assets/javascript/frontend.js')!!}
 
         @if (($event->bg_type == 'image' || $event->bg_type == 'custom_image' || Input::get('bg_img_preview')) && !Input::get('bg_color_preview'))
         <script>
             $(function() {
-            $.backstretch('{{(Input::get('bg_img_preview') ? '/'.Input::get('bg_img_preview') :  CDN_URL_STATIC_ASSETS.'/'.$event->bg_image_path)}}');
+            $.backstretch('{{(Input::get('bg_img_preview') ? '/'.Input::get('bg_img_preview') :  config('attendize.cdn_url_static_assets').'/'.$event->bg_image_path)}}');
             });
         </script>
         @endif

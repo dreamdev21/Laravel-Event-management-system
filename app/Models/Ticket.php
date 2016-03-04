@@ -69,7 +69,7 @@ class Ticket extends MyBaseModel {
     
     
     public function getBookingFeeAttribute () {
-        return (int)ceil($this->price) === 0 ? 0 : round(($this->price * (TICKET_BOOKING_FEE_PERCENTAGE / 100)) + (TICKET_BOOKING_FEE_FIXED), 2);
+        return (int)ceil($this->price) === 0 ? 0 : round(($this->price * (config('attendize.ticket_booking_fee_percentage') / 100)) + (config('attendize.ticket_booking_fee_fixed')), 2);
     }
     
     public function getOrganiserBookingFeeAttribute() {
@@ -105,14 +105,14 @@ class Ticket extends MyBaseModel {
      * @return int
 
       public function getMaxPerPersonMaxValueAttribute() {
-      return $this->max_per_person === -1 ? MAX_TICKETS_PER_PERSON : $this->max_per_person;
+      return $this->max_per_person === -1 ? config('attendize.max_tickets_per_person') : $this->max_per_person;
       }
      */
     public function getSaleStatusAttribute() {
                
         if ($this->start_sale_date !== NULL) {
             if ($this->start_sale_date->isFuture()) {
-                return TICKET_STATUS_BEFORE_SALE_DATE;
+                return config('attendize.ticket_status_before_sale_date');
             }
         }
 
@@ -120,21 +120,21 @@ class Ticket extends MyBaseModel {
 
         if ($this->end_sale_date !== NULL) {
             if ($this->end_sale_date->isPast()) {
-                return TICKET_STATUS_AFTER_SALE_DATE;
+                return config('attendize.ticket_status_after_sale_date');
             }
         }
 
         if ((int)$this->quantity_available > 0) {
             if ((int)$this->quantity_remaining <= 0) {
-                return TICKET_STATUS_SOLD_OUT;
+                return config('attendize.ticket_status_sold_out');
             }
         }
 
         if($this->event->start_date->lte(\Carbon::now())) {
-            return TICKET_STATUS_OFF_SALE;
+            return config('attendize.ticket_status_off_sale');
         }
         
-        return TICKET_STATUS_ON_SALE;
+        return config('attendize.ticket_status_on_sale');
     }
     
     

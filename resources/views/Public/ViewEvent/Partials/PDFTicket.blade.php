@@ -139,7 +139,7 @@
 
                 <div class='logo'>
 <!--                    <img src="http://dev.attendize.com/assets/images/logo-100x100-lightBg.png" />-->
-                    <img src="{{empty(CDN_URL_USER_ASSETS) ? url('/'.$event->organiser->logo_path) : CDN_URL_USER_ASSETS.'/'.$event->organiser->logo_path}}" />
+                    <img src="{{empty(config('attendize.cdn_url_user_assets')) ? url('/'.$event->organiser->logo_path) : config('attendize.cdn_url_user_assets').'/'.$event->organiser->logo_path}}" />
                 </div>
 
                 <div class="event_details">

@@ -154,7 +154,7 @@ Event Tickets
 
                         <a href="#">
                             
-                            @if($ticket->sale_status === TICKET_STATUS_ON_SALE)
+                            @if($ticket->sale_status === config('attendize.ticket_status_on_sale'))
 
                             @if($ticket->is_paused)
                             Ticket Sales Paused &nbsp;

@@ -20,7 +20,7 @@
     </p>
     <br>
     <p style="color:#999;">
-        If you have any questions, simply contact us at <a href='mailto:{{INCOMING_EMAIL}}'>{{INCOMING_EMAIL}}</a> and we'll be happy to help.
+        If you have any questions, simply contact us at <a href='mailto:{{config('attendize.incoming_email')}}'>{{config('attendize.incoming_email')}}</a> and we'll be happy to help.
     </p>
 
 @stop

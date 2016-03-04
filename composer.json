@@ -6,7 +6,7 @@
     "type": "project",
     "homepage" : "https://www.attendize.com",
     "require": {
-        "laravel/framework": "5.1.0",
+        "laravel/framework": "5.1.20",
         "illuminate/html": "~5.0",
         "milon/barcode": "dev-master",
         "stripe/stripe-php": "1.*",

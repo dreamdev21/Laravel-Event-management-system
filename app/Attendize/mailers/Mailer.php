@@ -9,7 +9,7 @@ class Mailer
     {
         Mail::send($view, $data, function ($message) use ($toEmail, $fromEmail, $fromName, $subject, $attachment) {
             $replyEmail = $fromEmail;
-            $fromEmail = OUTGOING_EMAIL;
+            $fromEmail = config('attendize.outgoing_email');
 
             if ($attachment) {
                 $message->attach($attachment);

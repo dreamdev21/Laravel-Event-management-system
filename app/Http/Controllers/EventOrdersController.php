@@ -154,7 +154,7 @@ class EventOrdersController extends MyBaseController
 
                         $order->is_refunded = 1;
                         $order->amount_refunded = $order->organiser_amount;
-                        $order->order_status_id = ORDER_REFUNDED;
+                        $order->order_status_id = config('attendize.order_refunded');
 
 
 
@@ -168,11 +168,11 @@ class EventOrdersController extends MyBaseController
                         /* Update the event sales volume*/
                         $order->event->decrement('sales_volume', $refund_amount);
 
-                        $order->order_status_id = ORDER_PARTIALLY_REFUNDED;
+                        $order->order_status_id = config('attendize.order_partially_refunded');
 
                         if (($order->organiser_amount - $order->amount_refunded) == 0) {
                             $order->is_refunded = 1;
-                            $order->order_status_id = ORDER_REFUNDED;
+                            $order->order_status_id = config('attendize.order_refunded');
                         }
 
                         $order->is_partially_refunded = 1;
@@ -241,8 +241,8 @@ class EventOrdersController extends MyBaseController
             $excel->setTitle('Orders For Event: ' . $event->title);
 
             // Chain the setters
-            $excel->setCreator(APP_NAME)
-                ->setCompany(APP_NAME);
+            $excel->setCreator(config('attendize.app_name'))
+                ->setCompany(config('attendize.app_name'));
 
             $excel->sheet('orders_sheet_1', function ($sheet) use ($event) {
 
@@ -320,7 +320,7 @@ class EventOrdersController extends MyBaseController
 
         Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
             $message->to($order->email, $order->full_name)
-                ->from(OUTGOING_EMAIL_NOREPLY, $order->event->organiser->name)
+                ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                 ->replyTo($order->event->organiser->email, $order->event->organiser->name)
                 ->subject($data['subject']);
         });
@@ -329,7 +329,7 @@ class EventOrdersController extends MyBaseController
         if (Input::get('send_copy') == '1') {
             Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
                 $message->to($order->event->organiser->email)
-                    ->from(OUTGOING_EMAIL_NOREPLY, $order->event->organiser->name)
+                    ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                     ->replyTo($order->event->organiser->email, $order->event->organiser->name)
                     ->subject($data['subject'] . ' [Organiser copy]');
             });

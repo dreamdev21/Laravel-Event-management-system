@@ -47,7 +47,7 @@ class EventCheckoutController extends Controller
         /*
          * Order expires after X min
          */
-        $order_expires_time = Carbon::now()->addMinutes(CHECKOUT_TIMEOUT_AFTER);
+        $order_expires_time = Carbon::now()->addMinutes(config('attendize.checkout_timeout_after'));
 
         $event = Event::findOrFail($event_id);
 
@@ -326,7 +326,7 @@ class EventCheckoutController extends Controller
         $order->first_name = Input::get('order_first_name');
         $order->last_name = Input::get('order_last_name');
         $order->email = Input::get('order_email');
-        $order->order_status_id = ORDER_COMPLETE;
+        $order->order_status_id = config('attendize.order_complete');
         $order->amount = $ticket_order['order_total'];
         $order->booking_fee = $ticket_order['booking_fee'];
         $order->organiser_booking_fee = $ticket_order['organiser_booking_fee'];

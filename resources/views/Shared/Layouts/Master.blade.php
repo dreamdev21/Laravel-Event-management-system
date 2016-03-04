@@ -21,11 +21,11 @@
             <!--/Meta-->
 
     <!--JS-->
-    {!! HTML::script(CDN_URL_STATIC_ASSETS.'/vendor/jquery/jquery.js') !!}
+    {!! HTML::script(config('attendize.cdn_url_static_assets').'/vendor/jquery/jquery.js') !!}
             <!--/JS-->
 
     <!--Style-->
-    {!! HTML::style(CDN_URL_STATIC_ASSETS.'/assets/stylesheet/application.css') !!}
+    {!! HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/application.css') !!}
             <!--/Style-->
 
     @yield('head')

@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="content event_poster">
-                            <img alt="{{$event->title}}" src="{{CDN_URL_USER_ASSETS.'/'.$event->images->first()['image_path']}}" />
+                            <img alt="{{$event->title}}" src="{{config('attendize.cdn_url_user_assets').'/'.$event->images->first()['image_path']}}" />
                         </div>
                     </div>
                     @else

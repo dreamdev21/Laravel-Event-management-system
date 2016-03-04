@@ -112,7 +112,7 @@ class EventController extends MyBaseController {
 
         if (Input::hasFile('event_image')) {
 
-            $path = public_path() . '/' . EVENT_IMAGES_PATH;
+            $path = public_path() . '/' . config('attendize.event_images_path');
             $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
 
             $file_full_path = $path . '/' . $filename;
@@ -130,11 +130,11 @@ class EventController extends MyBaseController {
             $img->save($file_full_path);
             
             /* Upload to s3 */
-            \Storage::put(EVENT_IMAGES_PATH.'/'.$filename, file_get_contents($file_full_path));
+            \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
             
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = EVENT_IMAGES_PATH . '/' . $filename;
+            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
@@ -217,7 +217,7 @@ class EventController extends MyBaseController {
 
         if (Input::hasFile('event_image')) {
 
-            $path = public_path() . '/' . EVENT_IMAGES_PATH;
+            $path = public_path() . '/' . config('attendize.event_images_path');
             $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
 
             $file_full_path = $path . '/' . $filename;
@@ -234,12 +234,12 @@ class EventController extends MyBaseController {
 
             $img->save($file_full_path);
             
-            \Storage::put(EVENT_IMAGES_PATH.'/'.$filename, file_get_contents($file_full_path));
+            \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
 
             EventImage::where('event_id', '=', $event->id)->delete();
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = EVENT_IMAGES_PATH . '/' . $filename;
+            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
@@ -259,7 +259,7 @@ class EventController extends MyBaseController {
             $the_file = \File::get(Input::file('event_image')->getRealPath());
             $file_name = 'event_details_image-' . md5(microtime()) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
             
-            $relative_path_to_file = EVENT_IMAGES_PATH . '/' . $file_name;
+            $relative_path_to_file = config('attendize.event_images_path') . '/' . $file_name;
             $full_path_to_file = public_path().'/'.$relative_path_to_file;
             
             $img = Image::make($the_file);

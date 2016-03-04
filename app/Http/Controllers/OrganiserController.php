@@ -87,7 +87,7 @@ class OrganiserController extends MyBaseController {
 
         if (Input::hasFile('organiser_logo')) {
 
-            $path = public_path() . '/' . ORGANISER_IMAGES_PATH;
+            $path = public_path() . '/' . config('attendize.organiser_images_path');
             $filename = 'organiser_logo-' . $organiser->id . '.' . strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
 
             $file_full_path = $path . '/' . $filename;
@@ -104,7 +104,7 @@ class OrganiserController extends MyBaseController {
             $img->save($file_full_path);
             
             if(file_exists($file_full_path)) {
-                $organiser->logo_path = ORGANISER_IMAGES_PATH . '/' . $filename;
+                $organiser->logo_path = config('attendize.organiser_images_path') . '/' . $filename;
             }
             
         }

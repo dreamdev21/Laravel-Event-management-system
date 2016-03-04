@@ -174,7 +174,7 @@ class CreateUsersTable extends Migration {
             $t->string('title');
             $t->string('location');
             $t->string('bg_type', 15)->default('color');
-            $t->string('bg_color')->default(EVENT_DEFAULT_BG_COLOR);
+            $t->string('bg_color')->default(config('attendize.event_default_bg_color'));
             $t->string('bg_image_path');
             $t->text('description');
 

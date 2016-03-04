@@ -50,15 +50,15 @@
                                 
                                 @else
                                 
-                                @if($ticket->sale_status === TICKET_STATUS_SOLD_OUT)
+                                @if($ticket->sale_status === config('attendize.ticket_status_sold_out'))
                                 <span class="text-danger">
                                     Sold Out
                                 </span>
-                                @elseif($ticket->sale_status === TICKET_STATUS_BEFORE_SALE_DATE)
+                                @elseif($ticket->sale_status === config('attendize.ticket_status_before_sale_date'))
                                 <span class="text-danger">
                                     Sales Have Not Started
                                 </span>
-                                @elseif($ticket->sale_status === TICKET_STATUS_AFTER_SALE_DATE)
+                                @elseif($ticket->sale_status === config('attendize.ticket_status_after_sale_date'))
                                 <span class="text-danger">
                                     Sales Have Ended
                                 </span>

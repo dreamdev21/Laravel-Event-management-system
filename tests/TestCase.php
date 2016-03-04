@@ -2,6 +2,8 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
+	protected $baseUrl = 'http://dev.attendize.com';
+
 	/**
 	 * Creates the application.
 	 *

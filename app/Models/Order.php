@@ -72,7 +72,7 @@ class Order extends MyBaseModel {
             'attendees' => $this->attendees
         ];
 
-        $pdf_file_path = public_path(EVENT_PDF_TICKETS_PATH) . '/' . $this->order_reference;
+        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $this->order_reference;
         $pdf_file      = $pdf_file_path.'.pdf';
         
         if (file_exists($pdf_file)) {
@@ -86,7 +86,7 @@ class Order extends MyBaseModel {
         PDF::setOutputMode('F'); // force to file
         PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file_path);
 
-        $this->ticket_pdf_path = EVENT_PDF_TICKETS_PATH.'/'.$this->order_reference.'.pdf';
+        $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path').'/'.$this->order_reference.'.pdf';
         $this->save();
 
         return file_exists($pdf_file);

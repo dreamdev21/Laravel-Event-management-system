@@ -66,8 +66,8 @@ class UserSignupController extends Controller {
 	$account->email = Input::get('email');
 	$account->first_name = Input::get('first_name');
 	$account->last_name = Input::get('last_name');
-	$account->currency_id = DEFAULT_CURRENCY;
-	$account->timezone_id = DEFAULT_TIMEZONE;
+	$account->currency_id = config('attendize.default_currency');
+	$account->timezone_id = config('attendize.default_timezone');
 	$account->save();
 
 	$user = new User;

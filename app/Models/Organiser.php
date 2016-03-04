@@ -25,11 +25,11 @@ class Organiser extends MyBaseModel {
     }
     
     public function getFullLogoPathAttribute() {
-        if($this->logo_path && (file_exists(CDN_URL_USER_ASSETS.'/'.$this->logo_path) || file_exists(public_path($this->logo_path)))) {
-            return CDN_URL_USER_ASSETS.'/'.$this->logo_path;
+        if($this->logo_path && (file_exists(config('attendize.cdn_url_user_assets').'/'.$this->logo_path) || file_exists(public_path($this->logo_path)))) {
+            return config('attendize.cdn_url_user_assets').'/'.$this->logo_path;
         }
         
-        return FALLBACK_ORGANISER_LOGO_URL;
+        return config('attendize.fallback_organiser_logo_url');
     }
 
     public function getOrganiserUrlAttribute() {
