@@ -61,7 +61,7 @@
                                             'data-field'=>'datetime',
                                             'data-startend'=>'end',
                                             'data-startendelem'=>'.start',
-                                            'readonly'=>''
+                                            'readonly'=> ''
                                         ])  !!}
                                 </div>
                             </div>

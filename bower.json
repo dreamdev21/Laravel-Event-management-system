@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "curioussolutions-datetimepicker": "~0.1.1",
+    "curioussolutions-datetimepicker": "~0.1.26",
     "chartjs": "~0.2.0",
     "humane-js": "~3.2.0",
     "geocomplete": "~1.6.4",

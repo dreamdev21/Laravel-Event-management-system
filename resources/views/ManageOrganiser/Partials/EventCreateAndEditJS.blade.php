@@ -24,7 +24,10 @@
             spellChecker: false,
             status: false
         });
-        $('.hasDatepicker').DateTimePicker({
+        $('#DatePicker').remove();
+        var $div = $("<div>", {id: "DatePicker"});
+        $("body").append($div);
+        $div.DateTimePicker({
             dateTimeFormat: window.Attendize.DateTimeFormat
         });
 

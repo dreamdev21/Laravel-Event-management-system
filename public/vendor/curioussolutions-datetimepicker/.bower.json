@@ -42,6 +42,6 @@
     "commit": "5de31f36b5d81f3a527df195e66a3946d9888eaf"
   },
   "_source": "git://github.com/CuriousSolutions/DateTimePicker.git",
-  "_target": "~0.1.1",
+  "_target": "~0.1.26",
   "_originalSource": "curioussolutions-datetimepicker"
 }
