@@ -35,7 +35,10 @@ Route::any('payment/return/stripe', [
 /*
  * Logout
  */
-Route::any('/logout', 'UserLogoutController@doLogout');
+Route::any('/logout', [
+    'uses' => 'UserLogoutController@doLogout',
+    'as' => 'logout'
+]);
 
 
 Route::group(array('middleware' => ['installed']), function() {

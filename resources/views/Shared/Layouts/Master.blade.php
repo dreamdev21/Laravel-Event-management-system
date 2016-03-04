@@ -86,7 +86,7 @@
 
 
                     <li class="divider"></li>
-                    <li><a href="/logout"><span class="icon"><i class="ico-exit"></i></span> Sign Out</a></li>
+                    <li><a href="{{route('logout')}}"><span class="icon"><i class="ico-exit"></i></span> Sign Out</a></li>
                 </ul>
             </li>
         </ul>
