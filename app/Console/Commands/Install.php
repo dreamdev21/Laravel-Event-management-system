@@ -28,6 +28,7 @@ class Install extends Command
 	 */
 	public function handle()
 	{
+		$version = file_get_contents(base_path('VERSION'));
 		try {
 			DB::connection();
 		} catch (\Exception $e) {
@@ -37,7 +38,7 @@ class Install extends Command
 			return;
 		}
 
-		$this->comment('Attempting to install Attendize.');
+		$this->comment('Attempting to install Attendize v'.$version);
 
 		if (!env('APP_KEY')) {
 			$this->info('Generating app key');
@@ -57,6 +58,9 @@ class Install extends Command
 			$this->comment('Data already seeded -- skipping');
 		}
 
+		file_put_contents(base_path('installed'), $version);
+
 		$this->comment('Success! You can now run Attendize');
+		$this->comment('Navigate to /signup to create your account.');
 	}
 }
