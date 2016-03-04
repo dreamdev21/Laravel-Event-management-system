@@ -25,7 +25,8 @@
     "RRSSB": "~1.6.0",
     "jquery-backstretch": "~2.0.4",
     "fontawesome": "~4.2.0",
-    "simplemde": "~1.8.1"
+    "simplemde": "~1.8.1",
+    "bootstrap-touchspin": "~3.0.1"
   },
   "resolutions": {
     "jquery": ">=1.5"
