@@ -51,6 +51,10 @@ https://www.attendize.com
 Limited Documentation available at https://www.attendize.com/documentation.php. Github will be updated with more comprehensive documentation soon.
 
 
+## Contribution
+
+Feel free to fork and contribute. I could use the help!
+
 ### License
 
 Attendize is open-sourced software licensed under the Attribution Assurance License
