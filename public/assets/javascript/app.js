@@ -2,7 +2,7 @@
 
 window.Attendize = {
     DateFormat: 'dd-MM-yyyy',
-    DateTimeFormat: 'dd-MM-yyyy hh:mm:ss',
+    DateTimeFormat: 'dd-MM-yyyy hh:mm',
     GenericErrorMessage: 'Whoops!, An unknown error has occurred.'
     + 'Please try again or contact support if the problem persists. '
 };
