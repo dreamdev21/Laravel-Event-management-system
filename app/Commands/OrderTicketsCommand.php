@@ -2,16 +2,15 @@
 
 namespace App\Commands;
 
-use Log;
-use App\Commands\Command;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
 use App\Attendize\mailers\OrderMailer;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Log;
 
-class OrderTicketsCommand extends Command implements ShouldBeQueued, SelfHandling {
-
+class OrderTicketsCommand extends Command implements ShouldBeQueued, SelfHandling
+{
     use InteractsWithQueue,
         SerializesModels;
 
@@ -20,10 +19,12 @@ class OrderTicketsCommand extends Command implements ShouldBeQueued, SelfHandlin
 
     /**
      * OrderTicketsCommand constructor.
+     *
      * @param \App\Models\Order $ticketOrder
-     * @param bool|TRUE $sendOrderConfirmation
+     * @param bool|true         $sendOrderConfirmation
      */
-    public function __construct(\App\Models\Order $ticketOrder, $sendOrderConfirmation = TRUE) {
+    public function __construct(\App\Models\Order $ticketOrder, $sendOrderConfirmation = true)
+    {
         $this->ticketOrder = $ticketOrder;
         $this->sendOrderConfirmation = $sendOrderConfirmation;
     }
@@ -31,24 +32,23 @@ class OrderTicketsCommand extends Command implements ShouldBeQueued, SelfHandlin
     /**
      * @param OrderMailer $mailer
      */
-    function handle(OrderMailer $mailer) {
-        
-         Log::info(date('d m y H:i') . " - Starting Job {$this->job->getJobId()} ".__CLASS__);
+    public function handle(OrderMailer $mailer)
+    {
+        Log::info(date('d m y H:i')." - Starting Job {$this->job->getJobId()} ".__CLASS__);
 
         //1 - Notify event organiser
-        if($this->sendOrderConfirmation) {
-          $mailer->sendOrderNotification($this->ticketOrder);  
+        if ($this->sendOrderConfirmation) {
+            $mailer->sendOrderNotification($this->ticketOrder);
         }
-        
+
         //2 - Generate PDF Tickets
         $this->ticketOrder->generatePdfTickets();
-        
+
         //3 - Send Tickets / Order confirmation
         $mailer->sendOrderConfirmation($this->ticketOrder);
 
-        Log::info(date('d m y H:i') . " - Finished Job {$this->job->getJobId()} ".__CLASS__);
+        Log::info(date('d m y H:i')." - Finished Job {$this->job->getJobId()} ".__CLASS__);
 
         $this->delete();
     }
-
 }

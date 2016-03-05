@@ -1,10 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
-class ImageController extends Controller {
-
-    public function generateThumbnail($image_src, $width = FALSE, $height = false, $quality = 90) {
+class ImageController extends Controller
+{
+    public function generateThumbnail($image_src, $width = false, $height = false, $quality = 90)
+    {
         $img = Image::make('public/foo.jpg');
 
         $img->resize(320, 240);
@@ -13,5 +14,4 @@ class ImageController extends Controller {
 
         $img->save('public/bar.jpg');
     }
-
 }

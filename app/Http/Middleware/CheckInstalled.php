@@ -1,23 +1,25 @@
-<?php namespace app\Http\Middleware;
+<?php
 
+namespace app\Http\Middleware;
+
+use App\Attendize\Utils;
 use Closure;
 use Redirect;
 use Request;
-use App\Models\OrderStatus;
-use App\Attendize\Utils;
 
 class CheckInstalled
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(!file_exists(base_path('installed')) && !Utils::isAttendize()) {
+        if (!file_exists(base_path('installed')) && !Utils::isAttendize()) {
             return Redirect::to('install');
         }
 

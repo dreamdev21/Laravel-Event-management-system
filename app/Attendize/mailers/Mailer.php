@@ -1,11 +1,12 @@
-<?php namespace App\Attendize\mailers;
+<?php
+
+namespace App\Attendize\mailers;
 
 use Mail;
 
 class Mailer
 {
-
-    public function sendTo($toEmail, $fromEmail, $fromName, $subject, $view, $data = [], $attachment = FALSE)
+    public function sendTo($toEmail, $fromEmail, $fromName, $subject, $view, $data = [], $attachment = false)
     {
         Mail::send($view, $data, function ($message) use ($toEmail, $fromEmail, $fromName, $subject, $attachment) {
             $replyEmail = $fromEmail;

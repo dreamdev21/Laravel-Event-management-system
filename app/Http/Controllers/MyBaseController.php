@@ -1,14 +1,14 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Http\Controllers\Controller;
-use App\Attendize\Utils;
+
 use App\Models\Organiser;
 use View;
 
-class MyBaseController extends Controller {
-
-
+class MyBaseController extends Controller
+{
     public function __construct()
     {
         View::share('organisers', Organiser::scope()->get());
@@ -19,7 +19,8 @@ class MyBaseController extends Controller {
      *
      * @return void
      */
-    protected function setupLayout() {
+    protected function setupLayout()
+    {
         if (!is_null($this->layout)) {
             $this->layout = View::make($this->layout);
         }
@@ -27,16 +28,16 @@ class MyBaseController extends Controller {
 
     /**
      * Returns data which is required in each view, optionally combined with additional data.
-     * 
-     * @param int $event_id
+     *
+     * @param int   $event_id
      * @param array $additional_data
+     *
      * @return arrau
      */
-    public function getEventViewData($event_id, $additional_data = array()) {
-        return array_merge(array(
-            'event' => Event::scope()->findOrFail($event_id)
-                )
-                , $additional_data);
+    public function getEventViewData($event_id, $additional_data = [])
+    {
+        return array_merge([
+            'event' => Event::scope()->findOrFail($event_id),
+                ], $additional_data);
     }
-
 }

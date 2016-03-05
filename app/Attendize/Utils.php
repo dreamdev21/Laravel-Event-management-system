@@ -1,9 +1,9 @@
-<?php namespace App\Attendize;
+<?php
 
+namespace App\Attendize;
 
 class Utils
 {
-
     public static function isRegistered()
     {
         return Auth::check() && Auth::user()->is_registered;
@@ -30,7 +30,8 @@ class Utils
      *
      * @return bool
      */
-    public static function isAttendize() {
+    public static function isAttendize()
+    {
         return self::isAttendizeCloud() || self::isAttendizeDev();
     }
 
@@ -56,11 +57,11 @@ class Utils
 
     public static function isDownForMaintenance()
     {
-        return file_exists(storage_path() . '/framework/down');
+        return file_exists(storage_path().'/framework/down');
     }
 
-
-    public static function file_upload_max_size() {
+    public static function file_upload_max_size()
+    {
         static $max_size = -1;
 
         if ($max_size < 0) {
@@ -74,17 +75,18 @@ class Utils
                 $max_size = $upload_max;
             }
         }
+
         return $max_size;
     }
 
-    public static function parse_size($size) {
+    public static function parse_size($size)
+    {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
             return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
-        }
-        else {
+        } else {
             return round($size);
         }
     }

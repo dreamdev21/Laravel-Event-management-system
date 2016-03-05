@@ -1,24 +1,33 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Response, Input, File, Image, Validator, View;
+use File;
+use Image;
+use Input;
+use Response;
+use Validator;
+use View;
 
-class EventCustomizeController extends MyBaseController {
-
-    public function showCustomize($event_id = '', $tab = '') {
+class EventCustomizeController extends MyBaseController
+{
+    public function showCustomize($event_id = '', $tab = '')
+    {
         $data = $this->getEventViewData($event_id, [
-            'available_bg_images' => $this->getAvailableBackgroundImages(),
+            'available_bg_images'        => $this->getAvailableBackgroundImages(),
             'available_bg_images_thumbs' => $this->getAvailableBackgroundImagesThumbs(),
-            'tab' => $tab
+            'tab'                        => $tab,
         ]);
+
         return View::make('ManageEvent.Customize', $data);
     }
 
-    public function getAvailableBackgroundImages() {
-
+    public function getAvailableBackgroundImages()
+    {
         $images = [];
 
-        $files = File::files(public_path() . '/' . config('attendize.event_bg_images'));
+        $files = File::files(public_path().'/'.config('attendize.event_bg_images'));
 
         foreach ($files as $image) {
             $images[] = str_replace(public_path(), '', $image);
@@ -26,12 +35,12 @@ class EventCustomizeController extends MyBaseController {
 
         return $images;
     }
-    
-    public function getAvailableBackgroundImagesThumbs() {
 
+    public function getAvailableBackgroundImagesThumbs()
+    {
         $images = [];
 
-        $files = File::files(public_path() . '/' . config('attendize.event_bg_images').'/thumbs');
+        $files = File::files(public_path().'/'.config('attendize.event_bg_images').'/thumbs');
 
         foreach ($files as $image) {
             $images[] = str_replace(public_path(), '', $image);
@@ -39,17 +48,18 @@ class EventCustomizeController extends MyBaseController {
 
         return $images;
     }
-    
-    public function postEditEventSocial($event_id) {
+
+    public function postEditEventSocial($event_id)
+    {
         $event = Event::scope()->findOrFail($event_id);
 
         $rules = [
-            'social_share_text' => ['max:3000'],
-            'social_show_facebook' => ['boolean'],
-            'social_show_twitter' => ['boolean'],
-            'social_show_linkedin' => ['boolean'],
-            'social_show_email' => ['boolean'],
-            'social_show_googleplus' => ['boolean']
+            'social_share_text'      => ['max:3000'],
+            'social_show_facebook'   => ['boolean'],
+            'social_show_twitter'    => ['boolean'],
+            'social_show_linkedin'   => ['boolean'],
+            'social_show_email'      => ['boolean'],
+            'social_show_googleplus' => ['boolean'],
         ];
         $messages = [
            'social_share_text.max' => 'Please keep the shate text under 3000 characters.',
@@ -58,10 +68,10 @@ class EventCustomizeController extends MyBaseController {
         $validator = Validator::make(Input::all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $validator->messages()->toArray()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $validator->messages()->toArray(),
+            ]);
         }
 
         $event->social_share_text = Input::get('social_share_text');
@@ -73,31 +83,32 @@ class EventCustomizeController extends MyBaseController {
         $event->save();
 
         return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Social Settings Succesfully Upated',
         ]);
     }
-    
-    public function postEditEventFees($event_id) {
+
+    public function postEditEventFees($event_id)
+    {
         $event = Event::scope()->findOrFail($event_id);
 
         $rules = [
             'organiser_fee_percentage' => ['numeric', 'between:0,100'],
-            'organiser_fee_fixed' => ['numeric', 'between:0,100']
+            'organiser_fee_fixed'      => ['numeric', 'between:0,100'],
         ];
         $messages = [
            'organiser_fee_percentage.numeric' => 'Please enter a value between 0 and 100',
-           'organiser_fee_fixed.numeric' => 'Please check the format. It shoud be in the format 0.00.',
-           'organiser_fee_fixed.between' => 'Please enter a value between 0 and 100.'
+           'organiser_fee_fixed.numeric'      => 'Please check the format. It shoud be in the format 0.00.',
+           'organiser_fee_fixed.between'      => 'Please enter a value between 0 and 100.',
         ];
 
         $validator = Validator::make(Input::all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $validator->messages()->toArray()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $validator->messages()->toArray(),
+            ]);
         }
 
         $event->organiser_fee_percentage = Input::get('organiser_fee_percentage');
@@ -105,12 +116,13 @@ class EventCustomizeController extends MyBaseController {
         $event->save();
 
         return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Order Page Succesfully Upated',
         ]);
     }
 
-    public function postEditEventOrderPage($event_id) {
+    public function postEditEventOrderPage($event_id)
+    {
         $event = Event::scope()->findOrFail($event_id);
 
         // Just plain text so no validation needed (hopefully)
@@ -120,10 +132,10 @@ class EventCustomizeController extends MyBaseController {
         $validator = Validator::make(Input::all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $validator->messages()->toArray()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $validator->messages()->toArray(),
+            ]);
         }
 
         $event->pre_order_display_message = trim(Input::get('pre_order_display_message'));
@@ -132,32 +144,31 @@ class EventCustomizeController extends MyBaseController {
         $event->save();
 
         return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Order Page Succesfully Upated',
         ]);
     }
-    
-    public function postEditEventDesign($event_id) {
 
+    public function postEditEventDesign($event_id)
+    {
         $event = Event::scope()->findOrFail($event_id);
 
         $rules = [
-            'bg_image_path' => ['mimes:jpeg,jpg,png', 'max:4000']
+            'bg_image_path' => ['mimes:jpeg,jpg,png', 'max:4000'],
         ];
         $messages = [
             'bg_image_path.mimes' => 'Please ensure you are uploading an image (JPG, PNG, JPEG)',
-            'bg_image_path.max' => 'Pleae ensure the image is not larger than 2.5MB'
+            'bg_image_path.max'   => 'Pleae ensure the image is not larger than 2.5MB',
         ];
 
         $validator = Validator::make(Input::all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $validator->messages()->toArray()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $validator->messages()->toArray(),
+            ]);
         }
-
 
         if (Input::get('bg_image_path_custom') && Input::get('bg_type') == 'image') {
             $event->bg_image_path = Input::get('bg_image_path_custom');
@@ -173,12 +184,10 @@ class EventCustomizeController extends MyBaseController {
          * Not in use for now.
          */
         if (Input::hasFile('bg_image_path') && Input::get('bg_type') == 'custom_image') {
+            $path = public_path().'/'.config('attendize.event_images_path');
+            $filename = 'event_bg-'.md5($event->id).'.'.strtolower(Input::file('bg_image_path')->getClientOriginalExtension());
 
-            $path = public_path() . '/' . config('attendize.event_images_path');
-            $filename = 'event_bg-'.  md5($event->id) . '.' . strtolower(Input::file('bg_image_path')->getClientOriginalExtension());
-
-            $file_full_path = $path . '/' . $filename;
-
+            $file_full_path = $path.'/'.$filename;
 
             Input::file('bg_image_path')->move($path, $filename);
 
@@ -191,8 +200,7 @@ class EventCustomizeController extends MyBaseController {
 
             $img->save($file_full_path, 75);
 
-
-            $event->bg_image_path = config('attendize.event_images_path') . '/' . $filename;
+            $event->bg_image_path = config('attendize.event_images_path').'/'.$filename;
             $event->bg_type = 'custom_image';
 
             \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
@@ -201,10 +209,9 @@ class EventCustomizeController extends MyBaseController {
         $event->save();
 
         return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Event Page Succesfully Upated',
-                    'runThis' => 'document.getElementById(\'previewIframe\').contentWindow.location.reload(true);'
+                    'runThis' => 'document.getElementById(\'previewIframe\').contentWindow.location.reload(true);',
         ]);
     }
-
 }

@@ -2,15 +2,15 @@
 
 namespace App\Attendize\mailers;
 
-use Mail;
 use App\Models\Attendee;
 use App\Models\Message;
 use Carbon\Carbon;
+use Mail;
 
-class AttendeeMailer extends Mailer {
-
-    public function sendMessageToAttendees(Message $message_object) {
-
+class AttendeeMailer extends Mailer
+{
+    public function sendMessageToAttendees(Message $message_object)
+    {
         $event = $message_object->event;
 
         $attendees = ($message_object->recipients == 0)
@@ -23,26 +23,23 @@ class AttendeeMailer extends Mailer {
         }
 
         $data = [
-            'event' => $event,
+            'event'           => $event,
             'message_content' => $message_object->message,
-            'subject' => $message_object->subject
+            'subject'         => $message_object->subject,
         ];
 
         /*
          * Mandril lets us send the email to multiple people at once.
          */
-        Mail::send('Emails.messageAttendees', $data, function($message) use ($toFields, $event, $message_object) {
+        Mail::send('Emails.messageAttendees', $data, function ($message) use ($toFields, $event, $message_object) {
             $message->to($toFields)
                     ->from(config('attendize.outgoing_email_noreply'), $event->organiser->name)
                     ->replyTo($event->organiser->email, $event->organiser->name)
                     ->subject($message_object->subject);
         });
 
-
-
         $message_object->is_sent = 1;
         $message_object->sent_at = Carbon::now();
         $message_object->save();
     }
-
 }

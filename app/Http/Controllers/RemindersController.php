@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
-class RemindersController extends Controller {
-
+class RemindersController extends Controller
+{
     /**
      * The Guard implementation.
      *
@@ -24,7 +22,8 @@ class RemindersController extends Controller {
      */
     protected $passwords;
 
-    public function __construct(Guard $auth, PasswordBroker $passwords) {
+    public function __construct(Guard $auth, PasswordBroker $passwords)
+    {
         $this->auth = $auth;
         $this->passwords = $passwords;
 
@@ -32,21 +31,22 @@ class RemindersController extends Controller {
     }
 
     /**
-	 * Get the e-mail subject line to be used for the reset link email.
-	 *
-	 * @return string
-	 */
-	protected function getEmailSubject()
-	{
-		return isset($this->subject) ? $this->subject : 'Your Password Reset Link';
-	}
-    
+     * Get the e-mail subject line to be used for the reset link email.
+     *
+     * @return string
+     */
+    protected function getEmailSubject()
+    {
+        return isset($this->subject) ? $this->subject : 'Your Password Reset Link';
+    }
+
     /**
      * Display the password reminder view.
      *
      * @return Response
      */
-    public function getRemind() {
+    public function getRemind()
+    {
         return \View::make('Public.LoginAndRegister.ForgotPassword');
     }
 
@@ -55,11 +55,11 @@ class RemindersController extends Controller {
      *
      * @return Response
      */
-    public function postRemind(Request $request) {
-
+    public function postRemind(Request $request)
+    {
         $this->validate($request, ['email' => 'required']);
 
-        $response = $this->passwords->sendResetLink($request->only('email'), function($m) {
+        $response = $this->passwords->sendResetLink($request->only('email'), function ($m) {
             $m->subject($this->getEmailSubject());
         });
 
@@ -75,12 +75,15 @@ class RemindersController extends Controller {
     /**
      * Display the password reset view for the given token.
      *
-     * @param  string  $token
+     * @param string $token
+     *
      * @return Response
      */
-    public function getReset($token = null) {
-        if (is_null($token))
+    public function getReset($token = null)
+    {
+        if (is_null($token)) {
             \App::abort(404);
+        }
 
         return \View::make('Public.LoginAndRegister.ResetPassword')->with('token', $token);
     }
@@ -90,10 +93,11 @@ class RemindersController extends Controller {
      *
      * @return Response
      */
-    public function postReset(Request $request) {
+    public function postReset(Request $request)
+    {
         $this->validate($request, [
-            'token' => 'required',
-            'email' => 'required',
+            'token'    => 'required',
+            'email'    => 'required',
             'password' => 'required|confirmed',
         ]);
 
@@ -101,7 +105,7 @@ class RemindersController extends Controller {
                 'email', 'password', 'password_confirmation', 'token'
         );
 
-        $response = $this->passwords->reset($credentials, function($user, $password) {
+        $response = $this->passwords->reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
 
             $user->save();
@@ -112,6 +116,7 @@ class RemindersController extends Controller {
         switch ($response) {
             case PasswordBroker::PASSWORD_RESET:
                 \Session::flash('message', 'Password Successfully Reset');
+
                 return redirect(route('login'));
 
             default:
@@ -120,5 +125,4 @@ class RemindersController extends Controller {
                                 ->withErrors(['email' => trans($response)]);
         }
     }
-
 }

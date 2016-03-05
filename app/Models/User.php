@@ -1,15 +1,16 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
-
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
     use Authenticatable, CanResetPassword, SoftDeletes;
 
     /**
@@ -24,13 +25,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = array('password');
+    protected $hidden = ['password'];
 
-    public function account() {
+    public function account()
+    {
         return $this->belongsTo('\App\Models\Account');
     }
 
-    public function activity() {
+    public function activity()
+    {
         return $this->hasMany('\App\Models\Activity');
     }
 
@@ -39,7 +42,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return mixed
      */
-    public function getAuthIdentifier() {
+    public function getAuthIdentifier()
+    {
         return $this->getKey();
     }
 
@@ -48,7 +52,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return string
      */
-    public function getAuthPassword() {
+    public function getAuthPassword()
+    {
         return $this->password;
     }
 
@@ -57,28 +62,32 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return string
      */
-    public function getReminderEmail() {
+    public function getReminderEmail()
+    {
         return $this->email;
     }
 
-    public function getRememberToken() {
+    public function getRememberToken()
+    {
         return $this->remember_token;
     }
 
-    public function setRememberToken($value) {
+    public function setRememberToken($value)
+    {
         $this->remember_token = $value;
     }
 
-    public function getRememberTokenName() {
+    public function getRememberTokenName()
+    {
         return 'remember_token';
     }
-    
-    public static function boot() {
+
+    public static function boot()
+    {
         parent::boot();
 
-        static::creating(function($user) {
+        static::creating(function ($user) {
             $user->confirmation_code = str_random();
         });
     }
-
 }

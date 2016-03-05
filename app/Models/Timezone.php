@@ -1,17 +1,18 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of Timezone
+ * Description of Timezone.
  *
  * @author Dave
  */
-class Timezone extends \Illuminate\Database\Eloquent\Model {
+class Timezone extends \Illuminate\Database\Eloquent\Model
+{
     public $timestamps = false;
-	protected $softDelete = false;
+    protected $softDelete = false;
 }

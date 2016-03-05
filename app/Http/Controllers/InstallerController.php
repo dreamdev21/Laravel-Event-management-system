@@ -1,25 +1,23 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use View;
-use Response;
+namespace App\Http\Controllers;
+
+use App\Models\Timezone;
+use Artisan;
 use Config;
+use DB;
 use Input;
 use Redirect;
-use Artisan;
-use DB;
-use File;
-use App\Http\Controllers\Controller;
-use App\Models\Timezone;
-
+use Response;
+use View;
 
 class InstallerController extends Controller
 {
-
     public function __construct()
     {
-      if(file_exists(base_path('installed'))) {
-          abort(403, 'Unauthorized action.');
-      }
+        if (file_exists(base_path('installed'))) {
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     public function showInstaller()
@@ -29,14 +27,14 @@ class InstallerController extends Controller
             storage_path('framework'),
             storage_path('logs'),
             public_path('user_content'),
-            base_path('.env')
+            base_path('.env'),
         ];
         $data['requirements'] = [
             'openssl',
             'pdo',
             'mbstring',
             'fileinfo',
-            'tokenizer'
+            'tokenizer',
         ];
 
         return View::make('Installer.Installer', $data);
@@ -65,78 +63,74 @@ class InstallerController extends Controller
         $app_key = str_random(16);
         $version = file_get_contents(base_path('VERSION'));
 
-
         if (Input::get('test') === 'db') {
-
             $is_db_valid = self::testDatabase($database);
 
             if ($is_db_valid === 'yes') {
                 return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Success, Your connection works!',
-                    'test' => 1
+                    'test'    => 1,
                 ]);
             }
 
             return Response::json([
-                'status' => 'error',
+                'status'  => 'error',
                 'message' => 'Unable to connect! Please check your settings',
-                'test' => 1
+                'test'    => 1,
             ]);
         }
 
-
-        $config = "APP_ENV=production\n" .
-            "APP_DEBUG=false\n" .
-            "APP_URL={$app_url}\n" .
-            "APP_KEY={$app_key}\n\n" .
-            "DB_TYPE=mysql\n" .
-            "DB_HOST={$database['host']}\n" .
-            "DB_DATABASE={$database['name']}\n" .
-            "DB_USERNAME={$database['username']}\n" .
-            "DB_PASSWORD={$database['password']}\n\n" .
-            "MAIL_DRIVER={$mail['driver']}\n" .
-            "MAIL_PORT={$mail['port']}\n" .
-            "MAIL_ENCRYPTION={$mail['encryption']}\n" .
-            "MAIL_HOST={$mail['host']}\n" .
-            "MAIL_USERNAME={$mail['username']}\n" .
-            "MAIL_FROM_NAME={$mail['from_name']}\n" .
-            "MAIL_FROM_ADDRESS={$mail['from_address']}\n" .
+        $config = "APP_ENV=production\n".
+            "APP_DEBUG=false\n".
+            "APP_URL={$app_url}\n".
+            "APP_KEY={$app_key}\n\n".
+            "DB_TYPE=mysql\n".
+            "DB_HOST={$database['host']}\n".
+            "DB_DATABASE={$database['name']}\n".
+            "DB_USERNAME={$database['username']}\n".
+            "DB_PASSWORD={$database['password']}\n\n".
+            "MAIL_DRIVER={$mail['driver']}\n".
+            "MAIL_PORT={$mail['port']}\n".
+            "MAIL_ENCRYPTION={$mail['encryption']}\n".
+            "MAIL_HOST={$mail['host']}\n".
+            "MAIL_USERNAME={$mail['username']}\n".
+            "MAIL_FROM_NAME={$mail['from_name']}\n".
+            "MAIL_FROM_ADDRESS={$mail['from_address']}\n".
             "MAIL_PASSWORD={$mail['password']}\n\n";
 
-        $fp = fopen(base_path()."/.env", 'w');
+        $fp = fopen(base_path().'/.env', 'w');
         fwrite($fp, $config);
         fclose($fp);
 
         Config::set('database.default', $database['type']);
-        Config::set("database.connections.mysql.host", $database['host']);
-        Config::set("database.connections.mysql.database", $database['name']);
-        Config::set("database.connections.mysql.username", $database['username']);
-        Config::set("database.connections.mysql.password", $database['password']);
+        Config::set('database.connections.mysql.host', $database['host']);
+        Config::set('database.connections.mysql.database', $database['name']);
+        Config::set('database.connections.mysql.username', $database['username']);
+        Config::set('database.connections.mysql.password', $database['password']);
 
         DB::reconnect();
 
-        Artisan::call('migrate', array('--force' => true));
+        Artisan::call('migrate', ['--force' => true]);
         if (Timezone::count() == 0) {
-            Artisan::call('db:seed', array('--force' => true));
+            Artisan::call('db:seed', ['--force' => true]);
         }
-        Artisan::call('optimize', array('--force' => true));
+        Artisan::call('optimize', ['--force' => true]);
 
-        $fp = fopen(base_path()."/installed", 'w');
+        $fp = fopen(base_path().'/installed', 'w');
         fwrite($fp, $version);
         fclose($fp);
 
-        return Redirect::route('showSignup',['first_run' => 'yup']);
+        return Redirect::route('showSignup', ['first_run' => 'yup']);
     }
-
 
     private function testDatabase($database)
     {
         Config::set('database.default', $database['type']);
-        Config::set("database.connections.mysql.host", $database['host']);
-        Config::set("database.connections.mysql.database", $database['name']);
-        Config::set("database.connections.mysql.username", $database['username']);
-        Config::set("database.connections.mysql.password", $database['password']);
+        Config::set('database.connections.mysql.host', $database['host']);
+        Config::set('database.connections.mysql.database', $database['name']);
+        Config::set('database.connections.mysql.username', $database['username']);
+        Config::set('database.connections.mysql.password', $database['password']);
 
         try {
             DB::reconnect();
@@ -144,8 +138,7 @@ class InstallerController extends Controller
         } catch (Exception $e) {
             return $e->getMessage();
         }
+
         return $success;
     }
-
-
 }

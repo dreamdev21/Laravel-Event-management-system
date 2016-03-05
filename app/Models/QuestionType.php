@@ -1,7 +1,7 @@
-<?php namespace App\Models;
+<?php
 
-class QuestionType extends \Illuminate\Database\Eloquent\Model {
-    
-    
-    
+namespace App\Models;
+
+class QuestionType extends \Illuminate\Database\Eloquent\Model
+{
 }
