@@ -2,57 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Request,
-    View,
-    Auth,
-    Input,
-    Redirect;
-use \Illuminate\Contracts\Auth\Guard;
+use Auth;
+use Illuminate\Contracts\Auth\Guard;
+use Input;
+use Redirect;
+use Request;
+use View;
 
-class UserLoginController extends Controller {
-
+class UserLoginController extends Controller
+{
     protected $auth;
 
-    public function __construct(Guard $auth) {
+    public function __construct(Guard $auth)
+    {
         $this->auth = $auth;
         $this->middleware('guest');
     }
 
-    public function showLogin() {
+    public function showLogin()
+    {
 
         /*
          * If there's an ajax request to the login page assume the person has been
          * logged out and redirect them to the login page
          */
         if (Request::ajax()) {
-            return Response::json(array(
-                        'status' => 'success',
-                        'redirectUrl' => route('login')
-            ));
+            return Response::json([
+                        'status'      => 'success',
+                        'redirectUrl' => route('login'),
+            ]);
         }
 
         return View::make('Public.LoginAndRegister.Login');
     }
 
     /**
-     * Handle the login
-     * 
+     * Handle the login.
+     *
      * @return void
      */
-    public function postLogin() {
-
+    public function postLogin()
+    {
         $email = Input::get('email');
         $password = Input::get('password');
 
-        if ($this->auth->attempt(array('email' => $email, 'password' => $password), true)) {
+        if ($this->auth->attempt(['email' => $email, 'password' => $password], true)) {
             return Redirect::to(route('showSelectOrganiser'));
         }
+
         return Redirect::to('login?failed=yup')->with('message', 'Your username/password combination was incorrect')
                         ->withInput();
     }
-
-
-
-
 }

@@ -1,15 +1,17 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of OrderItems
+ * Description of OrderItems.
  *
  * @author Dave
  */
-class OrderItem extends MyBaseModel {
-     public $timestamps = false;
-   
+class OrderItem extends MyBaseModel
+{
+    public $timestamps = false;
 }

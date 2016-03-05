@@ -1,15 +1,16 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of OrderStatus
+ * Description of OrderStatus.
  *
  * @author Dave
  */
-class OrderStatus extends \Illuminate\Database\Eloquent\Model {
-    
-  
+class OrderStatus extends \Illuminate\Database\Eloquent\Model
+{
 }

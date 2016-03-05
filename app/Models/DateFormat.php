@@ -1,17 +1,18 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of DateFormat
+ * Description of DateFormat.
  *
  * @author Dave
  */
-class DateFormat extends \Illuminate\Database\Eloquent\Model {
-
+class DateFormat extends \Illuminate\Database\Eloquent\Model
+{
     public $timestamps = false;
     protected $softDelete = false;
-
 }

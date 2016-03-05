@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAffiliatesTable extends Migration {
-
+class AddAffiliatesTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
-        Schema::create('affiliates', function($table) {
+    public function up()
+    {
+        Schema::create('affiliates', function ($table) {
             $table->increments('id');
             $table->string('name', 125);
             $table->integer('visits');
@@ -32,8 +32,8 @@ class AddAffiliatesTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         //
     }
-
 }

@@ -5,10 +5,11 @@
  */
 
 /**
- * Description of UserMailer
+ * Description of UserMailer.
  *
  * @author Dave
  */
-class UserMailer {
+class UserMailer
+{
     //put your code here
 }

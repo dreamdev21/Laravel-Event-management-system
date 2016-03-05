@@ -1,43 +1,45 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Response, Input, Validator;
-use Auth;
-use Image;
-use Storage;
-use View;
-use Carbon\Carbon;
+namespace App\Http\Controllers;
+
+use App\Models\Event;
 use App\Models\EventImage;
 use App\Models\Organiser;
-use App\Models\Event;
+use Auth;
+use Carbon\Carbon;
+use Image;
+use Input;
+use Response;
+use Validator;
+use View;
 
-class EventController extends MyBaseController {
-
-
-    public function showCreateEvent() {
-
+class EventController extends MyBaseController
+{
+    public function showCreateEvent()
+    {
         $data = [
-            'modal_id' => Input::get('modal_id'),
-            'organisers' => Organiser::scope()->lists('name', 'id'),
-            'organiser_id' => Input::get('organiser_id') ? Input::get('organiser_id') : false
+            'modal_id'     => Input::get('modal_id'),
+            'organisers'   => Organiser::scope()->lists('name', 'id'),
+            'organiser_id' => Input::get('organiser_id') ? Input::get('organiser_id') : false,
         ];
 
         return View::make('ManageOrganiser.Modals.CreateEvent', $data);
     }
 
-    public function postCreateEvent() {
-
+    public function postCreateEvent()
+    {
         $event = Event::createNew();
 
         if (!$event->validate(Input::all())) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $event->errors()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $event->errors(),
+            ]);
         }
 
         $event->title = Input::get('title');
         $event->description = strip_tags(Input::get('description'));
-        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : NULL;
+        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : null;
 
         /*
          * Venue location info (Usually autofilled from google maps)
@@ -69,32 +71,29 @@ class EventController extends MyBaseController {
             $event->location_is_manual = 1;
         }
 
+        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : null;
 
-        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : NULL;
-        
         $event->currency_id = Auth::user()->account->currency_id;
         //$event->timezone_id = Auth::user()->account->timezone_id;
 
-
         if (Input::get('organiser_name')) {
+            $organiser = Organiser::createNew(false, false, true);
 
-            $organiser = Organiser::createNew(FALSE, FALSE, TRUE);
-
-            $rules = array(
-                'organiser_name' => array('required'),
-                'organiser_email' => array('required', 'email'),
-            );
-            $messages = array(
-                'organiser_name.required' => 'You must give a name for the event organiser.'
-            );
+            $rules = [
+                'organiser_name'  => ['required'],
+                'organiser_email' => ['required', 'email'],
+            ];
+            $messages = [
+                'organiser_name.required' => 'You must give a name for the event organiser.',
+            ];
 
             $validator = Validator::make(Input::all(), $rules, $messages);
 
             if ($validator->fails()) {
-                return Response::json(array(
-                            'status' => 'error',
-                            'messages' => $validator->messages()->toArray()
-                ));
+                return Response::json([
+                            'status'   => 'error',
+                            'messages' => $validator->messages()->toArray(),
+                ]);
             }
 
             $organiser->name = Input::get('organiser_name');
@@ -106,17 +105,16 @@ class EventController extends MyBaseController {
             $event->organiser_id = $organiser->id;
         } elseif (Input::get('organiser_id')) {
             $event->organiser_id = Input::get('organiser_id');
-        } else { /* Somethings gone horribly wrong */}
+        } else { /* Somethings gone horribly wrong */
+        }
 
         $event->save();
 
         if (Input::hasFile('event_image')) {
+            $path = public_path().'/'.config('attendize.event_images_path');
+            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
 
-            $path = public_path() . '/' . config('attendize.event_images_path');
-            $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
-
-            $file_full_path = $path . '/' . $filename;
-
+            $file_full_path = $path.'/'.$filename;
 
             Input::file('event_image')->move($path, $filename);
 
@@ -128,43 +126,41 @@ class EventController extends MyBaseController {
             });
 
             $img->save($file_full_path);
-            
+
             /* Upload to s3 */
             \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
-            
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
+            $eventImage->image_path = config('attendize.event_images_path').'/'.$filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
 
-        return Response::json(array(
-                    'status' => 'success',
-                    'id' => $event->id,
-                    'redirectUrl' => route('showEventTickets', array(
-                        'event_id' => $event->id,
-                        'first_run' => 'yup'
-                    ))
-        ));
+        return Response::json([
+                    'status'      => 'success',
+                    'id'          => $event->id,
+                    'redirectUrl' => route('showEventTickets', [
+                        'event_id'  => $event->id,
+                        'first_run' => 'yup',
+                    ]),
+        ]);
     }
 
-    public function postEditEvent($event_id) {
-
+    public function postEditEvent($event_id)
+    {
         $event = Event::scope()->findOrFail($event_id);
 
         if (!$event->validate(Input::all())) {
-            return Response::json(array(
-                        'status' => 'error',
-                        'messages' => $event->errors()
-            ));
+            return Response::json([
+                        'status'   => 'error',
+                        'messages' => $event->errors(),
+            ]);
         }
 
         $event->is_live = Input::get('is_live');
         $event->title = Input::get('title');
         $event->description = strip_tags(Input::get('description'));
-        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : NULL;
-
+        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : null;
 
         /*
          * If the google place ID is the same as before then don't update the venue
@@ -205,9 +201,7 @@ class EventController extends MyBaseController {
             }
         }
 
-
-        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : NULL;
-
+        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : null;
 
         if (Input::get('remove_current_image') == '1') {
             EventImage::where('event_id', '=', $event->id)->delete();
@@ -216,12 +210,10 @@ class EventController extends MyBaseController {
         $event->save();
 
         if (Input::hasFile('event_image')) {
+            $path = public_path().'/'.config('attendize.event_images_path');
+            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
 
-            $path = public_path() . '/' . config('attendize.event_images_path');
-            $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
-
-            $file_full_path = $path . '/' . $filename;
-
+            $file_full_path = $path.'/'.$filename;
 
             Input::file('event_image')->move($path, $filename);
 
@@ -233,57 +225,51 @@ class EventController extends MyBaseController {
             });
 
             $img->save($file_full_path);
-            
+
             \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
 
             EventImage::where('event_id', '=', $event->id)->delete();
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
+            $eventImage->image_path = config('attendize.event_images_path').'/'.$filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
 
-        return Response::json(array(
-                    'status' => 'success',
-                    'id' => $event->id,
-                    'message' => 'Event Successfully Updated',
-                    'redirectUrl' => ''
-        ));
+        return Response::json([
+                    'status'      => 'success',
+                    'id'          => $event->id,
+                    'message'     => 'Event Successfully Updated',
+                    'redirectUrl' => '',
+        ]);
     }
 
-    public function postUploadEventImage() {
-                
+    public function postUploadEventImage()
+    {
         if (Input::hasFile('event_image')) {
-
             $the_file = \File::get(Input::file('event_image')->getRealPath());
-            $file_name = 'event_details_image-' . md5(microtime()) . '.' . strtolower(Input::file('event_image')->getClientOriginalExtension());
-            
-            $relative_path_to_file = config('attendize.event_images_path') . '/' . $file_name;
+            $file_name = 'event_details_image-'.md5(microtime()).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
+
+            $relative_path_to_file = config('attendize.event_images_path').'/'.$file_name;
             $full_path_to_file = public_path().'/'.$relative_path_to_file;
-            
+
             $img = Image::make($the_file);
 
             $img->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
-            
+
             $img->save($full_path_to_file);
-            if(\Storage::put($file_name, $the_file)) {
+            if (\Storage::put($file_name, $the_file)) {
                 return Response::json([
-                    'link' => '/'.$relative_path_to_file
+                    'link' => '/'.$relative_path_to_file,
                 ]);
             }
-            
+
             return Response::json([
-                    'error' => 'There was a problem uploading your image.'
+                    'error' => 'There was a problem uploading your image.',
                 ]);
-            
         }
-        
-        
-        
     }
-    
 }

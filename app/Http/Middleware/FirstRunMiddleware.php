@@ -1,24 +1,20 @@
-<?php namespace app\Http\Middleware;
+<?php
 
-use Request;
-use Closure;
-use Utils;
-use App;
-use Auth;
-use Input;
-use Redirect;
-use Cache;
-use Session;
-use File;
+namespace app\Http\Middleware;
+
 use App\Models\Organiser;
+use Closure;
+use Redirect;
+use Request;
 
 class FirstRunMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -30,11 +26,11 @@ class FirstRunMiddleware
          */
         if (Organiser::scope()->count() === 0 && !($request->route()->getName() == 'showCreateOrganiser') && !($request->route()->getName() == 'postCreateOrganiser')) {
             return redirect(route('showCreateOrganiser', [
-                'first_run' => '1'
+                'first_run' => '1',
             ]));
         } elseif (Organiser::scope()->count() === 1 && ($request->route()->getName() == 'showSelectOrganiser')) {
             return redirect(route('showOrganiserDashboard', [
-                'organiser_id' => Organiser::scope()->first()->id
+                'organiser_id' => Organiser::scope()->first()->id,
             ]));
         }
 

@@ -1,14 +1,16 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of Activity
+ * Description of Activity.
  *
  * @author Dave
  */
-class Activity extends \Illuminate\Database\Eloquent\Model {
-        
+class Activity extends \Illuminate\Database\Eloquent\Model
+{
 }

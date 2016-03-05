@@ -1,15 +1,16 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 /*
   Attendize.com   - Event Management & Ticketing
  */
 
 /**
- * Description of EventImage
+ * Description of EventImage.
  *
  * @author Dave
  */
-class EventImage extends MyBaseModel {
-    
-    
+class EventImage extends MyBaseModel
+{
 }
