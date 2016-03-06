@@ -397,7 +397,7 @@
 
                                                 <img data-3='{{str_replace('/thumbs', '', $event->bg_image_path)}}'
                                                      class="img-thumbnail ma5 bgImage {{ ($bg_image === str_replace('/thumbs', '', $event->bg_image_path) ? 'selected' : '') }}"
-                                                     style="width: 120px;" src='{{$bg_image}}'
+                                                     style="width: 120px;" src='{{asset($bg_image)}}'
                                                      data-src="{{str_replace('/thumbs', '', substr($bg_image,1))}}"/>
 
                                             @endforeach

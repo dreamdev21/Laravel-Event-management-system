@@ -81,7 +81,7 @@
         @if (($event->bg_type == 'image' || $event->bg_type == 'custom_image' || Input::get('bg_img_preview')) && !Input::get('bg_color_preview'))
         <script>
             $(function() {
-            $.backstretch('{{(Input::get('bg_img_preview') ? '/'.Input::get('bg_img_preview') :  config('attendize.cdn_url_static_assets').'/'.$event->bg_image_path)}}');
+            $.backstretch('{{(Input::get('bg_img_preview') ? '/'.Input::get('bg_img_preview') :  asset(config('attendize.cdn_url_static_assets').'/'.$event->bg_image_path))}}');
             });
         </script>
         @endif
