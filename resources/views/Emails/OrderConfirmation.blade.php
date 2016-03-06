@@ -87,6 +87,5 @@ Order Email: <b>{{$order->email}}</b><br>
     <br><br>
 </div>
 <br><br>
-Thank you,<br>
-The Attendize Team
+Thank you
 @stop

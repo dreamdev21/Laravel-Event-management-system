@@ -405,13 +405,21 @@ class EventAttendeesController extends MyBaseController
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
+        if($attendee->is_cancelled) {
+            return Response::json([
+                'status'      => 'success',
+                'message'     => 'Attendee Already Cancelled',
+            ]);
+        }
+
+
         $attendee->ticket->decrement('quantity_sold');
         $attendee->is_cancelled = 1;
         $attendee->save();
 
         $data = [
             'attendee'   => $attendee,
-            'email_logo' => $attendee->organiser->full_logo_path,
+            'email_logo' => $attendee->event->organiser->full_logo_path,
         ];
 
         if (Input::get('notify_attendee') == '1') {

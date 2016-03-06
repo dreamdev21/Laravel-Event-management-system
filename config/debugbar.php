@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
     /*
      |--------------------------------------------------------------------------
@@ -26,12 +26,12 @@ return [
      | can also be used. For PDO, run the package migrations first.
      |
      */
-    'storage' => [
-        'enabled'    => true,
-        'driver'     => 'file', // redis, file, pdo
-        'path'       => storage_path().'/debugbar', // For file driver
+    'storage' => array(
+        'enabled' => true,
+        'driver' => 'file', // redis, file, pdo
+        'path' => storage_path() . '/debugbar', // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
-    ],
+    ),
 
     /*
      |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
      |
      */
 
-    'collectors' => [
+    'collectors' => array(
         'phpinfo'         => true,  // Php version
         'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
@@ -90,7 +90,7 @@ return [
         'config'          => false, // Display config settings
         'auth'            => false, // Display Laravel authentication status
         'session'         => false, // Display session data in a separate tab
-    ],
+    ),
 
     /*
      |--------------------------------------------------------------------------
@@ -101,33 +101,33 @@ return [
      |
      */
 
-    'options' => [
-        'auth' => [
+    'options' => array(
+        'auth' => array(
             'show_name' => false,   // Also show the users name/email in the debugbar
-        ],
-        'db' => [
+        ),
+        'db' => array(
             'with_params'       => true,   // Render SQL with the parameters substituted
             'timeline'          => false,  // Add the queries to the timeline
             'backtrace'         => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
-            'explain'           => [            // EXPERIMENTAL: Show EXPLAIN output on queries
+            'explain' => array(            // EXPERIMENTAL: Show EXPLAIN output on queries
                 'enabled' => false,
-                'types'   => ['SELECT'], // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
-            ],
+                'types' => array('SELECT'), // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
+            ),
             'hints'             => true,    // Show hints for common mistakes
-        ],
-        'mail' => [
-            'full_log' => false,
-        ],
-        'views' => [
+        ),
+        'mail' => array(
+            'full_log' => false
+        ),
+        'views' => array(
             'data' => false,    //Note: Can slow down the application, because the data can be quite large..
-        ],
-        'route' => [
-            'label' => true,  // show complete route on bar
-        ],
-        'logs' => [
-            'file' => null,
-        ],
-    ],
+        ),
+        'route' => array(
+            'label' => true  // show complete route on bar
+        ),
+        'logs' => array(
+            'file' => null
+        ),
+    ),
 
     /*
      |--------------------------------------------------------------------------
@@ -142,4 +142,4 @@ return [
 
     'inject' => true,
 
-];
+);

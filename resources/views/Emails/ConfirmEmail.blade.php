@@ -19,8 +19,7 @@
     If you have any questions, feedback or suggestions feel free to reply to this email.
 </p>
 <p>
-    Thank you,<br>
-    Team Attendize.
+    Thank you
 </p>
 
 @stop

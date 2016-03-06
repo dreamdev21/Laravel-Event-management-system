@@ -130,6 +130,8 @@ return [
         'Nitmedia\Wkhtml2pdf\L5Wkhtml2pdfServiceProvider',
         'Mews\Purifier\PurifierServiceProvider',
         'MaxHoffmann\Parsedown\ParsedownServiceProvider',
+        'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
+
         /*
          * Application Service Providers...
          */
@@ -204,6 +206,7 @@ return [
         'HttpClient'      => 'Vinelab\Http\Facades\Client',
         'Purifier'        => 'Mews\Purifier\Facades\Purifier',
         'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',
+        'Omnipay'         => 'Ignited\LaravelOmnipay\Facades\OmnipayFacade',
 
     ],
 ];
