@@ -411,7 +411,7 @@ class EventAttendeesController extends MyBaseController
 
         $data = [
             'attendee'   => $attendee,
-            'email_logo' => $attendee->organiser->full_logo_path,
+            'email_logo' => $attendee->event->organiser->full_logo_path,
         ];
 
         if (Input::get('notify_attendee') == '1') {
