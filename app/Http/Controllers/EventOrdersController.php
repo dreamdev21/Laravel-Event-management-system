@@ -7,14 +7,13 @@ use App\Models\Event;
 use App\Models\Order;
 use DB;
 use Excel;
-use Exception;
 use Input;
 use Log;
 use Mail;
+use Omnipay;
 use Response;
 use Validator;
 use View;
-use Omnipay;
 
 class EventOrdersController extends MyBaseController
 {
@@ -40,10 +39,10 @@ class EventOrdersController extends MyBaseController
 
             $orders = $event->orders()
                 ->where(function ($query) use ($searchQuery) {
-                    $query->where('order_reference', 'like', $searchQuery . '%')
-                        ->orWhere('first_name', 'like', $searchQuery . '%')
-                        ->orWhere('email', 'like', $searchQuery . '%')
-                        ->orWhere('last_name', 'like', $searchQuery . '%');
+                    $query->where('order_reference', 'like', $searchQuery.'%')
+                        ->orWhere('first_name', 'like', $searchQuery.'%')
+                        ->orWhere('email', 'like', $searchQuery.'%')
+                        ->orWhere('last_name', 'like', $searchQuery.'%');
                 })
                 ->orderBy($sort_by, $sort_order)
                 ->paginate();
@@ -52,11 +51,11 @@ class EventOrdersController extends MyBaseController
         }
 
         $data = [
-            'orders' => $orders,
-            'event' => $event,
-            'sort_by' => $sort_by,
+            'orders'     => $orders,
+            'event'      => $event,
+            'sort_by'    => $sort_by,
             'sort_order' => $sort_order,
-            'q' => $searchQuery ? $searchQuery : '',
+            'q'          => $searchQuery ? $searchQuery : '',
         ];
 
         return View::make('ManageEvent.Orders', $data);
@@ -65,7 +64,7 @@ class EventOrdersController extends MyBaseController
     public function manageOrder($order_id)
     {
         $data = [
-            'order' => Order::scope()->find($order_id),
+            'order'    => Order::scope()->find($order_id),
             'modal_id' => Input::get('modal_id'),
         ];
 
@@ -77,10 +76,10 @@ class EventOrdersController extends MyBaseController
         $order = Order::scope()->find($order_id);
 
         $data = [
-            'order' => $order,
-            'event' => $order->event(),
+            'order'     => $order,
+            'event'     => $order->event(),
             'attendees' => $order->attendees()->withoutCancelled()->get(),
-            'modal_id' => Input::get('modal_id'),
+            'modal_id'  => Input::get('modal_id'),
         ];
 
         return View::make('ManageEvent.Modals.CancelOrder', $data);
@@ -104,7 +103,7 @@ class EventOrdersController extends MyBaseController
 
         if ($validator->fails()) {
             return Response::json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
@@ -126,16 +125,15 @@ class EventOrdersController extends MyBaseController
             } elseif ($order->organiser_amount == 0) {
                 $error_message = 'Nothing to refund';
             } elseif ($refund_amount > ($order->organiser_amount - $order->amount_refunded)) {
-                $error_message = 'The maximum amount you can refund is ' . (money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code));
+                $error_message = 'The maximum amount you can refund is '.(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code));
             }
             if (!$error_message) {
-                # @todo - remove the code repetition here
+                // @todo - remove the code repetition here
                 try {
-
                     $gateway = Omnipay::gateway('stripe');
 
                     $gateway->initialize([
-                        'apiKey' => $order->account->stripe_api_key
+                        'apiKey' => $order->account->stripe_api_key,
                     ]);
 
                     if ($refund_type === 'full') { /* Full refund */
@@ -145,7 +143,7 @@ class EventOrdersController extends MyBaseController
                         $request = $gateway->refund([
                             'transactionReference' => $order->transaction_id,
                             'amount'               => $refund_amount,
-                            'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false
+                            'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false,
                         ]);
 
                         $response = $request->send();
@@ -160,13 +158,11 @@ class EventOrdersController extends MyBaseController
                         } else {
                             $error_message = $response->getMessage();
                         }
-
-
                     } else { /* Partial refund */
 
                         $refund = $gateway->refund([
                             'transactionReference' => $order->transaction_id,
-                            'amount' => floatval($refund_amount),
+                            'amount'               => floatval($refund_amount),
                             'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false,
                         ]);
 
@@ -187,7 +183,6 @@ class EventOrdersController extends MyBaseController
                         } else {
                             $error_message = $response->getMessage();
                         }
-
                     }
                     $order->amount_refunded = round(($order->amount_refunded + $refund_amount), 2);
                     $order->save();
@@ -199,7 +194,7 @@ class EventOrdersController extends MyBaseController
 
             if ($error_message) {
                 return Response::json([
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => $error_message,
                 ]);
             }
@@ -217,10 +212,10 @@ class EventOrdersController extends MyBaseController
         }
 
         \Session::flash('message',
-            (!$refund_amount && !$attendees) ? 'Nothing To Do' : 'Successfully ' . ($refund_order ? ' Refunded Order' : ' ') . ($attendees && $refund_order ? ' & ' : '') . ($attendees ? 'Cancelled Attendee(s)' : ''));
+            (!$refund_amount && !$attendees) ? 'Nothing To Do' : 'Successfully '.($refund_order ? ' Refunded Order' : ' ').($attendees && $refund_order ? ' & ' : '').($attendees ? 'Cancelled Attendee(s)' : ''));
 
         return Response::json([
-            'status' => 'success',
+            'status'      => 'success',
             'redirectUrl' => '',
         ]);
     }
@@ -233,9 +228,9 @@ class EventOrdersController extends MyBaseController
     {
         $event = Event::scope()->findOrFail($event_id);
 
-        Excel::create('orders-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($event) {
+        Excel::create('orders-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event) {
 
-            $excel->setTitle('Orders For Event: ' . $event->title);
+            $excel->setTitle('Orders For Event: '.$event->title);
 
             // Chain the setters
             $excel->setCreator(config('attendize.app_name'))
@@ -279,8 +274,8 @@ class EventOrdersController extends MyBaseController
         $order = Order::scope()->findOrFail($order_id);
 
         $data = [
-            'order' => $order,
-            'event' => $order->event,
+            'order'    => $order,
+            'event'    => $order->event,
             'modal_id' => Input::get('modal_id'),
         ];
 
@@ -298,7 +293,7 @@ class EventOrdersController extends MyBaseController
 
         if ($validator->fails()) {
             return Response::json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
@@ -306,11 +301,11 @@ class EventOrdersController extends MyBaseController
         $order = Attendee::scope()->findOrFail($order_id);
 
         $data = [
-            'order' => $order,
+            'order'           => $order,
             'message_content' => Input::get('message'),
-            'subject' => Input::get('subject'),
-            'event' => $order->event,
-            'email_logo' => $order->event->organiser->full_logo_path,
+            'subject'         => Input::get('subject'),
+            'event'           => $order->event,
+            'email_logo'      => $order->event->organiser->full_logo_path,
         ];
 
         Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
@@ -326,12 +321,12 @@ class EventOrdersController extends MyBaseController
                 $message->to($order->event->organiser->email)
                     ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                     ->replyTo($order->event->organiser->email, $order->event->organiser->name)
-                    ->subject($data['subject'] . ' [Organiser copy]');
+                    ->subject($data['subject'].' [Organiser copy]');
             });
         }
 
         return Response::json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Message Successfully Sent',
         ]);
     }
