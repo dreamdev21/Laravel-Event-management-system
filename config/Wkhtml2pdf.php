@@ -1,9 +1,9 @@
 <?php
 
-return [
+return array(
 
-    'debug'       => false,
-    'binpath'     => 'lib/',
-    'binfile'     => 'wkhtmltopdf-amd64',
-    'output_mode' => 'I',
-];
+    'debug' => false,
+    'binpath' => 'lib/',
+	'binfile' => 'wkhtmltopdf-amd64',
+	'output_mode' => 'I'
+);
