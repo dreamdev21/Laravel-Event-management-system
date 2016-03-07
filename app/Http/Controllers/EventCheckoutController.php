@@ -23,12 +23,11 @@ use Redirect;
 use Request;
 use Response;
 use Session;
-use Stripe;
-use Stripe_Charge;
-use Stripe_Customer;
 use Validator;
 use View;
 use Omnipay;
+
+
 
 class EventCheckoutController extends Controller
 {
@@ -474,4 +473,12 @@ class EventCheckoutController extends Controller
 
         return View::make('Public.ViewEvent.Partials.PDFTicket', $data);
     }
+
+    public function handleStripePayment() {
+
+    }
+    public function handlePaypalPayment() {
+
+    }
+
 }

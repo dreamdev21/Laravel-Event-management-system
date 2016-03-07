@@ -9,7 +9,6 @@
         "laravel/framework": "5.1.20",
         "illuminate/html": "~5.0",
         "milon/barcode": "dev-master",
-        "stripe/stripe-php": "1.*",
         "iron-io/iron_mq": "2.*",
         "intervention/image": "dev-master",
         "nitmedia/wkhtml2pdf": "dev-master",
