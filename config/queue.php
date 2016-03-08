@@ -54,9 +54,9 @@ return [
         'iron' => [
             'driver' => 'iron',
             'host' => 'mq-aws-eu-west-1.iron.io',
-            'token' => 'e86QTHwOmEDzqYtti9xAKSgjS7E',
-            'project' => '535d254120fa16000900000a',
-            'queue' => '54e8a61d8d560bccac9dc83e',
+            'token' => '',
+            'project' => '',
+            'queue' => '',
             'encrypt' => true
         ],
         'redis' => [
