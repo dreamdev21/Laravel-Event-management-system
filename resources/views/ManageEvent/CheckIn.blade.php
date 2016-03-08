@@ -7,7 +7,6 @@
 
        {!! HTML::style('assets/stylesheet/application.css') !!}
        {!!HTML::script('vendor/jquery/jquery.js')!!}
-       {!!HTML::script('vendor/jquery-fastLiveFilter/jquery.fastLiveFilter.js')!!}
 
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
@@ -21,6 +20,16 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <script>
+            $(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-Token': "<?php echo csrf_token() ?>"
+                    }
+                });
+            });
+
+        </script>
 
         <style>
 
@@ -97,6 +106,10 @@
                 color: #fff;
                 background-color: #6784DB;
 
+            }
+
+            .attendee_search:focus {
+                color: #fff;
             }
             .clearSearch {
                 position: absolute;

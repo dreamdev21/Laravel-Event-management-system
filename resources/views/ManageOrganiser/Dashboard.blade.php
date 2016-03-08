@@ -81,7 +81,7 @@
                             {{money($organiser->events->sum('sales_volume') + $organiser->events->sum('organiser_fees_volume'), 'EUR')}}
                         </h3>
                     <span>
-                        Tickets Sold
+                        Sales Volume
                     </span>
                     </div>
                 </div>
