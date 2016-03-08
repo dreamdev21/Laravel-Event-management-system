@@ -11,10 +11,15 @@
         </style>
         <style>
 
-            .top_info, .bottom_info {
+            .bottom_info {
                 text-align: center;
                 padding: 10px;
                 margin-top: 10px;
+            }
+            .top_info {
+                position: fixed;
+                left: 41%;
+                top: 0px;
             }
 
             .ticket {
@@ -26,7 +31,7 @@
                 margin-top: 20px;
                 background: #ffffff;
                 position: relative;
-                height: 290px;
+                height: 330px;
                 font-size: 12px;
                 color: #999999;
                 border-left-width: 3px;
@@ -54,7 +59,7 @@
                 height: 150px;
                 position: absolute;
                 left: 1px;
-                bottom: 70px;
+                bottom: 85px;
                 overflow: hidden;
                 padding: 10px;
                 border: 1px solid #000;
@@ -93,7 +98,7 @@
                 max-width: 210px;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                top: 25px;
+                top: 50px;
             }
 
             .ticket .attendee_details {
@@ -102,7 +107,7 @@
                 max-width: 195px;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                top: 25px;
+                top: 50px;
             }
 
             .ticket .logo {
@@ -130,9 +135,10 @@
 
         <div class="container">
 
-            <div class="top_info">
-                {{$attendees->count()}} tickets for event: <b>{{$event->title}}</b>
-            </div>
+
+            {{--<div class="top_info">--}}
+                {{--{{$attendees->count()}} tickets for event: <b>{{$event->title}}</b>--}}
+            {{--</div>--}}
 
             @foreach($attendees as $attendee)
             <div class="ticket">
