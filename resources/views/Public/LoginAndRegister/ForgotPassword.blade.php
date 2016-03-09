@@ -35,7 +35,7 @@ Forgot Password
 
             <div class="form-group">
                {!! Form::label('email', 'Your Email') !!}
-               {!! Form::text('email', null, ['class' => 'form-control']) !!}
+               {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
             </div>
 
             <div class="form-group nm">

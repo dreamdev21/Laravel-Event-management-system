@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 use Input;
 use Redirect;
-use Request;
 use View;
 
 class UserLoginController extends Controller
@@ -19,14 +19,20 @@ class UserLoginController extends Controller
         $this->middleware('guest');
     }
 
-    public function showLogin()
+    /**
+     * Shows login form.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function showLogin(Request $request)
     {
-
         /*
          * If there's an ajax request to the login page assume the person has been
          * logged out and redirect them to the login page
          */
-        if (Request::ajax()) {
+        if ($request->ajax()) {
             return Response::json([
                         'status'      => 'success',
                         'redirectUrl' => route('login'),
@@ -37,20 +43,29 @@ class UserLoginController extends Controller
     }
 
     /**
-     * Handle the login.
+     * Handles the login request.
      *
-     * @return void
+     * @param Request $request
+     *
+     * @return mixed
      */
-    public function postLogin()
+    public function postLogin(Request $request)
     {
-        $email = Input::get('email');
-        $password = Input::get('password');
+        $email = $request->get('email');
+        $password = $request->get('password');
 
-        if ($this->auth->attempt(['email' => $email, 'password' => $password], true)) {
-            return Redirect::to(route('showSelectOrganiser'));
+        if (empty($email) || empty($password)) {
+            return Redirect::back()
+                ->with(['message' => 'Please fill in your email and password', 'failed' => true])
+                ->withInput();
         }
 
-        return Redirect::to('login?failed=yup')->with('message', 'Your username/password combination was incorrect')
-                        ->withInput();
+        if ($this->auth->attempt(['email' => $email, 'password' => $password], true) === false) {
+            return Redirect::back()
+                ->with(['message' => 'Your username/password combination was incorrect', 'failed' => true])
+                ->withInput();
+        }
+
+        return Redirect::to(route('showSelectOrganiser'));
     }
 }
