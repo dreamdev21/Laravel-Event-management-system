@@ -160,7 +160,7 @@ $(function () {
 
         var loadUrl = $(this).data('href'),
             modalId = $(this).data('modal-id'),
-            cacheResult = $(this).data('cache') === 'on' ? true : false;
+            cacheResult = $(this).data('cache') === 'on';
 
         // $('#' + modalId).remove();
         $('.modal').remove();
