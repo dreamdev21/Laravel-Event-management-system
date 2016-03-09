@@ -241,13 +241,11 @@ function setCountdown($element, seconds) {
 
     var endTime, mins, msLeft, time, twoMinWarningShown = false;
 
-    function twoDigits(n)
-    {
+    function twoDigits(n) {
         return (n <= 9 ? "0" + n : n);
     }
 
-    function updateTimer()
-    {
+    function updateTimer() {
         msLeft = endTime - (+new Date);
         if (msLeft < 1000) {
             alert("You have run out of time! You will have to restart the order process.");
