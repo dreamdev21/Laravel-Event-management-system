@@ -135,7 +135,6 @@
 
         <div class="container">
 
-
             {{--<div class="top_info">--}}
                 {{--{{$attendees->count()}} tickets for event: <b>{{$event->title}}</b>--}}
             {{--</div>--}}
