@@ -26,7 +26,9 @@ class InstallerController extends Controller
             storage_path('app'),
             storage_path('framework'),
             storage_path('logs'),
-            public_path('user_content'),
+            public_path(config('attendize.event_images_path')),
+            public_path(config('attendize.organiser_images_path')),
+            public_path(config('attendize.event_pdf_tickets_path')),
             base_path('.env'),
         ];
         $data['requirements'] = [
@@ -35,6 +37,7 @@ class InstallerController extends Controller
             'mbstring',
             'fileinfo',
             'tokenizer',
+            'gd',
         ];
 
         return View::make('Installer.Installer', $data);
