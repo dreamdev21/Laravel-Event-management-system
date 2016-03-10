@@ -7,3 +7,4 @@ installed
 /.project
 /.buildpath
 /composer.phar
+_ide_helper.php
