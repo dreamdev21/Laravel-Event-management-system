@@ -1,8 +1,8 @@
-<section id='share' class="container">
+<section id="share" class="container">
     <div class="row">
         <div class="col-md-12">
             <ul class="rrssb-buttons clearfix">
-                
+
                 @if($event->social_show_facebook)
                 <li class="rrssb-facebook">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{$event->event_url}}?utm_source=fb" class="popup">
@@ -111,4 +111,3 @@
         </div>
     </div>
 </section>
-

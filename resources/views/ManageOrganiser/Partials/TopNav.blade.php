@@ -1,4 +1,3 @@
-
 <ul class="nav navbar-nav navbar-left">
     <!-- Show Side Menu -->
     <li class="navbar-main">
@@ -17,5 +16,4 @@
 
         </a>
     </li>
-
 </ul>

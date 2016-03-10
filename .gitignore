@@ -3,3 +3,6 @@
 .env
 .idea
 installed
+/.settings/
+/.project
+/.buildpath

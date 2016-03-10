@@ -1,6 +1,4 @@
-
-<section id='tickets' class="container">
-
+<section id="tickets" class="container">
     <div class="row">
         <h1 class='section_head'>
             Tickets
@@ -15,14 +13,14 @@
 
     @if($tickets->count() > 0)
 
-   {!! Form::open(['url' => route('postValidateTickets', ['event_id' => $event->id]), 'class' => 'ajax']) !!}
+    {!! Form::open(['url' => route('postValidateTickets', ['event_id' => $event->id]), 'class' => 'ajax']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="content">
                 <div class="tickets_table_wrap">
-                    <table class='table'>
+                    <table class="table">
                         @foreach($tickets as $ticket)
-                        <tr class='ticket'>
+                        <tr class="ticket">
                             <td>
                                 <span class="ticket-title semibold">
                                     {{{$ticket->title}}}
@@ -41,15 +39,14 @@
                                 </div>
                             </td>
                             <td style="width:85px;">
-
                                 @if($ticket->is_paused)
-                                
+
                                 <span class="text-danger">
                                     Currently Not On Sale
                                 </span>
-                                
+
                                 @else
-                                
+
                                 @if($ticket->sale_status === config('attendize.ticket_status_sold_out'))
                                 <span class="text-danger">
                                     Sold Out
@@ -69,31 +66,27 @@
                                     @for($i=$ticket->min_per_person; $i<=$ticket->max_per_person; $i++)
                                     <option value="{{$i}}">{{$i}}</option>
                                     @endfor
-                                </select>   
-                                @endif
-                                
+                                </select>
                                 @endif
 
-
+                                @endif
                             </td>
                         </tr>
                         @endforeach
-                     
-                        <tr class='checkout'>
+
+                        <tr class="checkout">
                             <td colspan="3">
-                                <img  class='hidden-xs pull-left' src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
-                               {!!Form::submit('Checkout', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+                                <img class="hidden-xs pull-left" src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
+                                {!!Form::submit('Checkout', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
-
         </div>
-
     </div>
-   {!!Form::hidden('is_embedded', $is_embedded)!!}
-   {!!Form::close()!!}
+   {!! Form::hidden('is_embedded', $is_embedded) !!}
+   {!! Form::close() !!}
 
     @else
 

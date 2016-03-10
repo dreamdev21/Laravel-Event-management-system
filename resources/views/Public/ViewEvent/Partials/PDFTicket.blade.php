@@ -16,6 +16,7 @@
                 padding: 10px;
                 margin-top: 10px;
             }
+
             .top_info {
                 position: fixed;
                 left: 41%;
@@ -39,7 +40,6 @@
                 overflow: hidden;
             }
 
-
             .ticket table {
                 width: 100%;
             }
@@ -48,6 +48,7 @@
                 margin-bottom: 5px;
                 margin-top: 0px;
             }
+
             .ticket hr {
                 border: none;
                 border-bottom: 1px solid #ccc;
@@ -65,7 +66,6 @@
                 border: 1px solid #000;
                 border-left: none;
                 background-color: #fdfdfd;
-
             }
 
             .ticket .barcode_vertical
@@ -75,10 +75,10 @@
                 -webkit-transform: rotate(90deg);
                 top: 171px;
             }
+
             .ticket .top_barcode {
                 margin-bottom: 15px;
             }
-
 
             .ticket h4 {
                 font-size: 17px;
@@ -92,6 +92,7 @@
                 position: absolute;
                 top: 15px;
             }
+
             .ticket .event_details {
                 left: 175px;
                 overflow: hidden;
@@ -125,16 +126,11 @@
             .ticket .logo img {
                 max-width: 110px;
             }
-
-
-
         </style>
 
     </head>
     <body style="background-color: #FFFFFF; font-family: Arial, Helvetica, sans-serif;">
-
         <div class="container">
-
             {{--<div class="top_info">--}}
                 {{--{{$attendees->count()}} tickets for event: <b>{{$event->title}}</b>--}}
             {{--</div>--}}
@@ -166,17 +162,16 @@
                 <div class="attendee_details">
                     <h4>Name</h4>
                     {{{$attendee->first_name.' '.$attendee->last_name}}}
-                    
+
                     <h4>Ticket Type</h4>
                     {{{$attendee->ticket->title}}}
                     <h4>Order Ref.</h4>
-                    #{{$order->order_reference}}  
+                    #{{$order->order_reference}}
                     <h4>Attendee Ref.</h4>
-                    #{{$attendee->reference}}  
+                    #{{$attendee->reference}}
                     <h4>Price</h4>
                     {{money($attendee->ticket->total_price, $order->event->currency->code)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency->code)}} Fees)
-                </div>        
-
+                </div>
 
                 <div class="barcode">
                     {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
@@ -184,12 +179,7 @@
                 <div class="barcode_vertical">
                     {!! DNS1D::getBarcodeSVG($attendee->private_reference_number, "EAN2", 1, 40) !!}
                 </div>
-
-
-
-
             </div>
-
 
             @endforeach
 
@@ -197,8 +187,5 @@
                 Ticketing By <b>Attendize.com</b>
             </div>
         </div>
-
-
-
     </body>
 </html>

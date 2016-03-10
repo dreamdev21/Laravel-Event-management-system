@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- 
-                  _   _                 _ _                              
-             /\  | | | |               | (_)                             
-            /  \ | |_| |_ ___ _ __   __| |_ _______   ___ ___  _ __ ___  
-           / /\ \| __| __/ _ \ '_ \ / _` | |_  / _ \ / __/ _ \| '_ ` _ \ 
+        <!--
+                  _   _                 _ _
+             /\  | | | |               | (_)
+            /  \ | |_| |_ ___ _ __   __| |_ _______   ___ ___  _ __ ___
+           / /\ \| __| __/ _ \ '_ \ / _` | |_  / _ \ / __/ _ \| '_ ` _ \
           / ____ \ |_| ||  __/ | | | (_| | |/ /  __/| (_| (_) | | | | | |
          /_/    \_\__|\__\___|_| |_|\__,_|_/___\___(_)___\___/|_| |_| |_|
-                                                                         
+
         -->
         <title>{{{$event->title}}} - Attendize.com</title>
 
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
         <link rel="canonical" href="{{$event->event_url}}" />
 
 
@@ -26,7 +26,7 @@
         @if($event->images->count())
         <meta property="og:image" content="{{URL::to($event->images->first()['image_path'])}}" />
         @endif
-        <meta property="og:description" content="{{{Str::words(strip_tags($event->description)), 20}}}" /> 
+        <meta property="og:description" content="{{{Str::words(strip_tags($event->description)), 20}}}" />
         <meta property="og:site_name" content="Attendize.com" />
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -60,7 +60,6 @@
             .btn {
                 color: #fff !important;
             }
-
         </style>
 
         <style type="text/css">
@@ -68,15 +67,15 @@
             body {background:none transparent !important;}
         </style>
     </head>
-    <body class="attendize" >
-      
+    <body class="attendize">
         @yield('content')
 
-       {!!HTML::script('assets/javascript/frontend.js')!!}
+        {!!HTML::script('assets/javascript/frontend.js')!!}
 
         @if(isset($secondsToExpire))
         <script>if ($('#countdown')) {setCountdown($('#countdown'), {{$secondsToExpire}}); }</script>
         @endif
 
         @include('Shared.Partials.GlobalFooterJS')
+    </body>
 </html>

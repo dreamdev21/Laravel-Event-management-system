@@ -1,6 +1,6 @@
-<section id='organiser' class="container">
+<section id="organiser" class="container">
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-12">
             <div class="event_organiser_details">
                 <div class="logo">
                     <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}"/>
@@ -27,8 +27,8 @@
                         <i class="ico-envelop"></i>&nbsp; Contact
                     </button>
                 </p>
-                <div  class="contact_form well well-sm">
-                     {!! Form::open(array('url' => route('postContactOrganiser', array('event_id' => $event->id)), 'class' => 'reset ajax')) !!}
+                <div class="contact_form well well-sm">
+                    {!! Form::open(array('url' => route('postContactOrganiser', array('event_id' => $event->id)), 'class' => 'reset ajax')) !!}
                     <h3>Contact <i>{{$event->organiser->name}}</i></h3>
                     <div class="form-group">
                         {!! Form::label('Your Name') !!}

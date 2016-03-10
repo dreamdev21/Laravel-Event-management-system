@@ -1,4 +1,3 @@
-
 <div role="dialog" id="{{$modal_id}}" class="modal fade " style="display: none;">
    {!! Form::open(array('url' => route('postCancelOrder', array('order_id' => $order->id)), 'class' => 'closeModalAfter ajax')) !!}
     <script>
@@ -10,13 +9,15 @@
                     $('.refund_options').slideUp();
                 }
             });
-            
-          
-            
+
+
+
         });
     </script>
     <style>
-        .refund_options {display:none;}
+        .refund_options {
+            display:none;
+        }
 
         #{{$modal_id}} .well.p0 {
             padding: 0;
@@ -26,7 +27,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-cart2"></i>
                     Cancel Order: <b>#{{$order->order_reference}}</b></h3>
@@ -41,13 +42,13 @@
                 <div class="well bgcolor-white p0">
 
                     <div class="table-responsive">
-                        <table class="table table-hover ">                        
+                        <table class="table table-hover ">
                             <tbody>
-                                <tr >
+                                <tr>
                                     <td style="width: 20px;">
                                         <div class="checkbox">
                                             <label>
-                                               {!!Form::checkbox('all_attendees', 'on', false, ['class' => 'check-all', 'data-toggle-class'=>'attendee-check'])!!}
+                                               {!! Form::checkbox('all_attendees', 'on', false, ['class' => 'check-all', 'data-toggle-class'=>'attendee-check']) !!}
                                                 <script>
                                                     $(function() {
                                                         $('.check-all').on ('click', function () {
@@ -65,18 +66,17 @@
                                 @foreach($attendees as $attendee)
 
                                 <tr class="{{$attendee->is_cancelled ? 'danger' : ''}}">
-                                    <td >
+                                    <td>
                                         @if(!$attendee->is_cancelled)
                                        {!!Form::checkbox('attendees[]', $attendee->id, false, ['class' => 'attendee-check'])!!}
                                         @endif
                                     </td>
-
                                     <td>
-                                        {{$attendee->first_name}} 
-                                        {{$attendee->last_name}} 
+                                        {{$attendee->first_name}}
+                                        {{$attendee->last_name}}
                                     </td>
                                     <td>
-                                        {{$attendee->email}} 
+                                        {{$attendee->email}}
                                     </td>
                                     <td>
                                         {{{$attendee->ticket->title}}}
@@ -87,7 +87,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 @else
                 <div class="alert alert-info cancelOrderOption">
                     All attendees in this order have been cancelled.
@@ -95,10 +95,8 @@
                 @endif
 
                 @if(!$order->is_refunded)
-
-                <div class="">
-
-                    <div class="well bgcolor-white ">
+                <div>
+                    <div class="well bgcolor-white">
                         <div class="checkbox">
                             <label>
                                {!!Form::checkbox('refund_order', 'on')!!}
@@ -107,14 +105,14 @@
                         </div>
                     </div>
 
-                    <div class='refund_options'>
+                    <div class="refund_options">
                         <div class="well bgcolor-white">
 
                             <div class="row">
                                 <div class="col-md-1">
                                     <div class="checkbox">
                                        {!!Form::radio('refund_type', 'full', ['selected' => 'selected'])!!}
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div class="col-md-11">
                                     <b>Issue full refund</b>
@@ -123,18 +121,14 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
 
-                        <div class="well bgcolor-white clearfix ">
-
+                        <div class="well bgcolor-white clearfix">
                             <div class="row">
                                 <div class="col-md-1">
                                     <div class="checkbox">
                                        {!!Form::radio('refund_type', 'partial')!!}
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div class="col-md-11">
                                     <b>Issue partial refund</b>
@@ -144,7 +138,7 @@
                                                 Refund amount:
                                             </dic>
                                             <div class="col-sm-8">
-                                                <input type='text' name="refund_amount" class="form-control" id="refundAmount" placeholder="Max {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code))}}">
+                                                <input type="text" name="refund_amount" class="form-control" id="refundAmount" placeholder="Max {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code))}}">
                                             </div>
                                         </div>
                                     </div>
@@ -155,13 +149,13 @@
                 </div>
 
                 @else
-                
-                <div class="alert alert-info ">
+
+                <div class="alert alert-info">
                     All {{money($order->amount, $order->event->currency->code)}} of this order has been refunded.
                 </div>
-                
+
                 @endif
-            </div> 
+            </div>
 
             @if($attendees->count() || !$order->is_refunded)
             <div class="modal-footer">
@@ -170,6 +164,6 @@
             </div>
             @endif
         </div>
-       {!!Form::close()!!}
+       {!! Form::close() !!}
     </div>
-
+</div>

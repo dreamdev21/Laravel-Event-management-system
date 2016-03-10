@@ -1,14 +1,10 @@
 {!! HTML::script('vendor/simplemde/dist/simplemde.min.js') !!}
 {!! HTML::style('vendor/simplemde/dist/simplemde.min.css') !!}
 
-
-
 <script>
     $(function() {
-
-
         try {
-            $('.geocomplete').geocomplete({
+            $(".geocomplete").geocomplete({
                     details: "form.gf",
                     types: ["geocode", "establishment"]
                 }).bind("geocode:result", function(event, result) {
@@ -24,7 +20,7 @@
             spellChecker: false,
             status: false
         });
-        $('#DatePicker').remove();
+        $("#DatePicker").remove();
         var $div = $("<div>", {id: "DatePicker"});
         $("body").append($div);
         $div.DateTimePicker({

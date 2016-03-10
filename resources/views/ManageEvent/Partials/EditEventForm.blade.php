@@ -1,12 +1,8 @@
-
 @include('ManageOrganiser.Partials.EventCreateAndEditJS')
 
-{!!  Form::model($event, array('url' => route('postEditEvent', ['event_id' => $event->id]), 'class' => 'ajax gf'))  !!}
-
-
+{!! Form::model($event, array('url' => route('postEditEvent', ['event_id' => $event->id]), 'class' => 'ajax gf')) !!}
 
 <div class="row">
-
     <div class="col-md-12">
         <div class="form-group">
             {!! Form::label('is_live', 'Event Visibility', array('class'=>'control-label required')) !!}
@@ -34,8 +30,9 @@
                                         'rows' => 5
                                         ))  !!}
         </div>
+
         <div class="form-group address-automatic" style="display:{{$event->location_is_manual ? 'none' : 'block'}};">
-           {!! Form::label('name', 'Venue Name', array('class'=>'control-label required ')) !!}
+            {!! Form::label('name', 'Venue Name', array('class'=>'control-label required ')) !!}
             {!!  Form::text('venue_name_full', Input::old('venue_name_full'),
                                         array(
                                         'class'=>'form-control geocomplete location_field',
@@ -65,21 +62,21 @@
 
         <div class="address-manual" style="display:{{$event->location_is_manual ? 'block' : 'none'}};">
             <div class="form-group">
-               {!! Form::label('location_venue_name', 'Venue Name', array('class'=>'control-label required ')) !!}
+                {!! Form::label('location_venue_name', 'Venue Name', array('class'=>'control-label required ')) !!}
                 {!!  Form::text('location_venue_name', $event->venue_name, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: The Crab Shack'
                             ])  !!}
             </div>
             <div class="form-group">
-               {!! Form::label('location_address_line_1', 'Address Line 1', array('class'=>'control-label')) !!}
+                {!! Form::label('location_address_line_1', 'Address Line 1', array('class'=>'control-label')) !!}
                 {!!  Form::text('location_address_line_1', $event->location_address_line_1, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: 45 Grafton St.'
                             ])  !!}
             </div>
             <div class="form-group">
-               {!! Form::label('location_address_line_2', 'Address Line 2', array('class'=>'control-label')) !!}
+                {!! Form::label('location_address_line_2', 'Address Line 2', array('class'=>'control-label')) !!}
                 {!!  Form::text('location_address_line_2', $event->location_address_line_2, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: Dublin.'
@@ -89,7 +86,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                       {!! Form::label('location_state', 'City', array('class'=>'control-label')) !!}
+                        {!! Form::label('location_state', 'City', array('class'=>'control-label')) !!}
                         {!!  Form::text('location_state', $event->location_state, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: Dublin.'
@@ -98,7 +95,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                       {!! Form::label('location_post_code', 'Post Code', array('class'=>'control-label')) !!}
+                        {!! Form::label('location_post_code', 'Post Code', array('class'=>'control-label')) !!}
                         {!!  Form::text('location_post_code', $event->location_post_code, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: Dublin.'
@@ -110,16 +107,14 @@
 
         <div class="clearfix" style="margin-top:-10px; padding: 5px; padding-top: 0px;">
             <span class="pull-right">
-                or <a data-clear-field='.location_field' data-toggle-class='.address-automatic, .address-manual' data-show-less-text='{{$event->location_is_manual ? 'Enter Address Manually' : 'Select From Existing Venues'}}' href="javascript:void(0);" class='show-more-options clear_location'>{{$event->location_is_manual ? 'Select From Existing Venues' : 'Enter Address Manually'}}</a>
+                or <a data-clear-field=".location_field" data-toggle-class=".address-automatic, .address-manual" data-show-less-text="{{$event->location_is_manual ? 'Enter Address Manually' : 'Select From Existing Venues'}}" href="javascript:void(0);" class="show-more-options clear_location">{{$event->location_is_manual ? 'Select From Existing Venues' : 'Enter Address Manually'}}</a>
             </span>
         </div>
 
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-
-                   {!! Form::label('start_date', 'Event Start Date', array('class'=>'required control-label')) !!}
-
+                    {!! Form::label('start_date', 'Event Start Date', array('class'=>'required control-label')) !!}
                     {!!  Form::text('start_date', $event->getFormatedDate('start_date'),
                                                         [
                                                     'class'=>'form-control start hasDatepicker ',
@@ -134,12 +129,10 @@
 
             <div class="col-sm-6 ">
                 <div class="form-group">
-
                     {!!  Form::label('end_date', 'Event End Date',
                                         [
                                     'class'=>'required control-label '
                                 ])  !!}
-
                     {!!  Form::text('end_date', $event->getFormatedDate('end_date'),
                                                 [
                                             'class'=>'form-control end hasDatepicker ',
@@ -152,21 +145,17 @@
             </div>
         </div>
 
-
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                    {!! Form::label('event_image', 'Event Flyer', array('class'=>'control-label ')) !!}
                    {!! Form::styledFile('event_image', 1) !!}
                 </div>
-
             </div>
             <div class="col-md-6">
                 <div class="float-l">
-
                     @if($event->images->count())
-                   {!! Form::label('', 'Current Event Flyer', array('class'=>'control-label ')) !!}
+                    {!! Form::label('', 'Current Event Flyer', array('class'=>'control-label ')) !!}
                     <div class="form-group">
                         <div class="well well-sm well-small">
                            {!! Form::label('remove_current_image', 'Delete?', array('class'=>'control-label ')) !!}
@@ -179,27 +168,16 @@
                     </div>
                     @endif
                 </div>
-
             </div>
         </div>
-
-
-
-
     </div>
-
 
     <div class="col-md-12">
         <div class="panel-footer mt15 text-right">
-           {!!Form::hidden('organiser_id', $event->organiser_id)!!}
+           {!! Form::hidden('organiser_id', $event->organiser_id) !!}
            {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
         </div>
-
     </div>
-
-
-
-
-   {!! Form::close() !!}
+    {!! Form::close() !!}
 </div>
 

@@ -39,7 +39,7 @@ Event Orders
                 <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'xls'])}}">Excel (XLS)</a></li>
                 <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'csv'])}}">CSV</a></li>
                 <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'html'])}}">HTML</a></li>
-            </ul>      
+            </ul>
         </div>
     </div>
     <!--/ Toolbar -->
@@ -65,8 +65,6 @@ Event Orders
 
     <div class="col-md-12">
 
-
-
         <!-- START panel -->
         <div class="panel">
             <div class="table-responsive ">
@@ -74,22 +72,22 @@ Event Orders
                     <thead>
                         <tr>
                             <th>
-                               {!!Html::sortable_link('Order Ref.', $sort_by, 'order_reference', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Order Ref.', $sort_by, 'order_reference', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Order Date', $sort_by, 'created_at', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Order Date', $sort_by, 'created_at', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Name', $sort_by, 'first_name', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Name', $sort_by, 'first_name', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Email', $sort_by, 'email', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Email', $sort_by, 'email', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Amount', $sort_by, 'amount', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Amount', $sort_by, 'amount', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Status', $sort_by, 'order_status_id', $sort_order, ['q' => $q , 'page' => $orders->currentPage()])!!}
+                               {!! Html::sortable_link('Status', $sort_by, 'order_status_id', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th></th>
                         </tr>
@@ -97,8 +95,7 @@ Event Orders
                     <tbody>
 
                         @foreach($orders as $order)
-                        <tr class="">
-
+                        <tr>
                             <td>
                                 <a href='javascript:void(0);' data-modal-id='view-order-{{ $order->id }}' data-href="{{route('showManageOrder', ['order_id'=>$order->id])}}" title="View Order #{{$order->order_reference}}" class="loadModal">
                                     #{{$order->order_reference}}
@@ -111,15 +108,13 @@ Event Orders
                                 {{$order->first_name.' '.$order->last_name}}
                             </td>
                             <td>
-                                    <a 
-                                    data-modal-id='MessageOrder'
-                                    href='javascript:void(0);' 
+                                <a href="javascript:void(0);" class="loadModal"
+                                    data-modal-id="MessageOrder"
                                     data-href="{{route('showMessageOrder', ['order_id'=>$order->id])}}"
-                                    class='loadModal '
-                                    > {{$order->email}}</a>
+                                > {{$order->email}}</a>
                             </td>
                             <td>
-                                <a href='#' class="hint--top" data-hint="{{money($order->amount, $event->currency->code)}} + {{money($order->organiser_booking_fee, $event->currency->code)}} Organiser Booking Fee">
+                                <a href="#" class="hint--top" data-hint="{{money($order->amount, $event->currency->code)}} + {{money($order->organiser_booking_fee, $event->currency->code)}} Organiser Booking Fee">
                                     {{money($order->amount + $order->organiser_booking_fee, $event->currency->code)}}
                                     @if($order->is_refunded || $order->is_partially_refunded)
 
@@ -132,11 +127,10 @@ Event Orders
                                 </span>
                             </td>
                             <td class="text-center">
-                               
-                                <a href="javascript:void(0);" data-modal-id='cancel-order-{{ $order->id }}' data-href="{{route('showCancelOrder', ['order_id'=>$order->id])}}" title="Cancel Order" class="btn btn-xs btn-danger loadModal">
+                                <a href="javascript:void(0);" data-modal-id="cancel-order-{{ $order->id }}" data-href="{{route('showCancelOrder', ['order_id'=>$order->id])}}" title="Cancel Order" class="btn btn-xs btn-danger loadModal">
                                                 Refund / Cancel
                                             </a>
-                                <a data-modal-id='view-order-{{ $order->id }}' data-href="{{route('showManageOrder', ['order_id'=>$order->id])}}" title="View Order" class="btn btn-xs btn-success loadModal">Details</a>
+                                <a data-modal-id="view-order-{{ $order->id }}" data-href="{{route('showManageOrder', ['order_id'=>$order->id])}}" title="View Order" class="btn btn-xs btn-success loadModal">Details</a>
                             </td>
                         </tr>
                         @endforeach
@@ -147,7 +141,7 @@ Event Orders
         </div>
     </div>
     <div class="col-md-12">
-        {!!$orders->appends(['sort_by' => $sort_by, 'sort_order' => $sort_order, 'q' => $q])->render()  !!}
+        {!!$orders->appends(['sort_by' => $sort_by, 'sort_order' => $sort_order, 'q' => $q])->render()!!}
     </div>
 
     @else
