@@ -32,7 +32,7 @@
 </head>
 <body class="attendize">
 @yield('pre_header')
-<header id="header" class="navbar ">
+<header id="header" class="navbar">
 
     <div class="navbar-header">
         <a class="navbar-brand" href="javascript:void(0);">
@@ -48,10 +48,10 @@
             <li class="dropdown profile">
 
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="meta">
-                                <span class="text ">{{isset($organiser->name) ? $organiser->name : $event->organiser->name}}</span>
-                                <span class="arrow"></span>
-                            </span>
+                    <span class="meta">
+                        <span class="text ">{{isset($organiser->name) ? $organiser->name : $event->organiser->name}}</span>
+                        <span class="arrow"></span>
+                    </span>
                 </a>
 
 
@@ -70,7 +70,6 @@
                             </a>
 
                         </li>
-
                     @endforeach
                     <li class="divider"></li>
 
@@ -95,7 +94,7 @@
 
 @yield('menu')
 
-        <!--Main Content-->
+<!--Main Content-->
 <section id="main" role="main">
     <section class="container-fluid">
         <div class="page-title">
@@ -103,7 +102,6 @@
         </div>
         <!--  header -->
         <div class="page-header page-header-block row">
-
             <div class="row">
                 @yield('page_header')
             </div>
@@ -112,8 +110,7 @@
 
         <!--Content-->
         @yield('content')
-                <!--/Content-->
-
+        <!--/Content-->
     </section>
 
     <!--To The Top-->

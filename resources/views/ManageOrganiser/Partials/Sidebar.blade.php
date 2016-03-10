@@ -1,10 +1,8 @@
 <aside class="sidebar sidebar-left sidebar-menu">
     <section class="content">
-
         <h5 class="heading">Organiser Menu</h5>
-       
-        <ul id="nav" class="topmenu">
 
+        <ul id="nav" class="topmenu">
             <li class="{{ Request::is('*dashboard*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserDashboard', array('organiser_id' => $organiser->id))}}">
                     <span class="figure"><i class="ico-home2"></i></span>

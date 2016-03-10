@@ -9,14 +9,9 @@
                     Create Attendee</h3>
             </div>
             <div class="modal-body">
-
                 <div class="row">
-
                     <div class="col-md-12">
-
-
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                    {!! Form::label('ticket_id', 'Ticket', array('class'=>'control-label required')) !!}
@@ -24,7 +19,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">   
+                            <div class="col-md-6">
                                 <div class="form-group">
                                    {!! Form::label('ticket_price', 'Ticket Price', array('class'=>'control-label required')) !!}
                                     {!!  Form::text('ticket_price', Input::old('price'),
@@ -36,37 +31,32 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {!! Form::label('first_name', 'First Name', array('class'=>'control-label required')) !!}
 
-
-                       
-                            <div class="row">
-                                <div class="col-md-6">    
-                                     <div class="form-group">
-                                   {!! Form::label('first_name', 'First Name', array('class'=>'control-label required')) !!}
-
-                                    {!!  Form::text('first_name', Input::old('first_name'),
-                                                array(
-                                                'class'=>'form-control'
-                                                ))  !!}
-                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                     <div class="form-group">
-                                   {!! Form::label('last_name', 'Last Name', array('class'=>'control-label')) !!}
-
-                                    {!!  Form::text('last_name', Input::old('last_name'),
-                                                array(
-                                                'class'=>'form-control'
-                                                ))  !!}
-                                     </div>
+                                {!!  Form::text('first_name', Input::old('first_name'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}
                                 </div>
                             </div>
 
-                      
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {!! Form::label('last_name', 'Last Name', array('class'=>'control-label')) !!}
+
+                                {!!  Form::text('last_name', Input::old('last_name'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                           {!! Form::label('email', 'Email Address', array('class'=>'control-label')) !!}
+                            {!! Form::label('email', 'Email Address', array('class'=>'control-label')) !!}
 
                             {!!  Form::text('email', Input::old('email'),
                                                 array(
@@ -75,21 +65,13 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="checkbox custom-checkbox">  
-                                <input type="checkbox" name="email_ticket" id="email_ticket" value="1">  
-                                <label for="email_ticket">&nbsp;&nbsp;Send confirmation & ticket to attendee.</label>   
+                            <div class="checkbox custom-checkbox">
+                                <input type="checkbox" name="email_ticket" id="email_ticket" value="1" />
+                                <label for="email_ticket">&nbsp;&nbsp;Send confirmation & ticket to attendee.</label>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
-
-
                 </div>
-
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
@@ -98,4 +80,4 @@
         </div><!-- /end modal content-->
        {!! Form::close() !!}
     </div>
-
+</div>

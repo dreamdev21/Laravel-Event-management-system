@@ -1,15 +1,13 @@
-<section id='order_form' class="container">
+<section id="order_form" class="container">
     <div class="row">
-        <h1 class='section_head'>
+        <h1 class="section_head">
             Order Details
         </h1>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="content event_view_order">
-
                 <div class="table-layout">
-
                     <!-- Left / Bottom Side -->
                     <div class="col-lg-12 panel">
                         <!-- panel body -->
@@ -51,12 +49,11 @@
                                         <td>
                                             <h5 class="semibold mt0 mb5">{{$order_item->title}}</h5>
                                         </td>
-                                         <td class="valign-top text-center"><span class="bold">{{$order_item->quantity}}</span></td>
+                                        <td class="valign-top text-center"><span class="bold">{{$order_item->quantity}}</span></td>
                                         <td class="valign-top text-center"><span class="bold">{{$order_item->unit_price}}</span></td>
                                         <td class="valign-top text-center"><span class="text-primary bold">€{{$order_item->unit_price * $order_item->quantity}}</span></td>
                                     </tr>
                                     @endforeach
-                         
                                 </tbody>
                             </table>
                         </div>
@@ -99,12 +96,8 @@
                         <!-- panel footer -->
                     </div>
                     <!--/ Left / Bottom Side -->
-                </div>                   
-
+                </div>
             </div>
         </div>
-
-
     </div>
 </section>
-

@@ -15,8 +15,8 @@ Order Date: <b>{{$order->created_at->toDayDateTimeString()}}</b><br>
 Order Email: <b>{{$order->email}}</b><br>
 
 <h3>Order Items</h3>
-<div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1; ">
-    <table style='width:100%; margin:10px;' >          
+<div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
+    <table style="width:100%; margin:10px;">
         <tr>
             <td>
                 <b>Ticket</b>
@@ -37,7 +37,7 @@ Order Email: <b>{{$order->email}}</b><br>
         @foreach($order->orderItems as $order_item)
                                 <tr>
                                     <td>
-                                        {{$order_item->title}} 
+                                        {{$order_item->title}}
                                     </td>
                                     <td>
                                         {{$order_item->quantity}}

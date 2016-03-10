@@ -21,7 +21,7 @@ Attendees
 
 
 @section('head')
- 
+
 @stop
 
 @section('page_header')
@@ -29,10 +29,10 @@ Attendees
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id='CreateTicket' href='javascript:void(0);'  data-href="{{route('showCreateAttendee', ['event_id'=>$event->id])}}" class='loadModal btn btn-success' type="button" ><i class="ico-ticket"></i> Add Attendee</button>
+            <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-ticket"></i> Add Attendee</button>
         </div>
         <div class="btn-group btn-group btn-group-responsive">
-            <a class='btn btn-success' href="{{route('showPrintAttendees', ['event_id'=>$event->id])}}" target="_blank" ><i class="ico-print"></i> Print Attendee List</a>
+            <a class="btn btn-success" href="{{route('showPrintAttendees', ['event_id'=>$event->id])}}" target="_blank" ><i class="ico-print"></i> Print Attendee List</a>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                 <i class="ico-users"></i> Export <span class="caret"></span>
             </button>
@@ -41,10 +41,10 @@ Attendees
                 <li><a href="{{route('showExportAttendees', ['event_id'=>$event->id,'export_as'=>'xls'])}}">Excel (XLS)</a></li>
                 <li><a href="{{route('showExportAttendees', ['event_id'=>$event->id,'export_as'=>'csv'])}}">CSV</a></li>
                 <li><a href="{{route('showExportAttendees', ['event_id'=>$event->id,'export_as'=>'html'])}}">HTML</a></li>
-            </ul>      
+            </ul>
         </div>
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id='MessageAttendees' href='javascript:void(0);'  data-href="{{route('showMessageAttendees', ['event_id'=>$event->id])}}" class='loadModal btn btn-success' type="button" ><i class="ico-envelope"></i> Message</button>
+            <button data-modal-id="MessageAttendees" href="javascript:void(0);" data-href="{{route('showMessageAttendees', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> Message</button>
         </div>
     </div>
 </div>
@@ -67,7 +67,7 @@ Attendees
 <div class="row">
     <div class="col-md-12">
         @if($attendees->count())
-        <div class="panel">             
+        <div class="panel">
 
             <div class="table-responsive">
                 <table class="table " >
@@ -94,9 +94,9 @@ Attendees
                         <tr class="attendee_{{$attendee->id}} {{$attendee->is_cancelled ? 'danger' : ''}}">
                             <td>{{{$attendee->full_name}}}</td>
                             <td>
-                                <a 
+                                <a
                                     data-modal-id='MessageAttendee'
-                                    href='javascript:void(0);' 
+                                    href='javascript:void(0);'
                                     data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
                                     class='loadModal '
                                     > {{$attendee->email}}</a>
@@ -111,24 +111,24 @@ Attendees
                             </td>
                             <td class="text-center">
                                 @if($attendee->email)
-                                <a 
+                                <a
                                     data-modal-id='MessageAttendee'
-                                    href='javascript:void(0);' 
+                                    href='javascript:void(0);'
                                     data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
                                     class='loadModal btn  btn-xs btn-primary'
                                     > Message</a>
                                 @endif
 
-                                <a 
+                                <a
                                     data-modal-id='EditAttendee'
-                                    href='javascript:void(0);' 
+                                    href='javascript:void(0);'
                                     data-href="{{route('showEditAttendee', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
                                     class='loadModal btn  btn-xs btn-primary'
                                     > Edit</a>
 
-                                <a 
+                                <a
                                     data-modal-id='CancelAttendee'
-                                    href='javascript:void(0);' 
+                                    href='javascript:void(0);'
                                     data-href="{{route('showCancelAttendee', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
                                     class='loadModal btn  btn-xs btn-danger'
                                     > Cancel</a>

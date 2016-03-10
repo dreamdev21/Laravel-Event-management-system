@@ -3,3 +3,7 @@
 .env
 .idea
 installed
+/.settings/
+/.project
+/.buildpath
+/composer.phar

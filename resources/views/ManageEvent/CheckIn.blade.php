@@ -6,12 +6,9 @@
         </title>
 
        {!! HTML::style('assets/stylesheet/application.css') !!}
-       {!!HTML::script('vendor/jquery/jquery.js')!!}
-
+       {!! HTML::script('vendor/jquery/jquery.js') !!}
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-
-
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,26 +25,24 @@
                     }
                 });
             });
-
         </script>
 
         <style>
 
             ::-webkit-input-placeholder { /* WebKit browsers */
-                color:    #fff !important;
+                color: #fff !important;
             }
             :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-                color:    #fff !important;
-                opacity:  1;
+                color: #fff !important;
+                opacity: 1;
             }
             ::-moz-placeholder { /* Mozilla Firefox 19+ */
-                color:    #fff !important;
-                opacity:  1;
+                color: #fff !important;
+                opacity: 1;
             }
             :-ms-input-placeholder { /* Internet Explorer 10+ */
-                color:    #fff !important;
+                color: #fff !important;
             }
-
 
             .attendeeList .container {
                 background: #fff;
@@ -73,8 +68,6 @@
                 color: #666;
             }
 
-
-
             header {
                 background: #6784DB;
                 padding: 10px 0;
@@ -84,7 +77,6 @@
                 right: 0;
                 z-index: 200;
             }
-
 
             header .menuToggle {
                 position: absolute;
@@ -111,6 +103,7 @@
             .attendee_search:focus {
                 color: #fff;
             }
+
             .clearSearch {
                 position: absolute;
                 top: 10px;
@@ -121,12 +114,10 @@
                 display: none;
             }
 
-
             .at {
                 position: relative;
                 padding-left: 70px;
                 cursor: pointer;
-
             }
 
             .at:active {
@@ -156,8 +147,7 @@
             .at.arrived .ci {
                 background-color: #36F158;
             }
-            
-            
+
             footer {
                 background-color: #333;
                 height: 50px;
@@ -167,7 +157,6 @@
                 left: 0;
             }
 
-
             /* Small Devices, Tablets */
 
             @media (min-width: 100px) and (max-width: 767px) {
@@ -175,7 +164,7 @@
                 section.attendeeList {
                     margin-top: 60px;
                 }
-                
+
                 section.attendeeList .container {
                     margin-bottom: 0;
                 }
@@ -183,16 +172,20 @@
                 section.attendeeList .col-md-12 {
                     padding: 0;
                 }
+
                 section.attendeeList .attendees_title {
                     padding-left: 10px;
                 }
+
                 section.attendeeList .container .attendee_list {
                     padding: 0;
                 }
+
                 .list-group-item:first-child {
                     border-top-right-radius: 0px;
                     border-top-left-radius: 0px;
                 }
+
                 .at {
                     position: relative;
                     padding-left: 70px;
@@ -205,11 +198,10 @@
 
         </style>
 
-
         <script>
 
             var workingAway = false;
-        
+
             //var attendees = {{$attendees}};
             function populateAttendeeList(attendees) {
                 $('#attendee_list').empty();
@@ -233,12 +225,12 @@
             }
             function search() {
                 var query_value = $('input#search').val();
-                
+
                 if(workingAway) {
                     return;
                 }
                 workingAway = true;
-                
+
                 $.ajax({
                     type: "POST",
                     url: "{{route('postCheckInSearch', ['event_id' => $event->id])}}",
@@ -253,7 +245,7 @@
                         } else {
                             $('.attendees_title').html('All Attendees');
                         }
-                        
+
                         workingAway = false;
                         populateAttendeeList(attendees);
                     }
@@ -348,7 +340,6 @@
                 <i class="ico-menu"></i>
             </div>
             <div class="container">
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="attendee_input_wrap">
@@ -359,9 +350,7 @@
                         ])  !!}
                             <span class="clearSearch ico-cancel"></span>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </header>
@@ -383,9 +372,9 @@
                 </div>
             </div>
         </section>
-        
+
         <footer class="hide">
-        <div class="container">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         23/145 attendees checked in.
@@ -393,9 +382,5 @@
                 </div>
             </div>
         </footer>
-
-
-
     </body>
-
 </html>

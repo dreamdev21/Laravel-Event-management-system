@@ -14,9 +14,11 @@
 @stop
 
 @section('page_header')
-    <style> .page-header {
+    <style>
+        .page-header {
             display: none;
-        } </style>
+        }
+    </style>
     @stop
 
     @section('menu')
@@ -24,7 +26,6 @@
     @stop
 
     @section('head')
-
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -35,25 +36,17 @@
     {!! HTML::script('vendor/geocomplete/jquery.geocomplete.min.js')!!}
 
     <style>
-
-
         svg {
             width: 100% !important;
         }
     </style>
 
-
-
     @stop
 
     @section('content')
-            <!-- Top Stats -->
-
-
-
+    <!-- Top Stats -->
     <div class="row">
-        <div class='col-md-12'>
-
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="stat-box">
@@ -85,28 +78,21 @@
                     </span>
                     </div>
                 </div>
-
             </div>
-
 
             @if($upcoming_events->count())
                 <div class="row">
                     <div class="col-md-12">
                         <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
                     </div>
-
                 </div>
                 <div class="row">
-
                     @foreach($upcoming_events as $event)
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             @include('ManageOrganiser.Partials.EventPanel')
                         </div>
                     @endforeach
-
-
                 </div>
-
             @else
                 @if($search['q'])
                     @include('Shared.Partials.NoSearchResults')
@@ -115,9 +101,5 @@
                 @endif
             @endif
         </div>
-
-
     </div>
-
-
 @stop

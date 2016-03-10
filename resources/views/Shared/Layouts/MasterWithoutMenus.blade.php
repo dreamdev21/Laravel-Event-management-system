@@ -40,13 +40,11 @@
             .signup {
                 margin-top: 10px;
             }
-            
+
             .forgotPassword {
                 font-size: 12px;
                 color: #ccc;
             }
-
-
         </style>
     </head>
     <body>
@@ -56,9 +54,9 @@
             </section>
         </section>
 
-       {!!HTML::script('assets/javascript/backend.js')!!}
-       {!!HTML::script('vendor/jquery-backstretch/jquery.backstretch.min.js')!!}
-        
+        {!!HTML::script('assets/javascript/backend.js')!!}
+        {!!HTML::script('vendor/jquery-backstretch/jquery.backstretch.min.js')!!}
+
         <script>
             $(function() {
                 $.backstretch([
@@ -67,6 +65,5 @@
             });
         </script>
     </body>
-    
     @include('Shared.Partials.GlobalFooterJS')
 </html>

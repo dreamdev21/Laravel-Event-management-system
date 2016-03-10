@@ -25,14 +25,16 @@
 @stop
 
 @section('page_header')
-    <style> .page-header {
+    <style>
+        .page-header {
             display: none;
-        } </style>
+        }
+    </style>
 @stop
 
 @section('head')
-    {!!HTML::script('https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places')!!}
-    {!! HTML::script('vendor/geocomplete/jquery.geocomplete.min.js')!!}
+    {!! HTML::script('https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places') !!}
+    {!! HTML::script('vendor/geocomplete/jquery.geocomplete.min.js') !!}
     <script>
         $(function () {
 
@@ -61,7 +63,6 @@
 
             /* Affiliate generator */
             $('#affiliateGenerator').on('keyup', function () {
-
                 var text = $(this).val().replace(/\W/g, ''),
                         referralUrl = '{{$event->event_url}}?ref=' + text;
 
@@ -93,15 +94,10 @@
                 $('input[name=bg_type]').val(type);
             });
 
-
             $('input[name=bg_image_path], input[name=bg_color]').on('change', function () {
                 //showMessage('Uploading...');
                 //$('.customizeForm').submit();
             });
-
-
-
-
         });
         function replaceUrlParam(url, paramName, paramValue){
             var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
@@ -194,9 +190,7 @@
 
                 <div class="tab-pane {{$tab == 'affiliates' ? 'active' : ''}}" id="affiliates">
 
-                    <h4>
-                        Affiliate Tracking
-                    </h4>
+                    <h4>Affiliate Tracking</h4>
 
                     <div class="well">
                         Keeping track of who is generating sales for your event is extremely easy.
@@ -215,7 +209,6 @@
                     @if($event->affiliates->count())
                         <div class="table-responsive">
                             <table class="table">
-
                                 <thead>
                                 <tr>
                                     <th>
@@ -237,10 +230,7 @@
                                 </thead>
 
                                 <tbody>
-
-
                                 @foreach($event->affiliates as $affiliate)
-
                                     <tr>
                                         <td>
                                             {{{$affiliate->name}}}
@@ -258,8 +248,6 @@
                                             {{{ $affiliate->updated_at->format('M dS H:i A') }}}
                                         </td>
                                     </tr>
-
-
                                 @endforeach
                                 </tbody>
                             </table>
@@ -273,11 +261,8 @@
 
                 </div>
                 <div class="tab-pane {{$tab == 'social' ? 'active' : ''}}" id="social">
-
                     <div class="well hide">
-                        <h5>
-                            The following short codes are available for use:
-                        </h5>
+                        <h5>The following short codes are available for use:</h5>
                         Display the event's public URL: <code>[event_url]</code><br>
                         Display the organiser's name: <code>[organiser_name]</code><br>
                         Display the event title: <code>[event_title]</code><br>
@@ -288,9 +273,7 @@
 
                     {!! Form::model($event, array('url' => route('postEditEventSocial', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
 
-                    <h4>
-                        Social Settings
-                    </h4>
+                    <h4>Social Settings</h4>
 
                     <div class="form-group hide">
 
@@ -299,7 +282,7 @@
                         {{!!  Form::textarea('social_share_text', $event->social_share_text, [
                             'class' => 'form-control',
                             'rows' => 4
-                        ]) !!}}
+                        ])  !!}}
                         <div class="help-block">
                             This is the text which will be share by default when a user shares your event on social
                             networks
@@ -312,31 +295,31 @@
 
                         <div class="checkbox-inline">
                             <label>
-                                {!!Form::checkbox('social_show_facebook', 1, $event->social_show_facebook)!!}
+                                {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook) !!}
                                 Facebook
                             </label>
                         </div>
                         <div class="checkbox-inline">
                             <label>
-                                {!!Form::checkbox('social_show_twitter', 1, $event->social_show_twitter)!!}
+                                {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter) !!}
                                 Twitter
                             </label>
                         </div>
                         <div class="checkbox-inline">
                             <label>
-                                {!!Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus)!!}
+                                {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus) !!}
                                 Google+
                             </label>
                         </div>
                         <div class="checkbox-inline">
                             <label>
-                                {!!Form::checkbox('social_show_email', 1, $event->social_show_email)!!}
+                                {!! Form::checkbox('social_show_email', 1, $event->social_show_email) !!}
                                 Email
                             </label>
                         </div>
                         <div class="checkbox-inline">
                             <label>
-                                {!!Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin)!!}
+                                {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin) !!}
                                 LinkedIn
                             </label>
                         </div>
@@ -346,7 +329,7 @@
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
 
-                    {!!Form::close()!!}
+                    {!! Form::close() !!}
 
                 </div>
                 <div class="tab-pane {{$tab == 'design' ? 'active' : ''}}" id="design">
@@ -354,18 +337,15 @@
                     <div class="row">
                         <div class="col-sm-6">
 
-
                             {!! Form::open(array('url' => route('postEditEventDesign', ['event_id' => $event->id]), 'files'=> true, 'class' => 'ajax customizeForm')) !!}
 
-
-                            {!!Form::hidden('bg_type', $event->bg_type)!!}
-
+                            {!! Form::hidden('bg_type', $event->bg_type) !!}
 
                             <h4>Background Options</h4>
 
                             <div class="panel-group" id="bgOptions">
 
-                                <div class="panel panel-default" data-type='color'>
+                                <div class="panel panel-default" data-type="color">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#bgOptions" href="#bgColor"
@@ -375,9 +355,9 @@
                                         </h4>
                                     </div>
                                     <div id="bgColor"
-                                         class="panel-collapse {{($event->bg_type == 'color') ? 'in' : 'collapse '}}">
+                                         class="panel-collapse {{($event->bg_type == 'color') ? 'in' : 'collapse'}}">
                                         <div class="panel-body">
-                                            <input value="{{{$event->bg_color}}}" type="color" name='bg_color'/>
+                                            <input value="{{{$event->bg_color}}}" type="color" name="bg_color"/>
                                         </div>
                                     </div>
                                 </div>
@@ -393,7 +373,7 @@
                                         </h4>
                                     </div>
                                     <div id="bgImage"
-                                         class="panel-collapse {{($event->bg_type == 'image') ? 'in' : 'collapse '}}">
+                                         class="panel-collapse {{($event->bg_type == 'image') ? 'in' : 'collapse'}}">
                                         <div class="panel-body">
                                             @foreach($available_bg_images_thumbs as $bg_image)
 
@@ -404,7 +384,7 @@
 
                                             @endforeach
 
-                                            {!!Form::hidden('bg_image_path_custom', ($event->bg_type == 'image') ? $event->bg_image_path : '')!!}
+                                            {!! Form::hidden('bg_image_path_custom', ($event->bg_type == 'image') ? $event->bg_image_path : '') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -452,13 +432,12 @@
 
                             {!! Form::close() !!}
 
-
                         </div>
                         <div class="col-sm-6">
                             <h4>Event Page Preview</h4>
 
-                            <div style="height: 600px; border: 1px solid #ccc;" class="">
-                                <iframe id='previewIframe'
+                            <div style="height: 600px; border: 1px solid #ccc;">
+                                <iframe id="previewIframe"
                                         src="{{route('showEventPagePreview', ['event_id'=>$event->id])}}"
                                         frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%"
                                         width="100%">
@@ -470,9 +449,7 @@
                 </div>
                 <div class="tab-pane {{$tab == 'fees' ? 'active' : ''}}" id="fees">
                     {!! Form::model($event, array('url' => route('postEditEventFees', ['event_id' => $event->id]), 'class' => 'ajax')) !!}
-                    <h4>
-                        Organiser Fees
-                    </h4>
+                    <h4>Organiser Fees</h4>
 
                     <div class="well">
                         These are optional fees you can include in the cost of each ticket. This charge will appear on buyer's invoices as '<b>BOOKING FEES</b>'.
@@ -480,20 +457,20 @@
 
                     <div class="form-group">
                         {!! Form::label('organiser_fee_percentage', 'Service Fee Percentage', array('class'=>'control-label required')) !!}
-                        {!! Form::text('organiser_fee_percentage', $event->organiser_fee_percentage, [
+                        {!!  Form::text('organiser_fee_percentage', $event->organiser_fee_percentage, [
                             'class' => 'form-control',
                             'placeholder' => '0'
-                        ]) !!}
+                        ])  !!}
                         <div class="help-block">
                             e.g: enter <b>3.5</b> for <b>3.5%</b>
                         </div>
                     </div>
                     <div class="form-group">
                         {!! Form::label('organiser_fee_fixed', 'Service Fee Fixed Price', array('class'=>'control-label required')) !!}
-                        {!! Form::text('organiser_fee_fixed', null, [
+                        {!!  Form::text('organiser_fee_fixed', null, [
                             'class' => 'form-control',
                             'placeholder' => '0.00'
-                        ]) !!}
+                        ])  !!}
                         <div class="help-block">
                             e.g: enter <b>1.25</b> for <b>{{$event->currency_symbol}}1.25</b>
                         </div>
@@ -501,12 +478,10 @@
                     <div class="panel-footer mt15 text-right">
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
-                    {!!Form::close()!!}
+                    {!! Form::close() !!}
                 </div>
-                <div class="tab-pane " id="social">
-                    <h4>
-                        Social Settings
-                    </h4>
+                <div class="tab-pane" id="social">
+                    <h4>Social Settings</h4>
 
                     <div class="form-group">
                         <div class="checkbox custom-checkbox">
@@ -514,6 +489,7 @@
                             {!! Form::checkbox('event_page_show_map', 1, false) !!}
                         </div>
                     </div>
+
                     <div class="form-group">
                         {!! Form::label('event_page_show_social_share', 'Show social share buttons?', array('class'=>'control-label')) !!}
                         {!! Form::checkbox('event_page_show_social_share', 1, false) !!}
@@ -523,14 +499,12 @@
 
                 <div class="tab-pane {{$tab == 'order_page' ? 'active' : ''}}" id="order_page">
                     {!! Form::model($event, array('url' => route('postEditEventOrderPage', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
-                    <h4>
-                        Order Page Settings
-                    </h4>
+                    <h4>Order Page Settings</h4>
 
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                {!!Form::checkbox('ask_for_all_attendees_info', 'on', $event->ask_for_all_attendees_info)!!}
+                                {!! Form::checkbox('ask_for_all_attendees_info', 'on', $event->ask_for_all_attendees_info) !!}
                                 Require details for each attendee?
                             </label>
                         </div>
@@ -544,10 +518,10 @@
                     <div class="form-group">
                         {!! Form::label('pre_order_display_message', 'Message to display to attendees before they complete their order.', array('class'=>'control-label ')) !!}
 
-                        {!! Form::textarea('pre_order_display_message', $event->pre_order_display_message, [
+                        {!!  Form::textarea('pre_order_display_message', $event->pre_order_display_message, [
                             'class' => 'form-control',
                             'rows' => 4
-                        ]) !!}
+                        ])  !!}
                         <div class="help-block">
                             This message will be displayed to attendees immediately before they finalize their order.
                         </div>
@@ -556,10 +530,10 @@
                     <div class="form-group">
                         {!! Form::label('post_order_display_message', 'Message to display to attendees before after they have completed their order.', array('class'=>'control-label ')) !!}
 
-                        {!! Form::textarea('post_order_display_message', $event->post_order_display_message, [
+                        {!!  Form::textarea('post_order_display_message', $event->post_order_display_message, [
                             'class' => 'form-control',
                             'rows' => 4
-                        ]) !!}
+                        ])  !!}
                         <div class="help-block">
                             This message will be displayed to attendees once they have successfully completed the
                             checkout process.
@@ -570,7 +544,7 @@
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
 
-                    {!!Form::close()!!}
+                    {!! Form::close() !!}
 
                 </div>
 
@@ -580,9 +554,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>
-                                Ticket Design
-                            </h4>
+                            <h4>Ticket Design</h4>
 
                             <div class="form-group">
                                 {!! Form::label('name', 'Ticket Border Color', ['class'=>'control-label required ']) !!}
@@ -617,13 +589,10 @@
                                                             ])  !!}
                             </div>
 
-
                         </div>
                         <div class="col-md-6">
-                            <h4>
-                                Ticket Preview
-                            </h4>
-                                @include('ManageEvent.Partials.TicketDesignPreview')
+                            <h4>Ticket Preview</h4>
+                            @include('ManageEvent.Partials.TicketDesignPreview')
                         </div>
                     </div>
                     <div class="panel-footer mt15 text-right">
@@ -632,24 +601,17 @@
 
                     {!! Form::close() !!}
 
-
                 </div>
 
                 <div class="tab-pane {{$tab == 'embed' ? 'active' : ''}}" id="embed">
 
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>
-                                HTML Embed Code
-                            </h4>
-                        <textarea rows='7' onfocus="this.select();" class="form-control">
-{{$event->embed_html_code}}
-                        </textarea>
+                            <h4>HTML Embed Code</h4>
+                            <textarea rows="7" onfocus="this.select();" class="form-control">{{$event->embed_html_code}}</textarea>
                         </div>
                         <div class="col-md-6">
-                            <h4>
-                                Instructions
-                            </h4>
+                            <h4>Instructions</h4>
 
                             <p>
                                 Simply copy and paste the HTML provided onto your website where you would like the
@@ -671,7 +633,6 @@
 
                         </div>
                     </div>
-
 
                 </div>
 

@@ -16,18 +16,14 @@
             border-color: #d6e9c6  !important;
             color: #3c763d  !important;
         }
-
     </style>
-
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
-
             <div class="panel">
                 <div class="panel-body">
-
                     <div class="logo">
                         {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
                     </div>
@@ -80,7 +76,7 @@
 
                     <h3>App Settings</h3>
 
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('app_url', 'Application URL', array('class'=>'required control-label ')) !!}
                         {!!  Form::text('app_url', Input::old('app_url'),
                                     array(
@@ -90,14 +86,14 @@
                     </div>
 
 
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('database_name', 'Database Name', array('class'=>'required control-label ')) !!}
                         {!!  Form::text('database_name', Input::old('database_name'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('database_host', 'Database Host', array('class'=>'control-label required')) !!}
                         {!!  Form::text('database_host', Input::old('database_host'),
                                     array(
@@ -106,7 +102,7 @@
                                     ))  !!}
                     </div>
 
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('database_username', 'Database Username', array('class'=>'control-label required')) !!}
                         {!!  Form::text('database_username', Input::old('database_username'),
                                     array(
@@ -114,7 +110,7 @@
                                     'placeholder'=>'',
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('database_password', 'Database Password', array('class'=>'control-label ')) !!}
                         {!!  Form::text('database_password', Input::old('database_password'),
                                     array(
@@ -159,21 +155,21 @@
 
                     <h3>Email Settings</h3>
 
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_from_address', 'Mail From Address', array('class'=>' control-label required')) !!}
                         {!!  Form::text('mail_from_address', Input::old('mail_from_address'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_from_name', 'Mail From Name', array('class'=>' control-label required')) !!}
                         {!!  Form::text('mail_from_name', Input::old('mail_from_name'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_driver', 'Mail Driver', array('class'=>' control-label required')) !!}
                         {!!  Form::text('mail_driver', Input::old('mail_driver'),
                                     array(
@@ -186,35 +182,35 @@
                         </div>
                     </div>
 
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_port', 'Mail Port', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_port', Input::old('mail_port'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_encryption', 'Mail Encryption', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_encryption', Input::old('mail_encryption'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_host', 'Mail Host', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_host', Input::old('mail_host'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_username', 'Mail Username', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_username', Input::old('mail_username'),
                                     array(
                                     'class'=>'form-control'
                                     ))  !!}
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         {!! Form::label('mail_password', 'Mail Password', array('class'=>' control-label ')) !!}
                         {!!  Form::text('mail_password', Input::old('mail_password'),
                                     array(
@@ -223,9 +219,9 @@
                     </div>
 
                     <div class="well">
-                       <p>
-                           Installation may make take several minutes to complete. Once you click '<b>Install Attendize</b>' the config settings will be written to this file: <b>{{base_path('.env')}}</b>. You can manually change these settings in the future by editing this file.
-                       </p>
+                        <p>
+                            Installation may make take several minutes to complete. Once you click '<b>Install Attendize</b>' the config settings will be written to this file: <b>{{base_path('.env')}}</b>. You can manually change these settings in the future by editing this file.
+                        </p>
                         <p>
                             If the install fails be sure to check the log file in <b>{{storage_path('logs')}}</b> to find the error.
                         </p>
@@ -234,17 +230,11 @@
                         </p>
                     </div>
 
-
                     {!! Form::submit('Install Attendize', ['class'=>" btn-block btn btn-success"]) !!}
                     {!! Form::close() !!}
 
-
                 </div>
             </div>
-
-
         </div>
     </div>
-
 @stop
-

@@ -1,12 +1,9 @@
 @extends('Shared.Layouts.Master')
 
-
-
 @section('title')
     @parent
     Organiser Events
 @stop
-
 
 @section('page_title')
     <i class="ico-calendar"></i>
@@ -15,7 +12,7 @@
 
 @section('top_nav')
     <ul class="nav navbar-nav navbar-left">
-        <li class="navbar-main ">
+        <li class="navbar-main">
             <a href="javascript:void(0);" class='toggleSidebar' title="Organisers">
             <span class="toggleSidebarIcon">
                 <span class="icon">
@@ -24,18 +21,16 @@
             </span>
             </a>
         </li>
-
     </ul>
 @stop
 
-
-
 @section('head')
-    <style> .page-header {
+    <style>
+        .page-header {
             display: none;
-        } </style>
+        }
+    </style>
 @stop
-
 
 @section('menu')
     @include('ManageOrganiser.Partials.Sidebar')
@@ -45,17 +40,15 @@
 
 @stop
 
-
 @section('content')
 
     <div class="row">
-
         <div class="col-md-12">
             <ul class="nav nav-tabs">
                 <li class="active">
                     <a href="#organiserSettings" data-toggle="tab">Organiser Settings</a>
                 </li>
-                <li class="">
+                <li>
                     <a href="#OrganiserPageDesign" data-toggle="tab">Organiser Page Design</a>
                 </li>
             </ul>
@@ -63,14 +56,14 @@
                 <div class="tab-pane active" id="organiserSettings">
                     {!! Form::model($organiser, array('url' => route('postEditOrganiser', ['organiser_id' => $organiser->id]), 'class' => 'ajax')) !!}
 
-                        <div class="form-group ">
+                        <div class="form-group">
                             {!! Form::label('name', 'Organiser Name', array('class'=>'required control-label ')) !!}
                             {!!  Form::text('name', Input::old('name'),
                                                     array(
                                                     'class'=>'form-control'
                                                     ))  !!}
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             {!! Form::label('email', 'Organiser Email', array('class'=>'control-label required')) !!}
                             {!!  Form::text('email', Input::old('email'),
                                                     array(
@@ -78,7 +71,7 @@
                                                     'placeholder'=>''
                                                     ))  !!}
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             {!! Form::label('about', 'Organiser Description', array('class'=>'control-label ')) !!}
                             {!!  Form::textarea('about', Input::old('about'),
                                                     array(
@@ -90,7 +83,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group ">
+                                <div class="form-group">
                                     {!! Form::label('facebook', 'Organiser Facebook', array('class'=>'control-label ')) !!}
 
                                     <div class="input-group">
@@ -101,11 +94,10 @@
                                                         'placeholder'=>'Username'
                                                         ))  !!}
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group ">
+                                <div class="form-group">
                                     {!! Form::label('twitter', 'Organiser Twitter', array('class'=>'control-label ')) !!}
 
                                     <div class="input-group">
@@ -116,9 +108,6 @@
                                                  'placeholder'=>'Username'
                                                  ))  !!}
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -131,11 +120,9 @@
                                     {!! Form::label('remove_current_image', 'Delete Logo?', array('class'=>'control-label ')) !!}
                                     {!! Form::checkbox('remove_current_image') !!}
                                 </div>
-
-
                             </div>
                         @endif
-                        <div class="form-group ">
+                        <div class="form-group">
                             {!!  Form::labelWithHelp('organiser_logo', 'Organiser Logo', array('class'=>'control-label '),
                                 'We recommend a square image, as this will look best on printed tickets and event pages.')  !!}l
                             {!!Form::styledFile('organiser_logo')!!}
@@ -145,14 +132,12 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
-                <div class="tab-pane " id="OrganiserPageDesign">
+                <div class="tab-pane" id="OrganiserPageDesign">
                     Coming soon.
                 </div>
             </div>
         </div>
-
     </div>
-
 @stop
 
 

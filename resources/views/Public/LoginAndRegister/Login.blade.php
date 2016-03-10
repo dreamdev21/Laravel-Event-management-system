@@ -3,17 +3,11 @@
 @section('title', 'Login')
 
 @section('content')
-
-
     {!! Form::open(array('url' => 'login')) !!}
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-
             <div class="panel">
-
-
                 <div class="panel-body">
-
                     <div class="logo">
                         {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
                     </div>
@@ -21,7 +15,7 @@
                     @if(Session::has('failed'))
                         <h4 class="text-danger mt0">Whoops! </h4>
                         <ul class="list-group">
-                            <li class='list-group-item'>Please check your details and try again.</li>
+                            <li class="list-group-item">Please check your details and try again.</li>
                         </ul>
                     @endif
 

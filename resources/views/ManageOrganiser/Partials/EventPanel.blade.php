@@ -10,7 +10,7 @@
         </div>
         <ul class="event-meta">
             <li class="event-title">
-                <a title="{{{$event->title}}}" href='{{route('showEventDashboard', ['event_id'=>$event->id])}}'>
+                <a title="{{{$event->title}}}" href="{{route('showEventDashboard', ['event_id'=>$event->id])}}">
                     {{{ str_limit($event->title, $limit = 75, $end = '...') }}}
                 </a>
             </li>
@@ -21,7 +21,7 @@
 
     </div>
 
-    <div class='panel-body'>
+    <div class="panel-body">
         <ul class="nav nav-section nav-justified mt5 mb5">
             <li>
                 <div class="section">
