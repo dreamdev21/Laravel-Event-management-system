@@ -2,7 +2,7 @@
     <!--    Keep this page lean as possible.-->
     <head>
         <title>
-            Tickets
+            Ticket(s)
         </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
@@ -25,17 +25,17 @@
             .ticket {
                 /*page-break-after: always;*/
                 padding: 10px;
-                border: 1px solid #000;
+                border: 1px solid {{$event->ticket_border_color}};
                 width: 700px;
                 margin: 0 auto;
                 margin-top: 20px;
-                background: #ffffff;
+                background: {{$event->ticket_bg_color}};
                 position: relative;
                 height: 330px;
                 font-size: 12px;
-                color: #999999;
+                color: {{$event->ticket_sub_text_color}};
                 border-left-width: 3px;
-                border-left-color: #000;
+                border-left-color: {{$event->ticket_border_color}};
                 overflow: hidden;
             }
 
@@ -84,7 +84,7 @@
                 font-size: 17px;
                 margin: 6px auto;
                 text-transform: uppercase;
-                color: #000000;
+                color: {{$event->ticket_text_color}};
 
             }
 
@@ -114,7 +114,7 @@
                 position: absolute;
                 right: 1px;
                 top: 1px;
-                border: 1px solid #000;
+                border: 1px solid {{$event->ticket_border_color}};
                 border-top: none;
                 border-right: none;
                 padding: 5px;

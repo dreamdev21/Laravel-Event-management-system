@@ -54,7 +54,7 @@ class OrganiserCustomizeController extends MyBaseController
             $file_name = str_slug($organiser->name).'-logo-'.$organiser->id.'.'.strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
 
             $relative_path_to_file = config('attendize.organiser_images_path').'/'.$file_name;
-            $full_path_to_file = public_path().'/'.$relative_path_to_file;
+            $full_path_to_file = public_path($relative_path_to_file);
 
             $img = Image::make($the_file);
 

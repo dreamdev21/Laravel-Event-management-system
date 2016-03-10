@@ -179,6 +179,8 @@
                                                                         data-toggle="tab">Affiliates</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'fees'])}}"
                     class="{{$tab == 'fees' ? 'active' : ''}}"><a href="#fees" data-toggle="tab">Service Fees</a></li>
+                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'ticket_design'])}}"
+                    class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">Ticket Design</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'embed'])}}"
                     class="{{$tab == 'embed' ? 'active' : ''}}"><a href="#embed" data-toggle="tab">Website Embed
                         Code</a></li>
@@ -569,6 +571,67 @@
                     </div>
 
                     {!!Form::close()!!}
+
+                </div>
+
+                <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
+
+                    {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>
+                                Ticket Design
+                            </h4>
+
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Border Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('color', 'ticket_border_color', Input::old('ticket_border_color'),
+                                                            [
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Background Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('color', 'ticket_bg_color', Input::old('ticket_bg_color'),
+                                                            [
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'#FFFFFF'
+                                                            ])  !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Text Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('color', 'ticket_text_color', Input::old('ticket_text_color'),
+                                                            [
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Sub Text Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('color', 'ticket_sub_text_color', Input::old('ticket_border_color'),
+                                                            [
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <h4>
+                                Ticket Preview
+                            </h4>
+                                @include('ManageEvent.Partials.TicketDesignPreview')
+                        </div>
+                    </div>
+                    <div class="panel-footer mt15 text-right">
+                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                    </div>
+
+                    {!! Form::close() !!}
+
 
                 </div>
 

@@ -532,6 +532,10 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'postEditEventDesign',
             'uses' => 'EventCustomizeController@postEditEventDesign',
         ]);
+        Route::post('{event_id}/customize/ticket_design', [
+            'as'   => 'postEditEventTicketDesign',
+            'uses' => 'EventCustomizeController@postEditEventTicketDesign',
+        ]);
         Route::post('{event_id}/customize/social', [
             'as'   => 'postEditEventSocial',
             'uses' => 'EventCustomizeController@postEditEventSocial',

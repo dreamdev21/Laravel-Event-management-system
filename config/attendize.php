@@ -26,9 +26,9 @@ return [
     'app_name' => 'Attendize Event Ticketing',
     'event_default_bg_color' => '#B23333',
 
-    'event_images_path' => 'user_content/event_images/',
-    'organiser_images_path' => 'user_content/organiser_images/',
-    'event_pdf_tickets_path' => 'user_content/pdf_tickets/',
+    'event_images_path' => 'user_content/event_images',
+    'organiser_images_path' => 'user_content/organiser_images',
+    'event_pdf_tickets_path' => 'user_content/pdf_tickets',
     'event_bg_images' => 'assets/images/public/EventPage/backgrounds',
 
     'fallback_organiser_logo_url' => '/assets/images/logo-100x100-lightBg.png',
