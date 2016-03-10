@@ -1,9 +1,6 @@
 @extends('Shared.Layouts.MasterWithoutMenus')
 
-@section('title')
-    Login
-@stop
-
+@section('title', 'Login')
 
 @section('content')
 
@@ -21,7 +18,7 @@
                         {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
                     </div>
 
-                    @if(Input::get('failed'))
+                    @if(Session::has('failed'))
                         <h4 class="text-danger mt0">Whoops! </h4>
                         <ul class="list-group">
                             <li class='list-group-item'>Please check your details and try again.</li>
@@ -29,13 +26,12 @@
                     @endif
 
                     <div class="form-group">
-                        {!! Form::label('email', 'Email') !!}
-                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
+                        {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                     </div>
                     <div class="form-group">
-
-                        {!! Form::label('password', 'Password') !!}
-                        (<a class="forgotPassword" href="{{route('forgotPassword')}}">Forgot password?</a>)
+                        {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
+                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">Forgot password?</a>)
                         {!! Form::password('password',  ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
@@ -44,15 +40,11 @@
 
                     @if(Utils::isAttendize())
                     <div class="signup">
-                        <span>Don't have any account? <a class="semibold" href="/signup">Sign up</a></span>
+                        <span>Don't have any account? <a class="semibold" href="{{ url('signup') }}">Sign up</a></span>
                     </div>
                     @endif
-
                 </div>
-
-
             </div>
-
         </div>
     </div>
     {!! Form::close() !!}

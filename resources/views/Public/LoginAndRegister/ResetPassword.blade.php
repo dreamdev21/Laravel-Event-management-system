@@ -38,15 +38,15 @@ Forgot Password
             @endif
 
             <div class="form-group">
-               {!! Form::label('email', 'Your Email') !!}
-               {!! Form::text('email', null, ['class' => 'form-control']) !!}
+               {!! Form::label('email', 'Your Email', ['class' => 'control-label']) !!}
+               {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
             </div>
             <div class="form-group">
-               {!! Form::label('password', 'New Password') !!}
+               {!! Form::label('password', 'New Password', ['class' => 'control-label']) !!}
                {!! Form::password('password',  ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-               {!! Form::label('password_confirmation', 'Confirm Password') !!}
+               {!! Form::label('password_confirmation', 'Confirm Password', ['class' => 'control-label']) !!}
                {!! Form::password('password_confirmation',  ['class' => 'form-control']) !!}
             </div>
            {!! Form::hidden('token',  $token) !!}

@@ -20,12 +20,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $table = 'users';
 
+    public $dates = ['deleted_at'];
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = ['password'];
+
+    protected $fillable = [
+        'account_id',
+        'first_name',
+        'last_name',
+        'phone',
+        'email',
+        'password',
+        'confirmation_code',
+        'is_registered',
+        'is_confirmed',
+        'is_parent',
+        'remember_token'
+    ];
 
     public function account()
     {
