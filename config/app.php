@@ -131,6 +131,7 @@ return [
         'Mews\Purifier\PurifierServiceProvider',
         'MaxHoffmann\Parsedown\ParsedownServiceProvider',
         'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...

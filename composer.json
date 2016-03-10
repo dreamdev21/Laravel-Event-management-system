@@ -22,7 +22,8 @@
         "maxhoffmann/parsedown-laravel": "dev-master",
         "ignited/laravel-omnipay": "2.*",
         "omnipay/stripe": "*",
-        "omnipay/paypal": "*"
+        "omnipay/paypal": "*",
+        "barryvdh/laravel-ide-helper": "^2.1"
 
     },
     "require-dev": {
