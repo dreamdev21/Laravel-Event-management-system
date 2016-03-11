@@ -313,7 +313,8 @@ class EventCheckoutController extends Controller
          * Update affiliates stats stats
          */
         if ($ticket_order['affiliate_referral']) {
-            $affiliate = Affiliate::where('name', '=', $ticket_order['affiliate_referral'])->first();
+            $affiliate = Affiliate::where('name', '=', $ticket_order['affiliate_referral'])
+                ->where('event_id', '=', $event_id)->first();
             $affiliate->increment('sales_volume', $order->amount + $order->organiser_booking_fee);
             $affiliate->increment('tickets_sold', $ticket_order['total_ticket_quantity']);
         }
