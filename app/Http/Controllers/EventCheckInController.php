@@ -1,34 +1,39 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Attendee;
 use App\Models\Event;
 use Carbon\Carbon;
 use DB;
-use Input;
-use Response;
-use View;
 
 class EventCheckInController extends MyBaseController
 {
     /**
-     * @param $event_id
+     * Show the check-in page
      *
-     * @return mixed
+     * @param $event_id
+     * @return \Illuminate\View\View
      */
     public function showCheckIn($event_id)
     {
         $data['event'] = Event::scope()->findOrFail($event_id);
         $data['attendees'] = $data['event']->attendees;
 
-        return View::make('ManageEvent.CheckIn', $data);
+        return view('ManageEvent.CheckIn', $data);
     }
 
-    public function postCheckInSearch($event_id)
+    /**
+     * Search attendees
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCheckInSearch(Request $request, $event_id)
     {
-        $searchQuery = Input::get('q');
+        $searchQuery = $request->get('q');
 
         $attendees = Attendee::scope()->withoutCancelled()
                 ->join('tickets', 'tickets.id', '=', 'attendees.ticket_id')
@@ -54,13 +59,19 @@ class EventCheckInController extends MyBaseController
                 ->orderBy('attendees.first_name', 'ASC')
                 ->get();
 
-        return Response::json($attendees);
+        return response()->json($attendees);
     }
 
-    public function postCheckInAttendee()
+    /**
+     * Check in/out an attendee
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCheckInAttendee(Request $request)
     {
-        $attendee_id = Input::get('attendee_id');
-        $checking = Input::get('checking');
+        $attendee_id = $request->get('attendee_id');
+        $checking    = $request->get('checking');
 
         $attendee = Attendee::scope()->find($attendee_id);
 
@@ -68,7 +79,7 @@ class EventCheckInController extends MyBaseController
          * Ugh
          */
         if ((($checking == 'in') && ($attendee->has_arrived == 1)) || (($checking == 'out') && ($attendee->has_arrived == 0))) {
-            return Response::json([
+            return response()->json([
                         'status'  => 'error',
                         'message' => 'Warning: This Attendee Has Already Been Checked '.(($checking == 'in') ? 'In (at '.$attendee->arrival_time->format('H:i A, F j').')' : 'Out').'!',
                         'checked' => $checking,
@@ -80,7 +91,7 @@ class EventCheckInController extends MyBaseController
         $attendee->arrival_time = Carbon::now();
         $attendee->save();
 
-        return Response::json([
+        return response()->json([
                     'status'  => 'success',
                     'checked' => $checking,
                     'message' => 'Attendee Successfully Checked '.(($checking == 'in') ? 'In' : 'Out'),

@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 Ticketing By
                 <a href="/">
-                    <a href="https://attendize.com?utm_source=event_page">Attend<b>ize</b></a>
+                    <a href="https://www.attendize.com">Attend<b>ize</b></a>
                 </a>
             </div>
         </div>
