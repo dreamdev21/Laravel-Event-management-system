@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Commands\OrderTicketsCommand;
+use App\Commands\SendAttendeeTicketCommand;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
@@ -10,16 +11,14 @@ use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Ticket;
+use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Excel;
-use Illuminate\Http\Request;
-use Input;
 use Mail;
 use Response;
 use Session;
 use Validator;
-use View;
 
 class EventAttendeesController extends MyBaseController
 {
@@ -278,7 +277,7 @@ class EventAttendeesController extends MyBaseController
         });
 
         /* Could bcc in the above? */
-        if (Input::get('send_copy') == '1') {
+        if ($request->get('send_copy') == '1') {
             Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
                 $message->to($attendee->event->organiser->email, $attendee->event->organiser->name)
                         ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
@@ -299,11 +298,11 @@ class EventAttendeesController extends MyBaseController
      * @param $event_id
      * @return View
      */
-    public function showMessageAttendees($event_id)
+    public function showMessageAttendees(Request $request, $event_id)
     {
         $data = [
             'event'    => Event::scope()->find($event_id),
-            'modal_id' => Input::get('modal_id'),
+            'modal_id' => $request->get('modal_id'),
             'tickets'  => Event::scope()->find($event_id)->tickets()->lists('title', 'id')->toArray(),
         ];
 
@@ -558,9 +557,7 @@ class EventAttendeesController extends MyBaseController
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        $order = $attendee->order;
-
-        $this->dispatch(new OrderTicketsCommand($order, false));
+        $this->dispatch(new SendAttendeeTicketCommand($attendee));
 
         return response()->json([
             'status'  => 'success',

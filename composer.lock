@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.15.8",
+            "version": "3.15.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "94630759de5e55c8e9670ea12b7ded132229696d"
+                "reference": "5f27941e2f1ac1700e667cfcf9d9da44c1d9b612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/94630759de5e55c8e9670ea12b7ded132229696d",
-                "reference": "94630759de5e55c8e9670ea12b7ded132229696d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5f27941e2f1ac1700e667cfcf9d9da44c1d9b612",
+                "reference": "5f27941e2f1ac1700e667cfcf9d9da44c1d9b612",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-03-08 23:21:09"
+            "time": "2016-03-11 00:44:20"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -2103,12 +2103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NitMedia/wkhtml2pdf.git",
-                "reference": "6d7dc9f8d0021723cd208075f72e63029cebb6ab"
+                "reference": "74ee44a0d35552f7caa4b9b8a1d3ee8c7e99fd0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NitMedia/wkhtml2pdf/zipball/6d7dc9f8d0021723cd208075f72e63029cebb6ab",
-                "reference": "6d7dc9f8d0021723cd208075f72e63029cebb6ab",
+                "url": "https://api.github.com/repos/NitMedia/wkhtml2pdf/zipball/74ee44a0d35552f7caa4b9b8a1d3ee8c7e99fd0b",
+                "reference": "74ee44a0d35552f7caa4b9b8a1d3ee8c7e99fd0b",
                 "shasum": ""
             },
             "require": {
@@ -2143,7 +2143,7 @@
                 "wkhtml2pdf",
                 "wkhtmltopdf"
             ],
-            "time": "2016-02-29 14:44:41"
+            "time": "2016-03-11 14:25:56"
         },
         {
             "name": "omnipay/common",

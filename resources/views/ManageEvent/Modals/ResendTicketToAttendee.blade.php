@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <div class="help-block">
-                    The attendee will be sent another copy of their ticket to <b>{{$attendee->event->organiser->email}}</b>
+                    The attendee will be sent another copy of their ticket to <b>{{$attendee->email}}</b>
                 </div>
             </div> <!-- /end modal body-->
             <div class="modal-footer">

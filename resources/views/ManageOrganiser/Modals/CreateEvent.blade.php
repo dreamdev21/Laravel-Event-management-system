@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label('title', 'Event Title', array('class'=>'control-label required')) !!}
-                            {!!  Form::text('title', Input::old('title'),array('class'=>'form-control','placeholder'=>'E.g: '.Auth::user()->first_name.'\'s Interational Conference' ))  !!}
+                            {!!  Form::text('title', Input::old('title'),array('class'=>'form-control','placeholder'=>'E.g: '.Auth::user()->first_name.'\'s International Conference' ))  !!}
                         </div>
 
                         <div class="form-group custom-theme">

@@ -4,11 +4,33 @@ namespace App\Attendize\mailers;
 
 use App\Models\Attendee;
 use App\Models\Message;
+use App\Models\Order;
 use Carbon\Carbon;
 use Mail;
 
 class AttendeeMailer extends Mailer
 {
+    /**
+     * Send the attendee the ticket
+     *
+     * @param Attendee $attendee
+     * @param Order $order
+     * @param $ticket_path
+     */
+    public function sendAttendeeTicket(Attendee $attendee, Order $order, $ticket_path)
+    {
+        $this->sendTo($attendee->email, config('attendize.outgoing_email'), $order->event->organiser->name, 'Your ticket for the event '.$order->event->title, 'Emails.AttendeeTicketResend', [
+            'order'      => $order,
+            'email_logo' => $order->event->organiser->full_logo_path,
+            'attendee'   => $attendee
+        ], $ticket_path);
+    }
+
+    /**
+     * Sends the attendees a message
+     *
+     * @param Message $message_object
+     */
     public function sendMessageToAttendees(Message $message_object)
     {
         $event = $message_object->event;

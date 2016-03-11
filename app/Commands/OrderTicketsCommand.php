@@ -4,12 +4,12 @@ namespace App\Commands;
 
 use App\Attendize\mailers\OrderMailer;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Log;
 
-class OrderTicketsCommand extends Command implements ShouldBeQueued, SelfHandling
+class OrderTicketsCommand extends Command implements ShouldQueue, SelfHandling
 {
     use InteractsWithQueue,
         SerializesModels;
