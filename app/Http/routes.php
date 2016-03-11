@@ -422,6 +422,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventAttendeesController@postMessageAttendee',
         ]);
 
+        Route::get('{event_id}/attendees/resend_ticket', [
+            'as'   => 'showResendTicketToAttendee',
+            'uses' => 'EventAttendeesController@showResendTicketToAttendee',
+        ]);
+
+        Route::post('{event_id}/attendees/resend_ticket', [
+            'as'   => 'postResendTicketToAttendee',
+            'uses' => 'EventAttendeesController@postResendTicketToAttendee',
+        ]);
+
         Route::get('{event_id}/attendees/create', [
             'as'   => 'showCreateAttendee',
             'uses' => 'EventAttendeesController@showCreateAttendee',

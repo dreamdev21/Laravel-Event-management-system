@@ -93,9 +93,9 @@ class EventAttendeesController extends MyBaseController
         }
 
         return view('ManageEvent.Modals.CreateAttendee', [
-                    'modal_id' => $request->get('modal_id'),
-                    'event'    => $event,
-                    'tickets'  => $event->tickets()->lists('title', 'id'),
+            'modal_id' => $request->get('modal_id'),
+            'event'    => $event,
+            'tickets'  => $event->tickets()->lists('title', 'id'),
         ]);
     }
 
@@ -195,11 +195,11 @@ class EventAttendeesController extends MyBaseController
         session()->flash('message', 'Attendee Successfully Created');
 
         return response()->json([
-                    'status'      => 'success',
-                    'id'          => $attendee->id,
-                    'redirectUrl' => route('showEventAttendees', [
-                        'event_id' => $event_id,
-                    ]),
+            'status'      => 'success',
+            'id'          => $attendee->id,
+            'redirectUrl' => route('showEventAttendees', [
+                'event_id' => $event_id,
+            ]),
         ]);
     }
 
@@ -288,8 +288,8 @@ class EventAttendeesController extends MyBaseController
         }
 
         return response()->json([
-                    'status'  => 'success',
-                    'message' => 'Message Successfully Sent',
+            'status'  => 'success',
+            'message' => 'Message Successfully Sent',
         ]);
     }
 
@@ -346,8 +346,8 @@ class EventAttendeesController extends MyBaseController
          */
 
         return response()->json([
-                    'status'  => 'success',
-                    'message' => 'Message Successfully Sent',
+            'status'  => 'success',
+            'message' => 'Message Successfully Sent',
         ]);
     }
 
@@ -453,9 +453,9 @@ class EventAttendeesController extends MyBaseController
         session()->flash('message', 'Successfully Updated Attendee');
 
         return response()->json([
-                    'status'      => 'success',
-                    'id'          => $attendee->id,
-                    'redirectUrl' => '',
+            'status'      => 'success',
+            'id'          => $attendee->id,
+            'redirectUrl' => '',
         ]);
     }
 
@@ -521,9 +521,50 @@ class EventAttendeesController extends MyBaseController
         session()->flash('message', 'Successfully Cancelled Attenddee');
 
         return response()->json([
-                    'status'      => 'success',
-                    'id'          => $attendee->id,
-                    'redirectUrl' => '',
+            'status'      => 'success',
+            'id'          => $attendee->id,
+            'redirectUrl' => '',
+        ]);
+    }
+
+    /**
+     * Show the 'Message Attendee' modal
+     *
+     * @param Request $request
+     * @param $attendee_id
+     * @return View
+     */
+    public function showResendTicketToAttendee(Request $request, $attendee_id)
+    {
+        $attendee = Attendee::scope()->findOrFail($attendee_id);
+
+        $data = [
+            'attendee' => $attendee,
+            'event'    => $attendee->event,
+            'modal_id' => $request->get('modal_id'),
+        ];
+
+        return view('ManageEvent.Modals.ResendTicketToAttendee', $data);
+    }
+
+    /**
+     * Send a message to an attendee
+     *
+     * @param Request $request
+     * @param $attendee_id
+     * @return mixed
+     */
+    public function postResendTicketToAttendee(Request $request, $attendee_id)
+    {
+        $attendee = Attendee::scope()->findOrFail($attendee_id);
+
+        $order = $attendee->order;
+
+        $this->dispatch(new OrderTicketsCommand($order, false));
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Ticket Successfully Resent',
         ]);
     }
 }

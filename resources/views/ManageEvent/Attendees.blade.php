@@ -68,12 +68,10 @@ Attendees
     <div class="col-md-12">
         @if($attendees->count())
         <div class="panel">
-
             <div class="table-responsive">
                 <table class="table " >
                     <thead>
                         <tr>
-<!--                            <th width="5%"></th>-->
                             <th>
                                {!!Html::sortable_link('Name', $sort_by, 'first_name', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
                             </th>
@@ -94,43 +92,51 @@ Attendees
                         <tr class="attendee_{{$attendee->id}} {{$attendee->is_cancelled ? 'danger' : ''}}">
                             <td>{{{$attendee->full_name}}}</td>
                             <td>
-                                <a
-                                    data-modal-id='MessageAttendee'
-                                    href='javascript:void(0);'
+                                <a data-modal-id="MessageAttendee" href="javascript:void(0);" class="loadModal"
                                     data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
-                                    class='loadModal '
                                     > {{$attendee->email}}</a>
                             </td>
                             <td>
-                                    {{{$attendee->ticket->title}}}
+                                {{{$attendee->ticket->title}}}
                             </td>
                             <td>
-                                <a href='javascript:void(0);' data-modal-id='view-order-{{ $attendee->order->id }}' data-href="{{route('showManageOrder', ['order_id'=>$attendee->order->id])}}" title="View Order #{{$attendee->order->order_reference}}" class="loadModal">
+                                <a href="javascript:void(0);" data-modal-id="view-order-{{ $attendee->order->id }}" data-href="{{route('showManageOrder', ['order_id'=>$attendee->order->id])}}" title="View Order #{{$attendee->order->order_reference}}" class="loadModal">
                                     #{{$attendee->order->order_reference}}
                                 </a>
                             </td>
                             <td class="text-center">
-                                @if($attendee->email)
-                                <a
-                                    data-modal-id='MessageAttendee'
-                                    href='javascript:void(0);'
-                                    data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
-                                    class='loadModal btn  btn-xs btn-primary'
-                                    > Message</a>
-                                @endif
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        @if($attendee->email)
+                                        <li><a
+                                            data-modal-id="MessageAttendee"
+                                            href="javascript:void(0);"
+                                            data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
+                                            class="loadModal"
+                                            > Message</a></li>
+                                        @endif
+                                        <li><a
+                                            data-modal-id="ResendTicketToAttendee"
+                                            href="javascript:void(0);"
+                                            data-href="{{route('showResendTicketToAttendee', ['attendee_id'=>$attendee->id])}}"
+                                            class="loadModal"
+                                            > Resend Ticket</a></li>
+                                    </ul>
+                                </div>
 
                                 <a
-                                    data-modal-id='EditAttendee'
-                                    href='javascript:void(0);'
+                                    data-modal-id="EditAttendee"
+                                    href="javascript:void(0);"
                                     data-href="{{route('showEditAttendee', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
-                                    class='loadModal btn  btn-xs btn-primary'
+                                    class="loadModal btn btn-xs btn-primary"
                                     > Edit</a>
 
                                 <a
-                                    data-modal-id='CancelAttendee'
-                                    href='javascript:void(0);'
+                                    data-modal-id="CancelAttendee"
+                                    href="javascript:void(0);"
                                     data-href="{{route('showCancelAttendee', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
-                                    class='loadModal btn  btn-xs btn-danger'
+                                    class="loadModal btn btn-xs btn-danger"
                                     > Cancel</a>
                             </td>
                         </tr>

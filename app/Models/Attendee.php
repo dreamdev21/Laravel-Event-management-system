@@ -43,7 +43,7 @@ class Attendee extends MyBaseModel
 
     public function order()
     {
-        return$this->belongsTo('\App\Models\Order');
+        return $this->belongsTo('\App\Models\Order');
     }
 
     public function ticket()
