@@ -13,6 +13,13 @@ namespace App\Models;
  */
 class Message extends MyBaseModel
 {
+
+    protected $fillable = [
+        'message',
+        'subject',
+        'recipients',
+    ];
+
     public function event()
     {
         return $this->belongsTo('\App\Models\Event');
