@@ -618,11 +618,6 @@
                                 widget to appear and the widget will appear.
                             </p>
 
-                            <p>
-                                Feel free to <a href="mailto:{{config('attendize.incoming_email')}}?subject=HTML Embed Code Help">contact
-                                    us</a> if you require any further information regarding using the HTML embed code.
-                            </p>
-
                             <h5>
                                 <b>Embed Preview</b>
                             </h5>
