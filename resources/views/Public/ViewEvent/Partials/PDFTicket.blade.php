@@ -136,51 +136,51 @@
             {{--</div>--}}
 
             @foreach($attendees as $attendee)
-            <div class="ticket">
+                @if(!$attendee->is_cancelled)
+                    <div class="ticket">
 
-                <div class='logo'>
-<!--                    <img src="http://dev.attendize.com/assets/images/logo-100x100-lightBg.png" />-->
-                    <img src="{{empty(config('attendize.cdn_url_user_assets')) ? url('/'.$event->organiser->logo_path) : config('attendize.cdn_url_user_assets').'/'.$event->organiser->logo_path}}" />
-                </div>
+                        <div class='logo'>
+                            <img src="{{empty(config('attendize.cdn_url_user_assets')) ? url('/'.$event->organiser->logo_path) : config('attendize.cdn_url_user_assets').'/'.$event->organiser->logo_path}}" />
+                        </div>
 
-                <div class="event_details">
-                    <div class="top_barcode hide">
-                        <img src="data:image/png; base64,{!! \DNS1D::getBarcodePNG("4", "C39+", 4, 40) !!}" alt="barcode"   />
+                        <div class="event_details">
+                            <div class="top_barcode hide">
+                                <img src="data:image/png; base64,{!! \DNS1D::getBarcodePNG("4", "C39+", 4, 40) !!}" alt="barcode"   />
+                            </div>
+                            <h4>Event</h4>
+                            {{$event->title}}
+                            <h4>Organiser</h4>
+                            {{$event->organiser->name}}
+                            <h4>Venue</h4>
+                            {{$event->venue_name}}
+                            <h4>Start Date / Time</h4>
+                            {{$event->start_date->format('M dS g:iA')}}
+                            <h4>End Date / Time</h4>
+                            {{$event->end_date->format('M dS g:iA')}}
+                        </div>
+
+                        <div class="attendee_details">
+                            <h4>Name</h4>
+                            {{{$attendee->first_name.' '.$attendee->last_name}}}
+
+                            <h4>Ticket Type</h4>
+                            {{{$attendee->ticket->title}}}
+                            <h4>Order Ref.</h4>
+                            #{{$order->order_reference}}
+                            <h4>Attendee Ref.</h4>
+                            #{{$attendee->reference}}
+                            <h4>Price</h4>
+                            {{money($attendee->ticket->total_price, $order->event->currency->code)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency->code)}} Fees)
+                        </div>
+
+                        <div class="barcode">
+                            {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
+                        </div>
+                        <div class="barcode_vertical">
+                            {!! DNS1D::getBarcodeSVG($attendee->private_reference_number, "EAN2", 1, 40) !!}
+                        </div>
                     </div>
-                    <h4>Event</h4>
-                    {{$event->title}}
-                    <h4>Organiser</h4>
-                    {{$event->organiser->name}}
-                    <h4>Venue</h4>
-                    {{$event->venue_name}}
-                    <h4>Start Date / Time</h4>
-                    {{$event->start_date->format('M dS g:iA')}}
-                    <h4>End Date / Time</h4>
-                    {{$event->end_date->format('M dS g:iA')}}
-                </div>
-
-                <div class="attendee_details">
-                    <h4>Name</h4>
-                    {{{$attendee->first_name.' '.$attendee->last_name}}}
-
-                    <h4>Ticket Type</h4>
-                    {{{$attendee->ticket->title}}}
-                    <h4>Order Ref.</h4>
-                    #{{$order->order_reference}}
-                    <h4>Attendee Ref.</h4>
-                    #{{$attendee->reference}}
-                    <h4>Price</h4>
-                    {{money($attendee->ticket->total_price, $order->event->currency->code)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency->code)}} Fees)
-                </div>
-
-                <div class="barcode">
-                    {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
-                </div>
-                <div class="barcode_vertical">
-                    {!! DNS1D::getBarcodeSVG($attendee->private_reference_number, "EAN2", 1, 40) !!}
-                </div>
-            </div>
-
+                @endif
             @endforeach
 
             <div class="bottom_info">
