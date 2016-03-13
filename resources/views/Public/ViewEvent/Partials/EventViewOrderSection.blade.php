@@ -168,6 +168,36 @@
                                     {{money($order->total_amount, $order->event->currency->code)}}
                                 </td>
                             </tr>
+                            @if($order->is_refunded || $order->is_partially_refunded)
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <b>Refunded Amount</b>
+                                    </td>
+                                    <td colspan="2">
+                                        {{money($order->amount_refunded, $order->event->currency->code)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td colspan="2">
+                                        {{money($order->total_amount - $order->amount_refunded, $order->event->currency->code)}}
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
 
@@ -189,6 +219,11 @@
                                 </td>
                                 <td>
                                     {{{$attendee->ticket->title}}}
+                                </td>
+                                <td>
+                                    @if($attendee->is_cancelled)
+                                        Cancelled
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
