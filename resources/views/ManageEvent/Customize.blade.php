@@ -155,7 +155,7 @@
 
 
 @section('content')
-    <div class='row'>
+    <div class="row">
         <div class="col-md-12">
             <!-- tab -->
             <ul class="nav nav-tabs">
@@ -363,7 +363,7 @@
                                 </div>
 
 
-                                <div class="panel panel-default" data-type='image'>
+                                <div class="panel panel-default" data-type="image">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#bgOptions" href="#bgImage"
@@ -377,9 +377,9 @@
                                         <div class="panel-body">
                                             @foreach($available_bg_images_thumbs as $bg_image)
 
-                                                <img data-3='{{str_replace('/thumbs', '', $event->bg_image_path)}}'
+                                                <img data-3="{{str_replace('/thumbs', '', $event->bg_image_path)}}"
                                                      class="img-thumbnail ma5 bgImage {{ ($bg_image === str_replace('/thumbs', '', $event->bg_image_path) ? 'selected' : '') }}"
-                                                     style="width: 120px;" src='{{asset($bg_image)}}'
+                                                     style="width: 120px;" src="{{asset($bg_image)}}"
                                                      data-src="{{str_replace('/thumbs', '', substr($bg_image,1))}}"/>
 
                                             @endforeach
@@ -392,7 +392,7 @@
                                 {{--
                                 ## Ability to have a custom background image is disbaled for now.
 
-                                                            <div class="panel panel-default" data-type='custom_image'>
+                                                            <div class="panel panel-default" data-type="custom_image">
                                                                 <div class="panel-heading">
                                                                     <h4 class="panel-title">
                                                                         <a data-toggle="collapse" data-parent="#bgOptions" href="#bgCustomImage" class="{{($event->bg_type == 'custom_image') ? '' : 'collapsed'}}">

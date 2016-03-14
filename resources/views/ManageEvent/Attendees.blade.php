@@ -31,8 +31,10 @@ Attendees
         <div class="btn-group btn-group-responsive">
             <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-ticket"></i> Add Attendee</button>
         </div>
-        <div class="btn-group btn-group btn-group-responsive">
+        <div class="btn-group btn-group-responsive">
             <a class="btn btn-success" href="{{route('showPrintAttendees', ['event_id'=>$event->id])}}" target="_blank" ><i class="ico-print"></i> Print Attendee List</a>
+        </div>
+        <div class="btn-group btn-group-responsive">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                 <i class="ico-users"></i> Export <span class="caret"></span>
             </button>
@@ -51,7 +53,7 @@ Attendees
 <div class="col-md-3">
    {!! Form::open(array('url' => route('showEventAttendees', ['event_id'=>$event->id,'sort_by'=>$sort_by]), 'method' => 'get')) !!}
     <div class="input-group">
-        <input name='q' value="{{$q or ''}}" placeholder="Search Attendees.." type="text" class="form-control">
+        <input name="q" value="{{$q or ''}}" placeholder="Search Attendees.." type="text" class="form-control" />
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
         </span>
@@ -69,7 +71,7 @@ Attendees
         @if($attendees->count())
         <div class="panel">
             <div class="table-responsive">
-                <table class="table " >
+                <table class="table">
                     <thead>
                         <tr>
                             <th>
