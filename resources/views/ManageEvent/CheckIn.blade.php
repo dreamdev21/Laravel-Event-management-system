@@ -198,7 +198,7 @@
                     $('#attendee_list').html('There are no results.');
                 } else {
                     for (i in attendees) {
-                        $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived === '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
+                        $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived == '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
                                 + 'Name: <b>' + attendees[i].first_name + ' '
                                 + attendees[i].last_name
                                 + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
