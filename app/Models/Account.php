@@ -9,16 +9,36 @@ class Account extends MyBaseModel
 {
     use SoftDeletes;
 
+    /**
+     * The validation rules
+     *
+     * @var array $rules
+     */
     protected $rules = [
         'first_name' => ['required'],
         'last_name'  => ['required'],
         'email'      => ['required', 'email'],
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array $dates
+     */
     public $dates = ['deleted_at'];
 
+    /**
+     * The validation error messages.
+     *
+     * @var array $messages
+     */
     protected $messages = [];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array $fillable
+     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -47,21 +67,41 @@ class Account extends MyBaseModel
         'stripe_data_raw'
     ];
 
+    /**
+     * The users associated with the account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany('\App\Models\User');
     }
 
+    /**
+     * The orders associated with the account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders()
     {
         return $this->hasMany('\App\Models\Order');
     }
 
+    /**
+     * The currency associated with the account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function currency()
     {
         return $this->hasOne('\App\Models\Currency');
     }
 
+    /**
+     * Get the stripe api key.
+     *
+     * @return \Illuminate\Support\Collection|mixed|static
+     */
     public function getStripeApiKeyAttribute()
     {
         if (Utils::isAttendize()) {

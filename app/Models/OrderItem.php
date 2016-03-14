@@ -13,5 +13,11 @@ namespace App\Models;
  */
 class OrderItem extends MyBaseModel
 {
+    /**
+     * Indicates if the model should be timestamped.
+
+     *
+     * @var bool $timestamps
+     */
     public $timestamps = false;
 }

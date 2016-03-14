@@ -10,57 +10,113 @@ class Order extends MyBaseModel
 {
     use SoftDeletes;
 
+    /**
+     * The validation rules of the model.
+     *
+     * @var array $rules
+     */
     public $rules = [
         'order_first_name' => ['required'],
         'order_last_name'  => ['required'],
         'order_email'      => ['required', 'email'],
     ];
+
+    /**
+     * The validation error messages.
+     *
+     * @var array $messages
+     */
     public $messages = [
         'order_first_name.required' => 'Please enter a valid first name',
         'order_last_name.required'  => 'Please enter a valid last name',
         'order_email.email'         => 'Please enter a valid email',
     ];
 
+    /**
+     * The items associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orderItems()
     {
         return $this->hasMany('\App\Models\OrderItem');
     }
 
+    /**
+     * The attendees associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function attendees()
     {
         return $this->hasMany('\App\Models\Attendee');
     }
 
+    /**
+     * The account associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account()
     {
         return $this->belongsTo('\App\Models\Account');
     }
 
+    /**
+     * The event associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function event()
     {
         return $this->belongsTo('\App\Models\Event');
     }
 
+    /**
+     * The tickets associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function tickets()
     {
         return $this->hasMany('\App\Models\Ticket');
     }
 
+    /**
+     * The status associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function orderStatus()
     {
         return $this->belongsTo('\App\Models\OrderStatus');
     }
 
+    /**
+     * Get the organizer fee of the order.
+     *
+     * @return \Illuminate\Support\Collection|mixed|static
+     */
     public function getOrganiserAmountAttribute()
     {
         return $this->amount + $this->organiser_booking_fee;
     }
 
+    /**
+     * Get the total amount of the order.
+     *
+     * @return \Illuminate\Support\Collection|mixed|static
+     */
     public function getTotalAmountAttribute()
     {
         return $this->amount + $this->organiser_booking_fee + $this->booking_fee;
     }
 
+    /**
+     * Get the full name of the order.
+     *
+     * @return string
+     */
     public function getFullNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;
@@ -102,6 +158,9 @@ class Order extends MyBaseModel
         return file_exists($pdf_file);
     }
 
+    /**
+     * Boot all of the bootable traits on the model.
+     */
     public static function boot()
     {
         parent::boot();
