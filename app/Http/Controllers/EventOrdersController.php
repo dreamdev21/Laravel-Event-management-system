@@ -111,7 +111,7 @@ class EventOrdersController extends MyBaseController
         $order = Order::scope()->findOrFail($order_id);
         $refund_order = (Input::get('refund_order') === 'on') ? true : false;
         $refund_type = Input::get('refund_type');
-        $refund_amount = Input::get('refund_amount');
+        $refund_amount = round(floatval(Input::get('refund_amount')), 2);
         $attendees = Input::get('attendees');
         $error_message = false;
 
@@ -124,11 +124,10 @@ class EventOrdersController extends MyBaseController
                 $error_message = 'This order has already been refunded';
             } elseif ($order->organiser_amount == 0) {
                 $error_message = 'Nothing to refund';
-            } elseif ($refund_amount > ($order->organiser_amount - $order->amount_refunded)) {
+            } elseif ($refund_type !== 'full' && $refund_amount > round(($order->organiser_amount - $order->amount_refunded), 2)) {
                 $error_message = 'The maximum amount you can refund is '.(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code));
             }
             if (!$error_message) {
-                // @todo - remove the code repetition here
                 try {
                     $gateway = Omnipay::gateway('stripe');
 
@@ -137,54 +136,33 @@ class EventOrdersController extends MyBaseController
                     ]);
 
                     if ($refund_type === 'full') { /* Full refund */
-
                         $refund_amount = $order->organiser_amount - $order->amount_refunded;
+                    }
 
-                        $request = $gateway->refund([
-                            'transactionReference' => $order->transaction_id,
-                            'amount'               => $refund_amount,
-                            'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false,
-                        ]);
+                    $request = $gateway->refund([
+                        'transactionReference' => $order->transaction_id,
+                        'amount'               => $refund_amount,
+                        'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false,
+                    ]);
 
-                        $response = $request->send();
+                    $response = $request->send();
 
-                        if ($response->isSuccessful()) {
-                            /* Update the event sales volume*/
-                            $order->event->decrement('sales_volume', $refund_amount);
+                    if ($response->isSuccessful()) {
+                        /* Update the event sales volume*/
+                        $order->event->decrement('sales_volume', $refund_amount);
+                        $order->amount_refunded = round(($order->amount_refunded + $refund_amount), 2);
 
+                        if (($order->organiser_amount - $order->amount_refunded) == 0) {
                             $order->is_refunded = 1;
-                            $order->amount_refunded = $order->organiser_amount;
                             $order->order_status_id = config('attendize.order_refunded');
                         } else {
-                            $error_message = $response->getMessage();
-                        }
-                    } else { /* Partial refund */
-
-                        $refund = $gateway->refund([
-                            'transactionReference' => $order->transaction_id,
-                            'amount'               => floatval($refund_amount),
-                            'refundApplicationFee' => floatval($order->booking_fee) > 0 ? true : false,
-                        ]);
-
-                        $response = $refund->send();
-
-                        if ($response->isSuccessful()) {
-                            /* Update the event sales volume*/
-                            $order->event->decrement('sales_volume', $refund_amount);
-
-                            $order->order_status_id = config('attendize.order_partially_refunded');
-
-                            if (($order->organiser_amount - $order->amount_refunded) == 0) {
-                                $order->is_refunded = 1;
-                                $order->order_status_id = config('attendize.order_refunded');
-                            }
-
                             $order->is_partially_refunded = 1;
-                        } else {
-                            $error_message = $response->getMessage();
+                            $order->order_status_id = config('attendize.order_partially_refunded');
                         }
+                    } else {
+                        $error_message = $response->getMessage();
                     }
-                    $order->amount_refunded = round(($order->amount_refunded + $refund_amount), 2);
+
                     $order->save();
                 } catch (\Exeption $e) {
                     Log::error($e);
