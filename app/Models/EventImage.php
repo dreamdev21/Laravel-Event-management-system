@@ -13,4 +13,5 @@ namespace App\Models;
  */
 class EventImage extends MyBaseModel
 {
+    //put your code here.
 }

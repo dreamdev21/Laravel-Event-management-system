@@ -13,4 +13,5 @@ namespace App\Models;
  */
 class ReservedTickets extends \Illuminate\Database\Eloquent\Model
 {
+    //put your code here
 }

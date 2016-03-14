@@ -7,14 +7,16 @@ use DB;
 
 class EventStats extends \Illuminate\Database\Eloquent\Model
 {
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool $timestamps
+     */
     public $timestamps = false;
     public static $unguarded = true;
 
     /**
      * @todo This shouldn't be in a view.
-     */
-
-    /**
      * Update the amount of revenue a ticket has earned.
      *
      * @param int   $ticket_id
@@ -36,6 +38,13 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
         return $ticket->save();
     }
 
+    /**
+     * Update the amount of views a ticket has earned.
+     *
+     * @param $event_id
+     *
+     * @return bool
+     */
     public function updateViewCount($event_id)
     {
         $stats = $this->firstOrNew([
@@ -55,8 +64,10 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
         return $stats->save();
     }
 
-    /*
-     * TODO: Missing amount?
+    /**
+     * @todo: Missing amount?
+     * Updates the sales volume earned by an event.
+     *
      */
     public function updateSalesVolume($event_id)
     {
@@ -70,6 +81,14 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
         return $stats->save();
     }
 
+    /**
+     * Updates the number of tickets sold for the event.
+     *
+     * @param $event_id
+     * @param $count
+     *
+     * @return bool
+     */
     public function updateTicketsSoldCount($event_id, $count)
     {
         $stats = $this->firstOrNew([

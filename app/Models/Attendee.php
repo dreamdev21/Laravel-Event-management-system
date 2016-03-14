@@ -15,9 +15,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Attendee extends MyBaseModel
 {
+
     use SoftDeletes;
 
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array $fillable
+     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -30,7 +35,8 @@ class Attendee extends MyBaseModel
     ];
 
      /**
-      * Generate a private referennce number for the attendee. Use for checking in the attendee.
+      * Generate a private reference number for the attendee. Use for checking in the attendee.
+      *
       */
      public static function boot()
      {
@@ -41,21 +47,43 @@ class Attendee extends MyBaseModel
         });
      }
 
+    /**
+     * The order associated with the attendee.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function order()
     {
         return $this->belongsTo('\App\Models\Order');
     }
 
+    /**
+     * The ticket associated with the attendee.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function ticket()
     {
         return $this->belongsTo('\App\Models\Ticket');
     }
 
+    /**
+     * The event associated with the attendee.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function event()
     {
         return $this->belongsTo('\App\Models\Event');
     }
 
+    /**
+     * Scope a query to return attendees that have not cancelled.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopeWithoutCancelled($query)
     {
         return $query->where('attendees.is_cancelled', '=', 0);
@@ -66,11 +94,21 @@ class Attendee extends MyBaseModel
 //        return $this->order->order_reference
 //    }
 
+    /**
+     * Get the full name of the attendee.
+     *
+     * @return string
+     */
     public function getFullNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;
     }
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array $dates
+     */
     public function getDates()
     {
         return ['created_at', 'updated_at', 'arrival_time'];

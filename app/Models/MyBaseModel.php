@@ -11,12 +11,48 @@ use Validator;
 
 class MyBaseModel extends \Illuminate\Database\Eloquent\Model
 {
+    /**
+     * Indicates whether the model uses soft deletes.
+     *
+     * @var bool $softDelete
+     */
     protected $softDelete = true;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool $timestamps
+     */
     public $timestamps = true;
+
+    /**
+     * The validation rules of the model.
+     *
+     * @var array $rules
+     */
     protected $rules = [];
+
+    /**
+     * The validation error messages of the model.
+     *
+     * @var array $messages
+     */
     protected $messages = [];
+
+    /**
+     * The validation errors of model.
+     *
+     * @var  $errors
+     */
     protected $errors;
 
+    /**
+     * Validate the model instance.
+     *
+     * @param $data
+     *
+     * @return bool
+     */
     public function validate($data)
     {
         $v = Validator::make($data, $this->rules, $this->messages);
@@ -31,12 +67,21 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
         return true;
     }
 
+    /**
+     * Gets the validation error messages.
+     *
+     * @param bool $returnArray
+     *
+     * @return mixed
+     */
     public function errors($returnArray = true)
     {
         return $returnArray ? $this->errors->toArray() : $this->errors;
     }
 
     /**
+     * Create a new model.
+     *
      * @param int  $account_id
      * @param int  $user_id
      * @param bool $ignore_user_id
@@ -67,6 +112,14 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
         return $entity;
     }
 
+    /**
+     * Get a formatted date.
+     *
+     * @param        $field
+     * @param string $format
+     *
+     * @return bool|null|string
+     */
     public function getFormatedDate($field, $format = 'd-m-Y H:i')
     {
         return $this->$field === null ? null : date($format, strtotime($this->$field));
