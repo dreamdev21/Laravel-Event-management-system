@@ -30,18 +30,14 @@
         <style>
 
             ::-webkit-input-placeholder { /* WebKit browsers */
-                color: #fff !important;
             }
             :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-                color: #fff !important;
                 opacity: 1;
             }
             ::-moz-placeholder { /* Mozilla Firefox 19+ */
-                color: #fff !important;
                 opacity: 1;
             }
             :-ms-input-placeholder { /* Internet Explorer 10+ */
-                color: #fff !important;
             }
 
             .attendeeList .container {
@@ -91,24 +87,16 @@
             }
 
             .attendee_search {
-                padding: 20px;
                 font-size: 16px;
                 margin-bottom: 0;
                 border: none;
-                color: #fff;
-                background-color: #6784DB;
-
-            }
-
-            .attendee_search:focus {
-                color: #fff;
+                height: 40px;
             }
 
             .clearSearch {
                 position: absolute;
                 top: 10px;
                 right: 25px;
-                color: #fff;
                 font-size: 20px;
                 cursor: pointer;
                 display: none;
@@ -209,9 +197,8 @@
                 if (jQuery.isEmptyObject(attendees)) {
                     $('#attendee_list').html('There are no results.');
                 } else {
-                    for (i in attendees)
-                    {
-                        $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived === '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
+                    for (i in attendees) {
+                        $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived == '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
                                 + 'Name: <b>' + attendees[i].first_name + ' '
                                 + attendees[i].last_name
                                 + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
