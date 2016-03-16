@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Ticket;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Input;
 use Log;
 use Response;
@@ -16,27 +17,33 @@ use View;
 
 class EventTicketsController extends MyBaseController
 {
-    public function showTickets($event_id)
+    public function showTickets(Request $request, $event_id)
     {
-        $allowed_sorts = ['created_at', 'quantity_sold', 'sales_volume', 'title'];
-
-        $searchQuery = Input::get('q');
-        $sort_by = (in_array(Input::get('sort_by'), $allowed_sorts) ? Input::get('sort_by') : 'created_at');
-
-        $event = Event::scope()->findOrFail($event_id);
-
-        $tickets = $searchQuery
-                ? $event->tickets()->where('title', 'like', '%'.$searchQuery.'%')->orderBy($sort_by, 'desc')->paginate(10)
-                : $event->tickets()->orderBy($sort_by, 'desc')->paginate(10);
-
-        $data = [
-            'event'   => $event,
-            'tickets' => $tickets,
-            'sort_by' => $sort_by,
-            'q'       => $searchQuery ? $searchQuery : '',
+        $allowed_sorts = [
+            'created_at' => 'Creation date',
+            'title' => 'Ticket title',
+            'quantity_sold' => 'Quantity sold',
+            'sales_volume' => 'Sales volume',
         ];
 
-        return View::make('ManageEvent.Tickets', $data);
+        // Getting get parameters.
+        $q = $request->get('q', '');
+        $sort_by = $request->get('sort_by');
+        if (isset($allowed_sorts[$sort_by]) === false)
+            $sort_by = 'title';
+
+        // Find event or return 404 error.
+        $event = Event::scope()->find($event_id);
+        if ($event === null)
+            abort(404);
+
+        // Get tickets for event.
+        $tickets = empty($q) === false
+                ? $event->tickets()->where('title', 'like', '%'.$q.'%')->orderBy($sort_by, 'desc')->paginate()
+                : $event->tickets()->orderBy($sort_by, 'desc')->paginate();
+
+        // Return view.
+        return view('ManageEvent.Tickets', compact('event', 'tickets', 'sort_by', 'q', 'allowed_sorts'));
     }
 
     public function showEditTicket($event_id, $ticket_id)

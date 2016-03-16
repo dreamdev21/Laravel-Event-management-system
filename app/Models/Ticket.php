@@ -8,6 +8,8 @@ class Ticket extends MyBaseModel
 {
     use SoftDeletes;
 
+    protected $perPage = 10;
+
     /**
      * The rules to validate the model.
      *
@@ -179,9 +181,9 @@ class Ticket extends MyBaseModel
      *
      * @return bool
      */
-    public function isFree()
+    public function getIsFreeAttribute()
     {
-        return (int) ceil($this->price) === 0;
+        return ceil($this->price) === 0;
     }
 
     /**
@@ -191,36 +193,18 @@ class Ticket extends MyBaseModel
      */
     public function getSaleStatusAttribute()
     {
-        if ($this->start_sale_date !== null) {
-            if ($this->start_sale_date->isFuture()) {
-                return config('attendize.ticket_status_before_sale_date');
-            }
-        }
+        if ($this->start_sale_date !== null && $this->start_sale_date->isFuture())
+            return config('attendize.ticket_status_before_sale_date');
 
-        if ($this->end_sale_date !== null) {
-            if ($this->end_sale_date->isPast()) {
-                return config('attendize.ticket_status_after_sale_date');
-            }
-        }
+        if ($this->end_sale_date !== null && $this->end_sale_date->isPast())
+            return config('attendize.ticket_status_after_sale_date');
 
-        if ((int) $this->quantity_available > 0) {
-            if ((int) $this->quantity_remaining <= 0) {
-                return config('attendize.ticket_status_sold_out');
-            }
-        }
+        if ((int) $this->quantity_available > 0 && (int) $this->quantity_remaining <= 0)
+            return config('attendize.ticket_status_sold_out');
 
-        if ($this->event->start_date->lte(\Carbon::now())) {
+        if ($this->event->start_date->lte(\Carbon::now()))
             return config('attendize.ticket_status_off_sale');
-        }
 
         return config('attendize.ticket_status_on_sale');
     }
-
-//    public function setQuantityAvailableAttribute($value) {
-//        $this->attributes['quantity_available'] = trim($value) == '' ? -1 : $value;
-//    }
-//
-//    public function setMaxPerPersonAttribute($value) {
-//        $this->attributes['max_per_person'] = trim($value) == '' ? -1 : $value;
-//    }
 }
