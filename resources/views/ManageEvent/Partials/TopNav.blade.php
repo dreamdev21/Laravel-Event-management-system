@@ -16,7 +16,7 @@
     <li class="navbar-main">
         <a href="javascript:void(0);" class="toggleSidebar" title="Show sidebar">
             <span class="toggleMenuIcon">
-                <span class="icon"><i class="ico-menu"></i></span>
+                <span class="icon ico-menu"></span>
             </span>
         </a>
     </li>
@@ -24,7 +24,7 @@
     <li class="nav-button">
         <a target="_blank" href="{{$event->event_url}}">
             <span>
-                <i class="ico-eye2"></i> &nbsp;<hide class="hidden-xs">View </hide>Event Page
+                <i class="ico-eye2"></i>&nbsp;<hide class="hidden-xs">View </hide>Event Page
             </span>
         </a>
     </li>

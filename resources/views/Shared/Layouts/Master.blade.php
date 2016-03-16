@@ -75,17 +75,15 @@
 
                     <li>
                         <a data-href="{{route('showEditUser')}}" data-modal-id="EditUser"
-                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon"><i
-                                        class="ico-user"></i></span>My Profile</a>
+                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon ico-user"></span>My Profile</a>
                     </li>
                     <li class="divider"></li>
                     <li><a data-href="{{route('showEditAccount')}}" data-modal-id="EditAccount" class="loadModal"
-                           href="javascript:void(0);"><span class="icon"><i class="ico-cog"></i></span>Account
-                            Setting</a></li>
+                           href="javascript:void(0);"><span class="icon ico-cog"></span>Account Settings</a></li>
 
 
                     <li class="divider"></li>
-                    <li><a href="{{route('logout')}}"><span class="icon"><i class="ico-exit"></i></span> Sign Out</a></li>
+                    <li><a href="{{route('logout')}}"><span class="icon ico-exit"></span>Sign Out</a></li>
                 </ul>
             </li>
         </ul>

@@ -3,7 +3,7 @@
     <li class="navbar-main">
         <a href="javascript:void(0);" class="toggleSidebar" title="Show sidebar">
             <span class="toggleMenuIcon">
-                <span class="icon"><i class="ico-menu"></i></span>
+                <span class="icon ico-menu"></span>
             </span>
         </a>
     </li>
