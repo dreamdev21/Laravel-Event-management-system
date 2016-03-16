@@ -54,7 +54,7 @@ class EventTicketsController extends MyBaseController
             'modal_id' => Input::get('modal_id'),
         ];
 
-        return View::make('ManageEvent.Modals.EditTicket', $data);
+        return view('ManageEvent.Modals.EditTicket', $data);
     }
 
     public function showCreateTicket($event_id)
