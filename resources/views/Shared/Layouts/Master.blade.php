@@ -75,17 +75,15 @@
 
                     <li>
                         <a data-href="{{route('showEditUser')}}" data-modal-id="EditUser"
-                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon"><i
-                                        class="ico-user"></i></span>My Profile</a>
+                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon ico-user"></span>My Profile</a>
                     </li>
                     <li class="divider"></li>
                     <li><a data-href="{{route('showEditAccount')}}" data-modal-id="EditAccount" class="loadModal"
-                           href="javascript:void(0);"><span class="icon"><i class="ico-cog"></i></span>Account
-                            Setting</a></li>
+                           href="javascript:void(0);"><span class="icon ico-cog"></span>Account Settings</a></li>
 
 
                     <li class="divider"></li>
-                    <li><a href="{{route('logout')}}"><span class="icon"><i class="ico-exit"></i></span> Sign Out</a></li>
+                    <li><a href="{{route('logout')}}"><span class="icon ico-exit"></span>Sign Out</a></li>
                 </ul>
             </li>
         </ul>
@@ -96,10 +94,11 @@
 
 <!--Main Content-->
 <section id="main" role="main">
-    <section class="container-fluid">
+    <div class="container-fluid">
         <div class="page-title">
             <h1 class="title">@yield('page_title')</h1>
         </div>
+        @if(array_key_exists('page_header', View::getSections()))
         <!--  header -->
         <div class="page-header page-header-block row">
             <div class="row">
@@ -107,11 +106,12 @@
             </div>
         </div>
         <!--/  header -->
+        @endif
 
         <!--Content-->
         @yield('content')
         <!--/Content-->
-    </section>
+    </div>
 
     <!--To The Top-->
     <a href="#" style="display:none;" class="totop"><i class="ico-angle-up"></i></a>
@@ -140,7 +140,7 @@
 </script>
 <!--/JS-->
 @yield('foot')
-</body>
 
 @include('Shared.Partials.GlobalFooterJS')
+</body>
 </html>

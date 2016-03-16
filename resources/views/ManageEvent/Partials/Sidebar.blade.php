@@ -1,7 +1,7 @@
 <aside class="sidebar sidebar-left sidebar-menu">
     <section class="content">
         <h5 class="heading">Main Menu</h5>
-        <ul id="nav" class="topmenu">
+        <ul id="nav_main" class="topmenu">
             <li>
                 <a href="{{route('showOrganiserDashboard', ['organiser_id' => $event->organiser->id])}}">
                     <span class="figure"><i class="ico-arrow-left"></i></span>
@@ -10,7 +10,7 @@
             </li>
         </ul>
         <h5 class="heading">Event Menu</h5>
-        <ul id="nav" class="topmenu">
+        <ul id="nav_event" class="topmenu">
             <li class="{{ Request::is('*dashboard*') ? 'active' : '' }}">
                 <a href="{{route('showEventDashboard', array('event_id' => $event->id))}}">
                     <span class="figure"><i class="ico-home2"></i></span>
