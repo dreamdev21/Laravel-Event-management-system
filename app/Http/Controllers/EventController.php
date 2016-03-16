@@ -5,78 +5,89 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventImage;
 use App\Models\Organiser;
+use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 use Image;
-use Input;
-use Response;
 use Validator;
-use View;
+
 
 class EventController extends MyBaseController
 {
-    public function showCreateEvent()
+    /**
+     * Show the 'Create Event' Modal
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function showCreateEvent(Request $request)
     {
         $data = [
-            'modal_id'     => Input::get('modal_id'),
+            'modal_id'     => $request->get('modal_id'),
             'organisers'   => Organiser::scope()->lists('name', 'id'),
-            'organiser_id' => Input::get('organiser_id') ? Input::get('organiser_id') : false,
+            'organiser_id' => $request->get('organiser_id') ? $request->get('organiser_id') : false,
         ];
 
-        return View::make('ManageOrganiser.Modals.CreateEvent', $data);
+        return view('ManageOrganiser.Modals.CreateEvent', $data);
     }
 
-    public function postCreateEvent()
+    /**
+     * Create an event
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCreateEvent(Request $request)
     {
         $event = Event::createNew();
 
-        if (!$event->validate(Input::all())) {
-            return Response::json([
+        if (!$event->validate($request->all())) {
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $event->errors(),
             ]);
         }
 
-        $event->title = Input::get('title');
-        $event->description = strip_tags(Input::get('description'));
-        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : null;
+        $event->title = $request->get('title');
+        $event->description = strip_tags($request->get('description'));
+        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_date')) : null;
 
         /*
-         * Venue location info (Usually autofilled from google maps)
+         * Venue location info (Usually auto-filled from google maps)
          */
 
-        $is_auto_address = (trim(Input::get('place_id')) !== '');
+        $is_auto_address = (trim($request->get('place_id')) !== '');
 
         if ($is_auto_address) { /* Google auto filled */
-            $event->venue_name = Input::get('name');
-            $event->venue_name_full = Input::get('venue_name_full');
-            $event->location_lat = Input::get('lat');
-            $event->location_long = Input::get('lng');
-            $event->location_address = Input::get('formatted_address');
-            $event->location_country = Input::get('country');
-            $event->location_country_code = Input::get('country_short');
-            $event->location_state = Input::get('administrative_area_level_1');
-            $event->location_address_line_1 = Input::get('route');
-            $event->location_address_line_2 = Input::get('locality');
-            $event->location_post_code = Input::get('postal_code');
-            $event->location_street_number = Input::get('street_number');
-            $event->location_google_place_id = Input::get('place_id');
+            $event->venue_name = $request->get('name');
+            $event->venue_name_full = $request->get('venue_name_full');
+            $event->location_lat = $request->get('lat');
+            $event->location_long = $request->get('lng');
+            $event->location_address = $request->get('formatted_address');
+            $event->location_country = $request->get('country');
+            $event->location_country_code = $request->get('country_short');
+            $event->location_state = $request->get('administrative_area_level_1');
+            $event->location_address_line_1 = $request->get('route');
+            $event->location_address_line_2 = $request->get('locality');
+            $event->location_post_code = $request->get('postal_code');
+            $event->location_street_number = $request->get('street_number');
+            $event->location_google_place_id = $request->get('place_id');
             $event->location_is_manual = 0;
         } else { /* Manually entered */
-            $event->venue_name = Input::get('location_venue_name');
-            $event->location_address_line_1 = Input::get('location_address_line_1');
-            $event->location_address_line_2 = Input::get('location_address_line_2');
-            $event->location_state = Input::get('location_state');
-            $event->location_post_code = Input::get('location_post_code');
+            $event->venue_name = $request->get('location_venue_name');
+            $event->location_address_line_1 = $request->get('location_address_line_1');
+            $event->location_address_line_2 = $request->get('location_address_line_2');
+            $event->location_state = $request->get('location_state');
+            $event->location_post_code = $request->get('location_post_code');
             $event->location_is_manual = 1;
         }
 
-        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : null;
+        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_date')) : null;
 
         $event->currency_id = Auth::user()->account->currency_id;
         //$event->timezone_id = Auth::user()->account->timezone_id;
 
-        if (Input::get('organiser_name')) {
+        if ($request->get('organiser_name')) {
             $organiser = Organiser::createNew(false, false, true);
 
             $rules = [
@@ -87,7 +98,7 @@ class EventController extends MyBaseController
                 'organiser_name.required' => 'You must give a name for the event organiser.',
             ];
 
-            $validator = Validator::make(Input::all(), $rules, $messages);
+            $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->fails()) {
                 return Response::json([
@@ -96,27 +107,28 @@ class EventController extends MyBaseController
                 ]);
             }
 
-            $organiser->name = Input::get('organiser_name');
-            $organiser->about = Input::get('organiser_about');
-            $organiser->email = Input::get('organiser_email');
-            $organiser->facebook = Input::get('organiser_facebook');
-            $organiser->twitter = Input::get('organiser_twitter');
+            $organiser->name = $request->get('organiser_name');
+            $organiser->about = $request->get('organiser_about');
+            $organiser->email = $request->get('organiser_email');
+            $organiser->facebook = $request->get('organiser_facebook');
+            $organiser->twitter = $request->get('organiser_twitter');
             $organiser->save();
             $event->organiser_id = $organiser->id;
-        } elseif (Input::get('organiser_id')) {
-            $event->organiser_id = Input::get('organiser_id');
+
+        } elseif ($request->get('organiser_id')) {
+            $event->organiser_id = $request->get('organiser_id');
         } else { /* Somethings gone horribly wrong */
         }
 
         $event->save();
 
-        if (Input::hasFile('event_image')) {
+        if ($request->hasFile('event_image')) {
             $path = public_path().'/'.config('attendize.event_images_path');
-            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
+            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
 
             $file_full_path = $path.'/'.$filename;
 
-            Input::file('event_image')->move($path, $filename);
+            $request->file('event_image')->move($path, $filename);
 
             $img = Image::make($file_full_path);
 
@@ -136,7 +148,7 @@ class EventController extends MyBaseController
             $eventImage->save();
         }
 
-        return Response::json([
+        return response()->json([
                     'status'      => 'success',
                     'id'          => $event->id,
                     'redirectUrl' => route('showEventTickets', [
@@ -146,49 +158,56 @@ class EventController extends MyBaseController
         ]);
     }
 
-    public function postEditEvent($event_id)
+    /**
+     * Edit an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditEvent(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 
-        if (!$event->validate(Input::all())) {
-            return Response::json([
+        if (!$event->validate($request->all())) {
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $event->errors(),
             ]);
         }
 
-        $event->is_live = Input::get('is_live');
-        $event->title = Input::get('title');
-        $event->description = strip_tags(Input::get('description'));
-        $event->start_date = Input::get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_date')) : null;
+        $event->is_live = $request->get('is_live');
+        $event->title = $request->get('title');
+        $event->description = strip_tags($request->get('description'));
+        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_date')) : null;
 
         /*
          * If the google place ID is the same as before then don't update the venue
          */
-        if ((Input::get('place_id') !== $event->location_google_place_id) || $event->location_google_place_id == '') {
-            $is_auto_address = (trim(Input::get('place_id')) !== '');
+        if (($request->get('place_id') !== $event->location_google_place_id) || $event->location_google_place_id == '') {
+            $is_auto_address = (trim($request->get('place_id')) !== '');
 
             if ($is_auto_address) { /* Google auto filled */
-                $event->venue_name = Input::get('name');
-                $event->venue_name_full = Input::get('venue_name_full');
-                $event->location_lat = Input::get('lat');
-                $event->location_long = Input::get('lng');
-                $event->location_address = Input::get('formatted_address');
-                $event->location_country = Input::get('country');
-                $event->location_country_code = Input::get('country_short');
-                $event->location_state = Input::get('administrative_area_level_1');
-                $event->location_address_line_1 = Input::get('route');
-                $event->location_address_line_2 = Input::get('locality');
-                $event->location_post_code = Input::get('postal_code');
-                $event->location_street_number = Input::get('street_number');
-                $event->location_google_place_id = Input::get('place_id');
+                $event->venue_name = $request->get('name');
+                $event->venue_name_full = $request->get('venue_name_full');
+                $event->location_lat = $request->get('lat');
+                $event->location_long = $request->get('lng');
+                $event->location_address = $request->get('formatted_address');
+                $event->location_country = $request->get('country');
+                $event->location_country_code = $request->get('country_short');
+                $event->location_state = $request->get('administrative_area_level_1');
+                $event->location_address_line_1 = $request->get('route');
+                $event->location_address_line_2 = $request->get('locality');
+                $event->location_post_code = $request->get('postal_code');
+                $event->location_street_number = $request->get('street_number');
+                $event->location_google_place_id = $request->get('place_id');
                 $event->location_is_manual = 0;
             } else { /* Manually entered */
-                $event->venue_name = Input::get('location_venue_name');
-                $event->location_address_line_1 = Input::get('location_address_line_1');
-                $event->location_address_line_2 = Input::get('location_address_line_2');
-                $event->location_state = Input::get('location_state');
-                $event->location_post_code = Input::get('location_post_code');
+                $event->venue_name = $request->get('location_venue_name');
+                $event->location_address_line_1 = $request->get('location_address_line_1');
+                $event->location_address_line_2 = $request->get('location_address_line_2');
+                $event->location_state = $request->get('location_state');
+                $event->location_post_code = $request->get('location_post_code');
                 $event->location_is_manual = 1;
                 $event->location_google_place_id = '';
                 $event->venue_name_full = '';
@@ -201,21 +220,21 @@ class EventController extends MyBaseController
             }
         }
 
-        $event->end_date = Input::get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_date')) : null;
+        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_date')) : null;
 
-        if (Input::get('remove_current_image') == '1') {
+        if ($request->get('remove_current_image') == '1') {
             EventImage::where('event_id', '=', $event->id)->delete();
         }
 
         $event->save();
 
-        if (Input::hasFile('event_image')) {
+        if ($request->hasFile('event_image')) {
             $path = public_path().'/'.config('attendize.event_images_path');
-            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
+            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
 
             $file_full_path = $path.'/'.$filename;
 
-            Input::file('event_image')->move($path, $filename);
+            $request->file('event_image')->move($path, $filename);
 
             $img = Image::make($file_full_path);
 
@@ -236,7 +255,7 @@ class EventController extends MyBaseController
             $eventImage->save();
         }
 
-        return Response::json([
+        return response()->json([
                     'status'      => 'success',
                     'id'          => $event->id,
                     'message'     => 'Event Successfully Updated',
@@ -244,11 +263,17 @@ class EventController extends MyBaseController
         ]);
     }
 
-    public function postUploadEventImage()
+    /**
+     * Upload event image
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postUploadEventImage(Request $request)
     {
-        if (Input::hasFile('event_image')) {
-            $the_file = \File::get(Input::file('event_image')->getRealPath());
-            $file_name = 'event_details_image-'.md5(microtime()).'.'.strtolower(Input::file('event_image')->getClientOriginalExtension());
+        if ($request->hasFile('event_image')) {
+            $the_file = \File::get($request->file('event_image')->getRealPath());
+            $file_name = 'event_details_image-'.md5(microtime()).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
 
             $relative_path_to_file = config('attendize.event_images_path').'/'.$file_name;
             $full_path_to_file = public_path().'/'.$relative_path_to_file;
@@ -262,12 +287,12 @@ class EventController extends MyBaseController
 
             $img->save($full_path_to_file);
             if (\Storage::put($file_name, $the_file)) {
-                return Response::json([
+                return response()->json([
                     'link' => '/'.$relative_path_to_file,
                 ]);
             }
 
-            return Response::json([
+            return response()->json([
                     'error' => 'There was a problem uploading your image.',
                 ]);
         }

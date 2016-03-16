@@ -8,10 +8,15 @@ use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-use View;
 
 class EventDashboardController extends MyBaseController
 {
+    /**
+     * Show the event dashboard
+     *
+     * @param bool|false $event_id
+     * @return \Illuminate\View\View
+     */
     public function showDashboard($event_id = false)
     {
         $event = Event::scope()->findOrFail($event_id);
@@ -74,36 +79,7 @@ class EventDashboardController extends MyBaseController
             'chartData' => json_encode($result),
         ];
 
-        return View::make('ManageEvent.Dashboard', $data);
+        return view('ManageEvent.Dashboard', $data);
     }
 
-    /**
-     * @param $chartData
-     * @param bool|false $from_date
-     * @param bool|false $toDate
-     *
-     * @return string
-     */
-    public function generateChartJson($chartData, $from_date = false, $toDate = false)
-    {
-        $data = [];
-
-        $startdate = '2014-10-1';
-        $enddate = '2014-11-7';
-        $timestamp = strtotime($startdate);
-        while ($startdate <= $enddate) {
-            $startdate = date('Y-m-d', $timestamp);
-
-            $data[] = [
-                'date'         => $startdate,
-                'tickets_sold' => rand(0, 7),
-                'views'        => rand(0, 5),
-                'unique_views' => rand(0, 5),
-            ];
-
-            $timestamp = strtotime('+1 days', strtotime($startdate));
-        }
-
-        return json_encode($data);
-    }
 }
