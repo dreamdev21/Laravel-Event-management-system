@@ -94,7 +94,7 @@
 
 <!--Main Content-->
 <section id="main" role="main">
-    <section class="container-fluid">
+    <div class="container-fluid">
         <div class="page-title">
             <h1 class="title">@yield('page_title')</h1>
         </div>
@@ -109,7 +109,7 @@
         <!--Content-->
         @yield('content')
         <!--/Content-->
-    </section>
+    </div>
 
     <!--To The Top-->
     <a href="#" style="display:none;" class="totop"><i class="ico-angle-up"></i></a>
@@ -138,7 +138,7 @@
 </script>
 <!--/JS-->
 @yield('foot')
-</body>
 
 @include('Shared.Partials.GlobalFooterJS')
+</body>
 </html>

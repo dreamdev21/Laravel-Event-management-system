@@ -24,7 +24,7 @@
     <li class="nav-button">
         <a target="_blank" href="{{$event->event_url}}">
             <span>
-                <i class="ico-eye2"></i>&nbsp;<hide class="hidden-xs">View </hide>Event Page
+                <i class="ico-eye2"></i>&nbsp;Event Page
             </span>
         </a>
     </li>

@@ -11,7 +11,7 @@
     <li class="nav-button">
         <a target="__blank" href="{{$organiser->event_url}}">
             <span>
-                <i class="ico-eye2"></i> &nbsp;<hide class="hidden-xs">View </hide>Organiser Page
+                <i class="ico-eye2"></i>&nbsp;Organiser Page
             </span>
 
         </a>

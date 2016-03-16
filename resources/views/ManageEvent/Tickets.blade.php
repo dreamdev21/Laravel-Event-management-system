@@ -23,11 +23,11 @@ Event Tickets
     <!-- Toolbar -->
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button  data-modal-id='CreateTicket' href='javascript:void(0);'  data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}" class='loadModal btn btn-success' type="button" ><i class="ico-ticket"></i> Create Ticket</button>
+            <button  data-modal-id='CreateTicket' data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}" class='loadModal btn btn-success' type="button" ><i class="ico-ticket"></i> Create Ticket</button>
         </div>
         @if(false)
         <div class="btn-group btn-group-responsive ">
-            <button data-modal-id='TicketQuestions' href='javascript:void(0);'  data-href="{{route('showTicketQuestions', array('event_id'=>$event->id))}}"  type="button" class="loadModal btn btn-success" >
+            <button data-modal-id='TicketQuestions' data-href="{{route('showTicketQuestions', array('event_id'=>$event->id))}}"  type="button" class="loadModal btn btn-success" >
                 <i class="ico-question"></i> Questions 
             </button>
         </div>
