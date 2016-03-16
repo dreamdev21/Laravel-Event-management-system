@@ -211,42 +211,22 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>
-                                        Affiliate Name
-                                    </th>
-                                    <th>
-                                        Visits Generated
-                                    </th>
-                                    <th>
-                                        Ticket Sales Generated
-                                    </th>
-                                    <th>
-                                        Sales Volume Generated
-                                    </th>
-                                    <th>
-                                        Last Referral
-                                    </th>
+                                    <th>Affiliate Name</th>
+                                    <th>Visits Generated</th>
+                                    <th>Ticket Sales Generated</th>
+                                    <th>Sales Volume Generated</th>
+                                    <th>Last Referral</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
                                 @foreach($event->affiliates as $affiliate)
                                     <tr>
-                                        <td>
-                                            {{{$affiliate->name}}}
-                                        </td>
-                                        <td>
-                                            {{$affiliate->visits}}
-                                        </td>
-                                        <td>
-                                            {{$affiliate->tickets_sold}}
-                                        </td>
-                                        <td>
-                                            {{money($affiliate->sales_volume, $event->currency->code)}}
-                                        </td>
-                                        <td>
-                                            {{{ $affiliate->updated_at->format('M dS H:i A') }}}
-                                        </td>
+                                        <td>{{ $affiliate->name }}</td>
+                                        <td>{{ $affiliate->visits }}</td>
+                                        <td>{{ $affiliate->tickets_sold }}</td>
+                                        <td>{{ money($affiliate->sales_volume, $event->currency->code) }}</td>
+                                        <td>{{ $affiliate->updated_at->format('M dS H:i A') }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -279,10 +259,10 @@
 
                         {!! Form::label('social_share_text', 'Social Share Text', array('class'=>'control-label ')) !!}
 
-                        {{!!  Form::textarea('social_share_text', $event->social_share_text, [
+                        {!!  Form::textarea('social_share_text', $event->social_share_text, [
                             'class' => 'form-control',
                             'rows' => 4
-                        ])  !!}}
+                        ])  !!}
                         <div class="help-block">
                             This is the text which will be share by default when a user shares your event on social
                             networks
@@ -357,7 +337,7 @@
                                     <div id="bgColor"
                                          class="panel-collapse {{($event->bg_type == 'color') ? 'in' : 'collapse'}}">
                                         <div class="panel-body">
-                                            <input value="{{{$event->bg_color}}}" type="color" name="bg_color"/>
+                                            <input value="{{ $event->bg_color }}" type="color" name="bg_color"/>
                                         </div>
                                     </div>
                                 </div>
@@ -423,7 +403,6 @@
                                 <span class="uploadProgress" style="display:none;"></span>
                                 {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                             </div>
-
 
                             <div class="panel-footer ar hide">
                                 {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
@@ -509,8 +488,7 @@
                             </label>
                         </div>
                         <div class="help-block">
-                            If checked, the buyer will be asked for details of each attendee; as opposed to just
-                            himself.
+                            If checked, the buyer will be asked for details of each attendee; as opposed to just himself.
                         </div>
                     </div>
 

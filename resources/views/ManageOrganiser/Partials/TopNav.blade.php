@@ -3,17 +3,16 @@
     <li class="navbar-main">
         <a href="javascript:void(0);" class="toggleSidebar" title="Show sidebar">
             <span class="toggleMenuIcon">
-                <span class="icon"><i class="ico-menu"></i></span>
+                <span class="icon ico-menu"></span>
             </span>
         </a>
     </li>
     <!--/ Show Side Menu -->
     <li class="nav-button">
-        <a target="__blank" href="{{$organiser->event_url}}">
+        <a target="_blank" href="{{ $organiser->event_url }}">
             <span>
-                <i class="ico-eye2"></i> &nbsp;<hide class="hidden-xs">View </hide>Organiser Page
+                <i class="ico-eye2"></i>&nbsp;Organiser Page
             </span>
-
         </a>
     </li>
 </ul>

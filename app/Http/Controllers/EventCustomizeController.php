@@ -71,7 +71,7 @@ class EventCustomizeController extends MyBaseController
      * @param $event_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function postEditEventSocial(Request $request, $event_id)
+    public function postEditEventTicketSocial(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 

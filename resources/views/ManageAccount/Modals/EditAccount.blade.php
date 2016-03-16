@@ -112,7 +112,7 @@
                                             account you can do so using the button below.
                                         </div>
                                     @endif
-                                    <a target="__blank"
+                                    <a target="_blank"
                                        href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{$_ENV['STRIPE_APP_CLIENT_ID']}}&scope=read_write&state={{Auth::user()->id}}">
                                         <img src="{{asset('assets/images/stripe-connect-blue.png')}}"
                                              alt="Connect with Stripe"/>
