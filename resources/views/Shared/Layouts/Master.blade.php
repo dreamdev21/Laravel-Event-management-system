@@ -98,6 +98,7 @@
         <div class="page-title">
             <h1 class="title">@yield('page_title')</h1>
         </div>
+        @if(array_key_exists('page_header', View::getSections()))
         <!--  header -->
         <div class="page-header page-header-block row">
             <div class="row">
@@ -105,6 +106,7 @@
             </div>
         </div>
         <!--/  header -->
+        @endif
 
         <!--Content-->
         @yield('content')

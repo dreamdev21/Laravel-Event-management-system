@@ -10,25 +10,16 @@
 @stop
 @section('page_title')
     <i class="ico-building"></i>
-    <i>{{$organiser->name}}</i> Dashboard
+    <i>{{ $organiser->name }}</i> Dashboard
 @stop
 
-@section('page_header')
-    <style>
-        .page-header {
-            display: none;
-        }
-    </style>
-    @stop
-
-    @section('menu')
+@section('menu')
     @include('ManageOrganiser.Partials.Sidebar')
-    @stop
+@stop
 
-    @section('head')
+@section('head')
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
@@ -41,65 +32,56 @@
         }
     </style>
 
-    @stop
+@stop
 
-    @section('content')
-    <!-- Top Stats -->
+@section('content')
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="stat-box">
-                        <h3>
-                            {{$organiser->events->count()}}
-                        </h3>
-                    <span>
-                        Events
-                    </span>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="stat-box">
-                        <h3>
-                            {{$organiser->attendees->count()}}
-                        </h3>
-                    <span>
-                        Tickets Sold
-                    </span>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="stat-box">
-                        <h3>
-                            {{money($organiser->events->sum('sales_volume') + $organiser->events->sum('organiser_fees_volume'), 'EUR')}}
-                        </h3>
-                    <span>
-                        Sales Volume
-                    </span>
-                    </div>
-                </div>
+        <div class="col-sm-4">
+            <div class="stat-box">
+                <h3>
+                    {{$organiser->events->count()}}
+                </h3>
+            <span>
+                Events
+            </span>
             </div>
-
-            @if($upcoming_events->count())
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach($upcoming_events as $event)
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @include('ManageOrganiser.Partials.EventPanel')
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                @if($search['q'])
-                    @include('Shared.Partials.NoSearchResults')
-                @else
-                    @include('ManageOrganiser.Partials.EventsBlankSlate')
-                @endif
-            @endif
+        </div>
+        <div class="col-sm-4">
+            <div class="stat-box">
+                <h3>
+                    {{$organiser->attendees->count()}}
+                </h3>
+            <span>
+                Tickets Sold
+            </span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="stat-box">
+                <h3>
+                    {{ money($organiser->events->sum('sales_volume') + $organiser->events->sum('organiser_fees_volume'), 'EUR') }}
+                </h3>
+            <span>
+                Sales Volume
+            </span>
+            </div>
         </div>
     </div>
+
+    @if($upcoming_events->count())
+        <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
+        <div class="row">
+            @foreach($upcoming_events as $event)
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @include('ManageOrganiser.Partials.EventPanel')
+                </div>
+            @endforeach
+        </div>
+    @else
+        @if($search['q'])
+            @include('Shared.Partials.NoSearchResults')
+        @else
+            @include('ManageOrganiser.Partials.EventsBlankSlate')
+        @endif
+    @endif
 @stop
