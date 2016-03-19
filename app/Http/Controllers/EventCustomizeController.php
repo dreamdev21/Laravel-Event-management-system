@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use File;
 use Image;
-use Input;
-use Response;
 use Validator;
-use View;
 use Illuminate\Http\Request;
 
 class EventCustomizeController extends MyBaseController
 {
+    /**
+     * Show the event customize page
+     *
+     * @param string $event_id
+     * @param string $tab
+     * @return \Illuminate\View\View
+     */
     public function showCustomize($event_id = '', $tab = '')
     {
         $data = $this->getEventViewData($event_id, [
@@ -21,9 +25,14 @@ class EventCustomizeController extends MyBaseController
             'tab' => $tab,
         ]);
 
-        return View::make('ManageEvent.Customize', $data);
+        return view('ManageEvent.Customize', $data);
     }
 
+    /**
+     * get an array of available event background images
+     *
+     * @return array
+     */
     public function getAvailableBackgroundImages()
     {
         $images = [];
@@ -37,6 +46,11 @@ class EventCustomizeController extends MyBaseController
         return $images;
     }
 
+    /**
+     * Get an array of event bg image thumbnails
+     *
+     * @return array
+     */
     public function getAvailableBackgroundImagesThumbs()
     {
         $images = [];
@@ -50,8 +64,14 @@ class EventCustomizeController extends MyBaseController
         return $images;
     }
 
-
-    public function postEditEventTicketSocial($event_id)
+    /**
+     * Edit social settings of an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditEventSocial(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 
@@ -65,29 +85,29 @@ class EventCustomizeController extends MyBaseController
         ];
 
         $messages = [
-            'social_share_text.max' => 'Please keep the shate text under 3000 characters.',
+            'social_share_text.max' => 'Please keep the text under 3000 characters.',
         ];
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->social_share_text = Input::get('social_share_text');
-        $event->social_show_facebook = Input::get('social_show_facebook');
-        $event->social_show_linkedin = Input::get('social_show_linkedin');
-        $event->social_show_twitter = Input::get('social_show_twitter');
-        $event->social_show_email = Input::get('social_show_email');
-        $event->social_show_googleplus = Input::get('social_show_googleplus');
+        $event->social_share_text = $request->get('social_share_text');
+        $event->social_show_facebook = $request->get('social_show_facebook');
+        $event->social_show_linkedin = $request->get('social_show_linkedin');
+        $event->social_show_twitter = $request->get('social_show_twitter');
+        $event->social_show_email = $request->get('social_show_email');
+        $event->social_show_googleplus = $request->get('social_show_googleplus');
         $event->save();
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
-            'message' => 'Social Settings Succesfully Upated',
+            'message' => 'Social Settings Successfully Updated',
         ]);
 
     }
@@ -117,7 +137,7 @@ class EventCustomizeController extends MyBaseController
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
@@ -137,7 +157,14 @@ class EventCustomizeController extends MyBaseController
         ]);
     }
 
-    public function postEditEventFees($event_id)
+    /**
+     * Edit fees of an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditEventFees(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 
@@ -147,30 +174,37 @@ class EventCustomizeController extends MyBaseController
         ];
         $messages = [
             'organiser_fee_percentage.numeric' => 'Please enter a value between 0 and 100',
-            'organiser_fee_fixed.numeric' => 'Please check the format. It shoud be in the format 0.00.',
+            'organiser_fee_fixed.numeric' => 'Please check the format. It should be in the format 0.00.',
             'organiser_fee_fixed.between' => 'Please enter a value between 0 and 100.',
         ];
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->organiser_fee_percentage = Input::get('organiser_fee_percentage');
-        $event->organiser_fee_fixed = Input::get('organiser_fee_fixed');
+        $event->organiser_fee_percentage = $request->get('organiser_fee_percentage');
+        $event->organiser_fee_fixed = $request->get('organiser_fee_fixed');
         $event->save();
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
-            'message' => 'Order Page Succesfully Upated',
+            'message' => 'Order Page Successfully Updated',
         ]);
     }
 
-    public function postEditEventOrderPage($event_id)
+    /**
+     * Edit the event order page settings
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditEventOrderPage(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 
@@ -178,27 +212,34 @@ class EventCustomizeController extends MyBaseController
         $rules = [];
         $messages = [];
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->pre_order_display_message = trim(Input::get('pre_order_display_message'));
-        $event->post_order_display_message = trim(Input::get('post_order_display_message'));
-        $event->ask_for_all_attendees_info = (Input::get('ask_for_all_attendees_info') == 'on');
+        $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
+        $event->post_order_display_message = trim($request->get('post_order_display_message'));
+        $event->ask_for_all_attendees_info = ($request->get('ask_for_all_attendees_info') == 'on');
         $event->save();
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
-            'message' => 'Order Page Successfully Upated',
+            'message' => 'Order Page Successfully Updated',
         ]);
     }
 
-    public function postEditEventDesign($event_id)
+    /**
+     * Edit event page design/colors etc.
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditEventDesign(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
 
@@ -210,35 +251,35 @@ class EventCustomizeController extends MyBaseController
             'bg_image_path.max' => 'Please ensure the image is not larger than 2.5MB',
         ];
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        if (Input::get('bg_image_path_custom') && Input::get('bg_type') == 'image') {
-            $event->bg_image_path = Input::get('bg_image_path_custom');
+        if ($request->get('bg_image_path_custom') && $request->get('bg_type') == 'image') {
+            $event->bg_image_path = $request->get('bg_image_path_custom');
             $event->bg_type = 'image';
         }
 
-        if (Input::get('bg_color') && Input::get('bg_type') == 'color') {
-            $event->bg_color = Input::get('bg_color');
+        if ($request->get('bg_color') && $request->get('bg_type') == 'color') {
+            $event->bg_color = $request->get('bg_color');
             $event->bg_type = 'color';
         }
 
         /*
          * Not in use for now.
          */
-        if (Input::hasFile('bg_image_path') && Input::get('bg_type') == 'custom_image') {
+        if ($request->hasFile('bg_image_path') && $request->get('bg_type') == 'custom_image') {
             $path = public_path() . '/' . config('attendize.event_images_path');
-            $filename = 'event_bg-' . md5($event->id) . '.' . strtolower(Input::file('bg_image_path')->getClientOriginalExtension());
+            $filename = 'event_bg-' . md5($event->id) . '.' . strtolower($request->file('bg_image_path')->getClientOriginalExtension());
 
             $file_full_path = $path . '/' . $filename;
 
-            Input::file('bg_image_path')->move($path, $filename);
+            $request->file('bg_image_path')->move($path, $filename);
 
             $img = Image::make($file_full_path);
 
@@ -257,9 +298,9 @@ class EventCustomizeController extends MyBaseController
 
         $event->save();
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
-            'message' => 'Event Page Succesfully Upated',
+            'message' => 'Event Page Successfully Updated',
             'runThis' => 'document.getElementById(\'previewIframe\').contentWindow.location.reload(true);',
         ]);
     }

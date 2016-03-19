@@ -31,7 +31,7 @@
                             </td>
                             <td style="width:180px; text-align: right;">
                                 <div class="ticket-pricing" style="margin-right: 20px;">
-                                    @if($ticket->isFree())
+                                    @if($ticket->is_free)
                                     FREE
                                     @else
                                     <span title='{{{money($ticket->price, $event->currency->code)}}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency->code)}} Booking Fees'>{{{money($ticket->total_price, $event->currency->code)}}} </span>

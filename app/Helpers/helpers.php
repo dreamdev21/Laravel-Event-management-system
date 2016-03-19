@@ -7,7 +7,7 @@
  * @param string $dec_point
  * @param string $thousands_sep
  *
- * @return decimal
+ * @return string
  */
 function money($amount, $currency_code = '', $decimals = 2, $dec_point = '.', $thousands_sep = ',')
 {
