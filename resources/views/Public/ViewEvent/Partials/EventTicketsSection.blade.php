@@ -20,12 +20,12 @@
                 <div class="tickets_table_wrap">
                     <table class="table">
                         @foreach($tickets as $ticket)
-                        <tr class="ticket">
+                        <tr class="ticket" property="offers" typeof="Offer">
                             <td>
-                                <span class="ticket-title semibold">
+                                <span class="ticket-title semibold" property="name">
                                     {{{$ticket->title}}}
                                 </span>
-                                <p class="ticket-descripton mb0 text-muted">
+                                <p class="ticket-descripton mb0 text-muted" property="description">
                                     {{{$ticket->description}}}
                                 </p>
                             </td>
@@ -35,6 +35,8 @@
                                     FREE
                                     @else
                                     <span title='{{{money($ticket->price, $event->currency->code)}}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency->code)}} Booking Fees'>{{{money($ticket->total_price, $event->currency->code)}}} </span>
+                                    <meta property="priceCurrency" content="{{{ $event->currency->code }}}">
+                                    <meta property="price" content="{{{ number_format($ticket->price, 2, '.', '') }}}">
                                     @endif
                                 </div>
                             </td>
@@ -48,7 +50,7 @@
                                 @else
 
                                 @if($ticket->sale_status === config('attendize.ticket_status_sold_out'))
-                                <span class="text-danger">
+                                <span class="text-danger" property="availability" content="http://schema.org/SoldOut">
                                     Sold Out
                                 </span>
                                 @elseif($ticket->sale_status === config('attendize.ticket_status_before_sale_date'))
@@ -61,6 +63,7 @@
                                 </span>
                                 @else
                                {!! Form::hidden('tickets[]', $ticket->id) !!}
+                                <meta property="availability" content="http://schema.org/InStock">
                                 <select name="ticket_{{$ticket->id}}" class="form-control" style="text-align: center">
                                     <option value="0">0</option>
                                     @for($i=$ticket->min_per_person; $i<=$ticket->max_per_person; $i++)
