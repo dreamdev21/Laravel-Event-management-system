@@ -304,7 +304,7 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     });
 
     /*
-     * Upoad event images
+     * Upload event images
      */
     Route::post('/upload_image', [
         'as'   => 'postUploadEventImage',
