@@ -32,26 +32,36 @@
                 </style>
                 <div class="p0 well bgcolor-white order_overview">
                     <div class="row">
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>First Name</b><br> {{$order->first_name}}
                         </div>
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>Last Name</b><br> {{$order->last_name}}
                         </div>
 
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>Amount</b><br>{{money($order->total_amount, $order->event->currency->code)}}
                         </div>
 
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>Reference</b><br> {{$order->order_reference}}
                         </div>
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>Date</b><br> {{$order->created_at->toDateTimeString()}}
                         </div>
-                        <div class="col-sm-4 col-xs-6">
+                        <div class="col-sm-6 col-xs-6">
                             <b>Email</b><br> {{$order->email}}
                         </div>
+
+                        @if($order->transaction_id)
+                        <div class="col-sm-6 col-xs-6">
+                            <b>Transaction ID</b><br> {{$order->transaction_id}}
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <b>Payment Gateway</b><br> <a href="{{ $order->payment_gateway->provider_url }}" target="_blank">{{$order->payment_gateway->provider_name}}</a>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
 
