@@ -12,12 +12,12 @@ class CountriesSeeder extends Seeder
     public function run()
     {
         //Empty the countries table
-        DB::table('Countries')->delete();
+        DB::table('countries')->delete();
 
         //Get all of the countries
         $countries = json_decode(file_get_contents(database_path().'/seeds/countries.json'), true);
         foreach ($countries as $countryId => $country) {
-            DB::table('Countries')->insert([
+            DB::table('countries')->insert([
                 'id'                => $countryId,
                 'capital'           => ((isset($country['capital'])) ? $country['capital'] : null),
                 'citizenship'       => ((isset($country['citizenship'])) ? $country['citizenship'] : null),

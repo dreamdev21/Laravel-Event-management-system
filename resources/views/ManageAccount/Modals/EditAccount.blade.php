@@ -94,77 +94,7 @@
                             </div>
                             <div class="tab-pane " id="payment">
 
-                                @if(Utils::isAttendize())
-
-                                    <p>
-                                        We use <a href="https://stripe.com">Stripe</a> to handle payments. Stripe allows you
-                                        accept payment in 139 currencies.
-                                    </p>
-
-                                    <p>
-                                        If you don't have an existing account with Stripe you will be prompted to create
-                                        one. The process will only take a couple of minutes.
-                                    </p>
-
-                                    @if($account->stripe_access_token)
-                                        <div class="alert alert-info">
-                                            You have connected your Stripe account. If you would like to connect a new
-                                            account you can do so using the button below.
-                                        </div>
-                                    @endif
-                                    <a target="_blank"
-                                       href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{$_ENV['STRIPE_APP_CLIENT_ID']}}&scope=read_write&state={{Auth::user()->id}}">
-                                        <img src="{{asset('assets/images/stripe-connect-blue.png')}}"
-                                             alt="Connect with Stripe"/>
-                                    </a>
-
-                                @else
-
-                                    {!! Form::model($account, array('url' => route('postEditAccountPayment'), 'class' => 'ajax ')) !!}
-                                    <div class="alert alert-info">
-                                        <p>
-                                            We use <a href="https://stripe.com">Stripe</a> to handle payments. Stripe allows you
-                                            accept payment in 139 currencies. Once you have created Stripe account you can find you Secret Key and Publishable key here: <a href="https://dashboard.stripe.com/account/apikeys" target="_blank">https://dashboard.stripe.com/account/apikeys</a>.
-                                        </p>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-
-
-                                                {!! Form::label('stripe_secret_key', 'Stripe Secret Key', array('class'=>'control-label ')) !!}
-                                                {!!  Form::text('stripe_secret_key', Input::old('stripe_secret_key'),
-                                            array(
-                                            'class'=>'form-control'
-                                            ))  !!}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-
-
-                                                {!! Form::label('stripe_publishable_key', 'Stripe Publishable Key', array('class'=>'control-label ')) !!}
-                                                {!!  Form::text('stripe_publishable_key', Input::old('stripe_publishable_key'),
-                                            array(
-                                            'class'=>'form-control'
-                                            ))  !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="panel-footer">
-                                                {!! Form::submit('Save Payment Details', ['class' => 'btn btn-success pull-right']) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    {!! Form::close() !!}
-
-                                @endif
+                               @include('ManageAccount.Partials.PaymentGatewayOptions')
 
                             </div>
                             <div class="tab-pane" id="users">

@@ -82,6 +82,12 @@ class Order extends MyBaseModel
         return $this->hasMany('\App\Models\Ticket');
     }
 
+
+    public function payment_gateway()
+    {
+        return $this->belongsTo('\App\Models\PaymentGateway');
+    }
+
     /**
      * The status associated with the order.
      *

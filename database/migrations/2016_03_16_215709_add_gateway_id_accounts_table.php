@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddGatewayIdAccountsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->unsignedInteger('payment_gateway_id')->default(config('attendize.payment_gateway_stripe'));
+            $table->foreign('payment_gateway_id')->references('id')->on('payment_gateways');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('accounts', function (Blueprint $table) {
+            //
+        });
+    }
+}

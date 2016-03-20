@@ -20,9 +20,10 @@
         "mews/purifier": "~2.0",
         "league/flysystem-aws-s3-v3" : "~1.0",
         "maxhoffmann/parsedown-laravel": "dev-master",
-        "ignited/laravel-omnipay": "2.*",
+        "omnipay/common": "~2.3",
         "omnipay/stripe": "*",
         "omnipay/paypal": "*",
+        "omnipay/bitpay": "dev-master",
         "barryvdh/laravel-ide-helper": "^2.1"
 
     },

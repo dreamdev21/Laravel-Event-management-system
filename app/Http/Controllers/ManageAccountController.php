@@ -3,27 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\AccountPaymentGateway;
 use App\Models\Currency;
+use App\Models\PaymentGateway;
 use App\Models\Timezone;
 use App\Models\User;
 use Auth;
 use HttpClient;
+use Illuminate\Http\Request;
 use Input;
 use Response;
 use View;
 
 class ManageAccountController extends MyBaseController
 {
-    public function showEditAccount()
+    public function showEditAccount(Request $request)
     {
         $data = [
-            'modal_id'   => Input::get('modal_id'),
-            'account'    => Account::find(Auth::user()->account_id),
-            'timezones'  => Timezone::lists('location', 'id'),
+            'modal_id' => $request->get('modal_id'),
+            'account' => Account::find(Auth::user()->account_id),
+            'timezones' => Timezone::lists('location', 'id'),
             'currencies' => Currency::lists('title', 'id'),
+            'payment_gateways' => PaymentGateway::lists('provider_name', 'id'),
+            'account_payment_gateways' => AccountPaymentGateway::scope()->get()
         ];
 
-        return View::make('ManageAccount.Modals.EditAccount', $data);
+        return view('ManageAccount.Modals.EditAccount', $data);
     }
 
     public function showStripeReturn()
@@ -31,19 +36,18 @@ class ManageAccountController extends MyBaseController
         $error_message = 'There was an error connecting your Stripe account. Please try again.';
 
         if (Input::get('error') || !Input::get('code')) {
-            //BugSnag::notifyError('Error Connecting to Stripe', Input::get('error'));
             \Session::flash('message', $error_message);
 
             return redirect()->route('showEventsDashboard');
         }
 
         $request = [
-            'url'    => 'https://connect.stripe.com/oauth/token',
+            'url' => 'https://connect.stripe.com/oauth/token',
             'params' => [
 
                 'client_secret' => STRIPE_SECRET_KEY, //sk_test_iXk2Ky0DlhIcTcKMvsDa8iKI',
-                'code'          => Input::get('code'),
-                'grant_type'    => 'authorization_code',
+                'code' => Input::get('code'),
+                'grant_type' => 'authorization_code',
             ],
         ];
 
@@ -52,7 +56,6 @@ class ManageAccountController extends MyBaseController
         $content = $response->json();
 
         if (isset($content->error) || !isset($content->access_token)) {
-            //BugSnag::notifyError('Error Connecting to Stripe', Input::get('error'));
             \Session::flash('message', $error_message);
 
             return redirect()->route('showEventsDashboard');
@@ -76,7 +79,7 @@ class ManageAccountController extends MyBaseController
 
         if (!$account->validate(Input::all())) {
             return Response::json([
-                'status'   => 'error',
+                'status' => 'error',
                 'messages' => $account->errors(),
             ]);
         }
@@ -89,24 +92,51 @@ class ManageAccountController extends MyBaseController
         $account->save();
 
         return Response::json([
-            'status'  => 'success',
-            'id'      => $account->id,
+            'status' => 'success',
+            'id' => $account->id,
             'message' => 'Account Successfully Updated',
         ]);
     }
 
-    public function postEditAccountPayment()
+    /**
+     * Save account payment information
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function postEditAccountPayment(Request $request)
     {
         $account = Account::find(Auth::user()->account_id);
+        $gateway_id = $request->get('payment_gateway_id');
 
-        $account->stripe_publishable_key = Input::get('stripe_publishable_key');
-        $account->stripe_secret_key = Input::get('stripe_secret_key');
+        switch ($gateway_id) {
+            case config('attendize.payment_gateway_stripe') : //Stripe
+                $config = $request->get('stripe');
+                break;
+            case config('attendize.payment_gateway_paypal') : //PayPal
+                $config = $request->get('paypal');
+                break;
+            case config('attendize.payment_gateway_bitpay') : //BitPay
+                $config = $request->get('bitpay');
+                break;
+        }
 
+        $account_payment_gateway = AccountPaymentGateway::firstOrNew(
+            [
+                'payment_gateway_id' => $gateway_id,
+                'account_id' => $account->id,
+            ]);
+        $account_payment_gateway->config = $config;
+        $account_payment_gateway->account_id = $account->id;
+        $account_payment_gateway->payment_gateway_id = $gateway_id;
+        $account_payment_gateway->save();
+
+        $account->payment_gateway_id = $gateway_id;
         $account->save();
 
-        return Response::json([
-            'status'  => 'success',
-            'id'      => $account->id,
+        return response()->json([
+            'status' => 'success',
+            'id' => $account_payment_gateway->id,
             'message' => 'Payment Information Successfully Updated',
         ]);
     }
@@ -114,22 +144,22 @@ class ManageAccountController extends MyBaseController
     public function postInviteUser()
     {
         $rules = [
-        'email'  => ['required', 'email', 'unique:users,email,NULL,id,account_id,'.Auth::user()->account_id],
-    ];
+            'email' => ['required', 'email', 'unique:users,email,NULL,id,account_id,' . Auth::user()->account_id],
+        ];
 
         $messages = [
-        'email.email'    => 'Please enter a valid E-mail address.',
-        'email.required' => 'E-mail address is required.',
-        'email.unique'   => 'E-mail already in use for this account.',
-    ];
+            'email.email' => 'Please enter a valid E-mail address.',
+            'email.required' => 'E-mail address is required.',
+            'email.unique' => 'E-mail already in use for this account.',
+        ];
 
         $validation = \Validator::make(Input::all(), $rules, $messages);
 
         if ($validation->fails()) {
             return \Response::json([
-                    'status'   => 'error',
-                    'messages' => $validation->messages()->toArray(),
-                ]);
+                'status' => 'error',
+                'messages' => $validation->messages()->toArray(),
+            ]);
         }
 
         $temp_password = str_random(8);
@@ -141,19 +171,19 @@ class ManageAccountController extends MyBaseController
         $user->save();
 
         $data = [
-          'user'          => $user,
-          'temp_password' => $temp_password,
-          'inviter'       => Auth::user(),
+            'user' => $user,
+            'temp_password' => $temp_password,
+            'inviter' => Auth::user(),
         ];
 
         \Mail::send('Emails.inviteUser', $data, function ($message) use ($data) {
             $message->to($data['user']->email)
-                    ->subject($data['inviter']->first_name.' '.$data['inviter']->last_name.' added you to an Attendize Ticketing account.');
+                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an Attendize Ticketing account.');
         });
 
         return Response::json([
-            'status'  => 'success',
-            'message' => 'Success! <b>'.$user->email.'</b> has been sent further instructions.',
+            'status' => 'success',
+            'message' => 'Success! <b>' . $user->email . '</b> has been sent further instructions.',
         ]);
     }
 }

@@ -33,7 +33,11 @@ $(function() {
                             case 'success':
 
                                 if (data.redirectUrl) {
-                                    window.location = data.redirectUrl;
+                                    if(data.redirectData)  {
+                                        $.redirectPost(data.redirectUrl, data.redirectData);
+                                    } else {
+                                        window.location = data.redirectUrl;
+                                    }
                                 }
 
                                 var $submitButton = $form.find('input[type=submit]');
@@ -268,6 +272,18 @@ function setCountdown($element, seconds) {
     updateTimer();
 }
 
+$.extend(
+    {
+        redirectPost: function(location, args)
+        {
+            var form = '';
+            $.each( args, function( key, value ) {
+                value = value.split('"').join('\"')
+                form += '<input type="hidden" name="'+key+'" value="'+value+'">';
+            });
+            $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
+        }
+    });
 
 /*!
  * Smooth Scroll - v1.4.13 - 2013-11-02

@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
-/*
-  Attendize.com   - Event Management & Ticketing
- */
-
 /**
- * Description of PaymentGateway.
- *
- * @author Dave
+ * Class PaymentGateway
+ * @package App\Models
  */
-class PaymentGateway extends \Illuminate\Database\Eloquent\Model
+class PaymentGateway extends MyBaseModel
 {
-    //put your code here
+
+
 }

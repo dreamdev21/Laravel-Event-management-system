@@ -115,7 +115,7 @@ class EventOrdersController extends MyBaseController
         $attendees = Input::get('attendees');
         $error_message = false;
 
-        if ($refund_order) {
+        if ($refund_order && $order->payment_gateway->can_refund) {
             if (!$order->transaction_id) {
                 $error_message = 'Sorry, this order cannot be refunded.';
             }

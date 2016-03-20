@@ -147,6 +147,13 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'EventCheckoutController@showEventCheckout',
     ]);
 
+    Route::get('{event_id}/checkout/success', [
+        'as'   => 'showEventCheckoutPaymentReturn',
+        'uses' => 'EventCheckoutController@showEventCheckoutPaymentReturn',
+    ]);
+
+
+
     Route::post('{event_id}/checkout/create', [
         'as'   => 'postCreateOrder',
         'uses' => 'EventCheckoutController@postCreateOrder',

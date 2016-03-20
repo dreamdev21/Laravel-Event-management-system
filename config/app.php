@@ -145,7 +145,6 @@ return [
         Nitmedia\Wkhtml2pdf\L5Wkhtml2pdfServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         MaxHoffmann\Parsedown\ParsedownServiceProvider::class,
-        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
     /*
@@ -206,7 +205,8 @@ return [
         'HttpClient'   => Vinelab\Http\Facades\Client::class,
         'Purifier'     => Mews\Purifier\Facades\Purifier::class,
         'Markdown'     => MaxHoffmann\Parsedown\ParsedownFacade::class,
-        'Omnipay'      => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
+        'Omnipay'      => Omnipay\Omnipay::class,
+       // 'Omnipay'      => Omnipay\Omnipay::class,
 
     ],
 ];

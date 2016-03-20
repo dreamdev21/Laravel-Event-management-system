@@ -401,13 +401,6 @@ class ConstantsSeeder extends Seeder
         \App\Models\DateFormat::create(['format' => 'F j, Y', 'picker_format' => 'MM d, yyyy', 'label' => 'March 10, 2013']);
         \App\Models\DateFormat::create(['format' => 'D M j, Y', 'picker_format' => 'D MM d, yyyy', 'label' => 'Mon March 10, 2013']);
 
-        /*
-          d, dd: Numeric date, no leading zero and leading zero, respectively. Eg, 5, 05.
-          D, DD: Abbreviated and full weekday names, respectively. Eg, Mon, Monday.
-          m, mm: Numeric month, no leading zero and leading zero, respectively. Eg, 7, 07.
-          M, MM: Abbreviated and full month names, respectively. Eg, Jan, January
-          yy, yyyy: 2- and 4-digit years, respectively. Eg, 12, 2012.)
-         */
 
         $timezones = [
             'Pacific/Midway'       => '(GMT-11:00) Midway Island',
@@ -527,5 +520,39 @@ class ConstantsSeeder extends Seeder
         foreach ($timezones as $name => $location) {
             \App\Models\Timezone::create(['name' => $name, 'location' => $location]);
         }
+
+
+        $payment_gateways = [
+            [
+                'id'            => 1,
+                'name'          => 'Stripe',
+                'provider_name' => 'Stripe',
+                'provider_url'  => 'https://www.stripe.com',
+                'is_on_site'    => 1,
+                'can_refund'    => 1,
+            ],
+            [
+                'id'            => 2,
+                'name'          => 'PayPal_Express',
+                'provider_name' => 'PayPal Express',
+                'provider_url'  => 'https://www.paypal.com',
+                'is_on_site'    => 0,
+                'can_refund'    => 0
+
+            ],
+//            [
+//                'id'            => 3,
+//                'name'          => 'BitPay',
+//                'provider_name' => 'BitPay',
+//                'provider_url'  => 'https://bitpay.com',
+//                'is_on_site'    => 0
+//
+//
+//            ],
+        ];
+
+        DB::table('payment_gateways')->insert($payment_gateways);
+
+
     }
 }

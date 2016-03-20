@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->text('name');
         });
 
+
         Schema::create('reserved_tickets', function ($table) {
 
             $table->increments('id');
@@ -68,6 +69,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
+
         /*
          * Accounts table
          */
@@ -82,6 +84,7 @@ class CreateUsersTable extends Migration
             $t->unsignedInteger('date_format_id')->nullable();
             $t->unsignedInteger('datetime_format_id')->nullable();
             $t->unsignedInteger('currency_id')->nullable();
+            //$t->unsignedInteger('payment_gateway_id')->default(config('attendize.default_payment_gateway'));
 
             $t->timestamps();
             $t->softDeletes();
@@ -111,7 +114,7 @@ class CreateUsersTable extends Migration
             $t->foreign('timezone_id')->references('id')->on('timezones');
             $t->foreign('date_format_id')->references('id')->on('date_formats');
             $t->foreign('datetime_format_id')->references('id')->on('date_formats');
-            //$t->foreign('country_id')->references('id')->on('countries');
+            //$t->foreign('payment_gateway_id')->references('id')->on('payment_gateways');
             $t->foreign('currency_id')->references('id')->on('currencies');
         });
 
@@ -160,6 +163,8 @@ class CreateUsersTable extends Migration
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
+
+
 
         Schema::create('events', function ($t) {
             $t->increments('id');
@@ -408,6 +413,7 @@ class CreateUsersTable extends Migration
             $t->foreign('ticket_id')->references('id')->on('users')->onDelete('cascade');
         });
 
+
         /*
          * Tickets / Questions pivot table
          */
@@ -503,6 +509,31 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        $tables = [
+            'order_statuses',
+            'reserved_tickets',
+            'timezones',
+            'date_formats',
+            'datetime_formats',
+            'currencies',
+            'accounts',
+            'users',
+            'organisers',
+            'events',
+            'orders',
+            'tickets',
+            'order_items',
+            'ticket_order',
+            'event_stats',
+            'attendees',
+            'messages',
+            'event_images'
+
+        ];
+
+        foreach($tables as $table) {
+            Schema::drop($table);
+        }
+
     }
 }

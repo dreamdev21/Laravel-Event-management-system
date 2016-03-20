@@ -45,7 +45,7 @@
         </div>
         <div class="col-md-8 col-md-pull-4">
             <div class="event_order_form">
-                {!! Form::open(['url' => route('postCreateOrder', ['event_id' => $event->id]), 'class' => $order_requires_payment ? 'ajax payment-form' : 'ajax', 'data-stripe-pub-key' => $event->account->stripe_publishable_key]) !!}
+                {!! Form::open(['url' => route('postCreateOrder', ['event_id' => $event->id]), 'class' => ($order_requires_payment && @$payment_gateway->is_on_site) ? 'ajax payment-form' : 'ajax', 'data-stripe-pub-key' => isset($account_payment_gateway->config['publishableKey']) ? $account_payment_gateway->config['publishableKey'] : '']) !!}
 
                 {!! Form::hidden('event_id', $event->id) !!}
 
@@ -128,8 +128,7 @@
                 </div>
 
                 @endif
-
-                @if($order_requires_payment)
+                @if($order_requires_payment && @$payment_gateway->is_on_site)
 
                 <h3>Payment Information</h3>
 
@@ -180,10 +179,11 @@
                {!! Form::hidden('is_embedded', $is_embedded) !!}
                {!! Form::submit('Register Securely', ['class' => 'btn btn-lg btn-success card-submit', 'style' => 'width:100%;']) !!}
 
-                <div style="display: none; opacity: .56; text-align: right; padding: 10px; padding-right: 0;">
-                    <img alt="Powered By Stripe Payments" src="{{asset('assets/images/powered-by-stripe.png')}}"/>
-                </div>
             </div>
         </div>
+    </div>
 </section>
+@if(session()->get('message'))
+    <script>showMessage('{{session()->get('message')}}');</script>
+@endif
 

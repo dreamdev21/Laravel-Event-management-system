@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Attendize\Utils;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Account extends MyBaseModel
 {
@@ -96,6 +97,66 @@ class Account extends MyBaseModel
     {
         return $this->hasOne('\App\Models\Currency');
     }
+
+    /**
+     * Payment gateways associated with an account
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function account_payment_gateways()
+    {
+        return $this->hasMany('\App\Models\AccountPaymentGateway');
+    }
+
+    /**
+     * Alias for $this->account_payment_gateways()
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gateways() {
+        return $this->account_payment_gateways();
+    }
+
+    /**
+     * Get an accounts active payment gateway
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function active_payment_gateway()
+    {
+        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id', 'payment_gateway_id');
+    }
+
+    /**
+     * Get an accounts gateways
+     *
+     * @param $gateway_id
+     * @return mixed
+     */
+    public function getGateway($gateway_id)
+    {
+        return $this->gateways->where('payment_gateway_id', $gateway_id)->first();
+    }
+
+    /**
+     * Get a config value for a gateway
+     *
+     * @param $gateway_id
+     * @param $key
+     * @return mixed
+     */
+    public function getGatewayConfigVal($gateway_id, $key)
+    {
+        $gateway = $this->getGateway($gateway_id);
+
+        if($gateway && is_array($gateway->config)) {
+            return isset($gateway->config[$key]) ? $gateway->config[$key] : false;
+        }
+
+        return false;
+    }
+
+
 
     /**
      * Get the stripe api key.

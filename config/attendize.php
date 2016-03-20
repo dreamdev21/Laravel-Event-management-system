@@ -2,21 +2,11 @@
 
 return [
 
-    'active_payment_gateway' => 'paypal',
-    'payment_gateways' => [
-        'stripe' => [
-            'api_key' => '',
-        ],
-        'paypal' => [
-            'username' => '',
-            'password' => '',
-        ],
-        'bitpay' => [
-            'username' => '',
-            'password' => '',
-        ]
-    ],
+    'enable_test_payments' => env('ENABLE_TEST_PAYMENTS', false),
 
+    'payment_gateway_stripe' => 1,
+    'payment_gateway_paypal' => 2,
+    'payment_gateway_bitpay' => 3,
 
     'outgoing_email_noreply' => env('MAIL_FROM_ADDRESS'),
     'outgoing_email' => env('MAIL_FROM_ADDRESS'),
@@ -34,8 +24,7 @@ return [
     'fallback_organiser_logo_url' => '/assets/images/logo-100x100-lightBg.png',
     'cdn_url' => '',
 
-    'max_tickets_per_person' => 30, #Depreciated
-    'checkout_timeout_after' => 8, #mintutes
+    'checkout_timeout_after' => app()->environment('local', 'development') ? 30 : 8, #mintutes
 
     'ticket_status_sold_out' => 1,
     'ticket_status_after_sale_date' => 2,
@@ -58,6 +47,7 @@ return [
     'default_datetime_format' => 'F j, Y, g:i a',
     'default_query_cache' => 120, #Minutes
     'default_locale' => 'en',
+    'default_payment_gateway' => 1, #Stripe=1 Paypal=2 BitPay=3
 
     'cdn_url_user_assets' => '',
     'cdn_url_static_assets' => ''
