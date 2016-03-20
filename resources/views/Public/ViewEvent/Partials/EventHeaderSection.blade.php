@@ -32,9 +32,20 @@
 <section id="intro" class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>{{$event->title}}</h1>
-            <div class="event_venue">{{ $event->start_date->toDayDateTimeString() }}
-                - {{ $event->end_date->format('H:i A') }} @ <b> {{$event->venue_name}}</b>
+            <h1 property="name">{{$event->title}}</h1>
+            <div class="event_venue">
+                <span property="startDate" content="{{ $event->start_date->toIso8601String() }}">
+                    {{ $event->start_date->toDayDateTimeString() }}
+                </span>
+                -
+                <span property="endDate" content="{{ $event->end_date->toIso8601String() }}">
+                    {{ $event->end_date->format('H:i A') }}
+                </span>
+                @
+                <span property="location" typeof="Place">
+                    <b property="name">{{$event->venue_name}}</b>
+                    <meta property="address" content="{{{ urldecode($event->venue_name) }}}">
+                </span>
             </div>
 
             <div class="event_buttons">

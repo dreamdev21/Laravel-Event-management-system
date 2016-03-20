@@ -1,15 +1,15 @@
 <section id="organiser" class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="event_organiser_details">
+            <div class="event_organiser_details" property="organizer" typeof="Organization">
                 <div class="logo">
-                    <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}"/>
+                    <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
                 </div>
-                <h3>
+                <h3 property="name">
                     {{$event->organiser->name}}
                 </h3>
 
-                <p>
+                <p property="description">
                     {{nl2br($event->organiser->about)}}
                 </p>
                 <p>
