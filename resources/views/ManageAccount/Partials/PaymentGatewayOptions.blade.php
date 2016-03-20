@@ -64,7 +64,7 @@
                 {!! Form::label('paypal[brandName]', 'Branding Name', array('class'=>'control-label ')) !!}
                 {!! Form::text('paypal[brandName]', $account->getGatewayConfigVal(config('attendize.payment_gateway_paypal'), 'brandName'),[ 'class'=>'form-control'])  !!}
                 <div class="help-block">
-                    This is the name buyers will see when checking out. Leave blank this blank and the event organiser's name will be used.
+                    This is the name buyers will see when checking out. Leave this blank if you want the event organiser's name to be used.
                 </div>
             </div>
         </div>
