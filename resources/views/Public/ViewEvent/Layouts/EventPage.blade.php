@@ -65,7 +65,7 @@
 
     </head>
     <body class="attendize">
-        <div id="event_page_wrap">
+        <div id="event_page_wrap" vocab="http://schema.org/" typeof="Event">
             @yield('content')
         </div>
 
