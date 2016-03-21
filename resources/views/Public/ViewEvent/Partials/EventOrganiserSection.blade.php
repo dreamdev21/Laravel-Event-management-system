@@ -6,11 +6,11 @@
                     <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
                 </div>
                 <h3 property="name">
-                    {{$event->organiser->name}}
+                    {!!HTML::link('/o/'.$event->organiser->id, $event->organiser->name, array('title' => "Organiser Page"))!!}
                 </h3>
 
                 <p property="description">
-                    {{nl2br($event->organiser->about)}}
+                    {!! nl2br($event->organiser->about)!!}
                 </p>
                 <p>
                     @if($event->organiser->facebook)

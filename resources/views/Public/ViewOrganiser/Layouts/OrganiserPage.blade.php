@@ -36,6 +36,7 @@
 
     </head>
     <body class="attendize">
+        @include('Shared.Partials.FacebookSdk')
         <div id="organiser_page_wrap">
             @yield('content')
         </div>
