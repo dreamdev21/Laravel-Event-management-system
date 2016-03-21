@@ -85,6 +85,34 @@
 </section>
 
 
+{{--Coinbase--}}
+<section class="payment_gateway_options"  id="gateway_{{config('attendize.payment_gateway_coinbase')}}">
+    <h4>PayPal Settings</h4>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {!! Form::label('coinbase[apiKey]', 'API Key', array('class'=>'control-label ')) !!}
+                {!! Form::text('coinbase[apiKey]', $account->getGatewayConfigVal(config('attendize.payment_gateway_coinbase'), 'apiKey'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {!! Form::label('coinbase[secret]', 'Secret Code', ['class'=>'control-label ']) !!}
+                {!! Form::text('coinbase[secret]', $account->getGatewayConfigVal(config('attendize.payment_gateway_coinbase'), 'secret'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {!! Form::label('coinbase[accountId]', 'Account ID', array('class'=>'control-label ')) !!}
+                {!! Form::text('coinbase[accountId]', $account->getGatewayConfigVal(config('attendize.payment_gateway_coinbase'), 'accountId'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 
 <div class="row">
     <div class="col-md-12">

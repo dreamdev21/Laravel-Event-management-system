@@ -4,9 +4,9 @@ return [
 
     'enable_test_payments' => env('ENABLE_TEST_PAYMENTS', false),
 
-    'payment_gateway_stripe' => 1,
-    'payment_gateway_paypal' => 2,
-    'payment_gateway_bitpay' => 3,
+    'payment_gateway_stripe'   => 1,
+    'payment_gateway_paypal'   => 2,
+    'payment_gateway_coinbase' => 3,
 
     'outgoing_email_noreply' => env('MAIL_FROM_ADDRESS'),
     'outgoing_email' => env('MAIL_FROM_ADDRESS'),

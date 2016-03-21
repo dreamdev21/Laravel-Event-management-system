@@ -540,15 +540,14 @@ class ConstantsSeeder extends Seeder
                 'can_refund'    => 0
 
             ],
-//            [
-//                'id'            => 3,
-//                'name'          => 'BitPay',
-//                'provider_name' => 'BitPay',
-//                'provider_url'  => 'https://bitpay.com',
-//                'is_on_site'    => 0
-//
-//
-//            ],
+            [
+                'id'            => 3,
+                'name'          => 'Coinbase',
+                'provider_name' => 'Coinbase',
+                'provider_url'  => 'https://coinbase.com',
+                'is_on_site'    => 0,
+                'can_refund'    => 0,
+            ],
         ];
 
         DB::table('payment_gateways')->insert($payment_gateways);

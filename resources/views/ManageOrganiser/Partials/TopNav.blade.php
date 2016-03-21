@@ -8,7 +8,7 @@
         </a>
     </li>
     <!--/ Show Side Menu -->
-    <li class="nav-button">
+    <li class="nav-button hide">
         <a target="_blank" href="{{ $organiser->event_url }}">
             <span>
                 <i class="ico-eye2"></i>&nbsp;Organiser Page
