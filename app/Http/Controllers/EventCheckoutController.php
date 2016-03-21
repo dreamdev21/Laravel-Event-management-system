@@ -611,8 +611,8 @@ class EventCheckoutController extends Controller
         if ($request->get('download') == '1') {
             return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
         }
-
         return view('Public.ViewEvent.Partials.PDFTicket', $data);
     }
 
 }
+
