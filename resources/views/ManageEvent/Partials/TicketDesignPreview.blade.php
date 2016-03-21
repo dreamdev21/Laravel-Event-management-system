@@ -1,112 +1,21 @@
+{!! HTML::style(asset('assets/stylesheet/ticket.css')) !!}
 <style>
     .ticket {
-        /*page-break-after: always;*/
-        padding: 10px;
         border: 1px solid {{$event->ticket_border_color}};
-        width: 700px;
-        margin: 0 auto;
-        margin-top: 20px;
-        background: {{$event->ticket_bg_color}};
-        position: relative;
-        height: 330px;
-        font-size: 12px;
+        background: {{$event->ticket_bg_color}} ;
         color: {{$event->ticket_sub_text_color}};
-        border-left-width: 3px;
-        border-left-color: {{$event->ticket_border_color}};
-        overflow: hidden;
-        zoom: .6;
-        -moz-transform: scale(.6);
+        border-left-color: {{$event->ticket_border_color}} ;
     }
-
-    .ticket table {
-        width: 100%;
-    }
-
-    .ticket h1 {
-        margin-bottom: 5px;
-        margin-top: 0px;
-    }
-
-    .ticket hr {
-        border: none;
-        border-bottom: 1px solid #ccc;
-        margin: 5px 0;
-    }
-
-    .ticket .barcode {
-        width: 150px;
-        height: 150px;
-        position: absolute;
-        left: 1px;
-        bottom: 85px;
-        overflow: hidden;
-        padding: 10px;
-        border: 1px solid #000;
-        border-left: none;
-        background-color: #fdfdfd;
-    }
-
-    .ticket .barcode_vertical
-    {
-        position: absolute;
-        right: -40px;
-        -webkit-transform: rotate(90deg);
-        top: 171px;
-    }
-
-    .ticket .top_barcode {
-        margin-bottom: 15px;
-    }
-
-    .ticket h4 {
-        font-size: 17px;
-        margin: 6px auto;
-        text-transform: uppercase;
-        color: {{$event->ticket_text_color}};
-    }
-
-    .ticket .event_details, .ticket .attendee_details {
-        position: absolute;
-        top: 15px;
-    }
-
-    .ticket .event_details {
-        left: 175px;
-        overflow: hidden;
-        max-width: 210px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        top: 50px;
-    }
-
-    .ticket .attendee_details {
-        left: 390px;
-        overflow: hidden;
-        max-width: 195px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        top: 50px;
-    }
-
+    .ticket h4 {color: {{$event->ticket_text_color}};}
     .ticket .logo {
-        position: absolute;
-        right: 1px;
-        top: 1px;
-        border: 1px solid {{$event->ticket_border_color}};
-        border-top: none;
-        border-right: none;
-        padding: 5px;
-        background-color: #fdfdfd;
-        text-align: center;
-    }
+        border-left: 1px solid {{$event->ticket_border_color}};
+        border-bottom: 1px solid {{$event->ticket_border_color}};
 
-    .ticket .logo img {
-        max-width: 110px;
     }
 </style>
 <div class="ticket">
     <div class="logo">
-        {!! HTML::image(asset('assets/images/logo-email.png')) !!}
+        {!! HTML::image(asset($event->organiser->full_logo_path)) !!}
     </div>
 
     <div class="event_details">
@@ -128,6 +37,6 @@
     </div>
 
     <div class="barcode">
-        {!! HTML::image(asset('assets/images/qrcode.png')) !!}
+        {!! DNS2D::getBarcodeSVG('hello', "QRCODE", 6, 6) !!}
     </div>
 </div>

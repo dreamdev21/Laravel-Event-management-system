@@ -34,23 +34,27 @@
                 border-left-color: {{$event->ticket_border_color}} !important;
             }
             .ticket h4 {color: {{$event->ticket_text_color}} !important;}
-            .ticket .logo {border: 1px solid {{$event->ticket_border_color}} !important; }
+            .ticket .logo {
+                border-left: 1px solid {{$event->ticket_border_color}} !important;
+                border-bottom: 1px solid {{$event->ticket_border_color}} !important;
+            }
+            .ticket .barcode {
+                border-right: 1px solid {{$event->ticket_border_color}} !important;
+                border-bottom: 1px solid {{$event->ticket_border_color}} !important;
+                border-top: 1px solid {{$event->ticket_border_color}} !important;
+            }
 
         </style>
 
     </head>
     <body style="background-color: #FFFFFF; font-family: Arial, Helvetica, sans-serif;">
         <div class="container">
-            {{--<div class="top_info">--}}
-                {{--{{$attendees->count()}} tickets for event: <b>{{$event->title}}</b>--}}
-            {{--</div>--}}
-
             @foreach($attendees as $attendee)
                 @if(!$attendee->is_cancelled)
                     <div class="ticket">
 
                         <div class='logo'>
-                            <img src="{{empty(config('attendize.cdn_url_user_assets')) ? url('/'.$event->organiser->logo_path) : config('attendize.cdn_url_user_assets').'/'.$event->organiser->logo_path}}" />
+                            {!! HTML::image(asset($event->organiser->full_logo_path)) !!}
                         </div>
 
                         <div class="event_details">

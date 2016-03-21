@@ -1,12 +1,12 @@
 {
-  "name": "Attendize",
+  "name": "Attendize - Ticket Selling & Event Management",
   "version": "1.0.0",
   "authors": [
-    "david4ie <dave@earley.email>"
+    "daveearley <dave@attendize.com>"
   ],
   "description": "Ticketing Platform",
-  "license": "MIT",
-  "private": true,
+  "license": "AAL",
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -26,9 +26,11 @@
     "jquery-backstretch": "~2.0.4",
     "fontawesome": "~4.2.0",
     "simplemde": "~1.8.1",
-    "bootstrap-touchspin": "~3.0.1"
+    "bootstrap-touchspin": "~3.0.1",
+    "jquery-minicolors": "~2.2.3"
   },
   "resolutions": {
-    "jquery": ">=1.5"
+    "jquery": ">=1.5",
+    "bootstrap": ">=3.0.0"
   }
 }

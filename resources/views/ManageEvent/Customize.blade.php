@@ -77,7 +77,7 @@
             });
 
             /* Background color */
-            $('input[name=bg_color]').on('change', function(e) {
+            $('input[name=bg_color]').on('change', function (e) {
                 var replaced = replaceUrlParam('{{route('showEventPagePreview', ['event_id'=>$event->id])}}', 'bg_color_preview', $('input[name=bg_color]').val().substring(1));
                 document.getElementById('previewIframe').src = replaced;
                 e.preventDefault();
@@ -93,13 +93,45 @@
                 //showMessage('Uploading...');
                 //$('.customizeForm').submit();
             });
+
+            /* Color picker */
+            $('.colorpicker').minicolors();
+
+            $('#ticket_design .colorpicker').on('change', function(e) {
+                var borderColor = $('input[name="ticket_border_color"]').val();
+                var bgColor = $('input[name="ticket_bg_color"]').val();
+                var textColor = $('input[name="ticket_text_color"]').val();
+                var subTextColor = $('input[name="ticket_sub_text_color"]').val();
+
+                $('.ticket').css({
+                    'border': '1px solid ' + borderColor,
+                    'background-color': bgColor,
+                    'color': subTextColor,
+                    'border-left-color': borderColor
+                });
+                $('.ticket h4').css({
+                    'color': textColor
+                });
+                $('.ticket .logo').css({
+                    'border-left': '1px solid ' + borderColor,
+                    'border-bottom': '1px solid ' + borderColor
+                });
+                $('.ticket .barcode').css({
+                    'border-right': '1px solid ' + borderColor,
+                    'border-bottom': '1px solid ' + borderColor,
+                    'border-top': '1px solid ' + borderColor
+                });
+
+            });
+
+
         });
-        function replaceUrlParam(url, paramName, paramValue){
-            var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
-            if(url.search(pattern)>=0){
-                return url.replace(pattern,'$1' + paramValue + '$2');
+        function replaceUrlParam(url, paramName, paramValue) {
+            var pattern = new RegExp('\\b(' + paramName + '=).*?(&|$)')
+            if (url.search(pattern) >= 0) {
+                return url.replace(pattern, '$1' + paramValue + '$2');
             }
-            return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
+            return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
         }
     </script>
 
@@ -171,7 +203,8 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'fees'])}}"
                     class="{{$tab == 'fees' ? 'active' : ''}}"><a href="#fees" data-toggle="tab">Service Fees</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'ticket_design'])}}"
-                    class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">Ticket Design</a></li>
+                    class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">Ticket
+                        Design</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'embed'])}}"
                     class="{{$tab == 'embed' ? 'active' : ''}}"><a href="#embed" data-toggle="tab">Website Embed
                         Code</a></li>
@@ -332,7 +365,7 @@
                                     <div id="bgColor"
                                          class="panel-collapse {{($event->bg_type == 'color') ? 'in' : 'collapse'}}">
                                         <div class="panel-body">
-                                            <input value="{{ $event->bg_color }}" type="color" name="bg_color"/>
+                                            {!! Form::text('bg_color', $event->bg_color, ['class' => 'colorpicker form-control']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -396,7 +429,8 @@
                     <h4>Organiser Fees</h4>
 
                     <div class="well">
-                        These are optional fees you can include in the cost of each ticket. This charge will appear on buyer's invoices as '<b>BOOKING FEES</b>'.
+                        These are optional fees you can include in the cost of each ticket. This charge will appear on
+                        buyer's invoices as '<b>BOOKING FEES</b>'.
                     </div>
 
                     <div class="form-group">
@@ -453,7 +487,8 @@
                             </label>
                         </div>
                         <div class="help-block">
-                            If checked, the buyer will be asked for details of each attendee; as opposed to just himself.
+                            If checked, the buyer will be asked for details of each attendee; as opposed to just
+                            himself.
                         </div>
                     </div>
 
@@ -492,48 +527,53 @@
                 </div>
 
                 <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
-
                     {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
-
+                    <h4>Ticket Design</h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Ticket Design</h4>
-
                             <div class="form-group">
                                 {!! Form::label('name', 'Ticket Border Color', ['class'=>'control-label required ']) !!}
-                                {!!  Form::input('color', 'ticket_border_color', Input::old('ticket_border_color'),
+                                {!!  Form::input('text', 'ticket_border_color', Input::old('ticket_border_color'),
                                                             [
-                                                            'class'=>'form-control',
+                                                            'class'=>'form-control colorpicker',
                                                             'placeholder'=>'#000000'
                                                             ])  !!}
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('name', 'Ticket Background Color', ['class'=>'control-label required ']) !!}
-                                {!!  Form::input('color', 'ticket_bg_color', Input::old('ticket_bg_color'),
+                                {!!  Form::input('text', 'ticket_bg_color', Input::old('ticket_bg_color'),
                                                             [
-                                                            'class'=>'form-control',
+                                                            'class'=>'form-control colorpicker',
                                                             'placeholder'=>'#FFFFFF'
                                                             ])  !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('name', 'Ticket Text Color', ['class'=>'control-label required ']) !!}
-                                {!!  Form::input('color', 'ticket_text_color', Input::old('ticket_text_color'),
-                                                            [
-                                                            'class'=>'form-control',
-                                                            'placeholder'=>'#000000'
-                                                            ])  !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('name', 'Ticket Sub Text Color', ['class'=>'control-label required ']) !!}
-                                {!!  Form::input('color', 'ticket_sub_text_color', Input::old('ticket_border_color'),
-                                                            [
-                                                            'class'=>'form-control',
-                                                            'placeholder'=>'#000000'
-                                                            ])  !!}
-                            </div>
-
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Text Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('text', 'ticket_text_color', Input::old('ticket_text_color'),
+                                                            [
+                                                            'class'=>'form-control colorpicker',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('name', 'Ticket Sub Text Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('text', 'ticket_sub_text_color', Input::old('ticket_border_color'),
+                                                            [
+                                                            'class'=>'form-control colorpicker',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
                             <h4>Ticket Preview</h4>
                             @include('ManageEvent.Partials.TicketDesignPreview')
                         </div>
@@ -551,7 +591,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h4>HTML Embed Code</h4>
-                            <textarea rows="7" onfocus="this.select();" class="form-control">{{$event->embed_html_code}}</textarea>
+                            <textarea rows="7" onfocus="this.select();"
+                                      class="form-control">{{$event->embed_html_code}}</textarea>
                         </div>
                         <div class="col-md-6">
                             <h4>Instructions</h4>
