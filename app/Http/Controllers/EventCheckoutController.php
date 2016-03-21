@@ -524,20 +524,18 @@ class EventCheckoutController extends Controller
             }
         }
 
-        /*
-         * Queue up some tasks - Emails to be sent, PDFs etc.
-         */
-        $this->dispatch(new OrderTicketsCommand($order));
-
-        /*
-         * Release the reserved the tickets
-         */
-        ReservedTickets::where('session_id', '=', session()->getId())->delete();
 
         /*
          * Kill the session
          */
         session()->forget('ticket_order_'.$event->id);
+
+        /*
+         * Queue up some tasks - Emails to be sent, PDFs etc.
+         */
+        $this->dispatch(new OrderTicketsCommand($order));
+
+
 
         if($return_json) {
             return response()->json([
