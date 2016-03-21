@@ -32,8 +32,6 @@ class CreateGatewaysTable extends Migration
             $table->foreign('payment_gateway_id')->references('id')->on('payment_gateways')->onDelete('cascade');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
-
-
     }
 
     /**
@@ -43,7 +41,7 @@ class CreateGatewaysTable extends Migration
      */
     public function down()
     {
+        Schema::drop('account_payment_gateways');
         Schema::drop('payment_gateways');
-        Schema::drop('account_payments_gateways');
     }
 }

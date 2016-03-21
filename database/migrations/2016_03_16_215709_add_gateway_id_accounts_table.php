@@ -26,7 +26,8 @@ class AddGatewayIdAccountsTable extends Migration
     public function down()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            //
+            $table->dropForeign('accounts_payment_gateway_id_foreign');
+            $table->dropColumn('payment_gateway_id');
         });
     }
 }
