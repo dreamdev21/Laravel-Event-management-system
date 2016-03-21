@@ -12,7 +12,6 @@ class AddAccountPaymentId extends Migration
      */
     public function up()
     {
-
         Schema::table('orders', function (Blueprint $table) {
             $table->unsignedInteger('payment_gateway_id')->nullable();
             $table->foreign('payment_gateway_id')->references('id')->on('payment_gateways');
@@ -27,7 +26,8 @@ class AddAccountPaymentId extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->dropForeign('orders_payment_gateway_id_foreign');
+            $table->dropColumn('payment_gateway_id');
         });
     }
 }

@@ -21,17 +21,13 @@ class CreateUsersTable extends Migration
             $table->text('name');
         });
 
-
         Schema::create('reserved_tickets', function ($table) {
-
             $table->increments('id');
-
             $table->integer('ticket_id');
             $table->integer('event_id');
             $table->integer('quantity_reserved');
             $table->datetime('expires');
             $table->string('session_id', 45);
-
             $table->timestamps();
         });
 
@@ -511,6 +507,7 @@ class CreateUsersTable extends Migration
     {
         $tables = [
             'order_statuses',
+            'ticket_statuses',
             'reserved_tickets',
             'timezones',
             'date_formats',
@@ -527,13 +524,16 @@ class CreateUsersTable extends Migration
             'event_stats',
             'attendees',
             'messages',
-            'event_images'
-
+            'event_images',
         ];
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         foreach($tables as $table) {
             Schema::drop($table);
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
 }
