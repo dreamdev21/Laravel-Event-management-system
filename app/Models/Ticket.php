@@ -183,7 +183,7 @@ class Ticket extends MyBaseModel
      */
     public function getIsFreeAttribute()
     {
-        return ceil($this->price) === 0;
+        return ceil($this->price) == 0;
     }
 
     /**
