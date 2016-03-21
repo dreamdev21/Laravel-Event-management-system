@@ -1,9 +1,4 @@
-{{--
-
-@todo Rewrite the JS for choosing event bg images and colours.
-
---}}
-
+{{-- @todo Rewrite the JS for choosing event bg images and colours. --}}
 @extends('Shared.Layouts.Master')
 
 @section('title')
@@ -342,7 +337,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="panel panel-default" data-type="image">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -368,35 +362,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                {{--
-                                ## Ability to have a custom background image is disbaled for now.
-
-                                                            <div class="panel panel-default" data-type="custom_image">
-                                                                <div class="panel-heading">
-                                                                    <h4 class="panel-title">
-                                                                        <a data-toggle="collapse" data-parent="#bgOptions" href="#bgCustomImage" class="{{($event->bg_type == 'custom_image') ? '' : 'collapsed'}}">
-                                                                            <span class="arrow mr5"></span> Use my own image
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="bgCustomImage" class="panel-collapse {{($event->bg_type == 'custom_image') ? 'in' : 'collapse '}}" >
-                                                                    <div class="panel-body">
-                                                                        <div class="form-group">
-                                                                           {!! Form::styledFile('bg_image_path') !!}
-                                                                        </div>
-
-                                                                        @if($event->bg_type == 'custom_image')
-                                                                        <!--                                        <h5>
-                                                                                                                    Current Image
-                                                                                                                </h5>
-                                                                                                                <img style="max-width: 220px;" class="img-thumbnail" src="/{{$event->bg_image_path}}" />-->
-                                                                        @endif
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                --}}
 
                             </div>
                             <div class="panel-footer mt15 text-right">
@@ -614,5 +579,3 @@
         </div>
     </div>
 @stop
-
-
