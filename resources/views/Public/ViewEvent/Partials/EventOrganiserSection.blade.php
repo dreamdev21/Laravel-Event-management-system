@@ -6,7 +6,7 @@
                     <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
                 </div>
                 <h3 property="name">
-                    {!!HTML::link('/o/'.$event->organiser->id, $event->organiser->name, array('id' => $event->organiser->id))!!}
+                    {!!HTML::link('/o/'.$event->organiser->id, $event->organiser->name, array('title' => "Organiser Page"))!!}
                 </h3>
 
                 <p property="description">
