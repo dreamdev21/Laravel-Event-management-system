@@ -10,7 +10,7 @@
                 </h3>
 
                 <p property="description">
-                    {{nl2br($event->organiser->about)}}
+                    {!! nl2br($event->organiser->about)!!}
                 </p>
                 <p>
                     @if($event->organiser->facebook)
