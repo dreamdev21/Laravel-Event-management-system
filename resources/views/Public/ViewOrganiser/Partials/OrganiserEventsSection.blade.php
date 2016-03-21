@@ -10,7 +10,7 @@
             @include('Public.ViewEvent.Partials.EventListingPanel',
                 array(
                     'panel_title' => 'Past Events',
-                    'events' => $past_events
+                    'events'      => $past_events
                 )
             )
         </div>
@@ -25,7 +25,7 @@
             @if ($organiser->twitter)
                 @include('Shared.Partials.TwitterTimelinePanel',
                     array(
-                        'twitter_account' => $organiser->facebook
+                        'twitter_account' => $organiser->twitter
                     )
                 )
             @endif

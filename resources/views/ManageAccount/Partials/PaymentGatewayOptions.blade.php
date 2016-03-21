@@ -87,7 +87,7 @@
 
 {{--Coinbase--}}
 <section class="payment_gateway_options"  id="gateway_{{config('attendize.payment_gateway_coinbase')}}">
-    <h4>PayPal Settings</h4>
+    <h4>Coinbase Settings</h4>
 
     <div class="row">
         <div class="col-md-6">
