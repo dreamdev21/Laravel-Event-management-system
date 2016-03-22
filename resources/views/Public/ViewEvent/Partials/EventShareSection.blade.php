@@ -10,7 +10,7 @@
 
                 @if($event->social_show_facebook)
                 <li class="rrssb-facebook">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{$event->event_url}}?utm_source=fb" class="popup">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{$event->event_url}}" class="popup">
                         <span class="rrssb-icon">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
                                 <path d="M27.825,4.783c0-2.427-2.182-4.608-4.608-4.608H4.783c-2.422,0-4.608,2.182-4.608,4.608v18.434
@@ -24,7 +24,7 @@
                 @endif
                 @if($event->social_show_linkedin)
                 <li class="rrssb-linkedin">
-                    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{$event->event_url}}?utm_source=linkedin&amp;title={{urlencode($event->title)}}&amp;summary={{{Str::words(strip_tags($event->description), 20)}}}" class="popup">
+                    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{$event->event_url}}?title={{urlencode($event->title)}}&amp;summary={{{Str::words(strip_tags($event->description), 20)}}}" class="popup">
                         <span class="rrssb-icon">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
                                 <path d="M25.424,15.887v8.447h-4.896v-7.882c0-1.979-0.709-3.331-2.48-3.331c-1.354,0-2.158,0.911-2.514,1.803
@@ -58,7 +58,7 @@
                 @endif
                 @if($event->social_show_googleplus)
                 <li class="rrssb-googleplus">
-                    <a href="https://plus.google.com/share?url={{$event->event_url}}?utm_source=googleplus" class="popup">
+                    <a href="https://plus.google.com/share?url={{$event->event_url}}" class="popup">
                         <span class="rrssb-icon">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
                                 <g>
@@ -83,28 +83,19 @@
                     </a>
                 </li>
                 @endif
-                @if($event->social_show_pinterest)
-                @if(false)
-                <li class="rrssb-pinterest">
-                    <a href="http://pinterest.com/pin/create/button/?url={{$event->event_url}}?utm_source=pinterest&amp;media={{$event->bg_image_url}}&amp;description={{{Str::words(strip_tags($event->description), 20)}}}">
+                @if($event->social_show_whatsapp)
+                <li class="rrssb-whatsapp">
+                   <a style="background-color: #43d854;" href="whatsapp://send?text={{urlencode($event->title . ' - ' . $event->event_url)}}" data-action="share/whatsapp/share">
                         <span class="rrssb-icon">
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
-                                <path d="M14.021,1.57C6.96,1.57,1.236,7.293,1.236,14.355c0,7.062,5.724,12.785,12.785,12.785c7.061,0,12.785-5.725,12.785-12.785
-                                      C26.807,7.294,21.082,1.57,14.021,1.57z M15.261,18.655c-1.161-0.09-1.649-0.666-2.559-1.219c-0.501,2.626-1.113,5.145-2.925,6.458
-                                      c-0.559-3.971,0.822-6.951,1.462-10.116c-1.093-1.84,0.132-5.545,2.438-4.632c2.837,1.123-2.458,6.842,1.099,7.557
-                                      c3.711,0.744,5.227-6.439,2.925-8.775c-3.325-3.374-9.678-0.077-8.897,4.754c0.19,1.178,1.408,1.538,0.489,3.168
-                                      C7.165,15.378,6.53,13.7,6.611,11.462c0.131-3.662,3.291-6.227,6.46-6.582c4.007-0.448,7.771,1.474,8.29,5.239
-                                      c0.579,4.255-1.816,8.865-6.102,8.533L15.261,18.655z"/>
-                            </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90"><path d="M90 43.84c0 24.214-19.78 43.842-44.182 43.842a44.256 44.256 0 0 1-21.357-5.455L0 90l7.975-23.522a43.38 43.38 0 0 1-6.34-22.637C1.635 19.63 21.415 0 45.818 0 70.223 0 90 19.628 90 43.84zM45.818 6.983c-20.484 0-37.146 16.535-37.146 36.86 0 8.064 2.63 15.533 7.076 21.61l-4.64 13.688 14.274-4.537A37.122 37.122 0 0 0 45.82 80.7c20.48 0 37.145-16.533 37.145-36.857S66.3 6.983 45.818 6.983zm22.31 46.956c-.272-.447-.993-.717-2.075-1.254-1.084-.537-6.41-3.138-7.4-3.495-.993-.36-1.717-.54-2.438.536-.72 1.076-2.797 3.495-3.43 4.212-.632.72-1.263.81-2.347.27-1.082-.536-4.57-1.672-8.708-5.332-3.22-2.848-5.393-6.364-6.025-7.44-.63-1.076-.066-1.657.475-2.192.488-.482 1.084-1.255 1.625-1.882.543-.628.723-1.075 1.082-1.793.363-.718.182-1.345-.09-1.884-.27-.537-2.438-5.825-3.34-7.977-.902-2.15-1.803-1.793-2.436-1.793-.63 0-1.353-.09-2.075-.09-.722 0-1.896.27-2.89 1.344-.99 1.077-3.788 3.677-3.788 8.964 0 5.288 3.88 10.397 4.422 11.113.54.716 7.49 11.92 18.5 16.223 11.01 4.3 11.01 2.866 12.996 2.686 1.984-.18 6.406-2.6 7.312-5.107.9-2.513.9-4.664.63-5.112z"/></svg>
                         </span>
-                        <span class="rrssb-text">pinterest</span>
-                    </a>
+                        <span class="rrssb-text">Whatsapp</span>
+                   </a>
                 </li>
-                @endif
                 @endif
                 @if($event->social_show_email)
                 <li class="rrssb-email">
-                    <a href="mailto:?subject=Check This Out&body={{urlencode($event->event_url)}}?utm_source=email">
+                    <a href="mailto:?subject=Check This Out&body={{urlencode($event->event_url)}}">
                         <span class="rrssb-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve"><g><path d="M20.111 26.147c-2.336 1.051-4.361 1.401-7.125 1.401c-6.462 0-12.146-4.633-12.146-12.265 c0-7.94 5.762-14.833 14.561-14.833c6.853 0 11.8 4.7 11.8 11.252c0 5.684-3.194 9.265-7.399 9.3 c-1.829 0-3.153-0.934-3.347-2.997h-0.077c-1.208 1.986-2.96 2.997-5.023 2.997c-2.532 0-4.361-1.868-4.361-5.062 c0-4.749 3.504-9.071 9.111-9.071c1.713 0 3.7 0.4 4.6 0.973l-1.169 7.203c-0.388 2.298-0.116 3.3 1 3.4 c1.673 0 3.773-2.102 3.773-6.58c0-5.061-3.27-8.994-9.303-8.994c-5.957 0-11.175 4.673-11.175 12.1 c0 6.5 4.2 10.2 10 10.201c1.986 0 4.089-0.43 5.646-1.245L20.111 26.147z M16.646 10.1 c-0.311-0.078-0.701-0.155-1.207-0.155c-2.571 0-4.595 2.53-4.595 5.529c0 1.5 0.7 2.4 1.9 2.4 c1.441 0 2.959-1.828 3.311-4.087L16.646 10.068z"/></g></svg>
                         </span>
