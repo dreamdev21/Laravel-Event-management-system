@@ -190,7 +190,6 @@
 
             var workingAway = false;
 
-            //var attendees = {{$attendees}};
             function populateAttendeeList(attendees) {
                 $('#attendee_list').empty();
 
@@ -207,8 +206,6 @@
                                 + '</li>');
                     }
                 }
-
-
             }
             function search() {
                 var query_value = $('input#search').val();
