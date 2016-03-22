@@ -1,52 +1,44 @@
-Chart.js
-=======
+# Chart.js 
+
+[![Build Status](https://travis-ci.org/nnnick/Chart.js.svg?branch=v2.0-dev)](https://travis-ci.org/nnnick/Chart.js) [![Code Climate](https://codeclimate.com/github/nnnick/Chart.js/badges/gpa.svg)](https://codeclimate.com/github/nnnick/Chart.js)
+
+
 *Simple HTML5 Charts using the canvas element* [chartjs.org](http://www.chartjs.org)
 
-Quick FYI
--------
-I'm currently working on a big refactor of the library into a more object oriented structure. 
+## v2.0 Beta
 
-It'll have an extendable class structure for adding community developed chart types. By opening up components into Chart.js into extendable classes, it'll allow for much easier community driven library extensions rather than tacking on new features as required. The refactor will also feature a generisized version of the interaction layer introduced by Regaddi in his tooltips branch - https://github.com/nnnick/Chart.js/pull/51. On top of this, it'll include utility methods on each chart object, for updating, clearing and redrawing charts etc.
+Current Release: [2.0.0-beta](https://github.com/nnnick/Chart.js/releases/tag/2.0.0-beta)
 
-I haven't quite got the bandwidth right now to be juggling both issues/requests in master while redesigning all of the core code in Chart.js. By focusing on the refactor, it'll get done WAY quicker.
+The next generation and release of Chart.js has been well under way this year and we are very close to releasing some amazing new features including, but not limited to:
+- Rewritten, optimized, and unit-tested
+- New and improved scales (log, time, linear, category, multiple scales)
+- Improved responsiveness and resizing
+- Powerful support for adding, removing, changing, and updating data on the fly
+- Animations on all elements, colors and tooltips
+- Powerful customization when you need it. Automatic and dynamic when you don't.
+- Excellent support for modern frameworks and modular build systems.
+- Even more extensible via new element controllers, combo chart support, and hook system
+- Bug fixes not addressed in 1.x, and much, much more...
 
-Extensibility will absolutely be at the core of the refactor, allowing for the development of complex extension modules, but also keeping a lightweight set of core code.
+#####Contributing to 2.0
+Submit PR's to the v2.0-dev branch.
 
-Hang tight - it'll be worth it. 
+#####Building and Testing
+`gulp build`, `gulp test`
 
-PS. If you're interested in reviewing some code or trying out writing extensions, shoot me an email.
+## v1.x Status: Feature Complete
+We are now treating v1.x as feature complete.  PR's for bug fixes are welcome, but we urge any open PR's for v1.x features to be refactored and resubmitted for v2.x (if the feature has not already been implemented).
 
-###Update - 8th September
-Just a quick update on the refactor. 
+## Documentation
 
-Just wanted to let you guys know it's making really good progress, and it'll be well worth the wait.
+You can find documentation at [chartjs.org/docs](http://www.chartjs.org/docs/). The markdown files that build the site are available under `/docs`. Please note - in some of the json examples of configuration you might notice some liquid tags - this is just for the generating the site html, please disregard.
 
-The new version is being broken up into Chart type modules, with each of the current 6 chart types using documented and extendable classes and helper methods from the Chart.js core. This means the community will be able to build new chart types using existing components, or extend existing types to do something a bit different. 
+## Bugs, issues and contributing
 
-By splitting the different charts into modules will mean the ability to use AMD if appropriate, but I'll also be writing a simple web interface for concatenating chart types into a minified production ready custom build.
+Before submitting an issue or a pull request to the project, please take a moment to look over the [contributing guidelines](https://github.com/nnnick/Chart.js/blob/master/CONTRIBUTING.md) first.
 
-The syntax for creating charts **will not change**, so the upgrade should be a drop in replacement, but give you the ability to have a whole new level of interactivity and animated data updates.
+For support using Chart.js, please post questions with the [`chartjs` tag on Stack Overflow](http://stackoverflow.com/questions/tagged/chartjs).
 
-Right now I've wrote 80% of the core, and refactored the Doughnut and Pie charts, and I'm a good way through the Line and Bar charts. I hope to have the new version ready to release with some new docs late September/early October.
+## License
 
-I know PR and issues are racking up in the repo, and I'll do my best to sort them ASAP, but I think this update is really important for creating flexibility and extensibility to cater for these new features in an elegant way, rather than introducing scope creep into an architecture that wasn't designed to deliver this extra functionality.
-
-Big thanks for all the support - it's been totally overwhelming.
-
-###Another Quick Update - 16th October
-First of all - my apologies, early October has drifted away from me and we're moving towards late October. This last month has been really unexpectedly busy, and I've had a lot of stuff going on, so I haven't quite managed to find as much time to work on Chart.js as I'd hoped.
-
-In terms of an updated ETA, I'm really aiming for a pre-November release, and I'll be having some late nights and a few days off to try my best to make this happen.
-
-Again, really appreciate the support and cheers for your patience for the new version.
-
-
-Documentation
--------
-You can find documentation at [chartjs.org/docs](http://www.chartjs.org/docs).
-
-License
--------
-Chart.js was taken down on the 19th March. It is now back online for good and IS available under MIT license.
-
-Chart.js is available under the [MIT license] (http://opensource.org/licenses/MIT).
+Chart.js is available under the [MIT license](http://opensource.org/licenses/MIT).

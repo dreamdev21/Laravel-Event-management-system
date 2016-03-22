@@ -1,14 +1,24 @@
 /* ========================================================================
- * Bootstrap: collapse.js v3.2.0
- * http://getbootstrap.com/javascript/#collapse
+ * Bootstrap: collapse.js v3.0.0
+ * http://twbs.github.com/bootstrap/javascript.html#collapse
  * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  * ======================================================================== */
 
 
-+function ($) {
-  'use strict';
++function ($) { "use strict";
 
   // COLLAPSE PUBLIC CLASS DEFINITION
   // ================================
@@ -21,8 +31,6 @@
     if (this.options.parent) this.$parent = $(this.options.parent)
     if (this.options.toggle) this.toggle()
   }
-
-  Collapse.VERSION  = '3.2.0'
 
   Collapse.DEFAULTS = {
     toggle: true
@@ -45,7 +53,7 @@
     if (actives && actives.length) {
       var hasData = actives.data('bs.collapse')
       if (hasData && hasData.transitioning) return
-      Plugin.call(actives, 'hide')
+      actives.collapse('hide')
       hasData || actives.data('bs.collapse', null)
     }
 
@@ -53,17 +61,18 @@
 
     this.$element
       .removeClass('collapse')
-      .addClass('collapsing')[dimension](0)
+      .addClass('collapsing')
+      [dimension](0)
 
     this.transitioning = 1
 
     var complete = function () {
       this.$element
         .removeClass('collapsing')
-        .addClass('collapse in')[dimension]('')
+        .addClass('in')
+        [dimension]('auto')
       this.transitioning = 0
-      this.$element
-        .trigger('shown.bs.collapse')
+      this.$element.trigger('shown.bs.collapse')
     }
 
     if (!$.support.transition) return complete.call(this)
@@ -71,8 +80,9 @@
     var scrollSize = $.camelCase(['scroll', dimension].join('-'))
 
     this.$element
-      .one('bsTransitionEnd', $.proxy(complete, this))
-      .emulateTransitionEnd(350)[dimension](this.$element[0][scrollSize])
+      .one($.support.transition.end, $.proxy(complete, this))
+      .emulateTransitionEnd(350)
+      [dimension](this.$element[0][scrollSize])
   }
 
   Collapse.prototype.hide = function () {
@@ -84,7 +94,9 @@
 
     var dimension = this.dimension()
 
-    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+    this.$element
+      [dimension](this.$element[dimension]())
+      [0].offsetHeight
 
     this.$element
       .addClass('collapsing')
@@ -105,7 +117,7 @@
 
     this.$element
       [dimension](0)
-      .one('bsTransitionEnd', $.proxy(complete, this))
+      .one($.support.transition.end, $.proxy(complete, this))
       .emulateTransitionEnd(350)
   }
 
@@ -117,21 +129,19 @@
   // COLLAPSE PLUGIN DEFINITION
   // ==========================
 
-  function Plugin(option) {
+  var old = $.fn.collapse
+
+  $.fn.collapse = function (option) {
     return this.each(function () {
       var $this   = $(this)
       var data    = $this.data('bs.collapse')
       var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
-      if (!data && options.toggle && option == 'show') option = !option
       if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
       if (typeof option == 'string') data[option]()
     })
   }
 
-  var old = $.fn.collapse
-
-  $.fn.collapse             = Plugin
   $.fn.collapse.Constructor = Collapse
 
 
@@ -147,12 +157,11 @@
   // COLLAPSE DATA-API
   // =================
 
-  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-    var href
-    var $this   = $(this)
+  $(document).on('click.bs.collapse.data-api', '[data-toggle=collapse]', function (e) {
+    var $this   = $(this), href
     var target  = $this.attr('data-target')
         || e.preventDefault()
-        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
     var $target = $(target)
     var data    = $target.data('bs.collapse')
     var option  = data ? 'toggle' : $this.data()
@@ -160,11 +169,11 @@
     var $parent = parent && $(parent)
 
     if (!data || !data.transitioning) {
-      if ($parent) $parent.find('[data-toggle="collapse"][data-parent="' + parent + '"]').not($this).addClass('collapsed')
+      if ($parent) $parent.find('[data-toggle=collapse][data-parent="' + parent + '"]').not($this).addClass('collapsed')
       $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
     }
 
-    Plugin.call($target, option)
+    $target.collapse(option)
   })
 
-}(jQuery);
+}(window.jQuery);

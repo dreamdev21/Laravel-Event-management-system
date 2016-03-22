@@ -103,6 +103,7 @@ class EventCustomizeController extends MyBaseController
         $event->social_show_twitter = $request->get('social_show_twitter');
         $event->social_show_email = $request->get('social_show_email');
         $event->social_show_googleplus = $request->get('social_show_googleplus');
+        $event->social_show_whatsapp = $request->get('social_show_whatsapp');
         $event->save();
 
         return response()->json([

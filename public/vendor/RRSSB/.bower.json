@@ -1,6 +1,5 @@
 {
-  "name": "RRSSB",
-  "version": "1.6.5",
+  "name": "rrssb",
   "authors": [
     "(Joshua Tuscan <hello@joshuatuscan.com>)",
     "(Daniel Box <daniel@kurtnoble.com>)"
@@ -11,7 +10,11 @@
     "css/rrssb.css"
   ],
   "keywords": [
+    "ridiculously",
+    "RRSSB",
+    "rrssb",
     "responsive",
+    "sharing",
     "social",
     "buttons"
   ],
@@ -19,15 +22,16 @@
     "type": "git",
     "url": "https://github.com/kni-labs/rrssb"
   },
-  "license": "Creative Commons Attribution-ShareAlike 4.0 International",
+  "license": "MIT",
   "homepage": "http://kurtnoble.com/labs/rrssb/",
-  "_release": "1.6.5",
+  "version": "1.10.0",
+  "_release": "1.10.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.6.5",
-    "commit": "2f9721cea41d878b99697ad7967f66f3d76688f7"
+    "tag": "1.10.0",
+    "commit": "90bda8b10f943fe7edb5a978272d24cf81e88674"
   },
   "_source": "git://github.com/kni-labs/rrssb.git",
-  "_target": "~1.6.0",
+  "_target": "~1.10.0",
   "_originalSource": "RRSSB"
 }

@@ -331,6 +331,12 @@
                                 LinkedIn
                             </label>
                         </div>
+                        <div class="checkbox-inline">
+                            <label>
+                                {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp) !!}
+                                WhatsApp
+                            </label>
+                        </div>
                     </div>
 
                     <div class="panel-footer mt15 text-right">

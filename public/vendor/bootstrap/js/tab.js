@@ -1,14 +1,24 @@
 /* ========================================================================
- * Bootstrap: tab.js v3.2.0
- * http://getbootstrap.com/javascript/#tabs
+ * Bootstrap: tab.js v3.0.0
+ * http://twbs.github.com/bootstrap/javascript.html#tabs
  * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  * ======================================================================== */
 
 
-+function ($) {
-  'use strict';
++function ($) { "use strict";
 
   // TAB CLASS DEFINITION
   // ====================
@@ -17,16 +27,14 @@
     this.element = $(element)
   }
 
-  Tab.VERSION = '3.2.0'
-
   Tab.prototype.show = function () {
     var $this    = this.element
     var $ul      = $this.closest('ul:not(.dropdown-menu)')
-    var selector = $this.data('target')
+    var selector = $this.attr('data-target')
 
     if (!selector) {
       selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
     }
 
     if ($this.parent('li').hasClass('active')) return
@@ -42,11 +50,11 @@
 
     var $target = $(selector)
 
-    this.activate($this.closest('li'), $ul)
+    this.activate($this.parent('li'), $ul)
     this.activate($target, $target.parent(), function () {
       $this.trigger({
-        type: 'shown.bs.tab',
-        relatedTarget: previous
+        type: 'shown.bs.tab'
+      , relatedTarget: previous
       })
     })
   }
@@ -81,7 +89,7 @@
 
     transition ?
       $active
-        .one('bsTransitionEnd', next)
+        .one($.support.transition.end, next)
         .emulateTransitionEnd(150) :
       next()
 
@@ -92,7 +100,9 @@
   // TAB PLUGIN DEFINITION
   // =====================
 
-  function Plugin(option) {
+  var old = $.fn.tab
+
+  $.fn.tab = function ( option ) {
     return this.each(function () {
       var $this = $(this)
       var data  = $this.data('bs.tab')
@@ -102,9 +112,6 @@
     })
   }
 
-  var old = $.fn.tab
-
-  $.fn.tab             = Plugin
   $.fn.tab.Constructor = Tab
 
 
@@ -122,7 +129,7 @@
 
   $(document).on('click.bs.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
     e.preventDefault()
-    Plugin.call($(this), 'show')
+    $(this).tab('show')
   })
 
-}(jQuery);
+}(window.jQuery);
