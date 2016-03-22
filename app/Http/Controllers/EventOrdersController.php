@@ -129,11 +129,9 @@ class EventOrdersController extends MyBaseController
             }
             if (!$error_message) {
                 try {
-                    $gateway = Omnipay::gateway('stripe');
+                    $gateway = Omnipay::create($order->payment_gateway->name);
 
-                    $gateway->initialize([
-                        'apiKey' => $order->account->stripe_api_key,
-                    ]);
+                    $gateway->initialize($order->account->getGateway($order->payment_gateway->id)->config);
 
                     if ($refund_type === 'full') { /* Full refund */
                         $refund_amount = $order->organiser_amount - $order->amount_refunded;
