@@ -2,28 +2,34 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
 use DB;
 use Excel;
-use Input;
 use Log;
 use Mail;
 use Omnipay;
-use Response;
 use Validator;
-use View;
 
 class EventOrdersController extends MyBaseController
 {
-    public function showOrders($event_id = '')
+
+    /**
+     * Show event orders page
+     *
+     * @param Request $request
+     * @param string $event_id
+     * @return mixed
+     */
+    public function showOrders(Request $request, $event_id = '')
     {
         $allowed_sorts = ['first_name', 'email', 'order_reference', 'order_status_id', 'created_at'];
 
-        $searchQuery = Input::get('q');
-        $sort_by = (in_array(Input::get('sort_by'), $allowed_sorts) ? Input::get('sort_by') : 'created_at');
-        $sort_order = Input::get('sort_order') == 'asc' ? 'asc' : 'desc';
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+        $sort_order = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
 
         $event = Event::scope()->find($event_id);
 
@@ -58,20 +64,34 @@ class EventOrdersController extends MyBaseController
             'q'          => $searchQuery ? $searchQuery : '',
         ];
 
-        return View::make('ManageEvent.Orders', $data);
+        return view('ManageEvent.Orders', $data);
     }
 
-    public function manageOrder($order_id)
+    /**
+     * Shows  'Manage Order' modal
+     *
+     * @param Request $request
+     * @param $order_id
+     * @return mixed
+     */
+    public function manageOrder(Request $request, $order_id)
     {
         $data = [
             'order'    => Order::scope()->find($order_id),
-            'modal_id' => Input::get('modal_id'),
+            'modal_id' => $request->get('modal_id'),
         ];
 
-        return View::make('ManageEvent.Modals.ManageOrder', $data);
+        return view('ManageEvent.Modals.ManageOrder', $data);
     }
 
-    public function showCancelOrder($order_id)
+    /**
+     * Shows 'Cancel Order' modal
+     *
+     * @param Request $request
+     * @param $order_id
+     * @return mixed
+     */
+    public function showCancelOrder(Request $request, $order_id)
     {
         $order = Order::scope()->find($order_id);
 
@@ -79,18 +99,20 @@ class EventOrdersController extends MyBaseController
             'order'     => $order,
             'event'     => $order->event(),
             'attendees' => $order->attendees()->withoutCancelled()->get(),
-            'modal_id'  => Input::get('modal_id'),
+            'modal_id'  => $request->get('modal_id'),
         ];
 
-        return View::make('ManageEvent.Modals.CancelOrder', $data);
+        return view('ManageEvent.Modals.CancelOrder', $data);
     }
 
     /**
-     * @param $order_id
+     * Cancels an order
      *
+     * @param Request $request
+     * @param $order_id
      * @return mixed
      */
-    public function postCancelOrder($order_id)
+    public function postCancelOrder(Request $request, $order_id)
     {
         $rules = [
             'refund_amount' => ['numeric'],
@@ -99,20 +121,20 @@ class EventOrdersController extends MyBaseController
             'refund_amount.integer' => 'Refund amount must only contain numbers.',
         ];
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
         $order = Order::scope()->findOrFail($order_id);
-        $refund_order = (Input::get('refund_order') === 'on') ? true : false;
-        $refund_type = Input::get('refund_type');
-        $refund_amount = round(floatval(Input::get('refund_amount')), 2);
-        $attendees = Input::get('attendees');
+        $refund_order = ($request->get('refund_order') === 'on') ? true : false;
+        $refund_type = $request->get('refund_type');
+        $refund_amount = round(floatval($request->get('refund_amount')), 2);
+        $attendees = $request->get('attendees');
         $error_message = false;
 
         if ($refund_order && $order->payment_gateway->can_refund) {
@@ -169,7 +191,7 @@ class EventOrdersController extends MyBaseController
             }
 
             if ($error_message) {
-                return Response::json([
+                return response()->json([
                     'status'  => 'success',
                     'message' => $error_message,
                 ]);
@@ -190,13 +212,15 @@ class EventOrdersController extends MyBaseController
         \Session::flash('message',
             (!$refund_amount && !$attendees) ? 'Nothing To Do' : 'Successfully '.($refund_order ? ' Refunded Order' : ' ').($attendees && $refund_order ? ' & ' : '').($attendees ? 'Cancelled Attendee(s)' : ''));
 
-        return Response::json([
+        return response()->json([
             'status'      => 'success',
             'redirectUrl' => '',
         ]);
     }
 
     /**
+     * Exports order to popular file types
+     *
      * @param $event_id
      * @param string $export_as Accepted: xls, xlsx, csv, pdf, html
      */
@@ -245,30 +269,44 @@ class EventOrdersController extends MyBaseController
         })->export($export_as);
     }
 
-    public function showMessageOrder($order_id)
+    /**
+     * shows 'Message Order Creator' modal
+     *
+     * @param Request $request
+     * @param $order_id
+     * @return mixed
+     */
+    public function showMessageOrder(Request $request, $order_id)
     {
         $order = Order::scope()->findOrFail($order_id);
 
         $data = [
             'order'    => $order,
             'event'    => $order->event,
-            'modal_id' => Input::get('modal_id'),
+            'modal_id' => $request->get('modal_id'),
         ];
 
-        return View::make('ManageEvent.Modals.MessageOrder', $data);
+        return view('ManageEvent.Modals.MessageOrder', $data);
     }
 
-    public function postMessageOrder($order_id)
+    /**
+     * Sends message to order creator
+     *
+     * @param Request $request
+     * @param $order_id
+     * @return mixed
+     */
+    public function postMessageOrder(Request $request, $order_id)
     {
         $rules = [
             'subject' => 'required|max:250',
             'message' => 'required|max:5000',
         ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
@@ -278,8 +316,8 @@ class EventOrdersController extends MyBaseController
 
         $data = [
             'order'           => $order,
-            'message_content' => Input::get('message'),
-            'subject'         => Input::get('subject'),
+            'message_content' => $request->get('message'),
+            'subject'         => $request->get('subject'),
             'event'           => $order->event,
             'email_logo'      => $order->event->organiser->full_logo_path,
         ];
@@ -292,7 +330,7 @@ class EventOrdersController extends MyBaseController
         });
 
         /* Could bcc in the above? */
-        if (Input::get('send_copy') == '1') {
+        if ($request->get('send_copy') == '1') {
             Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
                 $message->to($order->event->organiser->email)
                     ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
@@ -301,7 +339,7 @@ class EventOrdersController extends MyBaseController
             });
         }
 
-        return Response::json([
+        return response()->json([
             'status'  => 'success',
             'message' => 'Message Successfully Sent',
         ]);
