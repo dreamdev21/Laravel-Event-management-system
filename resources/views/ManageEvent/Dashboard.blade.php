@@ -149,7 +149,6 @@
                 </div>
 
                 <div class="panel-body">
-                    {!! $event->event_url !!}
                     {!! Form::input('text', 'front_end_url', $event->event_url, ['class' => 'form-control', 'onclick' => 'this.select();']) !!}
                 </div>
 
