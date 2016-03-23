@@ -180,8 +180,8 @@ class EventCheckoutController extends Controller
             'order_requires_payment'         => (ceil($order_total) == 0) ? false : true,
             'account_id'                     => $event->account->id,
             'affiliate_referral'             => Cookie::get('affiliate_'.$event_id),
-            'account_payment_gateway'        => $event->account->active_payment_gateway->exists() ? $event->account->active_payment_gateway : false,
-            'payment_gateway'                => $event->account->active_payment_gateway->payment_gateway->exists() ? $event->account->active_payment_gateway->payment_gateway : false,
+            'account_payment_gateway'        => count($event->account->active_payment_gateway) ? $event->account->active_payment_gateway : false,
+            'payment_gateway'                => count($event->account->active_payment_gateway) ? $event->account->active_payment_gateway->payment_gateway : false,
         ]);
 
         if ($request->ajax()) {
