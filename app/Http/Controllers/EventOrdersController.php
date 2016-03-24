@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use DB;
 use Excel;
 use Log;
