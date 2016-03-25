@@ -30,21 +30,23 @@ https://www.attendize.com
  - Fully brandable - Have your own logos on tickets etc.
  - Affiliate tracking
     - track sales volume / number of visits generated etc.
- - Widget support - embed ticket selling widget into existing websites / WordPress blogs. 
+ - Widget support - embed ticket selling widget into existing websites / WordPress blogs
  - Social sharing 
- - Accept payments with stripe
+ - Support multiple payment gateways - Stripe, PayPal & Coinbase so far, with more being added
  - Refund payments - partial refund & full refunds
  - Ability to add service charge to tickets
  - Messaging - eg. Email all attendees with X ticket
     
 ##Upcoming Features
+ - Theme support
+ - Plugin Support
+ - Localisation 
  - IOS/Android check-in / door management apps
- - Coupon/ discount code support
+ - Coupon/discount code support
  - Support for more payment providers
  - WordPress Plug-in 
  - Public event listings page for organisers
- - Custom fields during checkout
- - Easier editing of event page layout
+ - Custom questions during checkout
 
 ## Official Documentation
 
