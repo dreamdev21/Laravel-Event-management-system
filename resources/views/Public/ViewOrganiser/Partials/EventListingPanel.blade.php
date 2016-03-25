@@ -7,7 +7,7 @@
     <div class="panel-body">
         <div class="row">
             @foreach($events as $event)
-                <div class="col-sm-12 col-md-6 event">
+                <div class="col-md-12 event">
                     <div class="panel widget">
                         <div class="table-layout nm">
                             <div class="col-xs-4 event_flyer">

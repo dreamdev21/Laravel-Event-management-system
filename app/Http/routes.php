@@ -226,36 +226,42 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     ]);
 
     /*
-     * New organiser dashboard
+     * Organiser routes
      */
     Route::group(['prefix' => 'organiser'], function () {
-        /*
-         * -----------
-         * Organiser Dashboard
-         * -----------
-         */
+
         Route::get('{organiser_id}/dashboard', [
             'as'   => 'showOrganiserDashboard',
             'uses' => 'OrganiserDashboardController@showDashboard',
         ]);
-
-        /*
-         * -----------
-         * Organiser events
-         * -----------
-         */
         Route::get('{organiser_id}/events', [
             'as'   => 'showOrganiserEvents',
             'uses' => 'OrganiserEventsController@showEvents',
         ]);
-        /*
-         * -----------
-         * Organiser events
-         * -----------
-         */
         Route::get('{organiser_id}/customize', [
             'as'   => 'showOrganiserCustomize',
             'uses' => 'OrganiserCustomizeController@showCustomize',
+        ]);
+        Route::get('create', [
+            'as'   => 'showCreateOrganiser',
+            'uses' => 'OrganiserController@showCreateOrganiser',
+        ]);
+        Route::post('create', [
+            'as'   => 'postCreateOrganiser',
+            'uses' => 'OrganiserController@postCreateOrganiser',
+        ]);
+        Route::get('{organiser_id}/edit', [
+            'as'   => 'showEditOrganiser',
+            'uses' => 'OrganiserController@showEditOrganiser',
+        ]);
+        Route::post('{organiser_id}/edit', [
+            'as'   => 'postEditOrganiser',
+            'uses' => 'OrganiserCustomizeController@postEditOrganiser',
+        ]);
+
+        Route::post('{organiser_id}/page_design', [
+            'as'   => 'postEditOrganiserPageDesign',
+            'uses' => 'OrganiserCustomizeController@postEditOrganiserPageDesign'
         ]);
     });
 
@@ -263,36 +269,6 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
      * Events dashboard
      */
     Route::group(['prefix' => 'events'], function () {
-
-        /*
-         * -----------
-         * Events Dashboard - Organisers
-         * -----------
-         */
-        Route::get('/organiser/create', [
-            'as'   => 'showCreateOrganiser',
-            'uses' => 'OrganiserController@showCreateOrganiser',
-        ]);
-        Route::post('/organiser/create', [
-            'as'   => 'postCreateOrganiser',
-            'uses' => 'OrganiserController@postCreateOrganiser',
-        ]);
-        Route::get('/organiser/{organiser_id}', [
-            'as'   => 'showOrganiserEventsDashboard',
-            'uses' => 'OrganiserController@showOrganiserDashboard',
-        ]);
-        Route::get('/organiser/{organiser_id?}', [
-            'as'   => 'showSearchEventsDashboard',
-            'uses' => 'OrganiserController@showOrganiserDashboard',
-        ]);
-        Route::get('/organiser/{organiser_id}/edit', [
-            'as'   => 'showEditOrganiser',
-            'uses' => 'OrganiserController@showEditOrganiser',
-        ]);
-        Route::post('/organiser/{organiser_id}/edit', [
-            'as'   => 'postEditOrganiser',
-            'uses' => 'OrganiserCustomizeController@postEditOrganiser',
-        ]);
 
         /*
          * ----------

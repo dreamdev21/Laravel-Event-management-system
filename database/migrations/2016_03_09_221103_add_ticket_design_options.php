@@ -16,11 +16,11 @@ class AddTicketDesignOptions extends Migration
             /*
              * @see https://github.com/milon/barcode
              */
-            $table->string('barcode_type', 10)->default('QRCODE');
-            $table->string('ticket_border_color', 10)->default('#000000');
-            $table->string('ticket_bg_color', 10)->default('#FFFFFF');
-            $table->string('ticket_text_color', 10)->default('#000000');
-            $table->string('ticket_sub_text_color', 10)->default('#999999');
+            $table->string('barcode_type', 20)->default('QRCODE');
+            $table->string('ticket_border_color', 20)->default('#000000');
+            $table->string('ticket_bg_color', 20)->default('#FFFFFF');
+            $table->string('ticket_text_color', 20)->default('#000000');
+            $table->string('ticket_sub_text_color', 20)->default('#999999');
         });
     }
 

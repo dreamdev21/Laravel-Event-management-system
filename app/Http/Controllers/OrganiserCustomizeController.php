@@ -5,53 +5,64 @@ namespace App\Http\Controllers;
 use App\Models\Organiser;
 use File;
 use Image;
-use Input;
-use Response;
-use Session;
-use View;
+use Illuminate\Http\Request;
+use Validator;
 
 class OrganiserCustomizeController extends MyBaseController
 {
+    /**
+     * Show organiser setting page
+     *
+     * @param $organiser_id
+     * @return mixed
+     */
     public function showCustomize($organiser_id)
     {
         $data = [
             'organiser' => Organiser::scope()->findOrFail($organiser_id),
         ];
 
-        return View::make('ManageOrganiser.Customize', $data);
+        return view('ManageOrganiser.Customize', $data);
     }
 
-    public function postEditOrganiser($organiser_id)
+    /**
+     * Edits organiser settings / design etc.
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return mixed
+     */
+    public function postEditOrganiser(Request $request, $organiser_id)
     {
         $organiser = Organiser::scope()->find($organiser_id);
 
-        if (!$organiser->validate(Input::all())) {
-            return Response::json([
+        if (!$organiser->validate($request->all())) {
+            return response()->json([
                 'status'   => 'error',
                 'messages' => $organiser->errors(),
             ]);
         }
 
-        $organiser->name = Input::get('name');
-        $organiser->about = Input::get('about');
-        $organiser->email = Input::get('email');
-        $organiser->facebook = Input::get('facebook');
-        $organiser->twitter = Input::get('twitter');
+        $organiser->name = $request->get('name');
+        $organiser->about = $request->get('about');
+        $organiser->email = $request->get('email');
+        $organiser->facebook = $request->get('facebook');
+        $organiser->twitter = $request->get('twitter');
 
         /*
          * If the email has been changed the user must confirm the email.
          */
-        if ($organiser->email !== Input::get('email')) {
+        if ($organiser->email !== $request->get('email')) {
             $organiser->is_email_confirmed = 0;
         }
 
-        if (Input::get('remove_current_image') == '1') {
+        if ($request->get('remove_current_image') == '1') {
             $organiser->logo_path = '';
         }
 
-        if (Input::hasFile('organiser_logo')) {
-            $the_file = \File::get(Input::file('organiser_logo')->getRealPath());
-            $file_name = str_slug($organiser->name).'-logo-'.$organiser->id.'.'.strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
+        if ($request->hasFile('organiser_logo')) {
+            $the_file = \File::get($request->file('organiser_logo')->getRealPath());
+            $file_name = str_slug($organiser->name).'-logo-'.$organiser->id.'.'.strtolower($request->file('organiser_logo')->getClientOriginalExtension());
 
             $relative_path_to_file = config('attendize.organiser_images_path').'/'.$file_name;
             $full_path_to_file = public_path($relative_path_to_file);
@@ -72,13 +83,55 @@ class OrganiserCustomizeController extends MyBaseController
 
         $organiser->save();
 
-        Session::flash('message', 'Successfully Updated Organiser');
+        session()->flash('message', 'Successfully Updated Organiser');
 
-        return Response::json([
+        return response()->json([
             'status'      => 'success',
             'redirectUrl' => route('showOrganiserCustomize', [
                 'organiser_id' => $organiser->id,
             ]),
+        ]);
+    }
+
+    /**
+     * Edits organiser profile page colors / design
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return mixed
+     */
+    public function postEditOrganiserPageDesign(Request $request, $organiser_id)
+    {
+        $event = Organiser::scope()->findOrFail($organiser_id);
+
+        $rules = [
+            'page_bg_color' => ['required'],
+            'page_header_bg_color' => ['required'],
+            'page_text_color' => ['required'],
+        ];
+        $messages = [
+            'page_header_bg_color.required' => 'Please enter a header background color.',
+            'page_bg_color.required' => 'Please enter a background color.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'messages' => $validator->messages()->toArray(),
+            ]);
+        }
+
+        $event->page_bg_color = $request->get('page_bg_color');
+        $event->page_header_bg_color = $request->get('page_header_bg_color');
+        $event->page_text_color = $request->get('page_text_color');
+
+        $event->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Organiser Design Successfully Updated',
         ]);
     }
 }

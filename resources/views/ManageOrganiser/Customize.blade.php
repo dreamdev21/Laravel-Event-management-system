@@ -30,6 +30,11 @@
             display: none;
         }
     </style>
+    <script>
+        $(function() {
+            $('.colorpicker').minicolors();
+        });
+    </script>
 @stop
 
 @section('menu')
@@ -132,9 +137,47 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
-                <div class="tab-pane" id="OrganiserPageDesign">
-                    Coming soon.
-                </div>
+                <div class="tab-pane"  id="OrganiserPageDesign">
+                    {!! Form::model($organiser, array('url' => route('postEditOrganiserPageDesign', ['event_id' => $organiser->id]), 'class' => 'ajax ')) !!}
+                    <h4>Organiser Design</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('page_header_bg_color', 'Header Background Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('text', 'page_header_bg_color', Input::old('page_header_bg_color'),
+                                                            [
+                                                            'class'=>'form-control colorpicker',
+                                                            'placeholder'=>'#000000'
+                                                            ])  !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('page_text_color', 'Text Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('text', 'page_text_color', Input::old('page_text_color'),
+                                                            [
+                                                            'class'=>'form-control colorpicker',
+                                                            'placeholder'=>'#FFFFFF'
+                                                            ])  !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('page_bg_color', 'Background Color', ['class'=>'control-label required ']) !!}
+                                {!!  Form::input('text', 'page_bg_color', Input::old('page_bg_color'),
+                                                            [
+                                                            'class'=>'form-control colorpicker',
+                                                            'placeholder'=>'#EEEEEE'
+                                                            ])  !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer mt15 text-right">
+                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                    </div>
+
+                    {!! Form::close() !!}
+
             </div>
         </div>
     </div>
