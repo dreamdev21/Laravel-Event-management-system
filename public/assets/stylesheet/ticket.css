@@ -45,9 +45,12 @@
 
 .ticket .barcode_vertical {
     position: absolute;
-    right: -40px;
-    -webkit-transform: rotate(90deg);
+    right: 100px;
     top: 171px;
+    width: 300px;
+}
+.ticket .barcode_vertical svg {
+    width:300px;
 }
 
 .ticket .top_barcode {
