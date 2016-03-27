@@ -11,17 +11,7 @@
 @stop
 
 @section('top_nav')
-    <ul class="nav navbar-nav navbar-left">
-        <li class="navbar-main">
-            <a href="javascript:void(0);" class='toggleSidebar' title="Organisers">
-            <span class="toggleSidebarIcon">
-                <span class="icon">
-                    <i class="ico-menu"></i>
-                </span>
-            </span>
-            </a>
-        </li>
-    </ul>
+    @include('ManageOrganiser.Partials.TopNav')
 @stop
 
 @section('head')
@@ -61,6 +51,18 @@
                 <div class="tab-pane active" id="organiserSettings">
                     {!! Form::model($organiser, array('url' => route('postEditOrganiser', ['organiser_id' => $organiser->id]), 'class' => 'ajax')) !!}
 
+                    <div class="form-group">
+                        {!! Form::label('enable_organiser_page', 'Enable Public Organiser Page', array('class'=>'control-label required')) !!}
+                        {!!  Form::select('enable_organiser_page', [
+                        '1' => 'Make organiser page visible to the public.',
+                        '0' => 'Hide organiser page from the public.'],Input::old('enable_organiser_page'),
+                                                    array(
+                                                    'class'=>'form-control'
+                                                    ))  !!}
+                        <div class="help-block">
+                            Organiser pages contain a public list of past and upcoming events.
+                        </div>
+                    </div>
                         <div class="form-group">
                             {!! Form::label('name', 'Organiser Name', array('class'=>'required control-label ')) !!}
                             {!!  Form::text('name', Input::old('name'),
@@ -140,6 +142,7 @@
                 <div class="tab-pane"  id="OrganiserPageDesign">
                     {!! Form::model($organiser, array('url' => route('postEditOrganiserPageDesign', ['event_id' => $organiser->id]), 'class' => 'ajax ')) !!}
                     <h4>Organiser Design</h4>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

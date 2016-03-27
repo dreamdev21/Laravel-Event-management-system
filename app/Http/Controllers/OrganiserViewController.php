@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Organiser;
 use View;
 use Carbon\Carbon;
+use Auth;
 
 class OrganiserViewController extends Controller
 {
     public function showOrganiserHome($organiser_id, $slug = '', $preview = false)
     {
         $organiser = Organiser::findOrFail($organiser_id);
+
+        if(!$organiser->enable_organiser_page && !Auth::check()) {
+            abort(404);
+        }
 
         $upcoming_events = $organiser->events()->where('end_date', '>=', Carbon::now())->get();
         $past_events = $organiser->events()->where('end_date', '<', Carbon::now())->get();

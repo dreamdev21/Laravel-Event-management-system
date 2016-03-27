@@ -8,8 +8,8 @@
         </a>
     </li>
     <!--/ Show Side Menu -->
-    <li class="nav-button hide">
-        <a target="_blank" href="{{ $organiser->event_url }}">
+    <li class="nav-button ">
+        <a target="_blank" href="{{ route('showOrganiserHome',[$organiser->id]) }}">
             <span>
                 <i class="ico-eye2"></i>&nbsp;Organiser Page
             </span>

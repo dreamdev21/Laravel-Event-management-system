@@ -6,7 +6,13 @@
                     <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
                 </div>
                 <h3 property="name">
-                    {!!HTML::link('/o/'.$event->organiser->id, $event->organiser->name, array('title' => "Organiser Page"))!!}
+                    @if($event->organiser->enable_organiser_page)
+                    <a href="{{route('showOrganiserHome', [$event->organiser->id, Str::slug($event->organiser->name)])}}" title="Organiser Page">
+                        {{$event->organiser->name}}
+                    </a>
+                    @else
+                        {{$event->organiser->name}}
+                    @endif
                 </h3>
 
                 <p property="description">

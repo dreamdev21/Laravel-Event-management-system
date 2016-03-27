@@ -11,18 +11,7 @@
 @stop
 
 @section('top_nav')
-    <ul class="nav navbar-nav navbar-left">
-        <li class="navbar-main">
-            <a href="javascript:void(0);" class="toggleSidebar" title="Organisers">
-            <span class="toggleSidebarIcon">
-                <span class="icon">
-                    <i class="ico-menu"></i>
-                </span>
-            </span>
-            </a>
-        </li>
-
-    </ul>
+    @include('ManageOrganiser.Partials.TopNav')
 @stop
 
 @section('head')

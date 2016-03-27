@@ -46,15 +46,9 @@ class OrganiserCustomizeController extends MyBaseController
         $organiser->name = $request->get('name');
         $organiser->about = $request->get('about');
         $organiser->email = $request->get('email');
+        $organiser->enable_organiser_page = $request->get('enable_organiser_page');
         $organiser->facebook = $request->get('facebook');
         $organiser->twitter = $request->get('twitter');
-
-        /*
-         * If the email has been changed the user must confirm the email.
-         */
-        if ($organiser->email !== $request->get('email')) {
-            $organiser->is_email_confirmed = 0;
-        }
 
         if ($request->get('remove_current_image') == '1') {
             $organiser->logo_path = '';
@@ -87,9 +81,7 @@ class OrganiserCustomizeController extends MyBaseController
 
         return response()->json([
             'status'      => 'success',
-            'redirectUrl' => route('showOrganiserCustomize', [
-                'organiser_id' => $organiser->id,
-            ]),
+            'redirectUrl' => '',
         ]);
     }
 
