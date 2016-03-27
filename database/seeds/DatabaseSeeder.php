@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
         // $this->call('UserTableSeeder');
         $this->call('CountriesSeeder');
         $this->command->info('Seeded the countries!');
+
+        $this->call('QuestionTypesSeeder');
+        $this->command->info('Seeded the question types!');
     }
 }

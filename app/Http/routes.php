@@ -375,6 +375,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventTicketQuestionsController@postCreateQuestion',
         ]);
 
+        /**
+         * Event questions.
+         */
+        Route::resource('question', 'EventQuestionsController');
+
         /*
          * -------
          * Attendees

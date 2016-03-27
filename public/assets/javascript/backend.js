@@ -8550,6 +8550,12 @@ $(function () {
         },
         error: function (data, statusText, xhr, $form) {
 
+            // Form validation error.
+            if (422 == data.status) {
+                processFormErrors($form, $.parseJSON(data.responseText));
+                return;
+            }
+
             showMessage('Whoops!, it looks like something went wrong on our servers.\n\
                    Please try again, or contact support if the problem persists.');
 
@@ -8589,24 +8595,7 @@ $(function () {
                     break;
 
                 case 'error':
-                    $.each(data.messages, function (index, error) {
-                        var $input = $(':input[name=' + index + ']', $form);
-
-                        if ($input.prop('type') === 'file') {
-                            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        } else {
-                            $input.after('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        }
-
-                    });
-
-                    var $submitButton = $form.find('input[type=submit]');
-                    toggleSubmitDisabled($submitButton);
-
+                    processFormErrors($form, data.messages);
                     break;
 
                 default:
@@ -8869,6 +8858,71 @@ $(function () {
 
 });
 
+function changeQuestionType(select)
+{
+    var select = $(select);
+    var selected = select.find(':selected');
+
+    if (selected.data('has-options') == '1') {
+        $('#question-options').removeClass('hide');
+    } else {
+        $('#question-options').addClass('hide');
+    }
+}
+
+function submitQuestionForm()
+{
+    $('#edit-question-form').submit();
+}
+
+function addQuestionOption()
+{
+    var tbody = $('#question-options tbody');
+    var questionOption = $('#question-option-template').html();
+
+    tbody.append(questionOption);
+}
+
+function removeQuestionOption(removeBtn)
+{
+    var removeBtn = $(removeBtn);
+    var tbody = removeBtn.parents('tbody');
+
+    if (tbody.find('tr').length > 1) {
+        removeBtn.parents('tr').remove();
+    } else {
+        alert('You must have at least one option.');
+    }
+}
+
+function processFormErrors($form, errors)
+{
+    $.each(errors, function (index, error)
+    {
+        var $input = $(':input[name=' + index + ']', $form);
+
+        if ($input.prop('type') === 'file') {
+            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        } else {
+            $input.after('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        }
+
+    });
+
+    var $submitButton = $form.find('input[type=submit]');
+    toggleSubmitDisabled($submitButton);
+}
+
+function reloadPageDelayed()
+{
+    setTimeout(function () {
+        location.reload();
+    }, 2000);
+}
 
 /**
  *

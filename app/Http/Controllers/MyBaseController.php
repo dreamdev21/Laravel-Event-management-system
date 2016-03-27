@@ -36,8 +36,11 @@ class MyBaseController extends Controller
      */
     public function getEventViewData($event_id, $additional_data = [])
     {
+        $event = Event::scope()->findOrFail($event_id);
+
         return array_merge([
-            'event' => Event::scope()->findOrFail($event_id),
-                ], $additional_data);
+            'event' => $event,
+            'questions' => $event->questions()->get(),
+        ], $additional_data);
     }
 }
