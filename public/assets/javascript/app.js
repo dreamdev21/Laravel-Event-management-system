@@ -1,5 +1,3 @@
-
-
 window.Attendize = {
     DateFormat: 'dd-MM-yyyy',
     DateTimeFormat: 'dd-MM-yyyy hh:mm',
@@ -52,9 +50,9 @@ $(function () {
      * --------------------
      * Ajaxify those forms
      * --------------------
-     * 
+     *
      * All forms with the 'ajax' class will automatically handle showing errors etc.
-     * 
+     *
      */
     $('form.ajax').ajaxForm({
         delegation: true,
@@ -75,6 +73,12 @@ $(function () {
             $('.uploadProgress').show().html('Uploading Images - ' + percentComplete + '% Complete...    ');
         },
         error: function (data, statusText, xhr, $form) {
+
+            // Form validation error.
+            if (422 == data.status) {
+                processFormErrors($form, $.parseJSON(data.responseText));
+                return;
+            }
 
             showMessage('Whoops!, it looks like something went wrong on our servers.\n\
                    Please try again, or contact support if the problem persists.');
@@ -115,24 +119,7 @@ $(function () {
                     break;
 
                 case 'error':
-                    $.each(data.messages, function (index, error) {
-                        var $input = $(':input[name=' + index + ']', $form);
-
-                        if ($input.prop('type') === 'file') {
-                            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        } else {
-                            $input.after('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        }
-
-                    });
-
-                    var $submitButton = $form.find('input[type=submit]');
-                    toggleSubmitDisabled($submitButton);
-
+                    processFormErrors($form, data.messages);
                     break;
 
                 default:
@@ -149,12 +136,12 @@ $(function () {
      * --------------------
      * Create a simple way to show remote dynamic modals from the frontend
      * --------------------
-     * 
-     * E.g : 
+     *
+     * E.g :
      * <a href='/route/to/modal' class='loadModal'>
      *  Click For Modal
      * </a>
-     * 
+     *
      */
     $(document.body).on('click', '.loadModal, [data-invoke~=modal]', function (e) {
 
@@ -218,14 +205,14 @@ $(function () {
 
     /*
      * -------------------------------------------------------------
-     * Simple way for any type of object to be deleted. 
+     * Simple way for any type of object to be deleted.
      * -------------------------------------------------------------
-     * 
+     *
      * E.g markup:
      * <a data-route='/route/to/delete' data-id='123' data-type='objectType'>
      *  Delete This Object
      * </a>
-     * 
+     *
      */
     $('.deleteThis').on('click', function (e) {
 
@@ -309,10 +296,6 @@ $(function () {
     /**
      * Toggle checkboxes
      */
-
-
-
-
     $(document.body).on('click', '.check-all', function (e) {
         var toggleClass = $(this).data('check-class');
         $('.' + toggleClass).each(function () {
@@ -395,6 +378,71 @@ $(function () {
 
 });
 
+function changeQuestionType(select)
+{
+    var select = $(select);
+    var selected = select.find(':selected');
+
+    if (selected.data('has-options') == '1') {
+        $('#question-options').removeClass('hide');
+    } else {
+        $('#question-options').addClass('hide');
+    }
+}
+
+function submitQuestionForm()
+{
+    $('#edit-question-form').submit();
+}
+
+function addQuestionOption()
+{
+    var tbody = $('#question-options tbody');
+    var questionOption = $('#question-option-template').html();
+
+    tbody.append(questionOption);
+}
+
+function removeQuestionOption(removeBtn)
+{
+    var removeBtn = $(removeBtn);
+    var tbody = removeBtn.parents('tbody');
+
+    if (tbody.find('tr').length > 1) {
+        removeBtn.parents('tr').remove();
+    } else {
+        alert('You must have at least one option.');
+    }
+}
+
+function processFormErrors($form, errors)
+{
+    $.each(errors, function (index, error)
+    {
+        var $input = $(':input[name=' + index + ']', $form);
+
+        if ($input.prop('type') === 'file') {
+            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        } else {
+            $input.after('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        }
+
+    });
+
+    var $submitButton = $form.find('input[type=submit]');
+    toggleSubmitDisabled($submitButton);
+}
+
+function reloadPageDelayed()
+{
+    setTimeout(function () {
+        location.reload();
+    }, 2000);
+}
 
 /**
  *
