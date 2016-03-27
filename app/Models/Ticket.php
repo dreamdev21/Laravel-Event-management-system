@@ -61,7 +61,7 @@ class Ticket extends MyBaseModel
      */
     public function questions()
     {
-        return $this->belongsToMany('\App\Models\Question', 'ticket_question');
+        return $this->belongsToMany('\App\Models\Question');
     }
 
     /**

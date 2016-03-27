@@ -483,7 +483,24 @@
                         </div>
                     </div>
 
+                    <h4>Attendees questions</h4>
+                    @if ($questions)
+                        <table class="table">
+                            <tbody>
+                            @foreach ($questions as $question)
+                                <tr>
+                                    <td>{{ $question->title }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+
                     <div class="panel-footer mt15 text-right">
+                        <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
+                                data-href="{{route('event.question.create', ['event_id' => $event->id])}}">
+                            <i class="ico-question"></i> Add question
+                        </button>
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
 
