@@ -93,7 +93,7 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        <b>{{{$ticket['ticket']['title']}}}</b>: Ticket Holder {{$i+1}} Details
+                                        <b>{{$ticket['ticket']['title']}}</b>: Ticket Holder {{$i+1}} Details
                                     </h3>
                                 </div>
 
@@ -117,6 +117,7 @@
                                                 {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
                                             </div>
                                         </div>
+                                        @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $i])
                                     </div>
                                 </div>
                             </div>

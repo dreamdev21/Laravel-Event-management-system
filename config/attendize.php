@@ -35,10 +35,20 @@ return [
     'ticket_booking_fee_fixed' => 0,
     'ticket_booking_fee_percentage' => 0,
 
+    /* Order statuses */
     'order_complete' => 1,
     'order_refunded' => 2,
     'order_partially_refunded' => 3,
     'order_cancelled' => 4,
+
+    /* Attendee question types */
+    'question_textbox_single'  => 1,
+    'question_textbox_multi'   => 2,
+    'question_dropdown_single' => 3,
+    'question_dropdown_multi'  => 4,
+    'question_checkbox_multi'  => 5,
+    'question_radio_single'    => 6,
+
 
     'default_timezone' => 30, #Europe/Dublin
     'default_currency' => 2, #Euro
