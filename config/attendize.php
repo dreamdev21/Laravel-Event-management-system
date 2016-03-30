@@ -2,6 +2,8 @@
 
 return [
 
+    'ticket_status_sold_out' => 1,
+    'ticket_status_after_sale_date' => 2,//
     'enable_test_payments' => env('ENABLE_TEST_PAYMENTS', false),
 
     'payment_gateway_stripe'   => 1,
@@ -24,10 +26,8 @@ return [
     'fallback_organiser_logo_url' => '/assets/images/logo-100x100-lightBg.png',
     'cdn_url' => '',
 
-    'checkout_timeout_after' => app()->environment('local', 'development') ? 30 : 8, #mintutes
+    'checkout_timeout_after' => env('CHECKOUT_TIMEOUT_AFTER', 30), #minutes
 
-    'ticket_status_sold_out' => 1,
-    'ticket_status_after_sale_date' => 2,
     'ticket_status_before_sale_date' => 3,
     'ticket_status_on_sale' => 4,
     'ticket_status_off_sale' => 5,
