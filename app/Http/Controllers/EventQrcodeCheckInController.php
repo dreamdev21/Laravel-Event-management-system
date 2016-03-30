@@ -101,7 +101,11 @@ class EventQrcodeCheckInController extends Controller
      */
     public function confirmOrderTickets($event_id, $order_id)
     {
-        $updateRowsCount = Attendee::where(['order_id' => $order_id, 'has_arrived' => false])
+        $updateRowsCount =  Attendee::where([
+                                'event_id' => $event_id, 
+                                'order_id' => $order_id, 
+                                'has_arrived' => false
+                            ])
                             ->update(['has_arrived' => true, 'arrival_time' => Carbon::now()]);
 
         session()->flash('success_message', $updateRowsCount . ' other tickets checked in.');
