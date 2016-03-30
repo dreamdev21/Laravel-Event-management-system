@@ -61,14 +61,6 @@
          <td valign="top" align="center" width="50%">
           <table class="tsel" border="0">
             <tr>
-              <td>
-                <img class="selector" id="webcamimg" src="{{ asset('/assets/images/vid.png') }}" onclick="setwebcam()" align="left" />
-              </td>
-              <td>
-                <img class="selector" id="qrimg" src="{{ asset('/assets/images/cam.png') }}" onclick="setimg()" align="right"/>
-              </td>
-            </tr>
-            <tr>
               <td colspan="2" align="center">
                 <div id="outdiv">
                 </div>
@@ -79,7 +71,7 @@
         </tr>
         <tr>
           <td colspan="3" align="center">
-            <p id="help-text">Put the QR code in front of your Camera</p>
+            <p id="help-text">Put the QR code in front of your Camera (Not too close)</p>
           </td>
         </tr>
         <tr>

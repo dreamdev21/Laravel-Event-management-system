@@ -60,10 +60,11 @@ class EventQrcodeCheckInController extends Controller
                     ])->first();
 
         if(is_null($attendee)){
-            return response()->json(['status'  => 'error', 'message' => "Invalid Ticket !"]);
+            return response()->json(['status'  => 'error', 'message' => "Invalid Ticket! Please try again."]);
         }
 
-        $relatedAttendesCount = Attendee::where([
+        $relatedAttendesCount = Attendee::where('id', '!=', $attendee->id)
+                                ->where([
                                     'order_id' => $attendee->order_id,
                                     'has_arrived' => false
                                 ])->count();
@@ -79,7 +80,7 @@ class EventQrcodeCheckInController extends Controller
         if ($attendee->has_arrived) {
             return response()->json([
                         'status'  => 'error',
-                        'message' => 'Warning: This Attendee Has Already Been Checked In at '. $attendee->arrival_time->format('H:i A, F j'). '.' . $appendedText
+                        'message' => 'Warning: This attendee has already been checked in at '. $attendee->arrival_time->format('H:i A, F j'). '.' . $appendedText
             ]);
         }
 

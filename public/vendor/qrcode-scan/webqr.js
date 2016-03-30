@@ -13,58 +13,7 @@ var v=null;
 
 var beepSound = new Audio('/mp3/beep.mp3');
 
-var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas>'+
-    '<div id="imghelp">Drag and drop a QRCode here'+
-    '<br>or select a file<br><br><br>'+
-    '<input type="file" onchange="handleFiles(this.files)"/>'+
-    '</div>'+
-'</div>';
-
 var vidhtml = '<video id="v" autoplay></video>';
-
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-  if(files.length>0)
-  {
-    handleFiles(files);
-  }
-  else
-  if(dt.getData('URL'))
-  {
-    qrcode.decode(dt.getData('URL'));
-  }
-}
-
-function handleFiles(f)
-{
-    var o=[];
-
-    for(var i =0;i<f.length;i++)
-    {
-        var reader = new FileReader();
-        reader.onload = (function(theFile) {
-        return function(e) {
-            gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-
-            qrcode.decode(e.target.result);
-        };
-        })(f[i]);
-        reader.readAsDataURL(f[i]);
-    }
-}
 
 function initCanvas(w,h)
 {
@@ -115,7 +64,7 @@ function read(qrcode_token)
     $.ajax({
         type: "POST",
         url: Attendize.qrcodeCheckInRoute,
-        data: {qrcode_token: qrcode_token},
+        data: {qrcode_token: htmlEntities(qrcode_token)},
         cache: false,
         complete: function(){
             beepSound.play();
@@ -132,6 +81,7 @@ function isCanvasSupported(){
   var elem = document.createElement('canvas');
   return !!(elem.getContext && elem.getContext('2d'));
 }
+
 function success(stream) {
     if(webkit)
         v.src = window.webkitURL.createObjectURL(stream);
@@ -200,19 +150,4 @@ function setwebcam()
 
     stype=1;
     setTimeout(captureToCanvas, 500);
-}
-function setimg()
-{
-    document.getElementById("help-text").style.display = "none";
-    document.getElementById("result").innerHTML='Waiting for a QRCode&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
-    if(stype==2)
-        return;
-    document.getElementById("outdiv").innerHTML = imghtml;
-    document.getElementById("qrimg").style.opacity=1.0;
-    document.getElementById("webcamimg").style.opacity=0.2;
-    var qrfile = document.getElementById("qrfile");
-    qrfile.addEventListener("dragenter", dragenter, false);
-    qrfile.addEventListener("dragover", dragover, false);
-    qrfile.addEventListener("drop", drop, false);
-    stype=2;
 }
