@@ -69,7 +69,7 @@ return [
       |
      */
     'key'    => env('APP_KEY', 'SomeRandomString'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
     /*
       |--------------------------------------------------------------------------
       | Logging Configuration
@@ -146,6 +146,7 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         MaxHoffmann\Parsedown\ParsedownServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
