@@ -25,7 +25,8 @@
         "omnipay/paypal": "*",
         "omnipay/bitpay": "dev-master",
         "omnipay/coinbase": "dev-master",
-        "barryvdh/laravel-ide-helper": "^2.1"
+        "barryvdh/laravel-ide-helper": "^2.1",
+        "laracasts/utilities": "^2.1"
 
     },
     "require-dev": {
