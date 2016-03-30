@@ -154,6 +154,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\HelpersServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Third Party Service Providers...
@@ -168,6 +170,7 @@ return [
         MaxHoffmann\Parsedown\ParsedownServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+
     ],
 
     /*
@@ -215,8 +218,8 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-        'Form'         => Illuminate\Html\FormFacade::class,
-        'HTML'         => Illuminate\Html\HtmlFacade::class,
+        'Form'         => Collective\Html\FormFacade::class,
+        'HTML'         => Collective\Html\HtmlFacade::class,
         'Str'          => Illuminate\Support\Str::class,
         'Utils'        => App\Attendize\Utils::class,
         'Carbon'       => Carbon\Carbon::class,
