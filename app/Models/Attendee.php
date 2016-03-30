@@ -32,6 +32,8 @@ class Attendee extends MyBaseModel
         'ticket_id',
         'account_id',
         'reference',
+        'has_arrived',
+        'arrival_time'
     ];
 
      /**

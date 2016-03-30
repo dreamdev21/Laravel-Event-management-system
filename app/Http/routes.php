@@ -562,6 +562,27 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventCheckInController@postCheckInAttendee',
         ]);
 
+
+        /*
+         * -------
+         * QRCode Check In App
+         * -------
+         */
+        Route::get('{event_id}/qrcode_check_in', [
+            'as'   => 'showQRCodeChechIn',
+            'uses' => 'EventQrcodeCheckInController@showCheckIn',
+        ]);
+
+        Route::post('{event_id}/qrcode_check_in', [
+            'as'   => 'postQRCodeCheckInAttendee',
+            'uses' => 'EventQrcodeCheckInController@postCheckInAttendee',
+        ]);
+
+        Route::match(['PUT', 'PATCH'], '{event_id}/confirm_order_tickets/{order_id}', [
+            'as'   => 'confirmCheckInOrderTickets',
+            'uses' => 'EventQrcodeCheckInController@confirmOrderTickets',
+        ]);
+
         /*
          * -------
          * Promote
