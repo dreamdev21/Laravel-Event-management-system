@@ -63,9 +63,9 @@ Attendize is open-sourced software licensed under the Attribution Assurance Lice
 
 ## Contributors 
 
-* Brett B ([Github](https://github.com/bretto36)
-* G0dLik3 ([Github](https://github.com/G0dLik3)
+* Brett B ([Github](https://github.com/bretto36))
+* G0dLik3 ([Github](https://github.com/G0dLik3))
 * Honoré Hounwanou ([Github](http://github.com/mercuryseries)) <mercuryseries@gmail.com>
-* James Campbell ([Github](https://github.com/jncampbell)
-* JapSeyz ([Github](https://github.com/JapSeyz)
-* Mark Walet ([Github](https://github.com/markwalet)
+* James Campbell ([Github](https://github.com/jncampbell))
+* JapSeyz ([Github](https://github.com/JapSeyz))
+* Mark Walet ([Github](https://github.com/markwalet))
