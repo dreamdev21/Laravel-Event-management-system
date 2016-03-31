@@ -54,7 +54,7 @@ Limited Documentation available at https://www.attendize.com/documentation.php. 
 
 
 ## Contributors 
-
+* Honoré Hounwanou ([Github](http://github.com/mercuryseries)) <mercuryseries@gmail.com>
 
 ## Contribution
 
