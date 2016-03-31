@@ -19,14 +19,17 @@
             <div class="content">
                 <div class="tickets_table_wrap">
                     <table class="table">
+                        <?php
+                         $is_free_event = true;
+                        ?>
                         @foreach($tickets as $ticket)
                         <tr class="ticket" property="offers" typeof="Offer">
                             <td>
                                 <span class="ticket-title semibold" property="name">
-                                    {{{$ticket->title}}}
+                                    {{$ticket->title}}
                                 </span>
                                 <p class="ticket-descripton mb0 text-muted" property="description">
-                                    {{{$ticket->description}}}
+                                    {{$ticket->description}}
                                 </p>
                             </td>
                             <td style="width:180px; text-align: right;">
@@ -34,9 +37,12 @@
                                     @if($ticket->is_free)
                                     FREE
                                     @else
-                                    <span title='{{{money($ticket->price, $event->currency->code)}}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency->code)}} Booking Fees'>{{{money($ticket->total_price, $event->currency->code)}}} </span>
-                                    <meta property="priceCurrency" content="{{{ $event->currency->code }}}">
-                                    <meta property="price" content="{{{ number_format($ticket->price, 2, '.', '') }}}">
+                                        <?php
+                                        $is_free_event = false;
+                                        ?>
+                                    <span title='{{money($ticket->price, $event->currency->code)}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency->code)}} Booking Fees'>{{money($ticket->total_price, $event->currency->code)}} </span>
+                                    <meta property="priceCurrency" content="{{ $event->currency->code }}}">
+                                    <meta property="price" content="{{ number_format($ticket->price, 2, '.', '') }}">
                                     @endif
                                 </div>
                             </td>
@@ -79,8 +85,10 @@
 
                         <tr class="checkout">
                             <td colspan="3">
-                                <img class="hidden-xs pull-left" src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
-                                {!!Form::submit('Checkout', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+                                @if(!$is_free_event)
+                                    <img class="hidden-xs pull-left" src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
+                                @endif
+                                {!!Form::submit('Register', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
                             </td>
                         </tr>
                     </table>
