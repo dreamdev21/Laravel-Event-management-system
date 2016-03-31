@@ -53,9 +53,6 @@ https://www.attendize.com
 Limited Documentation available at https://www.attendize.com/documentation.php. Github will be updated with more comprehensive documentation soon.
 
 
-## Contributors 
-* Honoré Hounwanou ([Github](http://github.com/mercuryseries)) <mercuryseries@gmail.com>
-
 ## Contribution
 
 Feel free to fork and contribute. I could use the help!
@@ -63,3 +60,12 @@ Feel free to fork and contribute. I could use the help!
 ## License
 
 Attendize is open-sourced software licensed under the Attribution Assurance License
+
+## Contributors 
+
+* Brett B ([Github](https://github.com/bretto36)
+* G0dLik3 ([Github](https://github.com/G0dLik3)
+* Honoré Hounwanou ([Github](http://github.com/mercuryseries)) <mercuryseries@gmail.com>
+* James Campbell ([Github](https://github.com/jncampbell)
+* JapSeyz ([Github](https://github.com/JapSeyz)
+* Mark Walet ([Github](https://github.com/markwalet)
