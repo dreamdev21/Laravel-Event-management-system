@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('quantity_reserved');
             $table->datetime('expires');
             $table->string('session_id', 45);
-            $table->timestamps()->useCurrent();
+            $table->nullableTimestamps();
         });
 
         Schema::create('timezones', function ($t) {
@@ -62,7 +62,7 @@ class CreateUsersTable extends Migration
             $table->string('decimal_point', 3);
             $table->string('thousand_point', 3);
             $table->integer('status');
-            $table->timestamps()->useCurrent();
+            $table->nullableTimestamps();
         });
 
 
@@ -82,7 +82,7 @@ class CreateUsersTable extends Migration
             $t->unsignedInteger('currency_id')->nullable();
             //$t->unsignedInteger('payment_gateway_id')->default(config('attendize.default_payment_gateway'));
 
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
             $t->softDeletes();
 
             $t->string('name');
@@ -121,7 +121,7 @@ class CreateUsersTable extends Migration
 
             $t->increments('id');
             $t->unsignedInteger('account_id')->index();
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
             $t->softDeletes();
 
             $t->string('first_name');
@@ -142,7 +142,7 @@ class CreateUsersTable extends Migration
 
             $table->increments('id')->index();
 
-            $table->timestamps()->useCurrent();
+            $table->nullableTimestamps();
             $table->softDeletes();
 
             $table->unsignedInteger('account_id')->index();
@@ -224,7 +224,7 @@ class CreateUsersTable extends Migration
 
             $t->boolean('is_live')->default(false);
 
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
             $t->softDeletes();
         });
 
@@ -235,7 +235,7 @@ class CreateUsersTable extends Migration
             $t->increments('id');
             $t->unsignedInteger('account_id')->index();
             $t->unsignedInteger('order_status_id');
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
             $t->softDeletes();
 
             $t->string('first_name');
@@ -273,7 +273,7 @@ class CreateUsersTable extends Migration
         Schema::create('tickets', function ($t) {
 
             $t->increments('id');
-                        $t->timestamps()->useCurrent();
+                        $t->nullableTimestamps();
             $t->softDeletes();
 
             $t->unsignedInteger('edited_by_user_id')->nullable();
@@ -333,7 +333,7 @@ class CreateUsersTable extends Migration
 //
 //
 //        Schema::create('questions', function($t) {
-//            $t->timestamps()->useCurrent();
+//            $t->nullableTimestamps();
 //            $t->softDeletes();
 //
 //            $t->increments('id');
@@ -449,7 +449,7 @@ class CreateUsersTable extends Migration
             $t->string('reference', 20);
             $t->integer('private_reference_number')->index();
 
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
             $t->softDeletes();
 
             $t->boolean('is_cancelled')->default(false);
@@ -474,7 +474,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('is_sent', 0);
             $table->dateTime('sent_at');
-            $table->timestamps()->useCurrent();
+            $table->nullableTimestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
@@ -485,7 +485,7 @@ class CreateUsersTable extends Migration
 
             $t->increments('id');
             $t->string('image_path');
-            $t->timestamps()->useCurrent();
+            $t->nullableTimestamps();
 
             $t->unsignedInteger('event_id');
             $t->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
