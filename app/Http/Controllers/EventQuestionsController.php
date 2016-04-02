@@ -7,9 +7,6 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\Question;
 use App\Models\QuestionType;
-use File;
-use Image;
-use Validator;
 use Illuminate\Http\Request;
 
 class EventQuestionsController extends MyBaseController

@@ -119,6 +119,7 @@
                                         </div>
                                         @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $i])
                                     </div>
+
                                 </div>
                             </div>
                             @endfor

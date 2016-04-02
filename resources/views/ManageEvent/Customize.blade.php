@@ -195,6 +195,8 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'order_page'])}}"
                     class="{{$tab == 'order_page' ? 'active' : ''}}"><a href="#order_page" data-toggle="tab">Order
                         Form</a></li>
+                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'questions'])}}"
+                    class="{{$tab == 'questions' ? 'active' : ''}}"><a href="#questions" data-toggle="tab">Questions &amp; Answers</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'social'])}}"
                     class="{{$tab == 'social' ? 'active' : ''}}"><a href="#social" data-toggle="tab">Social</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'affiliates'])}}"
@@ -524,28 +526,69 @@
                         </div>
                     </div>
 
-                    <h4>Attendees questions</h4>
-                    @if ($questions)
-                        <table class="table">
-                            <tbody>
-                            @foreach ($questions as $question)
-                                <tr>
-                                    <td>{{ $question->title }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-
                     <div class="panel-footer mt15 text-right">
-                        <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                data-href="{{route('event.question.create', ['event_id' => $event->id])}}">
-                            <i class="ico-question"></i> Add question
-                        </button>
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
 
                     {!! Form::close() !!}
+
+                </div>
+
+
+                <div class="tab-pane {{$tab == 'questions' ? 'active' : ''}}" id="questions">
+                    <h4>Attendees questions</h4>
+                    <div class="panel">
+                    <div class="table-responsive">
+                        @if ($questions)
+                            <table class="table">
+                                <thead>
+                                <th>
+                                    Question Title
+                                </th>
+                                <th>
+                                    Question Type
+                                </th>
+                                <th>
+                                    Applies to tickets
+                                </th>
+                                <th>
+
+                                </th>
+                                </thead>
+                                <tbody>
+                                @foreach ($questions as $question)
+                                    <tr>
+                                        <td>
+                                            {{ $question->title }}
+                                        </td>
+                                        <td>
+                                            {{ $question->question_type->name }}
+                                        </td>
+                                        <td>
+                                            {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-primary loadModal">
+                                                Edit
+                                            </a>
+                                            <a href="#" class="btn btn-xs btn-danger loadModal">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
+                        <div class="panel-footer mt15 text-right">
+                            <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
+                                    data-href="{{route('event.question.create', ['event_id' => $event->id])}}">
+                                <i class="ico-question"></i> Add question
+                            </button>
+                        </div>
+                    </div>
+
 
                 </div>
 
