@@ -568,7 +568,8 @@
                                             {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-primary loadModal">
+                                            <a class="btn btn-xs btn-primary loadModal" data-modal-id="EditQuestion" href="javascript:void(0);"
+                                               data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
                                                 Edit
                                             </a>
                                             <a href="#" class="btn btn-xs btn-danger loadModal">

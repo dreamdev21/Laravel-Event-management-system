@@ -380,6 +380,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
          */
         Route::resource('question', 'EventQuestionsController');
 
+        Route::get('{event_id}/question/{question_id}', [
+            'as' => 'showEditEventQuestion',
+            'uses' => 'EventQuestionsController@showEditEventQuestion'
+        ]);
+        
+        Route::post('{event_id}/question/{question_id}', [
+            'as' => 'postEditEventQuestion',
+            'uses' => 'EventQuestionsController@postEditEventQuestion'
+        ]);
+
         /*
          * -------
          * Attendees

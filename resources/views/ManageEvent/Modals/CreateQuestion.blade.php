@@ -1,3 +1,4 @@
+
 <div role="dialog" id="{{ $modal_id }}" class="modal fade" style="display: none;">
     <script id="question-option-template" type="text/template">
         <tr>
@@ -13,17 +14,17 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-question"></i>
-                    Edit Question</h3>
+                    Create Question</h3>
             </div>
             <div class="modal-body">
                 <div class="panel panel-default">
-                    {!!  Form::model($question, ['url' => route('postEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
+                    {!!  Form::model($question, ['url' => $form_url, 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="question-title" class="required">
                                 Question
                             </label>
-                            {!! Form::text('title', $question->title, [
+                            {!! Form::text('title', '', [
                                 'id' => 'question-title',
                                 'class' => 'form-control',
                                 'placeholder' => 'e.g.: What is your name?',
@@ -36,7 +37,7 @@
 
                             <select id="question-type" class="form-control" name="question_type_id" onchange="changeQuestionType(this);">
                                 @foreach ($question_types as $question_type)
-                                    <option {{$question->question_type_id == $question_type->id ? 'selected' : ''}} data-has-options="{{$question_type->has_options}}" value="{{$question_type->id}}">
+                                    <option data-has-options="{{$question_type->has_options}}" value="{{$question_type->id}}">
                                         {{$question_type->name}}
                                     </option>
                                 @endforeach
@@ -46,7 +47,7 @@
                             <label for="question-instructions">
                                 Instructions
                             </label>
-                            {!! Form::text('instructions', $question->instructions, [
+                            {!! Form::text('instructions', null, [
                                 'id' => 'question-instructions',
                                 'class' => 'form-control',
                             ]) !!}
@@ -60,7 +61,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($question->options as $question_option)
+                                @foreach ($question_options as $question_option)
                                     <tr>
                                         <td><input class="form-control" name="option[]" type="text" value="{{ $question_option->name }}"></td>
                                         <td width="50">
@@ -108,7 +109,7 @@
                     Close
                 </a>
                 <a class="btn btn-success" href="javascript:void(0);" onclick="submitQuestionForm();">
-                    Save Question
+                    Create Question
                 </a>
             </div>
         </div><!-- /end modal content-->

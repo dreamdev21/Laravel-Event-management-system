@@ -31,7 +31,7 @@ class EventQuestionsController extends MyBaseController
             ],
         ];
 
-        return view('ManageEvent.Modals.EditQuestion', [
+        return view('ManageEvent.Modals.CreateQuestion', [
             'form_url' => route('event.question.store', [
                 'event_id' => $event_id,
             ]),
@@ -97,6 +97,28 @@ class EventQuestionsController extends MyBaseController
             'message' => 'Successfully Created Question. Refreshing page...',
             'runThis' => 'reloadPageDelayed();',
         ]);
+    }
+
+
+    public function showEditEventQuestion(Request $request, $event_id, $question_id)
+    {
+        $question = Question::findOrFail($question_id);
+        $event = Event::findOrFail($event_id);
+
+        $data = [
+            'question' => $question,
+            'event' => $event,
+            'question_types' => QuestionType::all(),
+            'modal_id' => $request->get('modal_id'),
+        ];
+
+        return view('ManageEvent.Modals.EditQuestion', $data);
+    }
+
+
+    public function postEditEventQuestion(Request $request, $event_id, $question_id)
+    {
+
     }
 
     /**
