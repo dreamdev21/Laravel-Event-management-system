@@ -14,17 +14,19 @@ class AddQuestionAnswersTable extends Migration
     {
         Schema::create('question_answers', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('attendee_id')->unsigned()->index();
+
             $table->integer('event_id')->unsigned()->index();
             $table->integer('question_id')->unsigned()->index();
             $table->integer('account_id')->unsigned()->index();
             $table->text('answer_text');
             $table->nullableTimestamps();
 
-            $table->foreign('attendee_id')->references('id')->on('attendees');
             $table->foreign('question_id')->references('id')->on('questions');
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('attendee_id')->references('id')->on('attendees')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
         });

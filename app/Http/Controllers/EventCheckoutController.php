@@ -138,7 +138,6 @@ class EventCheckoutController extends Controller
             $reservedTickets->session_id = session()->getId();
             $reservedTickets->save();
 
-            if ($event->ask_for_all_attendees_info) {
                 for ($i = 0; $i < $current_ticket_quantity; $i++) {
                     /*
                      * Create our validation rules here
@@ -151,8 +150,21 @@ class EventCheckoutController extends Controller
                     $validation_messages['ticket_holder_last_name.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s last name is required';
                     $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s email is required';
                     $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.email'] = 'Ticket holder ' . ($i + 1) . '\'s email appears to be invalid';
+
+                    /*
+                     * Validation rules for custom questions
+                     */
+                    foreach ($ticket->questions as $question) {
+
+                        if($question->is_required) {
+                            $validation_rules['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id] = ['required'];
+                            $validation_messages['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id . '.required'] = "This question is required";
+                        }
+                    }
+
+
                 }
-            }
+
         }
 
         if (empty($tickets)) {
@@ -443,6 +455,7 @@ class EventCheckoutController extends Controller
         $order->event_id = $ticket_order['event_id'];
         $order->save();
 
+
         /*
          * Update the event sales volume
          */
@@ -517,24 +530,26 @@ class EventCheckoutController extends Controller
                 $attendee->reference = $order->order_reference . '-' . ($attendee_increment);
                 $attendee->save();
 
-                /*
-                 * Save the answers to any additional questions
+
+                /**
+                 * Save the attendee's questions
                  */
-                foreach ($attendee_details['ticket']->questions as $question) {
+                    foreach ($attendee_details['ticket']->questions as $question) {
 
-                    $ticket_answer = $ticket_questions[$attendee_details['ticket']->id][$i][$question->id];
+                        $ticket_answer = $ticket_questions[$attendee_details['ticket']->id][$i][$question->id];
 
-                    if(!empty($ticket_answer)) {
-                        QuestionAnswer::create([
-                            'answer_text' => $ticket_answer,
-                            'attendee_id' => $attendee->id,
-                            'event_id'    => $event->id,
-                            'account_id'  => $event->account->id,
-                            'question_id' => $question->id
-                        ]);
+                        if(!empty($ticket_answer)) {
+                            QuestionAnswer::create([
+                                'answer_text' => $ticket_answer,
+                                'attendee_id' => $attendee->id,
+                                'event_id'    => $event->id,
+                                'account_id'  => $event->account->id,
+                                'question_id' => $question->id
+                            ]);
 
+                        }
                     }
-                }
+
 
                 /* Keep track of total number of attendees */
                 $attendee_increment++;

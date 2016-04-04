@@ -159,14 +159,7 @@ $(function() {
         $('.contact_form').slideToggle();
     });
 
-    $('#mirror_buyer_info').change(function(e) {
-
-        if ($(this).prop('checked')) {
-            $('.ticket_holders_details').slideUp();
-        } else {
-            $('.ticket_holders_details').slideDown();
-        }
-
+    $('#mirror_buyer_info').on('click', function(e) {
         $('.ticket_holder_first_name').val($('#order_first_name').val());
         $('.ticket_holder_last_name').val($('#order_last_name').val());
         $('.ticket_holder_email').val($('#order_email').val());

@@ -75,14 +75,11 @@
                     </div>
                 </div>
 
-                @if($event->ask_for_all_attendees_info)
                 <div class="p20 pl0">
-                   {!! Form::label("mirror_buyer_info", 'Use buyer details for all ticket holders') !!}
-                   {!! Form::checkbox("mirror_buyer_info", 'on', false) !!}
+                    <a href="javascript:void(0);" class="btn btn-primary btn-xs" id="mirror_buyer_info">
+                        Copy buyer details to all ticket holders
+                    </a>
                 </div>
-                @endif
-
-                @if($event->ask_for_all_attendees_info)
 
                 <div class="row">
                     <div class="col-md-12">
@@ -133,7 +130,6 @@
                     </div>
                 </div>
 
-                @endif
                 @if($order_requires_payment && @$payment_gateway->is_on_site)
 
                 <h3>Payment Information</h3>

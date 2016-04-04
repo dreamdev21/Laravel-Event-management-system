@@ -195,8 +195,7 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'order_page'])}}"
                     class="{{$tab == 'order_page' ? 'active' : ''}}"><a href="#order_page" data-toggle="tab">Order
                         Form</a></li>
-                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'questions'])}}"
-                    class="{{$tab == 'questions' ? 'active' : ''}}"><a href="#questions" data-toggle="tab">Questions &amp; Answers</a></li>
+
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'social'])}}"
                     class="{{$tab == 'social' ? 'active' : ''}}"><a href="#social" data-toggle="tab">Social</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'affiliates'])}}"
@@ -496,7 +495,7 @@
                         </div>
                         <div class="help-block">
                             If checked, the buyer will be asked for details of each attendee; as opposed to just
-                            himself.
+                            themselves.
                         </div>
                     </div>
 
@@ -535,86 +534,7 @@
                 </div>
 
 
-                <div class="tab-pane {{$tab == 'questions' ? 'active' : ''}}" id="questions">
 
-
-                    <div class="form-group">
-                        {!! Form::label('questions_collection_type', 'Question Collection Type', array('class'=>'control-label required')) !!}
-                        {!!  Form::select('questions_collection_type', [
-                        'attendee' => 'Collect information for each attendee.',
-                        'buyer' => 'Only collect information for the buyer.'], $event->questions_collection_type,
-                                                    array(
-                                                    'class'=>'form-control'
-                                                    ))  !!}
-                    </div>
-
-                    <h4>Attendees questions</h4>
-                    <div class="panel">
-                    <div class="table-responsive">
-                        @if($questions->count())
-                            <table class="table">
-                                <thead>
-                                <th>
-                                    Question Title
-                                </th>
-                                <th>
-                                    Question Type
-                                </th>
-                                <th>
-                                    Required
-                                </th>
-                                <th>
-                                    Applies to tickets
-                                </th>
-                                <th>
-
-                                </th>
-                                </thead>
-                                <tbody>
-                                @foreach ($questions as $question)
-                                    <tr>
-                                        <td>
-                                            {{ $question->title }}
-                                        </td>
-                                        <td>
-                                            {{ $question->question_type->name }}
-                                        </td>
-                                        <td>
-                                            {{ $question->is_required ? 'Yes' : 'No' }}
-                                        </td>
-                                        <td>
-                                            {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-xs btn-primary loadModal" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                               data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
-                                                Edit
-                                            </a>
-                                            <a data-id="{{ $question->id }}" data-route="{{ route('postDeleteEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]) }}" data-type="question"  href="javascript:void(0);" class="btn btn-xs btn-danger deleteThis">
-                                                Delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-
-                        @else
-                            <div class="panel-body">
-                                You haven't added any questions yet. You can add question by clicking the '<b>Add Question</b>' button below.
-                            </div>
-                        @endif
-                    </div>
-                        <div class="panel-footer mt15 text-right">
-                            <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                    data-href="{{route('showCreateEventQuestion', ['event_id' => $event->id])}}">
-                                <i class="ico-question"></i> Add question
-                            </button>
-                        </div>
-                    </div>
-
-
-                </div>
 
                 <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
                     {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}

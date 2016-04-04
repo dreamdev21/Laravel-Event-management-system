@@ -17,8 +17,8 @@ class Order extends MyBaseModel
      */
     public $rules = [
         'order_first_name' => ['required'],
-        'order_last_name'  => ['required'],
-        'order_email'      => ['required', 'email'],
+        'order_last_name' => ['required'],
+        'order_email' => ['required', 'email'],
     ];
 
     /**
@@ -28,8 +28,8 @@ class Order extends MyBaseModel
      */
     public $messages = [
         'order_first_name.required' => 'Please enter a valid first name',
-        'order_last_name.required'  => 'Please enter a valid last name',
-        'order_email.email'         => 'Please enter a valid email',
+        'order_last_name.required' => 'Please enter a valid last name',
+        'order_email.email' => 'Please enter a valid email',
     ];
 
     /**
@@ -98,6 +98,7 @@ class Order extends MyBaseModel
         return $this->belongsTo('\App\Models\OrderStatus');
     }
 
+    
     /**
      * Get the organizer fee of the order.
      *
@@ -125,7 +126,7 @@ class Order extends MyBaseModel
      */
     public function getFullNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
@@ -138,14 +139,14 @@ class Order extends MyBaseModel
     public function generatePdfTickets()
     {
         $data = [
-            'order'     => $this,
-            'event'     => $this->event,
-            'tickets'   => $this->event->tickets,
+            'order' => $this,
+            'event' => $this->event,
+            'tickets' => $this->event->tickets,
             'attendees' => $this->attendees,
         ];
 
-        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$this->order_reference;
-        $pdf_file = $pdf_file_path.'.pdf';
+        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $this->order_reference;
+        $pdf_file = $pdf_file_path . '.pdf';
 
         if (file_exists($pdf_file)) {
             return true;
@@ -158,7 +159,7 @@ class Order extends MyBaseModel
         PDF::setOutputMode('F'); // force to file
         PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file_path);
 
-        $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path').'/'.$this->order_reference.'.pdf';
+        $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path') . '/' . $this->order_reference . '.pdf';
         $this->save();
 
         return file_exists($pdf_file);
@@ -172,7 +173,7 @@ class Order extends MyBaseModel
         parent::boot();
 
         static::creating(function ($order) {
-            $order->order_reference = strtoupper(str_random(5)).date('jn');
+            $order->order_reference = strtoupper(str_random(5)) . date('jn');
         });
     }
 }

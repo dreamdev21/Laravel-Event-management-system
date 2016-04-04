@@ -48,5 +48,25 @@
                 </a>
             </li>
         </ul>
+        <h5 class="heading">Event Tools</h5>
+        <ul id="nav_event" class="topmenu">
+            <li class="{{ Request::is('*check_in*') ? 'active' : '' }}">
+                <a href="{{route('showChechIn', array('event_id' => $event->id))}}">
+                    <span class="figure"><i class="ico-checkbox-checked"></i></span>
+                    <span class="text">Check-In</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('*surveys*') ? 'active' : '' }}">
+                <a href="{{route('showEventSurveys', array('event_id' => $event->id))}}">
+                    <span class="figure"><i class="ico-question"></i></span>
+                    <span class="text">Surveys</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('*check_in*') ? 'active' : '' }}">
+                <a href="{{route('showChechIn', array('event_id' => $event->id))}}">
+                    <span class="figure"><i class="ico-code"></i></span>
+                    <span class="text">Widgets</span>
+                </a>
+            </li>
     </section>
 </aside>

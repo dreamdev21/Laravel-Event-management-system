@@ -375,36 +375,6 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventTicketQuestionsController@postCreateQuestion',
         ]);
 
-
-        /**
-         * Event Questions
-         */
-        Route::get('{event_id}/question/create', [
-            'as' => 'showCreateEventQuestion',
-            'uses' => 'EventQuestionsController@showCreateEventQuestion'
-        ]);
-
-        Route::post('{event_id}/question/create', [
-            'as' => 'postCreateEventQuestion',
-            'uses' => 'EventQuestionsController@postCreateEventQuestion'
-        ]);
-
-
-        Route::get('{event_id}/question/{question_id}', [
-            'as' => 'showEditEventQuestion',
-            'uses' => 'EventQuestionsController@showEditEventQuestion'
-        ]);
-
-        Route::post('{event_id}/question/{question_id}', [
-            'as' => 'postEditEventQuestion',
-            'uses' => 'EventQuestionsController@postEditEventQuestion'
-        ]);
-
-        Route::post('{event_id}/question/delete/{question_id}', [
-            'as' => 'postDeleteEventQuestion',
-            'uses' => 'EventQuestionsController@postDeleteEventQuestion'
-        ]);
-
         /*
          * -------
          * Attendees
@@ -568,6 +538,43 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'postEditEventFees',
             'uses' => 'EventCustomizeController@postEditEventFees',
         ]);
+
+
+        /*
+         * -------
+         * Event Survey page
+         * -------
+         */
+        Route::get('{event_id}/surveys', [
+            'as'   => 'showEventSurveys',
+            'uses' => 'EventSurveyController@showEventSurveys',
+        ]);
+        Route::get('{event_id}/question/create', [
+            'as' => 'showCreateEventQuestion',
+            'uses' => 'EventSurveyController@showCreateEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/create', [
+            'as' => 'postCreateEventQuestion',
+            'uses' => 'EventSurveyController@postCreateEventQuestion'
+        ]);
+
+
+        Route::get('{event_id}/question/{question_id}', [
+            'as' => 'showEditEventQuestion',
+            'uses' => 'EventSurveyController@showEditEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/{question_id}', [
+            'as' => 'postEditEventQuestion',
+            'uses' => 'EventSurveyController@postEditEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/delete/{question_id}', [
+            'as' => 'postDeleteEventQuestion',
+            'uses' => 'EventSurveyController@postDeleteEventQuestion'
+        ]);
+
 
         /*
          * -------

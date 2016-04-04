@@ -11,20 +11,24 @@ class QuestionAnswer extends MyBaseModel
         'attendee_id',
         'account_id',
         'answer_text',
+        'questionable_id',
+        'questionable_type',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function event()
     {
         return $this->belongsToMany('\App\Models\Event');
     }
 
-    public function attendee()
-    {
-        return $this->belongsToMany('\App\Models\Attendee');
-    }
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function question()
     {
-        return $this->belongsToMany('\App\Models\Question');
+        return $this->belongsTo('\App\Models\Question');
     }
+
 }

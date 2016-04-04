@@ -80,6 +80,14 @@ class Attendee extends MyBaseModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany('App\Models\QuestionAnswer');
+    }
+
+    /**
      * Scope a query to return attendees that have not cancelled.
      *
      * @param $query
