@@ -88,6 +88,9 @@
                     <div class="col-md-12">
                         <div class="ticket_holders_details" >
                             <h3>Ticket Holder Information</h3>
+                            <?php
+                                $total_attendee_increment = 0;
+                            ?>
                             @foreach($tickets as $ticket)
                             @for($i=0; $i<=$ticket['qty']-1; $i++)
                             <div class="panel panel-primary">
@@ -117,11 +120,12 @@
                                                 {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
                                             </div>
                                         </div>
-                                        @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $i])
+                                        @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $total_attendee_increment++])
                                     </div>
 
                                 </div>
                             </div>
+
                             @endfor
 
                             @endforeach

@@ -1,5 +1,6 @@
 
 <div role="dialog" id="{{ $modal_id }}" class="modal fade" style="display: none;">
+    {!!  Form::open(['url' => route('postCreateEventQuestion', ['event_id'=>$event->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
     <script id="question-option-template" type="text/template">
         <tr>
             <td><input class="form-control" name="option[]" type="text"></td>
@@ -17,9 +18,6 @@
                     Create Question</h3>
             </div>
             <div class="modal-body">
-                <div class="panel panel-default">
-                    {!!  Form::model($question, ['url' => $form_url, 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
-                    <div class="panel-body">
                         <div class="form-group">
                             <label for="question-title" class="required">
                                 Question
@@ -61,14 +59,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($question_options as $question_option)
                                     <tr>
-                                        <td><input class="form-control" name="option[]" type="text" value="{{ $question_option->name }}"></td>
+                                        <td><input class="form-control" name="option[]" type="text" value=""></td>
                                         <td width="50">
                                             <i class="btn btn-danger ico-remove" onclick="removeQuestionOption(this);"></i>
                                         </td>
                                     </tr>
-                                @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -84,7 +80,7 @@
                         </fieldset>
 
                         <div class="form-group">
-                            {!! Form::checkbox('is_required', 1, null, ['id' => 'is_required']) !!}
+                            {!! Form::checkbox('is_required', 'yes', false, ['id' => 'is_required']) !!}
                             {!! Form::label('is_required', 'Make this a required question') !!}
                         </div>
 
@@ -100,18 +96,12 @@
                             @endforeach
                         </div>
 
-                    </div>
-                    {!! Form::close() !!}
-                </div>
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-                <a href="" class="btn btn-danger" data-dismiss="modal">
-                    Close
-                </a>
-                <a class="btn btn-success" href="javascript:void(0);" onclick="submitQuestionForm();">
-                    Create Question
-                </a>
+                {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                {!! Form::submit('Save Question', ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
     </div>
+    {!! Form::close() !!}
 </div>

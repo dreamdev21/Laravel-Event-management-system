@@ -390,10 +390,7 @@ function changeQuestionType(select)
     }
 }
 
-function submitQuestionForm()
-{
-    $('#edit-question-form').submit();
-}
+
 
 function addQuestionOption()
 {
@@ -437,12 +434,7 @@ function processFormErrors($form, errors)
     toggleSubmitDisabled($submitButton);
 }
 
-function reloadPageDelayed()
-{
-    setTimeout(function () {
-        location.reload();
-    }, 2000);
-}
+
 
 /**
  *

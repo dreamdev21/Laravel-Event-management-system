@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventQuestionRequest;
 use App\Models\Event;
-use App\Models\Ticket;
 use App\Models\Question;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
@@ -16,30 +15,14 @@ class EventQuestionsController extends MyBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function showCreateEventQuestion(Request $request, $event_id)
     {
-        // Get the event ID.
-        $event_id = $request->get('event_id');
-
-        // Get the event or display a 'not found' warning.
-        $event = Event::findOrFail($event_id);
-
-        // Initialize an empty array for the question options.
-        $question_options = [
-            (object)[
-                'name' => '',
-            ],
-        ];
+        $event = Event::scope()->findOrFail($event_id);
 
         return view('ManageEvent.Modals.CreateQuestion', [
-            'form_url' => route('event.question.store', [
-                'event_id' => $event_id,
-            ]),
             'event' => $event,
-            'question' => [],
             'modal_id' => $request->get('modal_id'),
             'question_types' => QuestionType::all(),
-            'question_options' => $question_options,
         ]);
     }
 
@@ -50,10 +33,8 @@ class EventQuestionsController extends MyBaseController
      * @param  StoreEventQuestionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEventQuestionRequest $request)
+    public function postCreateEventQuestion(StoreEventQuestionRequest $request, $event_id)
     {
-        // Get the event ID.
-        $event_id = $request->get('event_id');
 
         // Get the event or display a 'not found' warning.
         $event = Event::findOrFail($event_id);
@@ -62,7 +43,7 @@ class EventQuestionsController extends MyBaseController
         $question = Question::createNew(false, false, true);
         $question->title = $request->get('title');
         $question->instructions = $request->get('instructions');
-        $question->is_required = $request->get('title');
+        $question->is_required = ($request->get('is_required') == 'yes') ;
         $question->question_type_id = $request->get('question_type_id');
         $question->save();
 
@@ -83,27 +64,24 @@ class EventQuestionsController extends MyBaseController
         // Get tickets.
         $ticket_ids = $request->get('tickets');
 
-        // Add ticket <-> question entry.
-        if ($ticket_ids && is_array($ticket_ids)) {
-            foreach ($ticket_ids as $ticket_id) {
-                Ticket::find($ticket_id)->questions()->attach($question->id);
-            }
-        }
+        $question->tickets()->attach($ticket_ids);
 
         $event->questions()->attach($question->id);
 
+        session()->flash('message', 'Successfully Created Question');
+
         return response()->json([
-            'status'   => 'success',
-            'message' => 'Successfully Created Question. Refreshing page...',
-            'runThis' => 'reloadPageDelayed();',
+            'status' => 'success',
+            'message' => 'Refreshing..',
+            'redirectUrl' => route('showEventCustomize', ['event_id' => $event_id]) . '#questions',
         ]);
     }
 
 
     public function showEditEventQuestion(Request $request, $event_id, $question_id)
     {
-        $question = Question::findOrFail($question_id);
-        $event = Event::findOrFail($event_id);
+        $question = Question::scope()->findOrFail($question_id);
+        $event = Event::scope()->findOrFail($event_id);
 
         $data = [
             'question' => $question,
@@ -118,51 +96,70 @@ class EventQuestionsController extends MyBaseController
 
     public function postEditEventQuestion(Request $request, $event_id, $question_id)
     {
+        // Get the event or display a 'not found' warning.
+        $event = Event::scope()->findOrFail($event_id);
+
+        // Create question.
+        $question = Question::scope()->findOrFail($question_id);
+        $question->title = $request->get('title');
+        $question->instructions = $request->get('instructions');
+        $question->is_required = $request->get('is_required');
+        $question->question_type_id = $request->get('question_type_id');
+        $question->save();
+
+        // Get options.
+        $options = $request->get('option');
+
+        $question->options()->delete();
+
+        // Add options.
+        if ($options && is_array($options)) {
+            foreach ($options as $option_name) {
+                if (trim($option_name) !== '') {
+                    $question->options()->create([
+                        'name' => $option_name,
+                    ]);
+                }
+            }
+        }
+
+        // Get tickets.
+        $ticket_ids = $request->get('tickets');
+
+        $question->tickets()->sync($ticket_ids);
+
+        session()->flash('message', 'Successfully Edited Question');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Refreshing..',
+            'redirectUrl' => route('showEventCustomize', ['event_id' => $event_id]) . '#questions',
+        ]);
 
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    
+    public function postDeleteEventQuestion(Request $request, $event_id)
     {
-        //
-    }
+        $question_id = $request->get('question_id');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $question = Question::scope()->find($question_id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if ($question->delete()) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            session()->flash('message', 'Question Successfully Deleted');
+
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Refreshing..',
+                'redirectUrl' => route('showEventCustomize', ['event_id' => $event_id]) . '#questions',
+            ]);
+        }
+
+        return response()->json([
+            'status'  => 'error',
+            'id'      => $question->id,
+            'message' => 'This question can\'t be deleted.',
+        ]);
     }
+    
 }

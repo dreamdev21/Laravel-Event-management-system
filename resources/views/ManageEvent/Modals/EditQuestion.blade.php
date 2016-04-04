@@ -1,4 +1,5 @@
 <div role="dialog" id="{{ $modal_id }}" class="modal fade" style="display: none;">
+    {!!  Form::model($question, ['url' => route('postEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
     <script id="question-option-template" type="text/template">
         <tr>
             <td><input class="form-control" name="option[]" type="text"></td>
@@ -16,9 +17,6 @@
                     Edit Question</h3>
             </div>
             <div class="modal-body">
-                <div class="panel panel-default">
-                    {!!  Form::model($question, ['url' => route('postEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
-                    <div class="panel-body">
                         <div class="form-group">
                             <label for="question-title" class="required">
                                 Question
@@ -51,14 +49,9 @@
                                 'class' => 'form-control',
                             ]) !!}
                         </div>
-                        <fieldset id="question-options" {!! empty($question->has_options) ? ' class="hide"' : '' !!}>
+                        <fieldset id="question-options" class="{{ $question->has_options ? 'hide' : '' }}" >
                             <legend>Question Options</legend>
                             <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Option name</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                 @foreach ($question->options as $question_option)
                                     <tr>
@@ -83,7 +76,7 @@
                         </fieldset>
 
                         <div class="form-group">
-                            {!! Form::checkbox('is_required', 1, null, ['id' => 'is_required']) !!}
+                            {!! Form::checkbox('is_required', 1, $question->is_required, ['id' => 'is_required']) !!}
                             {!! Form::label('is_required', 'Make this a required question') !!}
                         </div>
 
@@ -91,26 +84,21 @@
                             <label>
                                 Require this question for ticket(s):
                             </label>
-
                             @foreach ($event->tickets as $ticket)
                                 <br>
-                                <input id="ticket_{{ $ticket->id }}" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
+                                <input {{in_array($ticket->id, $question->tickets->lists('id')->toArray()) ? 'checked' : ''}} id="ticket_{{ $ticket->id }}" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
                                 <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
                             @endforeach
                         </div>
 
-                    </div>
-                    {!! Form::close() !!}
-                </div>
+
+
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-                <a href="" class="btn btn-danger" data-dismiss="modal">
-                    Close
-                </a>
-                <a class="btn btn-success" href="javascript:void(0);" onclick="submitQuestionForm();">
-                    Save Question
-                </a>
+                {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                {!! Form::submit('Save Question', ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
     </div>
+    {!! Form::close() !!}
 </div>

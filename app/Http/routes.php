@@ -375,19 +375,34 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventTicketQuestionsController@postCreateQuestion',
         ]);
 
+
         /**
-         * Event questions.
+         * Event Questions
          */
-        Route::resource('question', 'EventQuestionsController');
+        Route::get('{event_id}/question/create', [
+            'as' => 'showCreateEventQuestion',
+            'uses' => 'EventQuestionsController@showCreateEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/create', [
+            'as' => 'postCreateEventQuestion',
+            'uses' => 'EventQuestionsController@postCreateEventQuestion'
+        ]);
+
 
         Route::get('{event_id}/question/{question_id}', [
             'as' => 'showEditEventQuestion',
             'uses' => 'EventQuestionsController@showEditEventQuestion'
         ]);
-        
+
         Route::post('{event_id}/question/{question_id}', [
             'as' => 'postEditEventQuestion',
             'uses' => 'EventQuestionsController@postEditEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/delete/{question_id}', [
+            'as' => 'postDeleteEventQuestion',
+            'uses' => 'EventQuestionsController@postDeleteEventQuestion'
         ]);
 
         /*

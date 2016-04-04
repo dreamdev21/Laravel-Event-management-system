@@ -536,10 +536,22 @@
 
 
                 <div class="tab-pane {{$tab == 'questions' ? 'active' : ''}}" id="questions">
+
+
+                    <div class="form-group">
+                        {!! Form::label('questions_collection_type', 'Question Collection Type', array('class'=>'control-label required')) !!}
+                        {!!  Form::select('questions_collection_type', [
+                        'attendee' => 'Collect information for each attendee.',
+                        'buyer' => 'Only collect information for the buyer.'], $event->questions_collection_type,
+                                                    array(
+                                                    'class'=>'form-control'
+                                                    ))  !!}
+                    </div>
+
                     <h4>Attendees questions</h4>
                     <div class="panel">
                     <div class="table-responsive">
-                        @if ($questions)
+                        @if($questions->count())
                             <table class="table">
                                 <thead>
                                 <th>
@@ -547,6 +559,9 @@
                                 </th>
                                 <th>
                                     Question Type
+                                </th>
+                                <th>
+                                    Required
                                 </th>
                                 <th>
                                     Applies to tickets
@@ -565,6 +580,9 @@
                                             {{ $question->question_type->name }}
                                         </td>
                                         <td>
+                                            {{ $question->is_required ? 'Yes' : 'No' }}
+                                        </td>
+                                        <td>
                                             {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
                                         </td>
                                         <td>
@@ -572,7 +590,7 @@
                                                data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
                                                 Edit
                                             </a>
-                                            <a href="#" class="btn btn-xs btn-danger loadModal">
+                                            <a data-id="{{ $question->id }}" data-route="{{ route('postDeleteEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]) }}" data-type="question"  href="javascript:void(0);" class="btn btn-xs btn-danger deleteThis">
                                                 Delete
                                             </a>
                                         </td>
@@ -580,11 +598,16 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
+                        @else
+                            <div class="panel-body">
+                                You haven't added any questions yet. You can add question by clicking the '<b>Add Question</b>' button below.
+                            </div>
                         @endif
                     </div>
                         <div class="panel-footer mt15 text-right">
                             <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                    data-href="{{route('event.question.create', ['event_id' => $event->id])}}">
+                                    data-href="{{route('showCreateEventQuestion', ['event_id' => $event->id])}}">
                                 <i class="ico-question"></i> Add question
                             </button>
                         </div>
