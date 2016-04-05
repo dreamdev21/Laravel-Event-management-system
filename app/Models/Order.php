@@ -152,7 +152,7 @@ class Order extends MyBaseModel
         }
 
         if (!is_dir($pdf_file_path)) {
-            File::makeDirectory($pdf_file_path, 0777, true, true);
+            File::makeDirectory(dirname($pdf_file_path), 0777, true, true);
         }
 
         PDF::setOutputMode('F'); // force to file
