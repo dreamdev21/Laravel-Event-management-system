@@ -33,7 +33,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
             $amount = $amount * -1;
         }
 
-        $ticket->ticket_revenue = $ticket->ticket_revenue + $amount;
+        $ticket->sales_volume = $ticket->sales_volume + $amount;
 
         return $ticket->save();
     }

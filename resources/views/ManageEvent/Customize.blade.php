@@ -206,9 +206,7 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'ticket_design'])}}"
                     class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">Ticket
                         Design</a></li>
-                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'embed'])}}"
-                    class="{{$tab == 'embed' ? 'active' : ''}}"><a href="#embed" data-toggle="tab">Website Embed
-                        Code</a></li>
+
             </ul>
             <!--/ tab -->
             <!-- tab content -->
@@ -593,35 +591,6 @@
                     </div>
 
                     {!! Form::close() !!}
-
-                </div>
-
-                <div class="tab-pane {{$tab == 'embed' ? 'active' : ''}}" id="embed">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>HTML Embed Code</h4>
-                            <textarea rows="7" onfocus="this.select();"
-                                      class="form-control">{{$event->embed_html_code}}</textarea>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Instructions</h4>
-
-                            <p>
-                                Simply copy and paste the HTML provided onto your website where you would like the
-                                widget to appear and the widget will appear.
-                            </p>
-
-                            <h5>
-                                <b>Embed Preview</b>
-                            </h5>
-
-                            <div class="preview_embed" style="border:1px solid #ddd; padding: 5px;">
-                                {!! $event->embed_html_code !!}
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
 

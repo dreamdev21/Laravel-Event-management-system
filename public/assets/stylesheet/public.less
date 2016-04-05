@@ -9,6 +9,13 @@ table {
   margin: 0;
 }
 
+label.required::after {
+  content: '*';
+  color: red;
+  padding-left: 3px;
+  font-size: 9px;
+}
+
 @media (min-width: 1200px) {
   .container {
     width: 960px;

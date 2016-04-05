@@ -542,6 +542,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
 
         /*
          * -------
+         * Event Widget page
+         * -------
+         */
+        Route::get('{event_id}/widgets', [
+            'as'   => 'showEventWidgets',
+            'uses' => 'EventWidgetsController@showEventWidgets',
+        ]);
+
+        /*
+         * -------
          * Event Survey page
          * -------
          */
@@ -573,6 +583,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
         Route::post('{event_id}/question/delete/{question_id}', [
             'as' => 'postDeleteEventQuestion',
             'uses' => 'EventSurveyController@postDeleteEventQuestion'
+        ]);
+
+        Route::get('{event_id}/question/{question_id}/answers', [
+           'as' => 'showEventQuestionAnswers',
+            'uses' => 'EventSurveyController@showEventQuestionAnswers',
         ]);
 
 

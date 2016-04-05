@@ -24,11 +24,11 @@ class QuestionAnswer extends MyBaseModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function question()
     {
         return $this->belongsTo('\App\Models\Question');
     }
-
+    
 }

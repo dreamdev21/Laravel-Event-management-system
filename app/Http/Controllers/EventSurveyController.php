@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventQuestionRequest;
 use App\Models\Event;
+use App\Models\Attendee;
 use App\Models\Question;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
@@ -14,8 +15,14 @@ use Illuminate\Http\Request;
 
 class EventSurveyController extends MyBaseController
 {
-
-
+    
+    /**
+     * Show the event survey page
+     * 
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
     public function showEventSurveys(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
@@ -99,6 +106,14 @@ class EventSurveyController extends MyBaseController
     }
 
 
+    /**
+     * Show the Edit Question Modal
+     * 
+     * @param Request $request
+     * @param $event_id
+     * @param $question_id
+     * @return mixed
+     */
     public function showEditEventQuestion(Request $request, $event_id, $question_id)
     {
         $question = Question::scope()->findOrFail($question_id);
@@ -115,6 +130,14 @@ class EventSurveyController extends MyBaseController
     }
 
 
+    /**
+     * Edits a question
+     * 
+     * @param Request $request
+     * @param $event_id
+     * @param $question_id
+     * @return mixed
+     */
     public function postEditEventQuestion(Request $request, $event_id, $question_id)
     {
         // Get the event or display a 'not found' warning.
@@ -159,6 +182,13 @@ class EventSurveyController extends MyBaseController
 
     }
 
+    /**
+     * Delete a question
+     * 
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
     public function postDeleteEventQuestion(Request $request, $event_id)
     {
         $question_id = $request->get('question_id');
@@ -181,6 +211,27 @@ class EventSurveyController extends MyBaseController
             'id'      => $question->id,
             'message' => 'This question can\'t be deleted.',
         ]);
+    }
+
+    /**
+     * Show all attendees answers to questions
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param $question_id
+     * @return mixed
+     */
+    public function showEventQuestionAnswers(Request $request, $event_id, $question_id)
+    {
+
+        $attendees = Attendee::scope()->where('event_id', $event_id)->get();
+
+        $data = [
+            'attendees' => $attendees,
+            'modal_id' => $request->get('modal_id'),
+        ];
+
+        return view('ManageEvent.Modals.ViewAnswers', $data);
     }
 
 }

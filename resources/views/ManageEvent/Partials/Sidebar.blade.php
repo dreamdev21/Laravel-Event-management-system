@@ -62,8 +62,8 @@
                     <span class="text">Surveys</span>
                 </a>
             </li>
-            <li class="{{ Request::is('*check_in*') ? 'active' : '' }}">
-                <a href="{{route('showChechIn', array('event_id' => $event->id))}}">
+            <li class="{{ Request::is('*widgets*') ? 'active' : '' }}">
+                <a href="{{route('showEventWidgets', array('event_id' => $event->id))}}">
                     <span class="figure"><i class="ico-code"></i></span>
                     <span class="text">Widgets</span>
                 </a>

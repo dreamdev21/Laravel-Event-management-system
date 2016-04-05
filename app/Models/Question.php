@@ -35,6 +35,11 @@ class Question extends MyBaseModel
         return $this->belongsTo('\App\Models\QuestionType');
     }
 
+    public function answers()
+    {
+        return $this->hasMany('\App\Models\Answers');
+    }
+
     /**
      * The options associated with the question.
      *

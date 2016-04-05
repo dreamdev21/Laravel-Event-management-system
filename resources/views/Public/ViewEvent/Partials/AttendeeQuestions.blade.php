@@ -8,7 +8,7 @@
             @elseif($question->question_type_id == config('attendize.question_textbox_multi'))
                 {!! Form::textarea("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]", null, ['rows'=>5, 'required' => $question->is_required ? 'required' : '', 'class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}  form-control"]) !!}
             @elseif($question->question_type_id == config('attendize.question_dropdown_single'))
-                {!! Form::select("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]",$question->options->lists('name', 'name'), null, ['required' => $question->is_required ? 'required' : '', 'class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}   form-control"]) !!}
+                {!! Form::select("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]", $question->options->lists('name', 'name'), null, ['required' => $question->is_required ? 'required' : '', 'class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}   form-control"]) !!}
             @elseif($question->question_type_id == config('attendize.question_dropdown_multi'))
                 {!! Form::select("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]",$question->options->lists('name', 'name'), null, ['required' => $question->is_required ? 'required' : '', 'multiple' => 'multiple','class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}   form-control"]) !!}
             @elseif($question->question_type_id == config('attendize.question_checkbox_multi'))
@@ -25,6 +25,11 @@
                 @endforeach
             @endif
 
+            @if($question->instructions)
+            <div class="help-block">
+                {{ $question->instructions }}
+            </div>
+            @endif
         </div>
     </div>
 @endforeach
