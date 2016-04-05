@@ -20,7 +20,6 @@ class ManageAccountController extends MyBaseController
     public function showEditAccount(Request $request)
     {
         $data = [
-            'modal_id' => $request->get('modal_id'),
             'account' => Account::find(Auth::user()->account_id),
             'timezones' => Timezone::lists('location', 'id'),
             'currencies' => Currency::lists('title', 'id'),

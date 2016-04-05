@@ -78,7 +78,7 @@ class Attendee extends MyBaseModel
     {
         return $this->belongsTo('\App\Models\Event');
     }
-
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

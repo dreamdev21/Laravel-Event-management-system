@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
    {!! Form::model($user, array('url' => route('postEditUser'), 'class' => 'ajax closeModalAfter')) !!}
     <div class="modal-dialog account_settings">
         <div class="modal-content">

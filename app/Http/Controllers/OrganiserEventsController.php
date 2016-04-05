@@ -34,4 +34,6 @@ class OrganiserEventsController extends MyBaseController
 
         return View::make('ManageOrganiser.Events', $data);
     }
+
+    
 }

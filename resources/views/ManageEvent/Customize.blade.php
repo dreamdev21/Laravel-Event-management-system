@@ -300,37 +300,37 @@
                         <label class="control-label">Share buttons to show.</label>
                         <br>
 
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
                                 Facebook
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
                                 Twitter
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
                                 Google+
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
                                 Email
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
                                 LinkedIn
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox checkbox-inline">
                             <label>
                                 {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['data-toggle' => 'toggle']) !!}
                                 WhatsApp
@@ -483,20 +483,6 @@
                 <div class="tab-pane {{$tab == 'order_page' ? 'active' : ''}}" id="order_page">
                     {!! Form::model($event, array('url' => route('postEditEventOrderPage', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
                     <h4>Order Page Settings</h4>
-
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('ask_for_all_attendees_info', 'on', $event->ask_for_all_attendees_info, ['data-toggle' => 'toggle']) !!}
-                                Require details for each attendee?
-                            </label>
-                        </div>
-                        <div class="help-block">
-                            If checked, the buyer will be asked for details of each attendee; as opposed to just
-                            themselves.
-                        </div>
-                    </div>
-
 
                     <div class="form-group">
                         {!! Form::label('pre_order_display_message', 'Message to display to attendees before they complete their order.', array('class'=>'control-label ')) !!}

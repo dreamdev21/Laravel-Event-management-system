@@ -25,7 +25,7 @@
                             {!! Form::text('title', '', [
                                 'id' => 'question-title',
                                 'class' => 'form-control',
-                                'placeholder' => 'e.g.: What is your name?',
+                                'placeholder' => 'e.g. Please enter your full address?',
                             ]) !!}
                         </div>
                         <div class="form-group">
@@ -48,6 +48,7 @@
                             {!! Form::text('instructions', null, [
                                 'id' => 'question-instructions',
                                 'class' => 'form-control',
+                                'placeholder' => 'e.g. Please enter your post code in the format XXX XX?'
                             ]) !!}
                         </div>
                         <fieldset id="question-options" {!! empty($question->has_options) ? ' class="hide"' : '' !!}>

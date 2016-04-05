@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEventQuestionRequest;
 use App\Models\Event;
 use App\Models\Attendee;
 use App\Models\Question;
+use App\Models\QuestionAnswer;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,6 @@ class EventSurveyController extends MyBaseController
 
         return view('ManageEvent.Modals.CreateQuestion', [
             'event' => $event,
-            'modal_id' => $request->get('modal_id'),
             'question_types' => QuestionType::all(),
         ]);
     }
@@ -123,7 +123,6 @@ class EventSurveyController extends MyBaseController
             'question' => $question,
             'event' => $event,
             'question_types' => QuestionType::all(),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.EditQuestion', $data);
@@ -224,11 +223,17 @@ class EventSurveyController extends MyBaseController
     public function showEventQuestionAnswers(Request $request, $event_id, $question_id)
     {
 
-        $attendees = Attendee::scope()->where('event_id', $event_id)->get();
+        $answers = QuestionAnswer::scope()->where('question_id', $question_id)->get();
+        $question = Question::scope()->withTrashed()->find($question_id);
+
+        $attendees = Attendee::scope()
+            ->has('answers')
+            ->where('event_id', $event_id)
+            ->get();
 
         $data = [
-            'attendees' => $attendees,
-            'modal_id' => $request->get('modal_id'),
+            'answers'  => $answers,
+            'question' => $question,
         ];
 
         return view('ManageEvent.Modals.ViewAnswers', $data);

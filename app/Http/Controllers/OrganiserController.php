@@ -55,13 +55,9 @@ class OrganiserController extends MyBaseController
 
     public function showCreateOrganiser()
     {
-        return View::make('ManageOrganiser.CreateOrganiser', [
-            'modal_id' => 'createOrganiser',
-        ]);
+        return View::make('ManageOrganiser.CreateOrganiser');
 
-        return View::make('ManageEvents.Modals.CreateOrganiser', [
-                    'modal_id' => Input::get('modal_id'),
-        ]);
+        return View::make('ManageEvents.Modals.CreateOrganiser');
     }
 
     public function postCreateOrganiser()

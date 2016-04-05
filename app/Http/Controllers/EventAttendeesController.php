@@ -17,7 +17,6 @@ use DB;
 use Excel;
 use Mail;
 use Response;
-use Session;
 use Validator;
 
 class EventAttendeesController extends MyBaseController
@@ -92,7 +91,6 @@ class EventAttendeesController extends MyBaseController
         }
 
         return view('ManageEvent.Modals.CreateAttendee', [
-            'modal_id' => $request->get('modal_id'),
             'event'    => $event,
             'tickets'  => $event->tickets()->lists('title', 'id'),
         ]);
@@ -230,7 +228,6 @@ class EventAttendeesController extends MyBaseController
         $data = [
             'attendee' => $attendee,
             'event'    => $attendee->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.MessageAttendee', $data);
@@ -302,7 +299,6 @@ class EventAttendeesController extends MyBaseController
     {
         $data = [
             'event'    => Event::scope()->find($event_id),
-            'modal_id' => $request->get('modal_id'),
             'tickets'  => Event::scope()->find($event_id)->tickets()->lists('title', 'id')->toArray(),
         ];
 
@@ -358,8 +354,6 @@ class EventAttendeesController extends MyBaseController
      */
     public function showExportAttendees($event_id, $export_as = 'xls')
     {
-
-
 
         Excel::create('attendees-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
 
@@ -423,7 +417,6 @@ class EventAttendeesController extends MyBaseController
             'attendee' => $attendee,
             'event'    => $attendee->event,
             'tickets'  => $attendee->event->tickets->lists('title', 'id'),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.EditAttendee', $data);
@@ -487,7 +480,6 @@ class EventAttendeesController extends MyBaseController
             'attendee' => $attendee,
             'event'    => $attendee->event,
             'tickets'  => $attendee->event->tickets->lists('title', 'id'),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.CancelAttendee', $data);
@@ -553,7 +545,6 @@ class EventAttendeesController extends MyBaseController
         $data = [
             'attendee' => $attendee,
             'event'    => $attendee->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.ResendTicketToAttendee', $data);

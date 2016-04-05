@@ -15,7 +15,7 @@ Event Surveys
 @stop
 
 @section('page_title')
-<i class='ico-cart mr5'></i>
+<i class='ico-clipboard4 mr5'></i>
 Event Surveys
 @stop
 
@@ -99,11 +99,37 @@ Event Surveys
                                     <td>
                                         {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
                                     </td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
-                                           data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
-                                            View Answers
-                                        </a>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        View Answers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as XLSX
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as CSV
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as HTML
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                         <a class="btn btn-xs btn-primary loadModal" data-modal-id="EditQuestion" href="javascript:void(0);"
                                            data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
                                             Edit

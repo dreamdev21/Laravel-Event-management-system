@@ -28,7 +28,15 @@ class QuestionAnswer extends MyBaseModel
      */
     public function question()
     {
-        return $this->belongsTo('\App\Models\Question');
+        return $this->belongsTo('\App\Models\Question')->withTrashed();
     }
-    
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attendee()
+    {
+        return $this->belongsTo('\App\Models\Attendee');
+    }
+
 }
