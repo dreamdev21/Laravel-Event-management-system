@@ -184,6 +184,10 @@ $(function () {
                 });
 
                 $('html').removeClass('working');
+
+                //intialize toggeles
+                $('input[type="checkbox"]').bootstrapToggle();
+
             }
         }).done().fail(function (data) {
             $('html').removeClass('working');

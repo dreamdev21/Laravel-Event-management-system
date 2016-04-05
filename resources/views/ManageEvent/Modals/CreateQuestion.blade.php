@@ -80,7 +80,7 @@
                         </fieldset>
 
                         <div class="form-group">
-                            {!! Form::checkbox('is_required', 'yes', false, ['id' => 'is_required']) !!}
+                            {!! Form::checkbox('is_required', 'yes', false, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
                             {!! Form::label('is_required', 'Make this a required question') !!}
                         </div>
 
@@ -91,7 +91,7 @@
 
                             @foreach ($event->tickets as $ticket)
                                 <br>
-                                <input id="ticket_{{ $ticket->id }}" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
+                                <input id="ticket_{{ $ticket->id }}" name="tickets[]" data-toggle = 'toggle' type="checkbox" value="{{ $ticket->id }}">
                                 <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
                             @endforeach
                         </div>

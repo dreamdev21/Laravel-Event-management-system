@@ -8595,7 +8595,7 @@ $.cf = {
 		if (this.$element.prop('checked')) this.on(silent)
 		else this.off(silent)
 	}
-     
+
 	Toggle.prototype.trigger = function (silent) {
 		this.$element.off('change.bs.toggle')
 		if (!silent) this.$element.change()
@@ -8838,6 +8838,10 @@ $(function () {
                 });
 
                 $('html').removeClass('working');
+
+                //intialize toggeles
+                $('input[type="checkbox"]').bootstrapToggle();
+
             }
         }).done().fail(function (data) {
             $('html').removeClass('working');

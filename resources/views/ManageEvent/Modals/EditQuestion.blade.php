@@ -76,7 +76,7 @@
                         </fieldset>
 
                         <div class="form-group">
-                            {!! Form::checkbox('is_required', 1, $question->is_required, ['id' => 'is_required']) !!}
+                            {!! Form::checkbox('is_required', 1, $question->is_required, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
                             {!! Form::label('is_required', 'Make this a required question') !!}
                         </div>
 
@@ -86,7 +86,7 @@
                             </label>
                             @foreach ($event->tickets as $ticket)
                                 <br>
-                                <input {{in_array($ticket->id, $question->tickets->lists('id')->toArray()) ? 'checked' : ''}} id="ticket_{{ $ticket->id }}" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
+                                <input {{in_array($ticket->id, $question->tickets->lists('id')->toArray()) ? 'checked' : ''}} id="ticket_{{ $ticket->id }}" data-toggle="toggle" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
                                 <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
                             @endforeach
                         </div>
