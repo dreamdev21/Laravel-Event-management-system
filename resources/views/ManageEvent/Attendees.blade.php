@@ -158,7 +158,7 @@ Attendees
         @endif
     </div>
     <div class="col-md-12">
-        {!! $attendees->render() !!}
+        {!!$attendees->appends(['sort_by' => $sort_by, 'sort_order' => $sort_order, 'q' => $q])->render()!!}
     </div>
 </div>    <!--/End attendees table-->
 
