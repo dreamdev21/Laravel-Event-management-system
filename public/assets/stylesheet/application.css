@@ -483,4 +483,87 @@ body {
 .minicolors-theme-semanticui input {
     text-indent: 30px;
 }
+/*! ========================================================================
+ * Bootstrap Toggle: bootstrap-toggle.css v2.2.0
+ * http://www.bootstraptoggle.com
+ * ========================================================================
+ * Copyright 2014 Min Hur, The New York Times Company
+ * Licensed under MIT
+ * ======================================================================== */
+
+
+.checkbox label .toggle,
+.checkbox-inline .toggle {
+	margin-left: -20px;
+	margin-right: 5px;
+}
+
+.toggle {
+	position: relative;
+	overflow: hidden;
+}
+.toggle input[type="checkbox"] {
+	display: none;
+}
+.toggle-group {
+	position: absolute;
+	width: 200%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	transition: left 0.35s;
+	-webkit-transition: left 0.35s;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+.toggle.off .toggle-group {
+	left: -100%;
+}
+.toggle-on {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+}
+.toggle-off {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+}
+.toggle-handle {
+	position: relative;
+	margin: 0 auto;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 100%;
+	width: 0px;
+	border-width: 0 1px;
+}
+
+.toggle.btn { min-width: 59px; min-height: 34px; }
+.toggle-on.btn { padding-right: 24px; }
+.toggle-off.btn { padding-left: 24px; }
+
+.toggle.btn-lg { min-width: 79px; min-height: 45px; }
+.toggle-on.btn-lg { padding-right: 31px; }
+.toggle-off.btn-lg { padding-left: 31px; }
+.toggle-handle.btn-lg { width: 40px; }
+
+.toggle.btn-sm { min-width: 50px; min-height: 30px;}
+.toggle-on.btn-sm { padding-right: 20px; }
+.toggle-off.btn-sm { padding-left: 20px; }
+
+.toggle.btn-xs { min-width: 35px; min-height: 22px;}
+.toggle-on.btn-xs { padding-right: 12px; }
+.toggle-off.btn-xs { padding-left: 12px; }
+
 .page-title .title .organiser_logo{position:absolute;height:45px;right:20px;top:5px;bottom:5px}.page-title .title .organiser_logo img{max-height:45px}.nav li.nav-button a span{padding:10px;background-color:#037c9c}.event.panel{margin-top:10px}.event .event-date{border:1px solid #fff;padding-bottom:9px;padding-top:7px;text-align:center;text-shadow:0 1px 1px rgba(0,0,0,0.1);width:46px;position:absolute;background-color:#fff;top:-13px;border-color:#0384a6;color:#666}.event .event-date .day{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:22px;font-weight:500;margin:-2px auto -6px auto}.event .event-date .month{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:10px;font-weight:500;margin:-2px auto 0 auto}.event .event-meta{margin:0;padding:0;margin-left:60px;height:55px;margin-top:10px;color:#fff}.event .event-meta li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;list-style:none;font-size:12px}.event .event-meta li a{color:#fff}.event .event-meta li.event-title a{font-size:16px}.event .event-meta li.event-organiser a{font-weight:bold}.event .panel-title{height:60px;padding:10px}.event .panel-title a{margin:0;height:40px;display:table-cell;vertical-align:middle;text-indent:50px}.stat-box{padding:20px;background-color:#0398bf;color:#fff;text-align:center;margin-bottom:10px;border-bottom:4px solid rgba(0,0,0,0.2)}.stat-box h3{margin-bottom:5px;margin-top:0;font-weight:200}.stat-box span{text-transform:uppercase;font-weight:lighter;color:#d0f0fe}.stat-box:nth-child(odd){background-color:#0384a6}.top_of_page_alert{border:none;margin:0;text-align:center;border-bottom:5px solid}.v-align-text{text-align:center;position:relative;top:50%;-ms-transform:translateY(-50%);-wekbit-transform:translateY(-50%);transform:translateY(-50%)}@media (max-width:992px){.page-header>[class*=" col-"],.page-header>[class^="col-"]{margin-bottom:10px}}@media (max-width:480px){.btn-group-responsive{margin-bottom:-10px;float:none !important;display:block !important}.btn-group-responsive .btn{width:100%;padding-left:0;padding-right:0;margin-bottom:10px}.btn-group-responsive .pull-left,.btn-group-responsive .pull-right{float:none !important}}label.required::after{content:'*';color:red;padding-left:3px;font-size:9px}.hasDatepicker[disabled],.hasDatepicker[readonly],fieldset[disabled] .hasDatepicker{cursor:pointer !important;background-color:#fff !important;opacity:1}.more-options{display:none}.col-sort{color:#fff}.col-sort :hover{color:#fff}.pac-container{z-index:9999}.dtpicker-overlay{z-index:9999}.dtpicker-close{display:none}.dtpicker-header .dtpicker-title{color:#afafaf;text-align:center;font-size:18px;font-weight:normal}.dtpicker-header .dtpicker-value{padding:.8em .2em .2em .2em;color:#0384a6;text-align:center;font-size:1.4em}.dtpicker-buttonCont .dtpicker-button{background:#0384a6;border-radius:0}.dtpicker-content{border-radius:0}.sidebar-open-ltr body{overflow-x:hidden}.order_options .event_count{font-weight:bold;color:#777}.well{background-color:#f9f9f9;box-shadow:none}.input-group-btn select{width:115px !important;border-left:0;font-size:12px}.btn-file{position:relative;overflow:hidden}.btn-file input[type=file]{position:absolute;top:0;right:0;min-width:100%;min-height:100%;font-size:100px;text-align:right;filter:alpha(opacity=0);opacity:0;background:red;cursor:inherit;display:block}input[readonly]{background-color:white !important;cursor:text !important}html.working{cursor:progress}.order_options{padding:10px 0}.minicolors-theme-default.minicolors{width:auto;display:block}.minicolors-theme-default .minicolors-input{padding-left:35px;height:auto;width:100%;display:block}.minicolors-theme-default .minicolors-swatch{top:8px;left:6px;width:18px;height:18px}
