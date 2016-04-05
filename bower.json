@@ -27,8 +27,7 @@
     "fontawesome": "~4.2.0",
     "simplemde": "~1.8.1",
     "bootstrap-touchspin": "~3.0.1",
-    "jquery-minicolors": "~2.2.3",
-    "bootstrap-toggle": "~2.2.2"
+    "jquery-minicolors": "~2.2.3"
   },
   "resolutions": {
     "jquery": ">=1.5",

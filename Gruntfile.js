@@ -42,7 +42,6 @@ module.exports = function (grunt) {
                     './public/vendor/RRSSB/js/rrssb.js',
                     './public/vendor/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
                     './public/vendor/curioussolutions-datetimepicker/dist/DateTimePicker.js',
-                    './public/vendor/bootstrap-toggle/js/bootstrap-toggle.js',
                     './public/vendor/jquery-minicolors/jquery.minicolors.min.js',
                     './public/assets/javascript/app.js'
                 ],
