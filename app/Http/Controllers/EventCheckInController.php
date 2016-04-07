@@ -18,10 +18,18 @@ class EventCheckInController extends MyBaseController
      */
     public function showCheckIn($event_id)
     {
+
+
         $data['event'] = Event::scope()->findOrFail($event_id);
         $data['attendees'] = $data['event']->attendees;
 
+        
         return view('ManageEvent.CheckIn', $data);
+    }
+
+    public function showQRCodeModal(Request $request, $event_id)
+    {
+        return view('ManageEvent.Modals.QrcodeCheckIn');
     }
 
     /**

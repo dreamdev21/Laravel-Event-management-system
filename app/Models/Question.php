@@ -37,7 +37,7 @@ class Question extends MyBaseModel
 
     public function answers()
     {
-        return $this->hasMany('\App\Models\Answers');
+        return $this->hasMany('\App\Models\QuestionAnswer');
     }
 
     /**

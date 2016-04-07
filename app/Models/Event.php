@@ -52,6 +52,16 @@ class Event extends MyBaseModel
     }
 
     /**
+     * The questions associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function questions_with_tashed()
+    {
+        return $this->belongsToMany('\App\Models\Question', 'event_question')->withTrashed();
+    }
+
+    /**
      * The attendees associated with the event.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

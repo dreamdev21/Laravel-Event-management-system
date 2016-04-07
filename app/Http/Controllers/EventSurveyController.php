@@ -9,6 +9,7 @@ use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
+use Excel;
 
 /*
   Attendize.com   - Event Management & Ticketing
@@ -222,7 +223,6 @@ class EventSurveyController extends MyBaseController
      */
     public function showEventQuestionAnswers(Request $request, $event_id, $question_id)
     {
-
         $answers = QuestionAnswer::scope()->where('question_id', $question_id)->get();
         $question = Question::scope()->withTrashed()->find($question_id);
 

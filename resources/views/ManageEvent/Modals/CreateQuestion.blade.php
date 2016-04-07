@@ -1,5 +1,5 @@
 
-<div role="dialog" id="{{ $modal_id }}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
     {!!  Form::open(['url' => route('postCreateEventQuestion', ['event_id'=>$event->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
     <script id="question-option-template" type="text/template">
         <tr>

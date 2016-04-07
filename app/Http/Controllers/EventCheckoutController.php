@@ -431,7 +431,7 @@ class EventCheckoutController extends Controller
         $event = Event::findOrFail($ticket_order['event_id']);
         $attendee_increment = 1;
         $mirror_buyer_info = isset($request_data['mirror_buyer_info']) ? ($request_data['mirror_buyer_info'] == 'on') : false;
-        $ticket_questions = $request_data['ticket_holder_questions'];
+        $ticket_questions = isset($request_data['ticket_holder_questions']) ? $request_data['ticket_holder_questions'] : [];
 
 
         /*

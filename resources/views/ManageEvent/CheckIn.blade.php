@@ -7,6 +7,7 @@
 
        {!! HTML::style('assets/stylesheet/application.css') !!}
        {!! HTML::script('vendor/jquery/jquery.js') !!}
+       {!! HTML::style('assets/stylesheet/qrcode-check-in.css') !!}
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 
@@ -40,6 +41,11 @@
             :-ms-input-placeholder { /* Internet Explorer 10+ */
             }
 
+
+            body {
+                background-color: #0384a6;
+            }
+
             .attendeeList .container {
                 background: #fff;
                 border-radius: 2px;
@@ -65,7 +71,7 @@
             }
 
             header {
-                background: #6784DB;
+                background-color: #FFF;
                 padding: 10px 0;
                 position: fixed;
                 top: 0;
@@ -93,11 +99,20 @@
                 height: 40px;
             }
 
+            .qr_search {
+                height: 40px;
+                background: #FFF;
+                color: #000;
+                font-size: 25px;
+                border: none;
+                border-right: 1px solid #999;
+            }
+
             .clearSearch {
                 position: absolute;
-                top: 10px;
+                top: 8px;
                 right: 25px;
-                font-size: 20px;
+                font-size: 24px;
                 cursor: pointer;
                 display: none;
             }
@@ -148,6 +163,10 @@
             /* Small Devices, Tablets */
 
             @media (min-width: 100px) and (max-width: 767px) {
+
+                header {
+                    border-bottom: 1px solid #ddd;
+                }
 
                 section.attendeeList {
                     margin-top: 60px;
@@ -300,6 +319,12 @@
                     search();
                 });
 
+
+                $('.qr_search').on('click', function(e) {
+                    load();
+                    $('#QrModal').modal('show');
+                });
+
                 $("input#search").on("keyup", function(e) {
                     clearTimeout($.data(this, 'timer'));
                     var search_string = $(this).val();
@@ -319,6 +344,7 @@
     </head>
 
     <body>
+
         <header>
             <div class="menuToggle hide">
                 <i class="ico-menu"></i>
@@ -327,11 +353,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="attendee_input_wrap">
-                            {!!  Form::text('attendees_q', null, [
+                            <div class="input-group">
+                                  <span class="input-group-btn">
+                                 <button title="Scan QR Code" class="btn btn-default qr_search" type="button"><i class="ico-qrcode"></i> </button>
+                                </span>
+                                {!!  Form::text('attendees_q', null, [
                             'class' => 'form-control attendee_search',
                                     'id' => 'search',
                                     'placeholder' => 'Search by Attendee Name, Order Reference, Attendee Reference... '
                         ])  !!}
+
+
+                            </div>
+
                             <span class="clearSearch ico-cancel"></span>
                         </div>
                     </div>
@@ -345,9 +379,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="attendee_list">
-                            <h3 class="attendees_title">
+                            <h4 class="attendees_title">
                                 All Attendees
-                            </h3>
+                            </h4>
                             <ul class="list-group" id="attendee_list">
                                 Loading Attendees...
                             </ul>
@@ -361,10 +395,221 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        23/145 attendees checked in.
+
                     </div>
                 </div>
             </div>
         </footer>
+
+        {{--QR Modal--}}
+        <div role="dialog" id="QrModal"  class="modal fade" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">
+                            <i class="ico-qrcode"></i>
+                            Check-in
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        @if(session()->has('success_message'))
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3 col-xs-12">
+                                        <div class="alert alert-success alert-dismissible text-center" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <p><strong>Success</strong>: {{ session('success_message') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+
+                            <div id="outdiv">
+                            </div>
+                            <p><a onclick="event.preventDefault(); workingAway = false; load();" href="{{ Request::url() }}"><i class="fa fa-refresh"></i> Scan another ticket</a></p>
+                            <div id="result"></div>
+                        <canvas id="qr-canvas" width="800" height="600"></canvas>
+
+                    </div>
+                    <div class="modal-footer">
+                        {!! Form::button('Close', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                    </div>
+                </div><!-- /end modal content-->
+            </div>
+        </div>
+        {{-- /END QR Modal--}}
+
+
+        {!! HTML::script('vendor/qrcode-scan/llqrcode.js') !!}
+
+        {{--QR JS - THIS WILL BE MOVED--}}
+        <script>
+            // QRCODE reader Copyright 2011 Lazar Laszlo
+            // http://www.webqr.com
+
+            var workingAway = false;
+            var gCtx = null;
+            var gCanvas = null;
+            var c=0;
+            var stype=0;
+            var gUM=false;
+            var webkit=false;
+            var moz=false;
+            var v=null;
+
+            var beepSound = new Audio('/mp3/beep.mp3');
+
+            var vidhtml = '<video id="v" autoplay></video>';
+
+            function initCanvas(w,h)
+            {
+                gCanvas = document.getElementById("qr-canvas");
+                gCanvas.style.width = w + "px";
+                gCanvas.style.height = h + "px";
+                gCanvas.width = w;
+                gCanvas.height = h;
+                gCtx = gCanvas.getContext("2d");
+                gCtx.clearRect(0, 0, w, h);
+            }
+
+
+            function captureToCanvas() {
+                if(stype!=1)
+                    return;
+                if(gUM)
+                {
+                    try{
+                        gCtx.drawImage(v,0,0);
+                        try{
+                            qrcode.decode();
+                        }
+                        catch(e){
+                            console.log(e);
+                            setTimeout(captureToCanvas, 500);
+                        };
+                    }
+                    catch(e){
+                        console.log(e);
+                        setTimeout(captureToCanvas, 500);
+                    };
+                }
+            }
+
+            function htmlEntities(str) {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }
+
+            function read(qrcode_token)
+            {
+                if(workingAway) {
+                    return;
+                }
+
+                workingAway = true;
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('postQRCodeCheckInAttendee', ['event_id' => $event->id]) }}',
+                    data: {qrcode_token: htmlEntities(qrcode_token)},
+                    cache: false,
+                    complete: function(){
+                        beepSound.play();
+                    },
+                    error: function() {
+                    },
+                    success: function(response) {
+                        document.getElementById("result").innerHTML = "<b>" + response.message +"</b>";
+                    }
+                });
+            }
+
+            function isCanvasSupported(){
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            }
+
+            function success(stream) {
+                if(webkit)
+                    v.src = window.webkitURL.createObjectURL(stream);
+                else
+                if(moz)
+                {
+                    v.mozSrcObject = stream;
+                    v.play();
+                }
+                else
+                    v.src = stream;
+                gUM=true;
+                setTimeout(captureToCanvas, 500);
+            }
+
+            function error(error) {
+                gUM=false;
+                return;
+            }
+
+            function load()
+            {
+                if(isCanvasSupported() && window.File && window.FileReader)
+                {
+                    initCanvas(800, 600);
+                    qrcode.callback = read;
+                    setwebcam();
+                }
+                else
+                {
+                    document.getElementById("mainbody").style.display="inline";
+                    document.getElementById("mainbody").innerHTML='<p id="mp1">Attendize Checkpoint Manager for HTML5 capable browsers</p><br>'+
+                            '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
+                            '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="/assets/images/firefox.png"/></a> or <a href="http://chrome.google.com"><img src="/assets/images/chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="/assets/images/Opera-logo.png"/></a></p>';
+                }
+            }
+
+            function setwebcam()
+            {
+//                document.getElementById("help-text").style.display = "block";
+                document.getElementById("result").innerHTML='Scanning&nbsp;&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
+                if(stype==1)
+                {
+                    setTimeout(captureToCanvas, 500);
+                    return;
+                }
+                var n=navigator;
+                document.getElementById("outdiv").innerHTML = vidhtml;
+                v=document.getElementById("v");
+
+                if(n.getUserMedia)
+                    n.getUserMedia({video: true, audio: false}, success, error);
+                else
+                if(n.webkitGetUserMedia)
+                {
+                    webkit=true;
+                    n.webkitGetUserMedia({video:true, audio: false}, success, error);
+                }
+                else
+                if(n.mediaDevices.getUserMedia)
+                {
+                    moz=true;
+                    n.mozGetUserMedia({video: true, audio: false}, success, error);
+                }
+                else
+                if(n.mozGetUserMedia)
+                {
+                    moz=true;
+                    n.mozGetUserMedia({video: true, audio: false}, success, error);
+                }
+
+
+                stype=1;
+                setTimeout(captureToCanvas, 500);
+            }
+        </script>
+
+
+        {!! HTML::script('assets/javascript/backend.js') !!}
+
     </body>
 </html>

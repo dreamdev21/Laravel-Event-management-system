@@ -142,5 +142,6 @@
 @yield('foot')
 
 @include('Shared.Partials.GlobalFooterJS')
+
 </body>
 </html>

@@ -81,6 +81,9 @@ Event Surveys
                                 Applies to tickets
                             </th>
                             <th>
+                                # Replies
+                            </th>
+                            <th>
 
                             </th>
                             </thead>
@@ -98,6 +101,13 @@ Event Surveys
                                     </td>
                                     <td>
                                         {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}
+                                    </td>
+                                    <td>
+                                        <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                           data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                            {{ $question->answers->count() }}
+                                        </a>
+
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
