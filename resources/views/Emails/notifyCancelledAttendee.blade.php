@@ -13,13 +13,5 @@
 @stop
 
 @section('footer')
-<br>
-<p style="color:#999;">
-    You have received this message as you are listed as an attendee on an event which was created with <a href="http://attendize.com/?utm_source=email_footer">Attendize Ticketing</a>. 
-</p>
-<br>
-<p style="color:#999;">
-    If you have any questions, simply contact us at <a href='mailto:{{config('attendize.incoming_email')}}'>{{config('attendize.incoming_email')}}</a> and we'll be happy to help.
-</p>
 
 @stop
