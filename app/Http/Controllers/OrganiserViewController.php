@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organiser;
-use View;
 use Carbon\Carbon;
 use Auth;
 
 class OrganiserViewController extends Controller
 {
+
+    /**
+     * Show the public organiser page
+     *
+     * @param $organiser_id
+     * @param string $slug
+     * @param bool $preview
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showOrganiserHome($organiser_id, $slug = '', $preview = false)
     {
         $organiser = Organiser::findOrFail($organiser_id);
@@ -28,9 +36,15 @@ class OrganiserViewController extends Controller
             'past_events'       => $past_events
         ];
 
-        return View::make('Public.ViewOrganiser.OrganiserPage', $data);
+        return view('Public.ViewOrganiser.OrganiserPage', $data);
     }
 
+    /**
+     * Show the backend preview of the organiser page
+     *
+     * @param $event_id
+     * @return mixed
+     */
     public function showEventHomePreview($event_id)
     {
         return showEventHome($event_id, true);

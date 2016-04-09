@@ -6,6 +6,7 @@ use App\Models\Timezone;
 use Artisan;
 use Config;
 use DB;
+use Illuminate\Http\Request;
 use Input;
 use Redirect;
 use Response;
@@ -13,15 +14,31 @@ use View;
 
 class InstallerController extends Controller
 {
+
+    /**
+     * InstallerController constructor.
+     */
     public function __construct()
     {
+        /**
+         * If we're already installed kill the request
+         * @todo Check if DB is installed etc.
+         */
         if (file_exists(base_path('installed'))) {
             abort(403, 'Unauthorized action.');
         }
     }
 
+    /**
+     * Show the application installer
+     *
+     * @return mixed
+     */
     public function showInstaller()
     {
+        /*
+         * Path we need to make sure are writable
+         */
         $data['paths'] = [
             storage_path('app'),
             storage_path('framework'),
@@ -31,6 +48,10 @@ class InstallerController extends Controller
             public_path(config('attendize.event_pdf_tickets_path')),
             base_path('.env'),
         ];
+
+        /*
+         * Required PHP extensions
+         */
         $data['requirements'] = [
             'openssl',
             'pdo',
@@ -40,44 +61,50 @@ class InstallerController extends Controller
             'gd',
         ];
 
-        return View::make('Installer.Installer', $data);
+        return view('Installer.Installer', $data);
     }
 
-    public function postInstaller()
+    /**
+     * Attempts to install the system
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postInstaller(Request $request)
     {
         set_time_limit(300);
 
         $database['type'] = 'mysql';
-        $database['host'] = Input::get('database_host');
-        $database['name'] = Input::get('database_name');
-        $database['username'] = Input::get('database_username');
-        $database['password'] = Input::get('database_password');
+        $database['host'] = $request->get('database_host');
+        $database['name'] = $request->get('database_name');
+        $database['username'] = $request->get('database_username');
+        $database['password'] = $request->get('database_password');
 
-        $mail['driver'] = Input::get('mail_driver');
-        $mail['port'] = Input::get('mail_port');
-        $mail['username'] = Input::get('mail_username');
-        $mail['password'] = Input::get('mail_password');
-        $mail['encryption'] = Input::get('mail_encryption');
-        $mail['from_address'] = Input::get('mail_from_address');
-        $mail['from_name'] = Input::get('mail_from_name');
-        $mail['host'] = Input::get('mail_host');
+        $mail['driver'] = $request->get('mail_driver');
+        $mail['port'] = $request->get('mail_port');
+        $mail['username'] = $request->get('mail_username');
+        $mail['password'] = $request->get('mail_password');
+        $mail['encryption'] = $request->get('mail_encryption');
+        $mail['from_address'] = $request->get('mail_from_address');
+        $mail['from_name'] = $request->get('mail_from_name');
+        $mail['host'] = $request->get('mail_host');
 
-        $app_url = Input::get('app_url');
+        $app_url = $request->get('app_url');
         $app_key = str_random(16);
         $version = file_get_contents(base_path('VERSION'));
 
-        if (Input::get('test') === 'db') {
+        if ($request->get('test') === 'db') {
             $is_db_valid = self::testDatabase($database);
 
             if ($is_db_valid === 'yes') {
-                return Response::json([
+                return reponse()->json([
                     'status'  => 'success',
                     'message' => 'Success, Your connection works!',
                     'test'    => 1,
                 ]);
             }
 
-            return Response::json([
+            return response()->json([
                 'status'  => 'error',
                 'message' => 'Unable to connect! Please check your settings',
                 'test'    => 1,
@@ -124,7 +151,7 @@ class InstallerController extends Controller
         fwrite($fp, $version);
         fclose($fp);
 
-        return Redirect::route('showSignup', ['first_run' => 'yup']);
+        return redirect()->route('showSignup', ['first_run' => 'yup']);
     }
 
     private function testDatabase($database)

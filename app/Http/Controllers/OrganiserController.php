@@ -2,94 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\Organiser;
+use Illuminate\Http\Request;
 use Image;
-use Input;
-use Response;
-use View;
 
 class OrganiserController extends MyBaseController
 {
+    /**
+     * Show the select organiser page
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showSelectOragniser()
     {
-        return View::make('ManageOrganiser.SelectOrganiser');
+        return view('ManageOrganiser.SelectOrganiser');
     }
 
-    public function showOrganiserDashboard($organiser_id = false)
-    {
-        $allowed_sorts = ['created_at', 'start_date', 'end_date', 'title'];
 
-        $searchQuery = Input::get('q');
-        //$sort_order = Input::get('sort_order') == 'asc' ? 'asc' : 'desc';
-        $sort_by = (in_array(Input::get('sort_by'), $allowed_sorts) ? Input::get('sort_by') : 'start_date');
-
-        $events = $searchQuery
-                ? Event::scope()->where('title', 'like', '%'.$searchQuery.'%')->orderBy($sort_by, 'desc')->where('organiser_id', '=', $organiser_id)->paginate(12)
-                : Event::scope()->where('organiser_id', '=', $organiser_id)->orderBy($sort_by, 'desc')->paginate(12);
-
-        $data = [
-            'events'            => $events,
-            'organisers'        => Organiser::scope()->orderBy('name')->get(),
-            'current_organiser' => Organiser::scope()->find($organiser_id),
-            'q'                 => $searchQuery ? $searchQuery : '', //Redundant
-            'search'            => [
-                'q'        => $searchQuery ? $searchQuery : '',
-                'sort_by'  => $sort_by,
-                'showPast' => Input::get('past'),
-            ],
-        ];
-
-        return View::make('ManageEvents.OrganiserDashboard', $data);
-    }
-
-    public function showEditOrganiser($organiser_id)
-    {
-        $organiser = Organiser::scope()->findOrfail($organiser_id);
-
-        return View::make('ManageEvents.Modals.EditOrganiser', [
-                    'modal_id'  => Input::get('modal_id'),
-                    'organiser' => $organiser,
-        ]);
-    }
-
+    /**
+     * Show the create organiser page
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showCreateOrganiser()
     {
-        return View::make('ManageOrganiser.CreateOrganiser');
-
-        return View::make('ManageEvents.Modals.CreateOrganiser');
+        return view('ManageOrganiser.CreateOrganiser');
     }
 
-    public function postCreateOrganiser()
+    /**
+     * Create the organiser
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCreateOrganiser(Request $request)
     {
         $organiser = Organiser::createNew(false, false, true);
 
-        if (!$organiser->validate(Input::all())) {
-            return Response::json([
+        if (!$organiser->validate($request->all())) {
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $organiser->errors(),
             ]);
         }
 
-        $organiser->name = Input::get('name');
-        $organiser->about = Input::get('about');
-        $organiser->email = Input::get('email');
-        $organiser->facebook = Input::get('facebook');
-        $organiser->twitter = Input::get('twitter');
+        $organiser->name = $request->get('name');
+        $organiser->about = $request->get('about');
+        $organiser->email = $request->get('email');
+        $organiser->facebook = $request->get('facebook');
+        $organiser->twitter = $request->get('twitter');
         $organiser->confirmation_key = md5(time().rand(0, 999999));
 
-        if (Input::hasFile('organiser_logo')) {
+        if ($request->hasFile('organiser_logo')) {
             $path = public_path().'/'.config('attendize.organiser_images_path');
-            $filename = 'organiser_logo-'.$organiser->id.'.'.strtolower(Input::file('organiser_logo')->getClientOriginalExtension());
+            $filename = 'organiser_logo-'.$organiser->id.'.'.strtolower($request->file('organiser_logo')->getClientOriginalExtension());
 
             $file_full_path = $path.'/'.$filename;
 
-            Input::file('organiser_logo')->move($path, $filename);
+            $request->file('organiser_logo')->move($path, $filename);
 
             $img = Image::make($file_full_path);
 
             $img->resize(250, 250, function ($constraint) {
-                //$constraint->aspectRatio();
                 $constraint->upsize();
             });
 
@@ -101,9 +75,9 @@ class OrganiserController extends MyBaseController
         }
         $organiser->save();
 
-        \Session::flash('message', 'Successfully Created Organiser');
+        session()->flash('message', 'Successfully Created Organiser');
 
-        return Response::json([
+        return response()->json([
                     'status'      => 'success',
                     'message'     => 'Refreshing..',
                     'redirectUrl' => route('showOrganiserDashboard', [

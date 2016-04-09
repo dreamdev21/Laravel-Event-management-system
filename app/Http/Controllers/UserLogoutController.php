@@ -14,10 +14,15 @@ class UserLogoutController extends Controller
         $this->auth = $auth;
     }
 
+    /**
+     * Log a use out and redirect them
+     *
+     * @return mixed
+     */
     public function doLogout()
     {
         $this->auth->logout();
 
-        return \Redirect::to('/?logged_out=yup');
+        return redirect()->to('/?logged_out=yup');
     }
 }

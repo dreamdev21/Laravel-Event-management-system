@@ -2,24 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Auth;
+use Illuminate\Http\Request;
 use Input;
-use Response;
+use Hash;
+use Validator;
 
 class UserController extends Controller
 {
+    /**
+     * Show the edit user modal
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showEditUser()
     {
         $data = [
-            'user'     => \Auth::user(),
-            'modal_id' => \Input::get('modal_id'),
+            'user'  => Auth::user(),
         ];
 
-        return \View::make('ManageUser.Modals.EditUser', $data);
+        return view('ManageUser.Modals.EditUser', $data);
     }
 
-    public function postEditUser()
+    /**
+     * Updates the current user
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function postEditUser(Request $request)
     {
         $rules = [
             'email'        => ['required', 'email', 'exists:users,email,account_id,'.Auth::user()->account_id],
@@ -37,10 +48,10 @@ class UserController extends Controller
             'first_name.required' => 'Please enter your first name.',
         ];
 
-        $validation = \Validator::make(Input::all(), $rules, $messages);
+        $validation = Validator::make($request->all(), $rules, $messages);
 
         if ($validation->fails()) {
-            return Response::json([
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $validation->messages()->toArray(),
             ]);
@@ -48,17 +59,16 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        if (Input::get('password')) {
-            $user->password = \Hash::make(Input::get('new_password'));
+        if ($request->get('password')) {
+            $user->password = Hash::make(Input::get('new_password'));
         }
 
-        $user->first_name = Input::get('first_name');
-        $user->last_name = Input::get('last_name');
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
 
-        //$user->email = Input::get('email');
         $user->save();
 
-        return Response::json([
+        return response()->json([
                     'status'  => 'success',
                     'message' => 'Successfully Edited User',
         ]);

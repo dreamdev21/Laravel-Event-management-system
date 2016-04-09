@@ -9,8 +9,12 @@ use View;
 
 class MyBaseController extends Controller
 {
+
     public function __construct()
     {
+        /*
+         * Share the organizers across all views
+         */
         View::share('organisers', Organiser::scope()->get());
     }
 
