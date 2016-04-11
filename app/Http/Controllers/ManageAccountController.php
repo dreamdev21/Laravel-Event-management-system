@@ -15,7 +15,6 @@ use Input;
 use Response;
 use Validator;
 use Hash;
-use View;
 
 class ManageAccountController extends MyBaseController
 {

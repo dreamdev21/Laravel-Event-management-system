@@ -7,7 +7,6 @@
 
        {!! HTML::style('assets/stylesheet/application.css') !!}
        {!! HTML::script('vendor/jquery/jquery.js') !!}
-       {!! HTML::style('assets/stylesheet/qrcode-check-in.css') !!}
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 
@@ -48,9 +47,6 @@
 
             .attendeeList .container {
                 background: #fff;
-                border-radius: 2px;
-                -webkit-box-shadow: 0 2px 2px #ccc;
-                box-shadow: 0 2px 2px #ccc;
                 margin-bottom: 50px;
                 padding-top: 10px;
             }
@@ -60,10 +56,6 @@
                 padding-top: 0;
             }
 
-            .list-group-item:first-child {
-                border-top-right-radius: 4px;
-                border-top-left-radius: 4px;
-            }
 
             .attendeeList .container .attendee_list .attendees_title {
                 margin: 10px 0 20px 0;
@@ -160,6 +152,29 @@
                 left: 0;
             }
 
+            .modal-dialog {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .modal-content {
+                height: auto;
+                min-height: 100%;
+                border-radius: 0;
+            }
+            .modal-footer {
+                position: absolute;
+                width: 100%;
+                bottom: 0;
+            }
+
+            .modal-body {
+                padding: 0;
+            }
+
+
             /* Small Devices, Tablets */
 
             @media (min-width: 100px) and (max-width: 767px) {
@@ -221,7 +236,7 @@
                                 + attendees[i].last_name
                                 + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
                                 + ' <br>Ticket: <b>' + attendees[i].ticket + '</b>'
-                                + '<a href="" class="ci btn btn-success"><i class="ico-checkmark"></i></a> '
+                                + '<a href="" class="ci btn btn-successfulQrRead"><i class="ico-checkmark"></i></a> '
                                 + '</li>');
                     }
                 }
@@ -321,8 +336,8 @@
 
 
                 $('.qr_search').on('click', function(e) {
-                    load();
                     $('#QrModal').modal('show');
+                    loadQrReader();
                 });
 
                 $("input#search").on("keyup", function(e) {
@@ -405,13 +420,6 @@
         <div role="dialog" id="QrModal"  class="modal fade" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">
-                            <i class="ico-qrcode"></i>
-                            Check-in
-                        </h3>
-                    </div>
                     <div class="modal-body">
                         @if(session()->has('success_message'))
                             <div class="container">
@@ -427,15 +435,16 @@
                         @endif
 
 
-                            <div id="outdiv">
+                            <div id="ScanVideoOutter">
                             </div>
-                            <p><a onclick="event.preventDefault(); workingAway = false; load();" href="{{ Request::url() }}"><i class="fa fa-refresh"></i> Scan another ticket</a></p>
-                            <div id="result"></div>
-                        <canvas id="qr-canvas" width="800" height="600"></canvas>
+                            <div class="well" id="ScanResult"></div>
+                        <canvas id="QrCanvas" width="800" height="600"></canvas>
 
                     </div>
                     <div class="modal-footer">
-                        {!! Form::button('Close', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                        {!! Form::button('Close Scanner', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                        <a class="btn btn-primary" onclick="event.preventDefault(); workingAway = false; loadQrReader();" href="{{ Request::url() }}"><i class="fa fa-refresh"></i> Scan another ticket</a>
+
                     </div>
                 </div><!-- /end modal content-->
             </div>
@@ -445,36 +454,223 @@
 
         {!! HTML::script('vendor/qrcode-scan/llqrcode.js') !!}
 
+        <style>
+
+            #ScanResult {
+                width: 90%;
+            }
+
+            #ScanVideoOutter {
+                min-width: 100%;
+                min-height: 300px;
+                position: relative;
+                background: #999;
+            }
+
+            #ScanVideo {
+                position: absolute;
+                width: 100%;
+                height:100%;
+                min-height:250px;
+                min-width: 250px !important;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+
+            #qr-file {
+
+            }
+
+            #QrCanvas{
+                display:none;
+            }
+
+            #help-text{
+                z-index: 9999999999;
+                position: relative;
+                color: #00AEFB;
+                top: 0;
+            }
+
+            #imghelp{
+                position:relative;
+                left:0px;
+                top:-160px;
+                z-index:100;
+                background:#f2f2f2;
+                margin-left:35px;
+                margin-right:35px;
+                padding-top:15px;
+                padding-bottom:15px;
+                border-radius:20px;
+            }
+
+
+            #ScanResult {
+                transition: background 0.4s ease-in-out;
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                font-size: 16px;
+            }
+
+            /* Mobile */
+            /*@media only screen and (max-width: 480px) {*/
+                /*#ScanResult {*/
+                    /*width: 90%;*/
+                /*}*/
+
+                /*#ScanVideoOutter {*/
+                    /*min-width: 100%;*/
+                    /*max-width: 100%;*/
+                    /*position: relative;*/
+                /*}*/
+
+                /*#ScanVideo {*/
+                    /*position: absolute;*/
+                    /*width: 100%;*/
+                    /*height:100%;*/
+                    /*top: 0;*/
+                    /*left: 0;*/
+                    /*right: 0;*/
+                /*}*/
+
+                /*#help-text{*/
+                    /*top: -35px;*/
+                /*}*/
+
+                /*#qrfile{*/
+                    /*width: 300px;*/
+                /*}*/
+
+
+            /*}*/
+
+
+            @-webkit-keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+
+            @-moz-keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+
+            @-webkit-keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+
+            @-moz-keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+
+            @-o-keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes opacity {
+                0% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    opacity: 1;
+                }
+                100% {
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    opacity: 0;
+                }
+            }
+            #scanning-ellipsis span {
+                -webkit-animation-name: opacity;
+                -webkit-animation-duration: 1s;
+                -webkit-animation-iteration-count: infinite;
+                -moz-animation-name: opacity;
+                -moz-animation-duration: 1s;
+                -moz-animation-iteration-count: infinite;
+                -ms-animation-name: opacity;
+                -ms-animation-duration: 1s;
+                -ms-animation-iteration-count: infinite;
+            }
+            #scanning-ellipsis span:nth-child(2) {
+                -webkit-animation-delay: 100ms;
+                -moz-animation-delay: 100ms;
+                -ms-animation-delay: 100ms;
+                -o-animation-delay: 100ms;
+                animation-delay: 100ms;
+            }
+            #scanning-ellipsis span:nth-child(3) {
+                -webkit-animation-delay: 300ms;
+                -moz-animation-delay: 300ms;
+                -ms-animation-delay: 300ms;
+                -o-animation-delay: 300ms;
+                animation-delay: 300ms;
+            }
+
+        </style>
+
+
         {{--QR JS - THIS WILL BE MOVED--}}
         <script>
             // QRCODE reader Copyright 2011 Lazar Laszlo
             // http://www.webqr.com
 
-            var workingAway = false;
-            var gCtx = null;
+            function resizeVideo() {
+                var $videoWrapper = $('#ScanVideoOutter');
+                var $video = $('#ScanVideo');
+
+                $video.height($videoWrapper.height());
+                $video.width($videoWrapper.width());
+            }
+
+            $(function() {
+                $( window ).resize(resizeVideo);
+            });
+
+            var canvasContext = null;
             var gCanvas = null;
             var c=0;
             var stype=0;
             var gUM=false;
             var webkit=false;
             var moz=false;
-            var v=null;
+            var theVideo=null;
 
             var beepSound = new Audio('/mp3/beep.mp3');
-
-            var vidhtml = '<video id="v" autoplay></video>';
-
-            function initCanvas(w,h)
-            {
-                gCanvas = document.getElementById("qr-canvas");
-                gCanvas.style.width = w + "px";
-                gCanvas.style.height = h + "px";
-                gCanvas.width = w;
-                gCanvas.height = h;
-                gCtx = gCanvas.getContext("2d");
-                gCtx.clearRect(0, 0, w, h);
-            }
-
+            var vidhtml = '<video id="ScanVideo" autoplay></video>';
 
             function captureToCanvas() {
                 if(stype!=1)
@@ -482,7 +678,7 @@
                 if(gUM)
                 {
                     try{
-                        gCtx.drawImage(v,0,0);
+                        canvasContext.drawImage(theVideo,0,0);
                         try{
                             qrcode.decode();
                         }
@@ -494,7 +690,7 @@
                     catch(e){
                         console.log(e);
                         setTimeout(captureToCanvas, 500);
-                    };
+                    }
                 }
             }
 
@@ -504,12 +700,6 @@
 
             function read(qrcode_token)
             {
-                if(workingAway) {
-                    return;
-                }
-
-                workingAway = true;
-
                 $.ajax({
                     type: "POST",
                     url: '{{ route('postQRCodeCheckInAttendee', ['event_id' => $event->id]) }}',
@@ -519,29 +709,28 @@
                         beepSound.play();
                     },
                     error: function() {
+                        showMessage('Something has gone wrong. Please try again.');
                     },
                     success: function(response) {
-                        document.getElementById("result").innerHTML = "<b>" + response.message +"</b>";
+                        $('#ScanResult').html("<b>" + response.message +"</b>");
                     }
                 });
             }
 
-            function isCanvasSupported(){
-                var elem = document.createElement('canvas');
-                return !!(elem.getContext && elem.getContext('2d'));
-            }
 
-            function success(stream) {
+
+            function successfulQrRead(stream) {
                 if(webkit)
-                    v.src = window.webkitURL.createObjectURL(stream);
-                else
-                if(moz)
+                    theVideo.src = window.URL.createObjectURL(stream);
+                else if(moz)
                 {
-                    v.mozSrcObject = stream;
-                    v.play();
+                    theVideo.mozSrcObject = stream;
+                    theVideo.play();
                 }
-                else
-                    v.src = stream;
+                else {
+                    theVideo.src = stream;
+                }
+
                 gUM=true;
                 setTimeout(captureToCanvas, 500);
             }
@@ -551,61 +740,52 @@
                 return;
             }
 
-            function load()
+            function loadQrReader()
             {
-                if(isCanvasSupported() && window.File && window.FileReader)
-                {
-                    initCanvas(800, 600);
-                    qrcode.callback = read;
-                    setwebcam();
-                }
-                else
-                {
-                    document.getElementById("mainbody").style.display="inline";
-                    document.getElementById("mainbody").innerHTML='<p id="mp1">Attendize Checkpoint Manager for HTML5 capable browsers</p><br>'+
-                            '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
-                            '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="/assets/images/firefox.png"/></a> or <a href="http://chrome.google.com"><img src="/assets/images/chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="/assets/images/Opera-logo.png"/></a></p>';
-                }
-            }
 
-            function setwebcam()
-            {
-//                document.getElementById("help-text").style.display = "block";
-                document.getElementById("result").innerHTML='Scanning&nbsp;&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
+                var $canvas = $('#QrCanvas');
+
+                $canvas.height('300px');
+                $canvas.width('600px');
+
+                canvasContext = $canvas[0].getContext('2d');
+                canvasContext.clearRect(0, 0, 600, 300);
+                qrcode.callback = read;
+
+                $('#ScanResult').html('<div id="scanning-ellipsis">Scanning<span>.</span><span>.</span><span>.</span></div>');
                 if(stype==1)
                 {
                     setTimeout(captureToCanvas, 500);
                     return;
                 }
-                var n=navigator;
-                document.getElementById("outdiv").innerHTML = vidhtml;
-                v=document.getElementById("v");
 
-                if(n.getUserMedia)
-                    n.getUserMedia({video: true, audio: false}, success, error);
-                else
-                if(n.webkitGetUserMedia)
+                $('#ScanVideoOutter').html(vidhtml);
+                theVideo = $("#ScanVideo")[0];
+
+                if(navigator.getUserMedia)
+                {
+                    navigator.getUserMedia({video: true, audio: false}, successfulQrRead, error);
+                } else if(navigator.webkitGetUserMedia)
                 {
                     webkit=true;
-                    n.webkitGetUserMedia({video:true, audio: false}, success, error);
+                    navigator.webkitGetUserMedia({video:true, audio: false}, successfulQrRead, error);
                 }
-                else
-                if(n.mediaDevices.getUserMedia)
+                else if(navigator.mediaDevices.getUserMedia)
                 {
                     moz=true;
-                    n.mozGetUserMedia({video: true, audio: false}, success, error);
+                    navigator.mozGetUserMedia({video: true, audio: false}, successfulQrRead, error);
                 }
-                else
-                if(n.mozGetUserMedia)
+                else if(navigator.mozGetUserMedia)
                 {
                     moz=true;
-                    n.mozGetUserMedia({video: true, audio: false}, success, error);
+                    navigator.mozGetUserMedia({video: true, audio: false}, successfulQrRead, error);
                 }
-
 
                 stype=1;
                 setTimeout(captureToCanvas, 500);
+
             }
+
         </script>
 
 

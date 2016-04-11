@@ -365,8 +365,7 @@ class EventAttendeesController extends MyBaseController
                     ->setCompany(config('attendize.app_name'));
 
             $excel->sheet('attendees_sheet_1', function ($sheet) use ($event_id) {
-
-
+                
                 DB::connection()->setFetchMode(\PDO::FETCH_ASSOC);
                 $data = DB::table('attendees')
                     ->where('attendees.event_id', '=', $event_id)
@@ -385,11 +384,9 @@ class EventAttendeesController extends MyBaseController
                                     'orders.created_at',
                                     DB::raw("(CASE WHEN attendees.has_arrived = 1 THEN 'YES' ELSE 'NO' END) AS `attendees.has_arrived`"),
                                     'attendees.arrival_time',
-                                    'question_answers.answer_text'
                                     ])->get();
 
                 $sheet->fromArray($data);
-                $event = Event::scope()->findOrFail($event_id);
                 $sheet->row(1, [
                     'First Name', 'Last Name', 'Email', 'Ticket Reference', 'Order Reference', 'Ticket Type', 'Purchase Date', 'Has Arrived', 'Arrival Time',
                 ]);

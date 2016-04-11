@@ -17,6 +17,18 @@
 
         <style>
 
+            body {
+                background: url({{asset('assets/images/splash.jpg')}}) no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            h2 {
+                text-align: center;
+                margin-bottom: 31px;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+                font-size: 23px;
+            }
             .panel {
                 background-color: #ffffff;
                 background-color: rgba(255,255,255,.95);
@@ -55,15 +67,6 @@
         </section>
 
         {!!HTML::script('assets/javascript/backend.js')!!}
-        {!!HTML::script('vendor/jquery-backstretch/jquery.backstretch.min.js')!!}
-
-        <script>
-            $(function() {
-                $.backstretch([
-                 '{{asset('assets/images/splash.jpg')}}'
-                ], {duration: 3500, fade: 1000});
-            });
-        </script>
     </body>
     @include('Shared.Partials.GlobalFooterJS')
 </html>

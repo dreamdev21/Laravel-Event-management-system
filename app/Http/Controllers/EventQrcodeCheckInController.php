@@ -72,7 +72,7 @@ class EventQrcodeCheckInController extends Controller
         if($relatedAttendesCount >= 1){
             $confirmOrderTicketsRoute = route('confirmCheckInOrderTickets', [$event->id, $attendee->order_id]);
 
-            $appendedText = '<br><br><form action="'. $confirmOrderTicketsRoute .'" method="POST">'. csrf_field() .'<input type="hidden" name="_method" value="PUT"><div class="row"><div class="col-md-10 col-md-offset-1 col-xs-12"><button class="btn btn-primary btn-block btn-lg" type="submit"><i class="fa fa-ticket"></i> Check in other tickets associated to this order</button></div></div></form>';
+            $appendedText = '<br><br><form class="ajax" action="'. $confirmOrderTicketsRoute .'" method="POST">'. csrf_field() .'<button class="btn btn-primary btn-sm" type="submit"><i class="ico-ticket"></i> Check in all tickets associated to this order</button></form>';
         } else {
             $appendedText = '';
         }
@@ -101,14 +101,17 @@ class EventQrcodeCheckInController extends Controller
      */
     public function confirmOrderTickets($event_id, $order_id)
     {
-        $updateRowsCount =  Attendee::where([
+        $updateRowsCount =  Attendee::scope()->where([
                                 'event_id' => $event_id, 
                                 'order_id' => $order_id, 
-                                'has_arrived' => false
+                                'has_arrived' => false,
+                                'arrival_time' => Carbon::now(),
                             ])
                             ->update(['has_arrived' => true, 'arrival_time' => Carbon::now()]);
 
-        session()->flash('success_message', $updateRowsCount . ' other tickets checked in.');
-        return back();
+        return response()->json([
+
+           'message' => $updateRowsCount . ' Attendee(s) Checked in.'
+        ]);
     }
 }

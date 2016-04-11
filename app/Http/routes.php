@@ -609,10 +609,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventCheckInController@postCheckInAttendee',
         ]);
 
-        Route::get('{event_id}/check_in_qrcode', [
-            'as'   => 'showQRCodeModal',
-            'uses' => 'EventCheckInController@showQRCodeModal'
+        Route::post('{event_id}/qrcode_check_in', [
+            'as'   => 'postQRCodeCheckInAttendee',
+            'uses' => 'EventCheckInController@postCheckInAttendeeQr',
         ]);
+
+        Route::post( '{event_id}/confirm_order_tickets/{order_id}', [
+            'as'   => 'confirmCheckInOrderTickets',
+            'uses' => 'EventCheckInController@confirmOrderTicketsQr',
+        ]);
+
 
         /*
          * -------
