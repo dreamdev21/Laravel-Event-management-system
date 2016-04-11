@@ -74,9 +74,17 @@ class EventDashboardController extends MyBaseController
             ];
         }
 
+        foreach($event->tickets as $ticket) {
+            $tickets_data[] = [
+                'value' => $ticket->quantity_sold,
+                'label'       => $ticket->title,
+            ];
+        }
+
         $data = [
-            'event'     => $event,
-            'chartData' => json_encode($result),
+            'event'      => $event,
+            'chartData'  => json_encode($result),
+            'ticketData' => json_encode($tickets_data),
         ];
 
         return view('ManageEvent.Dashboard', $data);
