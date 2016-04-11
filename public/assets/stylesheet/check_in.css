@@ -1,0 +1,371 @@
+::-webkit-input-placeholder { /* WebKit browsers */
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    opacity: 1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    opacity: 1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+}
+
+
+body {
+    background-color: #0384a6;
+}
+
+.attendeeList .container {
+    background: #fff;
+    margin-bottom: 50px;
+    padding-top: 10px;
+}
+
+.attendeeList .container .attendee_list {
+    padding: 15px;
+    padding-top: 0;
+}
+
+
+.attendeeList .container .attendee_list .attendees_title {
+    margin: 10px 0 20px 0;
+    color: #666;
+}
+
+header {
+    background-color: #FFF;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+}
+
+header .menuToggle {
+    position: absolute;
+    left: 15px;
+    color: #ccc;
+    text-align: center;
+    font-size: 30px;
+}
+
+section.attendeeList {
+    margin-top: 80px;
+}
+
+.attendee_search {
+    font-size: 16px;
+    margin-bottom: 0;
+    border: none;
+    height: 40px;
+}
+
+.qr_search {
+    height: 40px;
+    background: #FFF;
+    color: #000;
+    font-size: 25px;
+    border: none;
+    border-right: 1px solid #999;
+}
+
+.clearSearch {
+    position: absolute;
+    top: 8px;
+    right: 25px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+.at {
+    position: relative;
+    padding-left: 70px;
+    cursor: pointer;
+}
+
+.at:active {
+    background-color: #f9f9f9 !important;
+}
+
+.at .ci {
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    color: white;
+    border: none;
+    border-radius: 150px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    line-height: 20px;
+}
+
+.at.arrived {
+    background-color: #E6FFE7;
+}
+.at.not_arrived .ci {
+    background-color: #fafafa;
+
+}
+.at.arrived .ci {
+    background-color: #36F158;
+}
+
+footer {
+    background-color: #333;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+}
+.modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+
+/* Small Devices, Tablets */
+
+@media (min-width: 100px) and (max-width: 767px) {
+
+    header {
+        border-bottom: 1px solid #ddd;
+    }
+
+    section.attendeeList {
+        margin-top: 60px;
+    }
+
+    section.attendeeList .container {
+        margin-bottom: 0;
+    }
+
+    section.attendeeList .col-md-12 {
+        padding: 0;
+    }
+
+    section.attendeeList .attendees_title {
+        padding-left: 10px;
+    }
+
+    section.attendeeList .container .attendee_list {
+        padding: 0;
+    }
+
+    .list-group-item:first-child {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    .at {
+        position: relative;
+        padding-left: 70px;
+        cursor: pointer;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+}
+#ScanResult {
+    width: 90%;
+}
+
+#ScanVideoOutter {
+    min-width: 100%;
+    min-height: 300px;
+    position: relative;
+    background: #999;
+}
+
+#ScanVideo {
+    position: absolute;
+    width: 100%;
+    height:100%;
+    min-height:250px;
+    min-width: 250px !important;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#qr-file {
+
+}
+
+#QrCanvas{
+    display:none;
+}
+
+#help-text{
+    z-index: 9999999999;
+    position: relative;
+    color: #00AEFB;
+    top: 0;
+}
+
+#imghelp{
+    position:relative;
+    left:0px;
+    top:-160px;
+    z-index:100;
+    background:#f2f2f2;
+    margin-left:35px;
+    margin-right:35px;
+    padding-top:15px;
+    padding-bottom:15px;
+    border-radius:20px;
+}
+
+
+#ScanResult {
+    transition: background 0.4s ease-in-out;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Mobile */
+/*@media only screen and (max-width: 480px) {*/
+/*#ScanResult {*/
+/*width: 90%;*/
+/*}*/
+
+/*#ScanVideoOutter {*/
+/*min-width: 100%;*/
+/*max-width: 100%;*/
+/*position: relative;*/
+/*}*/
+
+/*#ScanVideo {*/
+/*position: absolute;*/
+/*width: 100%;*/
+/*height:100%;*/
+/*top: 0;*/
+/*left: 0;*/
+/*right: 0;*/
+/*}*/
+
+/*#help-text{*/
+/*top: -35px;*/
+/*}*/
+
+/*#qrfile{*/
+/*width: 300px;*/
+/*}*/
+
+
+/*}*/
+
+
+@-webkit-keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@-o-keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@keyframes opacity {
+    0% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    100% {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+#scanning-ellipsis span {
+    -webkit-animation-name: opacity;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: opacity;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-name: opacity;
+    -ms-animation-duration: 1s;
+    -ms-animation-iteration-count: infinite;
+}
+#scanning-ellipsis span:nth-child(2) {
+    -webkit-animation-delay: 100ms;
+    -moz-animation-delay: 100ms;
+    -ms-animation-delay: 100ms;
+    -o-animation-delay: 100ms;
+    animation-delay: 100ms;
+}
+#scanning-ellipsis span:nth-child(3) {
+    -webkit-animation-delay: 300ms;
+    -moz-animation-delay: 300ms;
+    -ms-animation-delay: 300ms;
+    -o-animation-delay: 300ms;
+    animation-delay: 300ms;
+}

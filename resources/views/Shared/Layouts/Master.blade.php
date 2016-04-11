@@ -16,17 +16,19 @@
         @show
     </title>
 
+    @include('Shared.Layouts.ViewJavascript')
+
     <!--Meta-->
     @include('Shared.Partials.GlobalMeta')
-            <!--/Meta-->
+   <!--/Meta-->
 
     <!--JS-->
     {!! HTML::script(config('attendize.cdn_url_static_assets').'/vendor/jquery/jquery.js') !!}
-            <!--/JS-->
+    <!--/JS-->
 
     <!--Style-->
     {!! HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/application.css') !!}
-            <!--/Style-->
+    <!--/Style-->
 
     @yield('head')
 </head>
@@ -118,7 +120,7 @@
     <!--/To The Top-->
 
 </section>
-<!--/Main Conent-->
+<!--/Main Content-->
 
 <!--JS-->
 {!! HTML::script('assets/javascript/backend.js') !!}

@@ -3,6 +3,8 @@
 
         <title>@yield('title')</title>
 
+        @include('Shared/Layouts/ViewJavascript')
+
         @include('Shared.Partials.GlobalMeta')
 
         @yield('head')

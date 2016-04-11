@@ -134,6 +134,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Get the full name of the user.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    /**
      * Boot all of the bootable traits on the model.
      */
     public static function boot()

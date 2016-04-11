@@ -7,6 +7,7 @@ use App\Models\Attendee;
 use App\Models\Event;
 use Carbon\Carbon;
 use DB;
+use JavaScript;
 
 class EventCheckInController extends MyBaseController
 {
@@ -19,10 +20,17 @@ class EventCheckInController extends MyBaseController
     public function showCheckIn($event_id)
     {
 
+       $event = Event::scope()->findOrFail($event_id);
 
-        $data['event'] = Event::scope()->findOrFail($event_id);
-        $data['attendees'] = $data['event']->attendees;
+        $data = [
+            'event' => $event,
+            'attendees' => $event->attendees
+        ];
 
+        JavaScript::put([
+            'qrcodeCheckInRoute' => route('postQRCodeCheckInAttendee', ['event_id' => $event->id]),
+            'checkInRoute'       => route('postCheckInSearch', ['event_id' => $event->id])
+        ]);
         
         return view('ManageEvent.CheckIn', $data);
     }
