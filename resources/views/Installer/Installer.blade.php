@@ -1,4 +1,4 @@
-@extends('Shared.Layouts.MasterWithoutMenus');
+@extends('Shared.Layouts.MasterWithoutMenus')
 
 @section('title')
     Attendize Web Installer
