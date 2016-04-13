@@ -652,20 +652,26 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     });
 });
 
-Route::post('queue/push', function () {
-
-    // set_time_limit(300);
-
-    return Queue::marshal();
-});
-
 Route::get('/', function () {
-
     return Redirect::route('showSelectOrganiser');
 });
 
 Route::get('/terms_and_conditions', ['as' => 'termsAndConditions', function () {
-
-return 'TODO: add terms and cond';
-//return View::make('Public.Website.Terms_and_Cond');
+    return 'TODO: add terms and cond';
 }]);
+
+/*
+ * -------------------------------------
+ *  API Routes
+ * -------------------------------------
+ */
+Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
+
+    Route::get('/', function() {
+        return response()->json([
+            'hello' => Auth::guard('api')->user()->full_name
+        ]);
+    });
+
+
+});
