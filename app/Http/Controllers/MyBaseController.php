@@ -24,6 +24,9 @@ class MyBaseController extends Controller
                'email'        => Auth::user()->email,
                'is_confirmed' => Auth::user()->is_confirmed,
            ],
+            /*
+             * @todo These should be user selectable 
+             */
            'DateFormat'          =>'dd-MM-yyyy',
            'DateTimeFormat'      => 'dd-MM-yyyy hh:mm',
            'GenericErrorMessage' => 'Whoops!, An unknown error has occurred. Please try again or contact support if the problem persists.'

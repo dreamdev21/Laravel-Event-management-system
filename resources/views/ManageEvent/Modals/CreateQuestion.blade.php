@@ -1,5 +1,4 @@
-
-<div role="dialog"  class="modal fade" style="display: none;">
+<div role="dialog" class="modal fade" style="display: none;">
     {!!  Form::open(['url' => route('postCreateEventQuestion', ['event_id'=>$event->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
     <script id="question-option-template" type="text/template">
         <tr>
@@ -18,84 +17,92 @@
                     Create Question</h3>
             </div>
             <div class="modal-body">
-                        <div class="form-group">
-                            <label for="question-title" class="required">
-                                Question
-                            </label>
-                            {!! Form::text('title', '', [
-                                'id' => 'question-title',
-                                'class' => 'form-control',
-                                'placeholder' => 'e.g. Please enter your full address?',
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            <label for="question-type">
-                                Question Type
-                            </label>
+                <div class="form-group">
+                    <label for="question-title" class="required">
+                        Question
+                    </label>
+                    {!! Form::text('title', '', [
+                        'id' => 'question-title',
+                        'class' => 'form-control',
+                        'placeholder' => 'e.g. Please enter your full address?',
+                    ]) !!}
+                </div>
+                <div class="form-group">
+                    <label for="question-type">
+                        Question Type
+                    </label>
 
-                            <select id="question-type" class="form-control" name="question_type_id" onchange="changeQuestionType(this);">
-                                @foreach ($question_types as $question_type)
-                                    <option data-has-options="{{$question_type->has_options}}" value="{{$question_type->id}}">
-                                        {{$question_type->name}}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="question-instructions">
-                                Instructions
-                            </label>
-                            {!! Form::text('instructions', null, [
-                                'id' => 'question-instructions',
-                                'class' => 'form-control',
-                                'placeholder' => 'e.g. Please enter your post code in the format XXX XX?'
-                            ]) !!}
-                        </div>
-                        <fieldset id="question-options" {!! empty($question->has_options) ? ' class="hide"' : '' !!}>
-                            <legend>Question Options</legend>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Option name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input class="form-control" name="option[]" type="text" value=""></td>
-                                        <td width="50">
-                                            <i class="btn btn-danger ico-remove" onclick="removeQuestionOption(this);"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                       <td colspan="2">
-                                           <span id="add-question-option" class="btn btn-success btn-xs" onclick="addQuestionOption();">
+                    <select id="question-type" class="form-control" name="question_type_id"
+                            onchange="changeQuestionType(this);">
+                        @foreach ($question_types as $question_type)
+                            <option data-has-options="{{$question_type->has_options}}" value="{{$question_type->id}}">
+                                {{$question_type->name}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="question-instructions">
+                        Instructions
+                    </label>
+                    {!! Form::text('instructions', null, [
+                        'id' => 'question-instructions',
+                        'class' => 'form-control',
+                        'placeholder' => 'e.g. Please enter your post code in the format XXX XX?'
+                    ]) !!}
+                </div>
+
+
+                <fieldset id="question-options" {!! empty($question->has_options) ? ' class="hide"' : '' !!}>
+                    <h4>Question Options</h4>
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Option name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input class="form-control" name="option[]" type="text" value=""></td>
+                            <td width="50">
+                                <i class="btn btn-danger ico-remove" onclick="removeQuestionOption(this);"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                           <span id="add-question-option" class="btn btn-success btn-xs"
+                                                 onclick="addQuestionOption();">
                                                <i class="ico-plus"></i>
                                                Add another option
                                            </span>
-                                       </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </fieldset>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </fieldset>
 
-                        <div class="form-group">
-                            {!! Form::checkbox('is_required', 'yes', false, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
-                            {!! Form::label('is_required', 'Make this a required question') !!}
+                <div class="form-group">
+                    <div class="custom-checkbox">
+                        {!! Form::checkbox('is_required', 'yes', false, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
+                        {!! Form::label('is_required', 'Make this a required question') !!}
+                    </div>
+                </div>
+
+                <h4>
+                    Require this question for ticket(s):
+                </h4>
+                <div class="form-group">
+
+                    @foreach ($event->tickets as $ticket)
+                        <div class="custom-checkbox mb5">
+                            <input id="ticket_{{ $ticket->id }}" name="tickets[]" data-toggle='toggle' type="checkbox"
+                                   value="{{ $ticket->id }}">
+                            <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
                         </div>
-
-                        <div class="form-group">
-                            <label>
-                                Require this question for ticket(s):
-                            </label>
-
-                            @foreach ($event->tickets as $ticket)
-                                <br>
-                                <input id="ticket_{{ $ticket->id }}" name="tickets[]" data-toggle = 'toggle' type="checkbox" value="{{ $ticket->id }}">
-                                <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
-                            @endforeach
-                        </div>
+                    @endforeach
+                </div>
 
             </div> <!-- /end modal body-->
             <div class="modal-footer">

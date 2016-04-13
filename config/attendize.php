@@ -2,6 +2,8 @@
 
 return [
 
+    'version' => file_get_contents(base_path('VERSION')),
+
     'ticket_status_sold_out' => 1,
     'ticket_status_after_sale_date' => 2,//
     'enable_test_payments' => env('ENABLE_TEST_PAYMENTS', false),

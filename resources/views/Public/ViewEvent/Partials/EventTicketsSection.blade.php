@@ -36,12 +36,13 @@
                                 <div class="ticket-pricing" style="margin-right: 20px;">
                                     @if($ticket->is_free)
                                     FREE
+                                    <meta property="price" content="0">
                                     @else
                                         <?php
                                         $is_free_event = false;
                                         ?>
                                     <span title='{{money($ticket->price, $event->currency->code)}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency->code)}} Booking Fees'>{{money($ticket->total_price, $event->currency->code)}} </span>
-                                    <meta property="priceCurrency" content="{{ $event->currency->code }}}">
+                                    <meta property="priceCurrency" content="{{ $event->currency->code }}">
                                     <meta property="price" content="{{ number_format($ticket->price, 2, '.', '') }}">
                                     @endif
                                 </div>

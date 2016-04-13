@@ -12,7 +12,7 @@ $(function () {
         var $div = $("<div>", {id: "DatePicker"});
         $("body").append($div);
         $div.DateTimePicker({
-            dateTimeFormat: window.Attendize.DateTimeFormat
+            dateTimeFormat: Attendize.DateTimeFormat
         });
 
     });

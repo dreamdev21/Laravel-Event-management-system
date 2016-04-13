@@ -300,41 +300,36 @@
                         <label class="control-label">Share buttons to show.</label>
                         <br>
 
-                        <div class="checkbox checkbox-inline">
-                            <label>
+                        <div class="custom-checkbox mb5">
+
                                 {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
-                                Facebook
-                            </label>
+                            {!! Form::label('social_show_facebook', 'Facebook') !!}
                         </div>
-                        <div class="checkbox checkbox-inline">
-                            <label>
+                        <div class="custom-checkbox mb5">
+
                                 {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
-                                Twitter
-                            </label>
+                            {!! Form::label('social_show_twitter', 'Twitter') !!}
+
                         </div>
-                        <div class="checkbox checkbox-inline">
-                            <label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::label('social_show_googleplus', 'Google+') !!}
                                 {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
-                                Google+
-                            </label>
+
                         </div>
-                        <div class="checkbox checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
-                                Email
-                            </label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_email', 'Email') !!}
                         </div>
-                        <div class="checkbox checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
-                                LinkedIn
-                            </label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_linkedin', 'LinkedIn') !!}
                         </div>
-                        <div class="checkbox checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['data-toggle' => 'toggle']) !!}
-                                WhatsApp
-                            </label>
+                        <div class="custom-checkbox">
+
+                            {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_whatsapp', 'WhatsApp') !!}
+
+
                         </div>
                     </div>
 
