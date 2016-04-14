@@ -2,14 +2,6 @@
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
-
-    Route::get('/', function () {
-        return response()->json([
-            'Hello' => Auth::guard('api')->user()->full_name . '!'
-        ]);
-    });
-
-
     /*
      * ---------------
      * Organisers
@@ -22,6 +14,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
      * Events
      * ---------------
      */
+    Route::resource('events', 'API\EventsApiController');
 
 
     /*
@@ -40,12 +33,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
     /*
      * ---------------
-     * Orders
-     * ---------------
-     */
-
-    /*
-     * ---------------
      * Users
      * ---------------
      */
@@ -55,6 +42,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
      * Check-In / Check-Out
      * ---------------
      */
+
+
+
+    Route::get('/', function () {
+        return response()->json([
+            'Hello' => Auth::guard('api')->user()->full_name . '!'
+        ]);
+    });
 
 
 });

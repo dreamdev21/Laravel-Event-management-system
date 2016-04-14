@@ -6,7 +6,7 @@ namespace app\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class BaseController extends Controller
+class ApiBaseController extends Controller
 {
     protected $account_id;
 

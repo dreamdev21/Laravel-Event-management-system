@@ -10,7 +10,7 @@ use URL;
 class Event extends MyBaseModel
 {
     use SoftDeletes;
-
+    
     /**
      * The validation rules.
      *

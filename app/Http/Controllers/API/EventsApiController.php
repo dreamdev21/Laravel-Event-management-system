@@ -2,10 +2,10 @@
 
 namespace app\Http\Controllers\API;
 
-use App\Models\Attendee;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
-class AttendeesApiController extends ApiBaseController
+class EventsApiController extends ApiBaseController
 {
 
     /**
@@ -14,7 +14,7 @@ class AttendeesApiController extends ApiBaseController
      */
     public function index(Request $request)
     {
-        return Attendee::scope($this->account_id)->get();
+        return Event::scope($this->account_id)->get();
     }
 
     /**
@@ -25,10 +25,10 @@ class AttendeesApiController extends ApiBaseController
     public function show(Request $request, $attendee_id)
     {
         if($attendee_id) {
-            return Attendee::scope($this->account_id)->find($attendee_id);
+            return Event::scope($this->account_id)->find($attendee_id);
         }
 
-        return response('Attendee Not Found', 404);
+        return response('Event Not Found', 404);
     }
 
     public function store(Request $request) {}
