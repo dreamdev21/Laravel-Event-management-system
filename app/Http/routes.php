@@ -1,18 +1,14 @@
 <?php
 
 /*
-  |--------------------------------------------------------------------------
-  | Application Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register all of the routes for an application.
-  | It's a breeze. Simply tell Laravel the URIs it should respond to
-  | and give it the Closure to execute when that URI is requested.
-  |
+ * Include our API routes file
  */
+include_once('api_routes.php');
 
 /*
+ * -------------------------
  * Installer
+ * -------------------------
  */
 Route::get('install', [
     'as'   => 'showInstaller',
@@ -161,7 +157,7 @@ Route::group(['prefix' => 'e'], function () {
 });
 
 /*
- * View order
+ * Public view order routes
  */
 Route::get('order/{order_reference}', [
     'as'   => 'showOrderDetails',
@@ -174,7 +170,7 @@ Route::get('order/{order_reference}/tickets', [
 ]);
 
 /*
- * Begin logged in stuff
+ * Backend routes
  */
 Route::group(['middleware' => ['auth', 'first.run']], function () {
 
@@ -295,14 +291,12 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     ]);
 
     /*
-     * Event Management Stuff
+     * Event management routes
      */
     Route::group(['prefix' => 'event'], function () {
 
         /*
-         * -------
          * Dashboard
-         * -------
          */
         Route::get('{event_id}/dashboard/', [
             'as'   => 'showEventDashboard',
@@ -660,18 +654,3 @@ Route::get('/terms_and_conditions', ['as' => 'termsAndConditions', function () {
     return 'TODO: add terms and cond';
 }]);
 
-/*
- * -------------------------------------
- *  API Routes
- * -------------------------------------
- */
-Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
-
-    Route::get('/', function() {
-        return response()->json([
-            'hello' => Auth::guard('api')->user()->full_name
-        ]);
-    });
-
-
-});
