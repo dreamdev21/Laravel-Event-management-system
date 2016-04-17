@@ -1,18 +1,14 @@
 <?php
 
 /*
-  |--------------------------------------------------------------------------
-  | Application Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register all of the routes for an application.
-  | It's a breeze. Simply tell Laravel the URIs it should respond to
-  | and give it the Closure to execute when that URI is requested.
-  |
+ * Include our API routes file
  */
+include_once('api_routes.php');
 
 /*
+ * -------------------------
  * Installer
+ * -------------------------
  */
 Route::get('install', [
     'as'   => 'showInstaller',
@@ -161,7 +157,7 @@ Route::group(['prefix' => 'e'], function () {
 });
 
 /*
- * View order
+ * Public view order routes
  */
 Route::get('order/{order_reference}', [
     'as'   => 'showOrderDetails',
@@ -174,7 +170,7 @@ Route::get('order/{order_reference}/tickets', [
 ]);
 
 /*
- * Begin logged in stuff
+ * Backend routes
  */
 Route::group(['middleware' => ['auth', 'first.run']], function () {
 
@@ -295,14 +291,12 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     ]);
 
     /*
-     * Event Management Stuff
+     * Event management routes
      */
     Route::group(['prefix' => 'event'], function () {
 
         /*
-         * -------
          * Dashboard
-         * -------
          */
         Route::get('{event_id}/dashboard/', [
             'as'   => 'showEventDashboard',
@@ -374,11 +368,6 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'postCreateQuestion',
             'uses' => 'EventTicketQuestionsController@postCreateQuestion',
         ]);
-
-        /**
-         * Event questions.
-         */
-        Route::resource('question', 'EventQuestionsController');
 
         /*
          * -------
@@ -544,6 +533,58 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventCustomizeController@postEditEventFees',
         ]);
 
+
+        /*
+         * -------
+         * Event Widget page
+         * -------
+         */
+        Route::get('{event_id}/widgets', [
+            'as'   => 'showEventWidgets',
+            'uses' => 'EventWidgetsController@showEventWidgets',
+        ]);
+
+        /*
+         * -------
+         * Event Survey page
+         * -------
+         */
+        Route::get('{event_id}/surveys', [
+            'as'   => 'showEventSurveys',
+            'uses' => 'EventSurveyController@showEventSurveys',
+        ]);
+        Route::get('{event_id}/question/create', [
+            'as' => 'showCreateEventQuestion',
+            'uses' => 'EventSurveyController@showCreateEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/create', [
+            'as' => 'postCreateEventQuestion',
+            'uses' => 'EventSurveyController@postCreateEventQuestion'
+        ]);
+
+
+        Route::get('{event_id}/question/{question_id}', [
+            'as' => 'showEditEventQuestion',
+            'uses' => 'EventSurveyController@showEditEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/{question_id}', [
+            'as' => 'postEditEventQuestion',
+            'uses' => 'EventSurveyController@postEditEventQuestion'
+        ]);
+
+        Route::post('{event_id}/question/delete/{question_id}', [
+            'as' => 'postDeleteEventQuestion',
+            'uses' => 'EventSurveyController@postDeleteEventQuestion'
+        ]);
+
+        Route::get('{event_id}/question/{question_id}/answers', [
+           'as' => 'showEventQuestionAnswers',
+            'uses' => 'EventSurveyController@showEventQuestionAnswers',
+        ]);
+
+
         /*
          * -------
          * Check In App
@@ -560,6 +601,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
         Route::post('{event_id}/check_in/', [
             'as'   => 'postCheckInAttendee',
             'uses' => 'EventCheckInController@postCheckInAttendee',
+        ]);
+
+        Route::post('{event_id}/qrcode_check_in', [
+            'as'   => 'postQRCodeCheckInAttendee',
+            'uses' => 'EventCheckInController@postCheckInAttendeeQr',
+        ]);
+
+        Route::post( '{event_id}/confirm_order_tickets/{order_id}', [
+            'as'   => 'confirmCheckInOrderTickets',
+            'uses' => 'EventCheckInController@confirmOrderTicketsQr',
         ]);
 
 
@@ -595,20 +646,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
     });
 });
 
-Route::post('queue/push', function () {
-
-    // set_time_limit(300);
-
-    return Queue::marshal();
-});
-
 Route::get('/', function () {
-
     return Redirect::route('showSelectOrganiser');
 });
 
 Route::get('/terms_and_conditions', ['as' => 'termsAndConditions', function () {
-
-return 'TODO: add terms and cond';
-//return View::make('Public.Website.Terms_and_Cond');
+    return 'TODO: add terms and cond';
 }]);
+

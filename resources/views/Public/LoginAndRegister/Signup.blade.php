@@ -12,6 +12,7 @@ Sign Up
                 <div class="logo">
                    {!! HTML::image('assets/images/logo-100x100-lightBg.png') !!}
                 </div>
+                <h2>Sign up</h2>
 
                 @if(Input::get('first_run'))
                     <div class="alert alert-info">

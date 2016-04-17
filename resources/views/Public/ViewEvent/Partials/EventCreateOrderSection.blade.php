@@ -75,59 +75,62 @@
                     </div>
                 </div>
 
-                @if($event->ask_for_all_attendees_info)
                 <div class="p20 pl0">
-                   {!! Form::label("mirror_buyer_info", 'Use buyer details for all ticket holders') !!}
-                   {!! Form::checkbox("mirror_buyer_info", 'on', false) !!}
+                    <a href="javascript:void(0);" class="btn btn-primary btn-xs" id="mirror_buyer_info">
+                        Copy buyer details to all ticket holders
+                    </a>
                 </div>
-                @endif
-
-                @if($event->ask_for_all_attendees_info)
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="ticket_holders_details" >
                             <h3>Ticket Holder Information</h3>
+                            <?php
+                                $total_attendee_increment = 0;
+                            ?>
                             @foreach($tickets as $ticket)
-                            @for($i=0; $i<=$ticket['qty']-1; $i++)
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <b>{{{$ticket['ticket']['title']}}}</b>: Ticket Holder {{$i+1}} Details
-                                    </h3>
-                                </div>
+                                @for($i=0; $i<=$ticket['qty']-1; $i++)
+                                <div class="panel panel-primary">
 
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                {!! Form::label("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", 'First Name') !!}
-                                                {!! Form::text("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_first_name.$i.{$ticket['ticket']['id']} ticket_holder_first_name form-control"]) !!}
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <b>{{$ticket['ticket']['title']}}</b>: Ticket Holder {{$i+1}} Details
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {!! Form::label("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", 'First Name') !!}
+                                                    {!! Form::text("ticket_holder_first_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_first_name.$i.{$ticket['ticket']['id']} ticket_holder_first_name form-control"]) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {!! Form::label("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", 'Last Name') !!}
+                                                    {!! Form::text("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_last_name.$i.{$ticket['ticket']['id']} ticket_holder_last_name form-control"]) !!}
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                {!! Form::label("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", 'Last Name') !!}
-                                                {!! Form::text("ticket_holder_last_name[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_last_name.$i.{$ticket['ticket']['id']} ticket_holder_last_name form-control"]) !!}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                {!! Form::label("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", 'Email Address') !!}
-                                                {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    {!! Form::label("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", 'Email Address') !!}
+                                                    {!! Form::text("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_email.$i.{$ticket['ticket']['id']} ticket_holder_email form-control"]) !!}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            @endfor
 
+
+                                  @include('Public.ViewEvent.Partials.AttendeeQuestions', ['ticket' => $ticket['ticket'],'attendee_number' => $total_attendee_increment++])
+                                </div>
+                                @endfor
                             @endforeach
                         </div>
                     </div>
                 </div>
 
-                @endif
                 @if($order_requires_payment && @$payment_gateway->is_on_site)
 
                 <h3>Payment Information</h3>

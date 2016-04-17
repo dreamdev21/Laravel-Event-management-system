@@ -79,7 +79,6 @@ class EventOrdersController extends MyBaseController
     {
         $data = [
             'order'    => Order::scope()->find($order_id),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.ManageOrder', $data);
@@ -284,7 +283,6 @@ class EventOrdersController extends MyBaseController
         $data = [
             'order'    => $order,
             'event'    => $order->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.MessageOrder', $data);

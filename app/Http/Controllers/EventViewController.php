@@ -7,20 +7,28 @@ use App\Models\Event;
 use App\Models\EventStats;
 use Auth;
 use Cookie;
-use Input;
+use Illuminate\Http\Request;
 use Mail;
-use Response;
 use Validator;
-use View;
 
 class EventViewController extends Controller
 {
-    public function showEventHome($event_id, $slug = '', $preview = false)
+
+    /**
+     * Show the homepage for an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showEventHome(Request $request, $event_id, $slug = '', $preview = false)
     {
         $event = Event::findOrFail($event_id);
 
         if (!Auth::check() && !$event->is_live) {
-            return View::make('Public.ViewEvent.EventNotLivePage');
+            return view('Public.ViewEvent.EventNotLivePage');
         }
 
         $data = [
@@ -31,7 +39,7 @@ class EventViewController extends Controller
         /*
          * Don't record stats if we're previewing the event page from the backend or if we own the event.
          */
-        if (!$preview || !Auth::check()) {
+        if (!$preview && !Auth::check()) {
             $event_stats = new EventStats();
             $event_stats->updateViewCount($event_id);
         }
@@ -39,12 +47,12 @@ class EventViewController extends Controller
         /*
          * See if there is an affiliate referral in the URL
          */
-        if ($affiliate_ref = \Input::get('ref')) {
+        if ($affiliate_ref = $request->get('ref')) {
             $affiliate_ref = preg_replace("/\W|_/", '', $affiliate_ref);
 
             if ($affiliate_ref) {
                 $affiliate = Affiliate::firstOrNew([
-                    'name'       => Input::get('ref'),
+                    'name'       => $request->get('ref'),
                     'event_id'   => $event_id,
                     'account_id' => $event->account_id,
                 ]);
@@ -57,15 +65,28 @@ class EventViewController extends Controller
             }
         }
 
-        return View::make('Public.ViewEvent.EventPage', $data);
+        return view('Public.ViewEvent.EventPage', $data);
     }
 
+    /**
+     * Show preview of event homepage / used for backend previewing
+     *
+     * @param $event_id
+     * @return mixed
+     */
     public function showEventHomePreview($event_id)
     {
         return showEventHome($event_id, true);
     }
 
-    public function postContactOrganiser($event_id)
+    /**
+     * Sends a message to the organiser
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
+    public function postContactOrganiser(Request $request, $event_id)
     {
         $rules = [
             'name'    => 'required',
@@ -73,10 +94,10 @@ class EventViewController extends Controller
             'message' => ['required'],
         ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
@@ -85,9 +106,9 @@ class EventViewController extends Controller
         $event = Event::findOrFail($event_id);
 
         $data = [
-            'sender_name'     => Input::get('name'),
-            'sender_email'    => Input::get('email'),
-            'message_content' => strip_tags(Input::get('message')),
+            'sender_name'     => $request->get('name'),
+            'sender_email'    => $request->get('email'),
+            'message_content' => strip_tags($request->get('message')),
             'event'           => $event,
         ];
 
@@ -98,7 +119,7 @@ class EventViewController extends Controller
                 ->subject('Message Regarding: '.$event->title);
         });
 
-        return Response::json([
+        return response()->json([
             'status'  => 'success',
             'message' => 'Message Successfully Sent',
         ]);

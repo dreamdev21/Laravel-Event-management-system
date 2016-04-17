@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use View;
 
 class EventViewEmbeddedController extends Controller
 {
+
+    /**
+     * Show an embedded version of the event page
+     *
+     * @param $event_id
+     * @return mixed
+     */
     public function showEmbeddedEvent($event_id)
     {
         $event = Event::findOrFail($event_id);
@@ -17,6 +23,6 @@ class EventViewEmbeddedController extends Controller
             'is_embedded' => '1',
         ];
 
-        return View::make('Public.ViewEvent.Embedded.EventPage', $data);
+        return view('Public.ViewEvent.Embedded.EventPage', $data);
     }
 }

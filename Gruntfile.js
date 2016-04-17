@@ -28,7 +28,6 @@ module.exports = function (grunt) {
                     './public/vendor/jquery-form/jquery.form.js',
                     './public/vendor/RRSSB/js/rrssb.js',
                     './public/vendor/humane-js/humane.js',
-                    './public/vendor/jquery-backstretch/jquery.backstretch.js',
                     './public/assets/javascript/app-public.js'
                 ],
                 dest: './public/assets/javascript/frontend.js',

@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Organiser;
 use Carbon\Carbon;
-use View;
 
 class OrganiserDashboardController extends MyBaseController
 {
+    /**
+     * Show the organiser dashboard
+     *
+     * @param $organiser_id
+     * @return mixed
+     */
     public function showDashboard($organiser_id)
     {
         $organiser = Organiser::scope()->findOrFail($organiser_id);
@@ -16,13 +21,8 @@ class OrganiserDashboardController extends MyBaseController
         $data = [
             'organiser'       => $organiser,
             'upcoming_events' => $upcoming_events,
-            'search'          => [
-                'sort_by' => 's',
-                'q'       => '',
-            ],
-            'q' => 'dd',
         ];
 
-        return View::make('ManageOrganiser.Dashboard', $data);
+        return view('ManageOrganiser.Dashboard', $data);
     }
 }

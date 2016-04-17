@@ -108,7 +108,7 @@ Attendees
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         @if($attendee->email)
                                         <li><a
@@ -158,7 +158,7 @@ Attendees
         @endif
     </div>
     <div class="col-md-12">
-        {!! $attendees->render() !!}
+        {!!$attendees->appends(['sort_by' => $sort_by, 'sort_order' => $sort_order, 'q' => $q])->render()!!}
     </div>
 </div>    <!--/End attendees table-->
 

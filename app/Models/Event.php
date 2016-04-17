@@ -10,7 +10,7 @@ use URL;
 class Event extends MyBaseModel
 {
     use SoftDeletes;
-
+    
     /**
      * The validation rules.
      *
@@ -49,6 +49,16 @@ class Event extends MyBaseModel
     public function questions()
     {
         return $this->belongsToMany('\App\Models\Question', 'event_question');
+    }
+
+    /**
+     * The questions associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function questions_with_tashed()
+    {
+        return $this->belongsToMany('\App\Models\Question', 'event_question')->withTrashed();
     }
 
     /**

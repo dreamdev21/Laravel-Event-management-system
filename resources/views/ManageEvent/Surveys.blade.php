@@ -35,7 +35,6 @@ Event Surveys
             </button>
          </div>
 
-        @if(false)
         <div class="btn-group btn-group btn-group-responsive">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                 <i class="ico-users"></i> Export Answers <span class="caret"></span>
@@ -47,8 +46,6 @@ Event Surveys
                 <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'html'])}}">HTML</a></li>
             </ul>
         </div>
-        @endif
-
     </div>
     <!--/ Toolbar -->
 </div>
@@ -123,14 +120,30 @@ Event Surveys
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="loadModal" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                                       data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
-                                                        Edit
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as XLSX
                                                     </a>
                                                 </li>
-
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as CSV
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="loadModal" data-modal-id="showEventQuestionAnswers" href="javascript:void(0);"
+                                                       data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                                        Export as HTML
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
+
+                                        <a class="btn btn-xs btn-primary loadModal" data-modal-id="EditQuestion" href="javascript:void(0);"
+                                           data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
+                                            Edit
+                                        </a>
                                         <a data-id="{{ $question->id }}" data-route="{{ route('postDeleteEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]) }}" data-type="question"  href="javascript:void(0);" class="btn btn-xs btn-danger deleteThis">
                                             Delete
                                         </a>

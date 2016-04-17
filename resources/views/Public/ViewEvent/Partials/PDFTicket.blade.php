@@ -95,7 +95,9 @@
             @endforeach
 
             <div class="bottom_info">
-                Ticketing By <b>Attendize.com</b>
+                {{--Attendize is provided free of charge on the condition the below hyperlink is left in place.--}}
+                {{--See https://github.com/Attendize/Attendize/blob/master/LICENSE for more information.--}}
+                @include('Shared.Partials.PoweredBy')
             </div>
         </div>
     </body>

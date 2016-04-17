@@ -195,6 +195,7 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'order_page'])}}"
                     class="{{$tab == 'order_page' ? 'active' : ''}}"><a href="#order_page" data-toggle="tab">Order
                         Form</a></li>
+
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'social'])}}"
                     class="{{$tab == 'social' ? 'active' : ''}}"><a href="#social" data-toggle="tab">Social</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'affiliates'])}}"
@@ -205,9 +206,7 @@
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'ticket_design'])}}"
                     class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">Ticket
                         Design</a></li>
-                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'embed'])}}"
-                    class="{{$tab == 'embed' ? 'active' : ''}}"><a href="#embed" data-toggle="tab">Website Embed
-                        Code</a></li>
+
             </ul>
             <!--/ tab -->
             <!-- tab content -->
@@ -301,41 +300,36 @@
                         <label class="control-label">Share buttons to show.</label>
                         <br>
 
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook) !!}
-                                Facebook
-                            </label>
+                        <div class="custom-checkbox mb5">
+
+                                {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_facebook', 'Facebook') !!}
                         </div>
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter) !!}
-                                Twitter
-                            </label>
+                        <div class="custom-checkbox mb5">
+
+                                {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_twitter', 'Twitter') !!}
+
                         </div>
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus) !!}
-                                Google+
-                            </label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::label('social_show_googleplus', 'Google+') !!}
+                                {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
+
                         </div>
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_email', 1, $event->social_show_email) !!}
-                                Email
-                            </label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_email', 'Email') !!}
                         </div>
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin) !!}
-                                LinkedIn
-                            </label>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_linkedin', 'LinkedIn') !!}
                         </div>
-                        <div class="checkbox-inline">
-                            <label>
-                                {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp) !!}
-                                WhatsApp
-                            </label>
+                        <div class="custom-checkbox">
+
+                            {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_whatsapp', 'WhatsApp') !!}
+
+
                         </div>
                     </div>
 
@@ -486,20 +480,6 @@
                     <h4>Order Page Settings</h4>
 
                     <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('ask_for_all_attendees_info', 'on', $event->ask_for_all_attendees_info) !!}
-                                Require details for each attendee?
-                            </label>
-                        </div>
-                        <div class="help-block">
-                            If checked, the buyer will be asked for details of each attendee; as opposed to just
-                            himself.
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
                         {!! Form::label('pre_order_display_message', 'Message to display to attendees before they complete their order.', array('class'=>'control-label ')) !!}
 
                         {!!  Form::textarea('pre_order_display_message', $event->pre_order_display_message, [
@@ -524,30 +504,16 @@
                         </div>
                     </div>
 
-                    <h4>Attendees questions</h4>
-                    @if ($questions)
-                        <table class="table">
-                            <tbody>
-                            @foreach ($questions as $question)
-                                <tr>
-                                    <td>{{ $question->title }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-
                     <div class="panel-footer mt15 text-right">
-                        <button class="loadModal btn btn-success" type="button" data-modal-id="EditQuestion" href="javascript:void(0);"
-                                data-href="{{route('event.question.create', ['event_id' => $event->id])}}">
-                            <i class="ico-question"></i> Add question
-                        </button>
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
                     </div>
 
                     {!! Form::close() !!}
 
                 </div>
+
+
+
 
                 <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
                     {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
@@ -606,35 +572,6 @@
                     </div>
 
                     {!! Form::close() !!}
-
-                </div>
-
-                <div class="tab-pane {{$tab == 'embed' ? 'active' : ''}}" id="embed">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>HTML Embed Code</h4>
-                            <textarea rows="7" onfocus="this.select();"
-                                      class="form-control">{{$event->embed_html_code}}</textarea>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Instructions</h4>
-
-                            <p>
-                                Simply copy and paste the HTML provided onto your website where you would like the
-                                widget to appear and the widget will appear.
-                            </p>
-
-                            <h5>
-                                <b>Embed Preview</b>
-                            </h5>
-
-                            <div class="preview_embed" style="border:1px solid #ddd; padding: 5px;">
-                                {!! $event->embed_html_code !!}
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
 

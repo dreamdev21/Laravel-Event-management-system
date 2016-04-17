@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade " style="display: none;">
+<div role="dialog"  class="modal fade " style="display: none;">
     {!! Form::model($ticket, ['url' => route('postEditTicket', ['ticket_id' => $ticket->id, 'event_id' => $event->id]), 'class' => 'ajax']) !!}
     <div class="modal-dialog">
         <div class="modal-content">

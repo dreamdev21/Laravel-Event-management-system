@@ -53,22 +53,28 @@
                 {!! Form::text('paypal[password]', $account->getGatewayConfigVal(config('attendize.payment_gateway_paypal'), 'password'),[ 'class'=>'form-control'])  !!}
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 {!! Form::label('paypal[signature]', 'PayPal Signature', array('class'=>'control-label ')) !!}
                 {!! Form::text('paypal[signature]', $account->getGatewayConfigVal(config('attendize.payment_gateway_paypal'), 'signature'),[ 'class'=>'form-control'])  !!}
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                {!! Form::label('paypal[brandName]', 'Branding Name', array('class'=>'control-label ')) !!}
-                {!! Form::text('paypal[brandName]', $account->getGatewayConfigVal(config('attendize.payment_gateway_paypal'), 'brandName'),[ 'class'=>'form-control'])  !!}
-                <div class="help-block">
-                    This is the name buyers will see when checking out. Leave this blank if you want the event organiser's name to be used.
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {!! Form::label('paypal[brandName]', 'Branding Name', array('class'=>'control-label ')) !!}
+                    {!! Form::text('paypal[brandName]', $account->getGatewayConfigVal(config('attendize.payment_gateway_paypal'), 'brandName'),[ 'class'=>'form-control'])  !!}
+                    <div class="help-block">
+                        This is the name buyers will see when checking out. Leave this blank if you want the event organiser's name to be used.
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+
 </section>
 
 {{--BitPay--}}
@@ -102,6 +108,8 @@
                 {!! Form::text('coinbase[secret]', $account->getGatewayConfigVal(config('attendize.payment_gateway_coinbase'), 'secret'),[ 'class'=>'form-control'])  !!}
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 {!! Form::label('coinbase[accountId]', 'Account ID', array('class'=>'control-label ')) !!}
@@ -109,6 +117,8 @@
             </div>
         </div>
     </div>
+
+
 </section>
 
 

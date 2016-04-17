@@ -5,10 +5,8 @@
       Attendize QRCode Check In: {{ $event->title }}
   </title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
-  {!! HTML::style('assets/stylesheet/qrcode-check-in.css') !!}
+    {!! HTML::style('assets/stylesheet/application.css') !!}
+    {!! HTML::style('assets/stylesheet/qrcode-check-in.css') !!}
   {!! HTML::script('vendor/jquery/jquery.js') !!}
 
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
@@ -86,7 +84,7 @@
     <footer id="footer">
       <br>
       <br>
-      <h5 align="center" style="color: #6D717A;">&copy; <a href="https://www.attendize.com/">Attendize</a> {{ date('Y') }}  &middot; All Rights Reserved.</h5>
+      <h5 align="center" style="color: #6D717A;">Powered By <a href="https://www.attendize.com/">Attendize</a> </h5>
     </footer>
   </div>
 

@@ -17,7 +17,6 @@ use DB;
 use Excel;
 use Mail;
 use Response;
-use Session;
 use Validator;
 
 class EventAttendeesController extends MyBaseController
@@ -46,7 +45,8 @@ class EventAttendeesController extends MyBaseController
                     ->where(function ($query) use ($searchQuery) {
                         $query->where('orders.order_reference', 'like', $searchQuery.'%')
                         ->orWhere('attendees.first_name', 'like', $searchQuery.'%')
-                        ->orWhere('attendees.email', 'like', $searchQuery.'%')
+                            ->orWhere('attendees.email', 'like', $searchQuery.'%')
+                            ->orWhere('attendees.reference', 'like', $searchQuery.'%')
                         ->orWhere('attendees.last_name', 'like', $searchQuery.'%');
                     })
                     ->orderBy(($sort_by == 'order_reference' ? 'orders.' : 'attendees.').$sort_by, $sort_order)
@@ -92,7 +92,6 @@ class EventAttendeesController extends MyBaseController
         }
 
         return view('ManageEvent.Modals.CreateAttendee', [
-            'modal_id' => $request->get('modal_id'),
             'event'    => $event,
             'tickets'  => $event->tickets()->lists('title', 'id'),
         ]);
@@ -230,7 +229,6 @@ class EventAttendeesController extends MyBaseController
         $data = [
             'attendee' => $attendee,
             'event'    => $attendee->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.MessageAttendee', $data);
@@ -302,7 +300,6 @@ class EventAttendeesController extends MyBaseController
     {
         $data = [
             'event'    => Event::scope()->find($event_id),
-            'modal_id' => $request->get('modal_id'),
             'tickets'  => Event::scope()->find($event_id)->tickets()->lists('title', 'id')->toArray(),
         ];
 
@@ -358,6 +355,7 @@ class EventAttendeesController extends MyBaseController
      */
     public function showExportAttendees($event_id, $export_as = 'xls')
     {
+
         Excel::create('attendees-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
 
             $excel->setTitle('Attendees List');
@@ -367,7 +365,7 @@ class EventAttendeesController extends MyBaseController
                     ->setCompany(config('attendize.app_name'));
 
             $excel->sheet('attendees_sheet_1', function ($sheet) use ($event_id) {
-
+                
                 DB::connection()->setFetchMode(\PDO::FETCH_ASSOC);
                 $data = DB::table('attendees')
                     ->where('attendees.event_id', '=', $event_id)
@@ -376,12 +374,19 @@ class EventAttendeesController extends MyBaseController
                                 ->join('events', 'events.id', '=', 'attendees.event_id')
                                 ->join('orders', 'orders.id', '=', 'attendees.order_id')
                                 ->join('tickets', 'tickets.id', '=', 'attendees.ticket_id')
-                                ->select(
-                                        'attendees.first_name', 'attendees.last_name', 'attendees.email', 'attendees.reference', 'orders.order_reference', 'tickets.title', 'orders.created_at', DB::raw("(CASE WHEN attendees.has_arrived = 1 THEN 'YES' ELSE 'NO' END) AS `attendees.has_arrived`"), 'attendees.arrival_time')->get();
-                //DB::raw("(CASE WHEN UNIX_TIMESTAMP(`attendees.arrival_time`) = 0 THEN '---' ELSE 'd' END) AS `attendees.arrival_time`"))
+                                ->select([
+                                    'attendees.first_name',
+                                    'attendees.last_name',
+                                    'attendees.email',
+                                    'attendees.reference',
+                                    'orders.order_reference',
+                                    'tickets.title',
+                                    'orders.created_at',
+                                    DB::raw("(CASE WHEN attendees.has_arrived = 1 THEN 'YES' ELSE 'NO' END) AS `attendees.has_arrived`"),
+                                    'attendees.arrival_time',
+                                    ])->get();
 
                 $sheet->fromArray($data);
-
                 $sheet->row(1, [
                     'First Name', 'Last Name', 'Email', 'Ticket Reference', 'Order Reference', 'Ticket Type', 'Purchase Date', 'Has Arrived', 'Arrival Time',
                 ]);
@@ -410,7 +415,6 @@ class EventAttendeesController extends MyBaseController
             'attendee' => $attendee,
             'event'    => $attendee->event,
             'tickets'  => $attendee->event->tickets->lists('title', 'id'),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.EditAttendee', $data);
@@ -474,7 +478,6 @@ class EventAttendeesController extends MyBaseController
             'attendee' => $attendee,
             'event'    => $attendee->event,
             'tickets'  => $attendee->event->tickets->lists('title', 'id'),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.CancelAttendee', $data);
@@ -540,7 +543,6 @@ class EventAttendeesController extends MyBaseController
         $data = [
             'attendee' => $attendee,
             'event'    => $attendee->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.ResendTicketToAttendee', $data);

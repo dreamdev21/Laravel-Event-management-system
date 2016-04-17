@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
     <style>
         .account_settings .modal-body {
             border: 0;

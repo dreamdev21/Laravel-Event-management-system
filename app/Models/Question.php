@@ -30,9 +30,14 @@ class Question extends MyBaseModel
      * @access public
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function question_types()
+    public function question_type()
     {
-        return $this->hasOne('\App\Models\QuestionType');
+        return $this->belongsTo('\App\Models\QuestionType');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany('\App\Models\QuestionAnswer');
     }
 
     /**
@@ -44,5 +49,9 @@ class Question extends MyBaseModel
     public function options()
     {
         return $this->hasMany('\App\Models\QuestionOption');
+    }
+
+    public function tickets() {
+        return $this->belongsToMany('\App\Models\Ticket');
     }
 }

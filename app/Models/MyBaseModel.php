@@ -126,7 +126,12 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * @param int $accountId
+     * Ensures each query looks for account_id
+     *
+     * @param $query
+     * @param bool $accountId
+     * @param Request $request
+     * @return mixed
      */
     public function scopeScope($query, $accountId = false)
     {

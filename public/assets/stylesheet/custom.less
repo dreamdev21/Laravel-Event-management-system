@@ -372,3 +372,25 @@ html.working {
     width: 18px;
     height: 18px;
 }
+
+/* Quick fix for bootstrap default buttons*/
+.pagination>.active>span,
+.pagination>.active:focus>span,
+.pagination>.active:hover>span,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default,
+.pagination>li>a:hover, .pager>li>a:hover, .pagination>li>span:hover, .pager>li>span:hover, .pagination>li>a:focus, .pager>li>a:focus, .pagination>li>span:focus, .pager>li>span:focus
+{
+    color: #ffffff !important;
+}
+.btn-default .caret {
+    border-top-color: #fff;
+}
+.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-right: none;
+}
+
+

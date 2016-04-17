@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
    {!! Form::open(array('url' => route('postMessageAttendee', array('attendee_id' => $attendee->id)), 'class' => 'ajax reset closeModalAfter')) !!}
     <div class="modal-dialog">
         <div class="modal-content">
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="checkbox custom-checkbox">
+                            <div class="checkbox">
                                 <input type="checkbox" name="send_copy" id="send_copy" value="1">
                                 <label for="send_copy">&nbsp;&nbsp;Send a copy to <b>{{$attendee->event->organiser->email}}</b></label>
                             </div>

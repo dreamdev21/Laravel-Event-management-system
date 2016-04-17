@@ -6,10 +6,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Input;
 use Log;
-use Response;
-use View;
 
 /*
   Attendize.com   - Event Management & Ticketing
@@ -17,6 +14,11 @@ use View;
 
 class EventTicketsController extends MyBaseController
 {
+    /**
+     * @param Request $request
+     * @param $event_id
+     * @return mixed
+     */
     public function showTickets(Request $request, $event_id)
     {
         $allowed_sorts = [
@@ -46,50 +48,67 @@ class EventTicketsController extends MyBaseController
         return view('ManageEvent.Tickets', compact('event', 'tickets', 'sort_by', 'q', 'allowed_sorts'));
     }
 
+    /**
+     * Show the edit ticket modal
+     *
+     * @param $event_id
+     * @param $ticket_id
+     * @return mixed
+     */
     public function showEditTicket($event_id, $ticket_id)
     {
         $data = [
             'event'    => Event::scope()->find($event_id),
             'ticket'   => Ticket::scope()->find($ticket_id),
-            'modal_id' => Input::get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.EditTicket', $data);
     }
 
+    /**
+     * Show the create ticket modal
+     *
+     * @param $event_id
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showCreateTicket($event_id)
     {
-        return View::make('ManageEvent.Modals.CreateTicket', [
-                    'modal_id' => Input::get('modal_id'),
-                    'event'    => Event::find($event_id),
+        return view('ManageEvent.Modals.CreateTicket', [
+                    'event'    => Event::scope()->find($event_id),
         ]);
     }
 
-    public function postCreateTicket($event_id)
+    /**
+     * Creates a ticket
+     *
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCreateTicket(Request $request, $event_id)
     {
         $ticket = Ticket::createNew();
 
-        if (!$ticket->validate(Input::all())) {
-            return Response::json([
+        if (!$ticket->validate($request->all())) {
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $ticket->errors(),
             ]);
         }
 
         $ticket->event_id = $event_id;
-        $ticket->title = Input::get('title');
-        $ticket->quantity_available = !Input::get('quantity_available') ? null : Input::get('quantity_available');
-        $ticket->start_sale_date = Input::get('start_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_sale_date')) : null;
-        $ticket->end_sale_date = Input::get('end_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_sale_date')) : null;
-        $ticket->price = Input::get('price');
-        $ticket->min_per_person = Input::get('min_per_person');
-        $ticket->max_per_person = Input::get('max_per_person');
-        $ticket->description = Input::get('description');
+        $ticket->title = $request->get('title');
+        $ticket->quantity_available = !$request->get('quantity_available') ? null : $request->get('quantity_available');
+        $ticket->start_sale_date = $request->get('start_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_sale_date')) : null;
+        $ticket->end_sale_date = $request->get('end_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_sale_date')) : null;
+        $ticket->price = $request->get('price');
+        $ticket->min_per_person = $request->get('min_per_person');
+        $ticket->max_per_person = $request->get('max_per_person');
+        $ticket->description = $request->get('description');
         $ticket->save();
 
-        \Session::flash('message', 'Successfully Created Ticket');
+        session()->flash('message', 'Successfully Created Ticket');
 
-        return Response::json([
+        return response()->json([
                     'status'      => 'success',
                     'id'          => $ticket->id,
                     'message'     => 'Refreshing...',
@@ -99,16 +118,22 @@ class EventTicketsController extends MyBaseController
         ]);
     }
 
-    public function postPauseTicket()
+    /**
+     * Pause ticket / take it off sale
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function postPauseTicket(Request $request)
     {
-        $ticket_id = Input::get('ticket_id');
+        $ticket_id = $request->get('ticket_id');
 
         $ticket = Ticket::scope()->find($ticket_id);
 
         $ticket->is_paused = ($ticket->is_paused == 1) ? 0 : 1;
 
         if ($ticket->save()) {
-            return Response::json([
+            return response()->json([
                         'status'  => 'success',
                         'message' => 'Ticket Successfully Updated',
                         'id'      => $ticket->id,
@@ -119,21 +144,30 @@ class EventTicketsController extends MyBaseController
             'ticket' => $ticket,
         ]);
 
-        return Response::json([
+        return response()->json([
                     'status'  => 'error',
                     'id'      => $ticket->id,
                     'message' => 'Whoops!, looks like something went wrong. Please try again.',
         ]);
     }
 
-    public function postDeleteTicket()
+    /**
+     * Deleted a ticket
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postDeleteTicket(Request $request)
     {
-        $ticket_id = Input::get('ticket_id');
+        $ticket_id = $request->get('ticket_id');
 
         $ticket = Ticket::scope()->find($ticket_id);
 
+        /*
+         * Don't allow deletion of tickets which have been sold already.
+         */
         if ($ticket->quantity_sold > 0) {
-            return Response::json([
+            return response()->json([
                         'status'  => 'error',
                         'message' => 'Sorry, you can\'t delete this ticket as some have already been sold',
                         'id'      => $ticket->id,
@@ -141,7 +175,7 @@ class EventTicketsController extends MyBaseController
         }
 
         if ($ticket->delete()) {
-            return Response::json([
+            return response()->json([
                         'status'  => 'success',
                         'message' => 'Ticket Successfully Deleted',
                         'id'      => $ticket->id,
@@ -152,19 +186,27 @@ class EventTicketsController extends MyBaseController
             'ticket' => $ticket,
         ]);
 
-        return Response::json([
+        return response()->json([
                     'status'  => 'error',
                     'id'      => $ticket->id,
                     'message' => 'Whoops!, looks like something went wrong. Please try again.',
         ]);
     }
 
-    public function postEditTicket($event_id, $ticket_id)
+    /**
+     * Edit a ticket
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param $ticket_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditTicket(Request $request, $event_id, $ticket_id)
     {
-        $ticket = Ticket::findOrFail($ticket_id);
+        $ticket = Ticket::scope()->findOrFail($ticket_id);
 
         /*
-         * Override some vaidation rules
+         * Override some validation rules
          */
         $validation_rules['quantity_available'] = ['integer', 'min:'.($ticket->quantity_sold + $ticket->quantity_reserved)];
         $validation_messages['quantity_available.min'] = 'Quantity available can\'t be less the amount sold or reserved.';
@@ -172,25 +214,25 @@ class EventTicketsController extends MyBaseController
         $ticket->rules = $validation_rules + $ticket->rules;
         $ticket->messages = $validation_messages + $ticket->messages;
 
-        if (!$ticket->validate(Input::all())) {
-            return Response::json([
+        if (!$ticket->validate($request->all())) {
+            return response()->json([
                         'status'   => 'error',
                         'messages' => $ticket->errors(),
             ]);
         }
 
-        $ticket->title = Input::get('title');
-        $ticket->quantity_available = !Input::get('quantity_available') ? null : Input::get('quantity_available');
-        $ticket->price = Input::get('price');
-        $ticket->start_sale_date = Input::get('start_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('start_sale_date')) : null;
-        $ticket->end_sale_date = Input::get('end_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', Input::get('end_sale_date')) : null;
-        $ticket->description = Input::get('description');
-        $ticket->min_per_person = Input::get('min_per_person');
-        $ticket->max_per_person = Input::get('max_per_person');
+        $ticket->title = $request->get('title');
+        $ticket->quantity_available = !$request->get('quantity_available') ? null : $request->get('quantity_available');
+        $ticket->price = $request->get('price');
+        $ticket->start_sale_date = $request->get('start_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_sale_date')) : null;
+        $ticket->end_sale_date = $request->get('end_sale_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_sale_date')) : null;
+        $ticket->description = $request->get('description');
+        $ticket->min_per_person = $request->get('min_per_person');
+        $ticket->max_per_person = $request->get('max_per_person');
 
         $ticket->save();
 
-        return Response::json([
+        return response()->json([
                     'status'      => 'success',
                     'id'          => $ticket->id,
                     'message'     => 'Refreshing...',

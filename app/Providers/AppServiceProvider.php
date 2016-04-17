@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require app_path('Attendize/constants.php');
+        //require app_path('Attendize/constants.php');
     }
 
     /**
