@@ -40,7 +40,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "{{route('postCheckInAttendee', ['event_id' => $event->id])}}",
+            url: Attendize.checkInRoute,
             data: {
                 attendee_id: attendeeId,
                 has_arrived: hasArrived ? 1 : 0,
@@ -135,7 +135,7 @@ function search() {
 
     $.ajax({
         type: "POST",
-        url: Attendize.checkInRoute,
+        url: Attendize.checkInSearchRoute,
         data: {q: query_value},
         cache: false,
         error: function() {
