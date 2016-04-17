@@ -14,8 +14,9 @@ class AttendeesApiController extends ApiBaseController
      */
     public function index(Request $request)
     {
-        return Attendee::scope($this->account_id)->get();
+        return Attendee::scope($this->account_id)->paginate($request->get('per_page', 25));
     }
+
 
     /**
      * @param Request $request

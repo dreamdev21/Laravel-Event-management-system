@@ -14,7 +14,7 @@ class EventsApiController extends ApiBaseController
      */
     public function index(Request $request)
     {
-        return Event::scope($this->account_id)->get();
+        return Event::scope($this->account_id)->paginate(20);
     }
 
     /**
