@@ -25,7 +25,6 @@
         "omnipay/paypal": "*",
         "omnipay/bitpay": "dev-master",
         "omnipay/coinbase": "dev-master",
-        "barryvdh/laravel-ide-helper": "^2.1",
         "laracasts/utilities": "^2.1"
 
     },
@@ -34,7 +33,9 @@
         "phpspec/phpspec": "~2.1",
         "fzaninotto/faker": "^1.5",
         "symfony/dom-crawler": "~3.0",
-        "symfony/css-selector": "~3.0"
+        "symfony/css-selector": "~3.0",
+        "doctrine/dbal": "~2.3",
+        "barryvdh/laravel-ide-helper": "^2.1"
     },
 
     "autoload": {

@@ -15,6 +15,7 @@ use Input;
 use Response;
 use Validator;
 use Hash;
+use Mail;
 
 class ManageAccountController extends MyBaseController
 {
@@ -196,7 +197,7 @@ class ManageAccountController extends MyBaseController
 
         Mail::send('Emails.inviteUser', $data, function ($message) use ($data) {
             $message->to($data['user']->email)
-                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an Attendize Ticketing account.');
+                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an '. config('attendize.app_name') .' account.');
         });
 
         return Response::json([

@@ -152,7 +152,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         static::creating(function ($user) {
             $user->confirmation_code = str_random();
-            $user->api_key = str_random(60);
+            $user->api_token = str_random(60);
         });
     }
 }

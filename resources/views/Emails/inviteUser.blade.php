@@ -23,7 +23,7 @@
 </div>
 <br><br>
 <p>
-    If you have any questions, feedback or suggestions feel free to reply to this email.
+    If you have any questions please reply to this email.
 </p>
 <p>
     Thank you
