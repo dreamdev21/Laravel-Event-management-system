@@ -47,6 +47,7 @@ class CreateUsersTable extends Migration
         Schema::create('datetime_formats', function ($t) {
             $t->increments('id');
             $t->string('format');
+            $t->string('picker_format');
             $t->string('label');
         });
 
