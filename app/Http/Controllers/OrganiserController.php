@@ -51,7 +51,7 @@ class OrganiserController extends MyBaseController
         $organiser->email = $request->get('email');
         $organiser->facebook = $request->get('facebook');
         $organiser->twitter = $request->get('twitter');
-        $organiser->confirmation_key = md5(time().rand(0, 999999));
+        $organiser->confirmation_key = str_random(15);
 
         if ($request->hasFile('organiser_logo')) {
             $path = public_path().'/'.config('attendize.organiser_images_path');
