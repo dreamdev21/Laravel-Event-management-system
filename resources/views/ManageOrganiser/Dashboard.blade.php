@@ -78,10 +78,6 @@
             @endforeach
         </div>
     @else
-        @if($search['q'])
-            @include('Shared.Partials.NoSearchResults')
-        @else
             @include('ManageOrganiser.Partials.EventsBlankSlate')
-        @endif
     @endif
 @stop
