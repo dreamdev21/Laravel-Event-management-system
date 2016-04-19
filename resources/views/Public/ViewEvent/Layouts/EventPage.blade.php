@@ -84,11 +84,12 @@
         <a href="#intro" style="display:none;" class="totop"><i class="ico-angle-up"></i>
             <span style="font-size:11px;">TOP</span></a>
 
+        {!!HTML::script(config('attendize.cdn_url_static_assets').'/assets/javascript/frontend.js')!!}
+
+
         @if(isset($secondsToExpire))
         <script>if($('#countdown')) {setCountdown($('#countdown'), {{$secondsToExpire}});}</script>
         @endif
-
-        {!!HTML::script(config('attendize.cdn_url_static_assets').'/assets/javascript/frontend.js')!!}
 
         @include('Shared.Partials.GlobalFooterJS')
     </body>
