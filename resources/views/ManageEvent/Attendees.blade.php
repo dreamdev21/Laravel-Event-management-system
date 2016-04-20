@@ -31,6 +31,11 @@ Attendees
         <div class="btn-group btn-group-responsive">
             <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-ticket"></i> Add Attendee</button>
         </div>
+        
+        <div class="btn-group btn-group-responsive">
+            <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showImportAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> Import Attendees</button>
+        </div>
+        
         <div class="btn-group btn-group-responsive">
             <a class="btn btn-success" href="{{route('showPrintAttendees', ['event_id'=>$event->id])}}" target="_blank" ><i class="ico-print"></i> Print Attendee List</a>
         </div>
