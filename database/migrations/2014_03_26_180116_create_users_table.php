@@ -86,27 +86,27 @@ class CreateUsersTable extends Migration
             $t->nullableTimestamps();
             $t->softDeletes();
 
-            $t->string('name');
-            $t->string('last_ip');
-            $t->timestamp('last_login_date');
+            $t->string('name')->nullable();
+            $t->string('last_ip')->nullable();
+            $t->timestamp('last_login_date')->nullable();
 
-            $t->string('address1');
-            $t->string('address2');
-            $t->string('city');
-            $t->string('state');
-            $t->string('postal_code');
+            $t->string('address1')->nullable();
+            $t->string('address2')->nullable();
+            $t->string('city')->nullable();
+            $t->string('state')->nullable();
+            $t->string('postal_code')->nullable();
             $t->unsignedInteger('country_id')->nullable();
-            $t->text('email_footer');
+            $t->text('email_footer')->nullable();
 
             $t->boolean('is_active')->default(false);
             $t->boolean('is_banned')->default(false);
             $t->boolean('is_beta')->default(false);
 
-            $t->string('stripe_access_token', 55);
-            $t->string('stripe_refresh_token', 55);
-            $t->string('stripe_secret_key', 55);
-            $t->string('stripe_publishable_key', 55);
-            $t->text('stripe_data_raw', 55);
+            $t->string('stripe_access_token', 55)->nullable();
+            $t->string('stripe_refresh_token', 55)->nullable();
+            $t->string('stripe_secret_key', 55)->nullable();
+            $t->string('stripe_publishable_key', 55)->nullable();
+            $t->text('stripe_data_raw', 55)->nullable();
 
             $t->foreign('timezone_id')->references('id')->on('timezones');
             $t->foreign('date_format_id')->references('id')->on('date_formats');
@@ -127,7 +127,7 @@ class CreateUsersTable extends Migration
 
             $t->string('first_name');
             $t->string('last_name');
-            $t->string('phone');
+            $t->string('phone')->nullable();
             $t->string('email');
             $t->string('password');
             $t->string('confirmation_code');
@@ -151,11 +151,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->text('about');
             $table->string('email');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('confirmation_key', 20);
             $table->string('facebook');
             $table->string('twitter');
-            $table->string('logo_path');
+            $table->string('logo_path')->nullable();
             $table->boolean('is_email_confirmed')->default(0);
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
@@ -167,10 +167,10 @@ class CreateUsersTable extends Migration
             $t->increments('id');
 
             $t->string('title');
-            $t->string('location');
+            $t->string('location')->nullable();
             $t->string('bg_type', 15)->default('color');
             $t->string('bg_color')->default(config('attendize.event_default_bg_color'));
-            $t->string('bg_image_path');
+            $t->string('bg_image_path')->nullable();
             $t->text('description');
 
             $t->dateTime('start_date')->nullable();
@@ -187,34 +187,34 @@ class CreateUsersTable extends Migration
             $t->unsignedInteger('currency_id')->nullable();
             $t->foreign('currency_id')->references('id')->on('currencies');
 
-            $t->decimal('sales_volume', 13, 2);
-            $t->decimal('organiser_fees_volume', 13, 2);
+            $t->decimal('sales_volume', 13, 2)->nullable();
+            $t->decimal('organiser_fees_volume', 13, 2)->nullable();
             $t->decimal('organiser_fee_fixed', 13, 2)->default(0);
             $t->decimal('organiser_fee_percentage', 4, 3)->default(0);
             $t->unsignedInteger('organiser_id');
             $t->foreign('organiser_id')->references('id')->on('organisers');
 
             $t->string('venue_name');
-            $t->string('venue_name_full');
-            $t->string('location_address', 355);
+            $t->string('venue_name_full')->nullable();
+            $t->string('location_address', 355)->nullable();
             $t->string('location_address_line_1', 355);
             $t->string('location_address_line_2', 355);
-            $t->string('location_country');
-            $t->string('location_country_code');
+            $t->string('location_country')->nullable();
+            $t->string('location_country_code')->nullable();
             $t->string('location_state');
             $t->string('location_post_code');
-            $t->string('location_street_number');
-            $t->string('location_lat');
-            $t->string('location_long');
-            $t->string('location_google_place_id');
+            $t->string('location_street_number')->nullable();
+            $t->string('location_lat')->nullable();
+            $t->string('location_long')->nullable();
+            $t->string('location_google_place_id')->nullable();
 
             $t->unsignedInteger('ask_for_all_attendees_info')->default(0);
 
-            $t->text('pre_order_display_message');
+            $t->text('pre_order_display_message')->nullable();
 
-            $t->text('post_order_display_message');
+            $t->text('post_order_display_message')->nullable();
 
-            $t->text('social_share_text', 'Check Out [event_title] - [event_url]');
+            $t->text('social_share_text')->default('Check Out [event_title] - [event_url]');
             $t->boolean('social_show_facebook')->default(true);
             $t->boolean('social_show_linkedin')->default(true);
             $t->boolean('social_show_twitter')->default(true);
@@ -242,24 +242,24 @@ class CreateUsersTable extends Migration
             $t->string('first_name');
             $t->string('last_name');
             $t->string('email');
-            $t->string('ticket_pdf_path', 155);
+            $t->string('ticket_pdf_path', 155)->nullable();
 
             $t->string('order_reference', 15);
-            $t->string('transaction_id', 50);
+            $t->string('transaction_id', 50)->nullable();
 
-            $t->decimal('discount', 8, 2);
-            $t->decimal('booking_fee', 8, 2);
-            $t->decimal('organiser_booking_fee', 8, 2);
+            $t->decimal('discount', 8, 2)->nullable();
+            $t->decimal('booking_fee', 8, 2)->nullable();
+            $t->decimal('organiser_booking_fee', 8, 2)->nullable();
             $t->date('order_date')->nullable();
 
-            $t->text('notes');
+            $t->text('notes')->nullable();
             $t->boolean('is_deleted')->default(0);
             $t->boolean('is_cancelled')->default(0);
             $t->boolean('is_partially_refunded')->default(0);
             $t->boolean('is_refunded')->default(0);
 
             $t->decimal('amount', 13, 2);
-            $t->decimal('amount_refunded', 13, 2);
+            $t->decimal('amount_refunded', 13, 2)->nullable();
 
             $t->unsignedInteger('event_id')->index();
             $t->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
@@ -297,8 +297,8 @@ class CreateUsersTable extends Migration
             $t->dateTime('start_sale_date')->nullable();
             $t->dateTime('end_sale_date')->nullable();
 
-            $t->decimal('sales_volume', 13, 2);
-            $t->decimal('organiser_fees_volume', 13, 2);
+            $t->decimal('sales_volume', 13, 2)->nullable();
+            $t->decimal('organiser_fees_volume', 13, 2)->nullable();
 
             $t->tinyInteger('is_paused')->default(0);
 
@@ -306,7 +306,7 @@ class CreateUsersTable extends Migration
             $t->foreign('order_id')->references('id')->on('orders');
             $t->foreign('edited_by_user_id')->references('id')->on('users');
 
-            $t->unsignedInteger('public_id')->index();
+            $t->unsignedInteger('public_id')->nullable()->index();
 
             $t->unsignedInteger('user_id');
             $t->foreign('user_id')->references('id')->on('users');
@@ -317,7 +317,7 @@ class CreateUsersTable extends Migration
             $table->string('title', 255);
             $table->integer('quantity');
             $table->decimal('unit_price', 13, 2);
-            $table->decimal('unit_booking_fee', 13, 2);
+            $table->decimal('unit_booking_fee', 13, 2)->nullable();
             $table->unsignedInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->softDeletes();
@@ -429,8 +429,8 @@ class CreateUsersTable extends Migration
             $table->integer('unique_views')->default(0);
             $table->integer('tickets_sold')->default(0);
 
-            $table->decimal('sales_volume', 13, 2);
-            $table->decimal('organiser_fees_volume', 13, 2);
+            $table->decimal('sales_volume', 13, 2)->nullable();
+            $table->decimal('organiser_fees_volume', 13, 2)->nullable();
 
             $table->unsignedInteger('event_id')->index();
 
@@ -455,7 +455,7 @@ class CreateUsersTable extends Migration
 
             $t->boolean('is_cancelled')->default(false);
             $t->boolean('has_arrived')->default(false);
-            $t->dateTime('arrival_time');
+            $t->dateTime('arrival_time')->nullable();
 
             $t->unsignedInteger('account_id')->index();
             $t->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
