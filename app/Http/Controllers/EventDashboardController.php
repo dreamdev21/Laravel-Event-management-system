@@ -46,6 +46,7 @@ class EventDashboardController extends MyBaseController
          * I have no idea what I was doing here, but it seems to work;
          */
         $result = [];
+        $tickets_data = [];
         $i = 0;
         foreach ($dateItter as $date) {
             $views = 0;
