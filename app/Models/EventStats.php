@@ -49,7 +49,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $cookie_name = 'visitTrack_'.$event_id.'_'.date('dmy');
@@ -73,7 +73,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $stats->sales_volume = $stats->sales_volume + $amount;
@@ -93,7 +93,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $stats->increment('tickets_sold', $count);
