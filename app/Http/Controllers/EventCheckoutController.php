@@ -477,7 +477,7 @@ class EventCheckoutController extends Controller
          */
         $event_stats = EventStats::firstOrNew([
             'event_id' => $event_id,
-            'date' => DB::raw('CURRENT_DATE'),
+            'date' => DB::raw('CURDATE()'),
         ]);
         $event_stats->increment('tickets_sold', $ticket_order['total_ticket_quantity']);
 
