@@ -46,6 +46,7 @@ class InstallerController extends Controller
             public_path(config('attendize.event_images_path')),
             public_path(config('attendize.organiser_images_path')),
             public_path(config('attendize.event_pdf_tickets_path')),
+            base_path('bootstrap/cache'),
             base_path('.env'),
         ];
 

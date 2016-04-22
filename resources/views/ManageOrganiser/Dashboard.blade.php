@@ -9,8 +9,7 @@
     @include('ManageOrganiser.Partials.TopNav')
 @stop
 @section('page_title')
-    <i class="ico-building"></i>
-    <i>{{ $organiser->name }}</i> Dashboard
+    {{ $organiser->name }} Dashboard
 @stop
 
 @section('menu')
