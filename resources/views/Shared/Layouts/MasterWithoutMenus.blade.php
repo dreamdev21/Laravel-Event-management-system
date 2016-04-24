@@ -20,8 +20,8 @@
         <style>
 
             body {
-                background: url({{asset('assets/images/splash.jpg')}}) no-repeat center center fixed;
-                background-size: cover;
+                background: url({{asset('assets/images/background.png')}}) repeat;
+                background-color: #2E3254;
             }
 
             h2 {
@@ -51,6 +51,10 @@
                 margin-bottom: 20px;
             }
 
+            .logo img {
+                width: 200px;
+            }
+
             .signup {
                 margin-top: 10px;
             }
@@ -66,7 +70,10 @@
             <section class="container">
                 @yield('content')
             </section>
+
         </section>
+        <div style="text-align: center; color: white" >
+        </div>
 
         {!!HTML::script('assets/javascript/backend.js')!!}
     </body>
