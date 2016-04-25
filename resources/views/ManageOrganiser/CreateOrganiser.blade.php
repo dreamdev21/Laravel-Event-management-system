@@ -27,7 +27,7 @@
                     {!! Form::open(array('url' => route('postCreateOrganiser'), 'class' => 'ajax')) !!}
                     @if(@$_GET['first_run'] == '1')
                         <div class="alert alert-info">
-                            Before you create events you'll need to create an organiser. An an organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.
+                            Before you create events you'll need to create an organiser. An organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.
                         </div>
                     @endif
 
