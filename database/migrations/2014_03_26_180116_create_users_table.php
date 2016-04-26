@@ -214,7 +214,7 @@ class CreateUsersTable extends Migration
 
             $t->text('post_order_display_message')->nullable();
 
-            $t->text('social_share_text')->default('Check Out [event_title] - [event_url]');
+            $t->text('social_share_text')->nullable();
             $t->boolean('social_show_facebook')->default(true);
             $t->boolean('social_show_linkedin')->default(true);
             $t->boolean('social_show_twitter')->default(true);
