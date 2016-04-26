@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Timezone;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -15,7 +18,29 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function createApplication()
     {
         $app = require __DIR__.'/../bootstrap/app.php';
+        $app->loadEnvironmentFrom('.env.testing');
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
         return $app;
     }
+
+    public function setUp(){
+        parent::setUp();
+
+        \Artisan::call('migrate');
+        if (Timezone::count() == 0) {
+            \Artisan::call('db:seed', ['--force' => true]);
+        }
+
+        factory(App\Models\User::class)->create([
+            'email'    => 'email@email.com',
+            'password' => Hash::make('password'),
+        ]);
+
+
+    }
+
+    public function tearDown(){
+        parent::tearDown();
+    }
+
 }

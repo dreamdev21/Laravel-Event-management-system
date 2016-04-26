@@ -108,7 +108,7 @@ $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
-        'account_id'        => $faker->randomDigit,
+        'account_id'        => factory(App\Models\Account::class)->create()->id,
         'first_name'        => $faker->firstName,
         'last_name'         => $faker->lastName,
         'phone'             => $faker->phoneNumber,
@@ -270,7 +270,7 @@ $factory->define(App\Models\Attendee::class, function (Faker\Generator $faker) {
     ];
 });
 
-$faker->define(App\Models\Message::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Message::class, function (Faker\Generator $faker) {
     return [
         'message'    => $faker->text,
         'subject'    => $faker->text,
@@ -279,7 +279,7 @@ $faker->define(App\Models\Message::class, function (Faker\Generator $faker) {
     ];
 });
 
-$faker->define(App\Models\EventImage::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\EventImage::class, function (Faker\Generator $faker) {
     return [
         'image_path' => $faker->imageUrl(),
         'event_id'   => factory(App\Models\Event::class)->create()->id,
