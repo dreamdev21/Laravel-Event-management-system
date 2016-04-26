@@ -67,6 +67,7 @@
                         height: @header-height-md - 1;
                         line-height: @header-height-md;
 
+
                     }
                 }
 
@@ -271,6 +272,21 @@
     }
 }
 
+
+@media(max-width: @screen-sm-max) {
+    #header.navbar {
+        > .navbar-toolbar {
+            > .navbar-nav {
+                > li {
+                    > a {
+                        color: @white;
+                    }
+                }
+            }
+
+        }
+    }
+}
 
 /* Extra small devices */
 

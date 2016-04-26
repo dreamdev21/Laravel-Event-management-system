@@ -66,17 +66,46 @@
             </div>
         </div>
     </div>
-
-    @if($upcoming_events->count())
-        <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
-        <div class="row">
-            @foreach($upcoming_events as $event)
-                <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
+            @if($upcoming_events->count())
+                @foreach($upcoming_events as $event)
                     @include('ManageOrganiser.Partials.EventPanel')
+                @endforeach
+            @else
+                <div class="alert alert-success alert-lg">
+                    You have no events coming up. <a href="#"
+                                                     data-href="{{route('showCreateEvent', ['organiser_id' => $organiser->id])}}"
+                                                     class=" loadModal">You can click here to create an event.</a>
                 </div>
-            @endforeach
+            @endif
         </div>
-    @else
-            @include('ManageOrganiser.Partials.EventsBlankSlate')
-    @endif
+        <div class="col-md-6">
+            <h4 style="margin-bottom: 25px;margin-top: 20px;">Recent Orders</h4>
+            <ul class="list-group">
+                @foreach($organiser->orders()->orderBy('created_at', 'desc')->take(30)->get() as $order)
+                    <li class="list-group-item">
+                        <h6 class="ellipsis">
+                            {{ $order->event->title }}
+                        </h6>
+                        <p class="list-group-text">
+                            <a href="{{ route('showEventOrders', ['event_id' => $order->event_id, 'q' => $order->order_reference]) }}">
+                                <b>#{{ $order->order_reference }}</b></a> - {{ $order->full_name }}
+                            registered {{ $order->attendees()->withTrashed()->count() }} tickets.
+
+                        </p>
+                        <h6>
+                            {{ $order->created_at->diffForHumans() }} &bull; <span
+                                    style="color: green;">{{ $order->event->currency_symbol }}{{ $order->amount }}</span>
+                        </h6>
+
+
+
+                    </li>
+                @endforeach
+            </ul>
+
+        </div>
+    </div>
 @stop
