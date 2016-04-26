@@ -83,27 +83,32 @@
         </div>
         <div class="col-md-6">
             <h4 style="margin-bottom: 25px;margin-top: 20px;">Recent Orders</h4>
+              @if($organiser->orders->count())
             <ul class="list-group">
-                @foreach($organiser->orders()->orderBy('created_at', 'desc')->take(30)->get() as $order)
-                    <li class="list-group-item">
-                        <h6 class="ellipsis">
-                            {{ $order->event->title }}
-                        </h6>
-                        <p class="list-group-text">
-                            <a href="{{ route('showEventOrders', ['event_id' => $order->event_id, 'q' => $order->order_reference]) }}">
-                                <b>#{{ $order->order_reference }}</b></a> - {{ $order->full_name }}
-                            registered {{ $order->attendees()->withTrashed()->count() }} tickets.
-
-                        </p>
-                        <h6>
-                            {{ $order->created_at->diffForHumans() }} &bull; <span
-                                    style="color: green;">{{ $order->event->currency_symbol }}{{ $order->amount }}</span>
-                        </h6>
-
-
-
-                    </li>
-                @endforeach
+                    @foreach($organiser->orders()->orderBy('created_at', 'desc')->take(30)->get() as $order)
+                        <li class="list-group-item">
+                            <h6 class="ellipsis">
+                                <a href="{{ route('showEventDashboard', ['event_id' => $order->event->id]) }}">
+                                    {{ $order->event->title }}
+                                </a>
+                            </h6>
+                            <p class="list-group-text">
+                                <a href="{{ route('showEventOrders', ['event_id' => $order->event_id, 'q' => $order->order_reference]) }}">
+                                    <b>#{{ $order->order_reference }}</b></a> -
+                                <a href="{{ route('showEventAttendees', ['event_id'=>$order->event->id,'q'=>$order->order_reference]) }}">{{ $order->full_name }}</a>
+                                registered {{ $order->attendees()->withTrashed()->count() }} ticket{{ $order->attendees()->withTrashed()->count()  > 1 ? 's' : '' }}.
+                            </p>
+                            <h6>
+                                {{ $order->created_at->diffForHumans() }} &bull; <span
+                                        style="color: green;">{{ $order->event->currency_symbol }}{{ $order->amount }}</span>
+                            </h6>
+                        </li>
+                    @endforeach
+                  @else
+                            <div class="alert alert-success alert-lg">
+                                Looks like there are no recent orders.
+                            </div>
+                @endif
             </ul>
 
         </div>
