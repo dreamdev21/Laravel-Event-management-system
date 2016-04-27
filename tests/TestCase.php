@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Timezone;
+use App\Models\User;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -9,7 +10,37 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://localhost/public';
+
+    /**
+     * Email for the test user
+     *
+     * @var string
+     */
+    protected $test_user_email = 'test@test.test';
+
+    /**
+     * Password for the test user
+     *
+     * @var string
+     */
+    protected $test_user_password = 'testtest';
+
+    /**
+     * Our test user
+     * 
+     * @var
+     */
+    protected $test_user;
+
+    /**
+     * Our faker instance
+     * 
+     * @var
+     */
+    protected $faker;
+
+
     /**
      * Creates the application.
      *
@@ -26,16 +57,30 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function setUp(){
         parent::setUp();
 
-        \Artisan::call('migrate');
+        /*
+         * Set up faker
+         */
+        $this->faker = Faker\Factory::create();
+
+        /*
+         * Migrate & Seed the DB
+         */
+        Artisan::call('migrate');
         if (Timezone::count() == 0) {
-            \Artisan::call('db:seed', ['--force' => true]);
+            Artisan::call('db:seed', ['--force' => true]);
         }
 
-        factory(App\Models\User::class)->create([
-            'email'    => 'email@email.com',
-            'password' => Hash::make('password'),
-        ]);
-
+        /*
+         * Set up our test user
+         */
+        if(User::where('email','=','test@test.test')->count() === 0) {
+            $this->test_user = factory(App\Models\User::class)->create([
+                'email'    => $this->test_user_email,
+                'password' => Hash::make($this->test_user_password),
+            ]);
+        } else {
+            $this->test_user = User::where('email','=','test@test.test')->first();
+        }
 
     }
 
