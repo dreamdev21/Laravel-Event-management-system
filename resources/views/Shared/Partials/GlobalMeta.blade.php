@@ -23,6 +23,6 @@
     <meta name="application-name" content="Attendize">
     <meta name="_token" content="{{ csrf_token() }}" />
     {{--Mobile browser theme colors--}}
-    <meta name="theme-color" content="#0398bf">
-    <meta name="msapplication-navbutton-color" content="#0398bf">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#0398bf">
+    <meta name="theme-color" content="#2E3254">
+    <meta name="msapplication-navbutton-color" content="#2E3254">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2E3254">

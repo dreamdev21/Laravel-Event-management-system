@@ -20,7 +20,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="logo">
-                        {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
+                        {!!HTML::image('assets/images/logo-dark.png')!!}
                     </div>
 
                     <h5>Continue to:</h5>

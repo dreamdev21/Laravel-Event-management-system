@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organiser;
 use Carbon\Carbon;
+use DB;
 
 class OrganiserDashboardController extends MyBaseController
 {
@@ -17,7 +18,6 @@ class OrganiserDashboardController extends MyBaseController
     {
         $organiser = Organiser::scope()->findOrFail($organiser_id);
         $upcoming_events = $organiser->events()->where('end_date', '>=', Carbon::now())->get();
-
         $data = [
             'organiser'       => $organiser,
             'upcoming_events' => $upcoming_events,

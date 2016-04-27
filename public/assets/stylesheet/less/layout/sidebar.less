@@ -41,9 +41,8 @@
     top: 0px;
     bottom: 0px;
     width: @sidebar-width;
-    color: darken(@sidebar-base-color, 30%);
+    color: lighten(@sidebar-base-color, 30%);
     background-color: @sidebar-base-color;
-    border-right: 1px solid @border-color;
     .transition(transform 0.2s ease);
 
     // sidebar left
@@ -71,14 +70,14 @@
         }
 
         hr {
-            border-color: darken(@sidebar-base-color, 2%);
+            border-color: lighten(@sidebar-base-color, 2%);
         }
 
         > .heading {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 400;
             text-transform: uppercase;
-            color: darken(@sidebar-base-color, 15%);
+            color: @white;
             margin: 0px;
             padding: 25px 25px 15px 25px;
         }
@@ -93,21 +92,12 @@
         border-width: 0px !important;
     }
 
-    // sidebar media-list
-    // -----------------------------------
-    .media-list-contact > .media:after {
-        border-color: darken(@sidebar-base-color, 2%);
-    }
-    .media-list-contact > .media > .media-body > .media-heading {
-        color: darken(@gray, 40%);
-    }
 
     // sidebar menu
     // -----------------------------------
     .topmenu {
         margin: 0;
         padding: 0;
-        background-color: @sidebar-base-color;
 
         li {
             display: block;
@@ -138,18 +128,16 @@
             // State - active
             // -----------------------------------
             &.active { 
-                background-color: darken(@sidebar-base-color, 5%);
 
                 &:after {
                     border-color: transparent;
                 }
                 a {
-                    color: darken(@sidebar-base-color, 60%);
+                    color: @white;
 
                     > .figure > [class^="ico-"],
                     > .figure > [class*=" ico-"] {
-                        border-color: @attendize-base-color;
-                        color: @attendize-base-color;
+                        color: @white;
                     }
                 }
             }
@@ -158,11 +146,11 @@
             // -----------------------------------
             &.open {
                 a {
-                    color: darken(@sidebar-base-color, 60%);
+                    color: lighten(@sidebar-base-color, 60%);
 
                     > .figure > [class^="ico-"],
                     > .figure > [class*=" ico-"] {
-                        border-color: darken(@sidebar-base-color, 60%);
+                        border-color: lighten(@sidebar-base-color, 60%);
                     }
 
                     > .arrow {
@@ -182,18 +170,18 @@
                 width: 100%;
                 font-size: 12px;
                 text-decoration: none;
-                color: darken(@sidebar-base-color, 50%);
+                color: lighten(@sidebar-base-color, 50%);
                 outline: 0;
-                padding: 11px 25px 11px 12px;
+                padding: 6px 25px 6px 12px;
 
                 // State - hover
                 // -----------------------------------
                 &:hover {
-                    color: darken(@sidebar-base-color, 60%);
+                    color: lighten(@sidebar-base-color, 60%);
 
                     > .figure > [class^="ico-"],
                     > .figure > [class*=" ico-"] {
-                        border-color: darken(@sidebar-base-color, 60%);
+                        border-color: lighten(@sidebar-base-color, 60%);
                     }
                 }
 
@@ -228,204 +216,9 @@
                     text-transform: uppercase;
                 }
 
-                // Menu link - number
-                // -----------------------------------
-                > .number {
-                    display: table-cell;
-                    table-layout: fixed;
-                    vertical-align: middle;
-                    width: 40px;
-                    font-weight: normal;
 
-                    > .badge,
-                    > .label {
-                        float: right;
-                        max-width: 35px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                }
-
-                // Menu link - arrow
-                // -----------------------------------
-                > .arrow {
-                    display: table-cell;
-                    table-layout: fixed;
-                    vertical-align: middle;
-                    font-weight: normal;
-                    width: 20px;
-                    text-align: right;
-                    color: darken(@sidebar-base-color, 10%);
-
-                    &:before {
-                        font-family: "iconfont";
-                        content: "\e64f";
-                        font-size: 10px;
-                    }
-                }
             }
 
-            // Submenu - 2nd level
-            // -----------------------------------
-            > .submenu {
-                position: relative;
-                background-color: darken(@sidebar-base-color, 4%);
-
-                &:after {
-                    position: absolute;
-                    content: "";
-                    left: 32px;
-                    top: 0px;
-                    bottom: 0px;
-                    border-left: 1px solid darken(@sidebar-base-color, 2%);
-                }
-
-                li {
-                    a {
-                        font-size: 13px;
-                        color: darken(@sidebar-base-color, 30%);
-                        padding: 1px 25px 1px 15px;
-
-                        > .figure {
-                            width: 22px;
-                            padding-left: 0px;
-
-                            > [class*=" ico-"],
-                            > [class^="ico-"] {
-                                color: darken(@sidebar-base-color, 30%);
-                            }
-                        }
-
-                        > .text {
-                            font-weight: normal;
-                        }
-
-                        > .arrow {
-                            &:before {
-                                content: "\e64f";
-                            }
-                        }
-
-                        &:hover {
-                            color: darken(@sidebar-base-color, 60%);
-
-                            > .figure {
-                                > [class*=" ico-"],
-                                > [class^="ico-"] {
-                                    color: darken(@sidebar-base-color, 60%);
-                                }
-                            }
-                        }
-                    }
-
-                    &:after {
-                        z-index: 1;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background-color: darken(@sidebar-base-color, 2%);
-                        left: -12px;
-                        top: 13px;
-                        bottom: auto;
-                        border-color: transparent;
-
-                        -webkit-box-shadow: 0px 0px 0px 2px darken(@sidebar-base-color, 4%);
-                        box-shadow: 0px 0px 0px 2px darken(@sidebar-base-color, 4%);
-                    }
-
-                    // State - active
-                    // -----------------------------------
-                    &.active { 
-                        background-color: transparent;
-
-                        &:after {
-                            background-color: @attendize-base-color;
-                        }
-
-                        a {
-                            color: darken(@sidebar-base-color, 60%);
-
-                            > .text {
-                                font-weight: 600;
-                            }
-
-                            > .figure {
-                                > [class*=" ico-"],
-                                > [class^="ico-"] {
-                                    color: darken(@sidebar-base-color, 60%);
-                                }
-                            }
-                        }
-                    }
-
-                    // State - open
-                    // -----------------------------------
-                    &.open {
-                        a {
-                            > .arrow {
-                                &:before {
-                                    content: "\e671";
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Submenu - 3rd level
-                // -----------------------------------
-                .submenu {
-                    padding-left: 10px;
-
-                    &:after {
-                        display: none;
-                    }
-
-                    li {
-                        &:after {
-                            display: none;
-                        }
-
-                        &.active {
-                            a {
-                                color: darken(@sidebar-base-color, 60%);
-
-                                > .text {
-                                    font-weight: bold;
-                                }
-                            }
-                        }
-
-                        &.open {
-                            a {
-                                > .arrow {
-                                    &:before {
-                                        content: "\e671";
-                                    }
-                                }
-                            }
-                        }
-
-                        a {
-                            color: darken(@sidebar-base-color, 30%);
-                            padding-top: 0px;
-                            padding-bottom: 0px;
-
-                            &:hover {
-                                color: darken(@sidebar-base-color, 60%);
-                            }
-                            > .text {
-                                font-weight: normal;
-                            }
-                            > .arrow {
-                                &:before {
-                                    content: "\e64f";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

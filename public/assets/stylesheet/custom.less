@@ -32,14 +32,11 @@ MANAGE EVENT
             a {
                 span {
                     padding:10px;
-                    background-color: lighten(@attendize-base-color, 8%);
                 }
             }
         }
     } 
 } 
-
-
 
 
 
@@ -148,14 +145,13 @@ Event Dashboard
 */
 
 
-
 .stat-box {
     padding: 20px;
-    background-color: lighten(@attendize-base-color, 15%);
-    color: #FFFFFF;
+    background-color: @white;
+    color: @attendize-base-color;
     text-align: center;
     margin-bottom: 10px;
-    border-bottom: 4px solid rgba(0,0,0,.2);
+    border: 1px solid @border-color;
 
 
     h3 {
@@ -167,13 +163,10 @@ Event Dashboard
     span {
         text-transform: uppercase;
         font-weight: lighter;
-        color: #D0F0FE;
+        color: lighten(@attendize-base-color, 50%);
     }
 }
 
-.stat-box:nth-child(odd) {
-    background-color: lighten(@attendize-base-color, 10%);
-}
 
 /*
 -----------------------------------------------------
@@ -391,6 +384,12 @@ html.working {
 }
 .input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
     border-right: none;
+}
+
+
+.modal-backdrop {
+    background: url(../images/background.png) repeat;
+    background-color: @attendize-base-color;
 }
 
 
