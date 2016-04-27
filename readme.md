@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://www.attendize.com/img/logo.png" alt="Attendize"/>
+  <img src="https://www.attendize.com/img/logo-dark.png" alt="Attendize"/>
 </p>
 # Attendize 
 ### Open-source ticket selling and event management platform
