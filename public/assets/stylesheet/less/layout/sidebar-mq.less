@@ -194,68 +194,7 @@
                         }
                     }
 
-                    // Submenu - 2nd level
-                    // -----------------------------------
-                    > .submenu {
-                        position: absolute;
-                        left: @sidebar-collapse-width;
-                        top: 0px;
-                        width: @sidebar-width - 40;
-                        padding-left: 0px;
-                        padding-top: 2px;
-                        padding-bottom: 2px;
-                        border-top-right-radius: @border-radius;
-                        border-bottom-right-radius: @border-radius;
 
-                        &:after {
-                            display: none;
-                        }
-
-                        > li {
-                            // Header
-                            // -----------------------------------
-                            &.submenu-header {
-                                display: block;
-                                font-size: 15px;
-                                color: lighten(@sidebar-base-color, 60%);
-                                font-weight: 600;
-                                padding-left: 15px;
-                                padding-right: 15px;
-                                padding-top: 10px;
-                                padding-bottom: 5px;
-                                margin-top: -2px;
-
-                                &:after {
-                                    display: none;
-                                }
-                            }
-
-                            &:after {
-                                left: 15px;
-                            }
-                            > a {
-                                padding-left: 35px;
-                                padding-right: 15px;
-                                padding-top: 1px;
-                                padding-bottom: 1px;
-                            }
-                        }
-
-                        // Submenu - 3rd level
-                        // -----------------------------------
-                        .submenu {
-                            position: static;
-                            padding-left: 20px;
-                            background-color: darken(@sidebar-base-color, 8%);
-
-                            > li {
-                                > a {
-                                    padding-top: 1px;
-                                    padding-bottom: 1px;
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

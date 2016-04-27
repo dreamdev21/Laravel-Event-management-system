@@ -41,7 +41,7 @@ Form::macro('styledFile', function ($name, $multiple = false) {
     $out = '<div class="styledFile" id="input-'.$name.'">
         <div class="input-group">
             <span class="input-group-btn">
-                <span class="btn btn-primary btn-file">
+                <span class="btn btn-primary btn-file ">
                     Browse&hellip; <input name="'.$name.'" type="file" '.($multiple ? 'multiple' : '').'>
                 </span>
             </span>

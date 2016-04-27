@@ -44,7 +44,7 @@ $factory->define(App\Models\Timezone::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(App\Models\Timezone::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\DateFormat::class, function (Faker\Generator $faker) {
     return [
         'format'        => "Y-m-d",
         'picker_format' => "Y-m-d",
@@ -81,9 +81,9 @@ $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
         'last_name'              => $faker->lastName,
         'email'                  => $faker->email,
         'timezone_id'            => factory(App\Models\Timezone::class)->create()->id,
-        'date_format_id'         => factory(App\Models\Timezone::class)->create()->id,
+        'date_format_id'         => factory(App\Models\DateFormat::class)->create()->id,
         'datetime_format_id'     => factory(App\Models\DateTimeFormat::class)->create()->id,
-        'currency_id'            => factory()->create()->id,
+        'currency_id'            => factory(App\Models\Currency::class)->create()->id,
         'name'                   => $faker->name,
         'last_ip'                => "127.0.0.1",
         'last_login_date'        => Carbon::now()->subDays(2),
@@ -92,7 +92,7 @@ $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
         'city'                   => $faker->city,
         'state'                  => $faker->stateAbbr,
         'postal_code'            => $faker->postcode,
-        'country_id'             => factory(App\Models\Country::class)->create()->id,
+//        'country_id'             => factory(App\Models\Country::class)->create()->id,
         'email_footer'           => 'Email footer text',
         'is_active'              => false,
         'is_banned'              => false,
@@ -101,14 +101,13 @@ $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
         'stripe_refresh_token'   => str_random(10),
         'stripe_secret_key'      => str_random(10),
         'stripe_publishable_key' => str_random(10),
-        'stripe_raw_data'        => $faker->text,
 
     ];
 });
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
-        'account_id'        => $faker->randomDigit,
+        'account_id'        => factory(App\Models\Account::class)->create()->id,
         'first_name'        => $faker->firstName,
         'last_name'         => $faker->lastName,
         'phone'             => $faker->phoneNumber,
@@ -270,7 +269,7 @@ $factory->define(App\Models\Attendee::class, function (Faker\Generator $faker) {
     ];
 });
 
-$faker->define(App\Models\Message::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Message::class, function (Faker\Generator $faker) {
     return [
         'message'    => $faker->text,
         'subject'    => $faker->text,
@@ -279,7 +278,7 @@ $faker->define(App\Models\Message::class, function (Faker\Generator $faker) {
     ];
 });
 
-$faker->define(App\Models\EventImage::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\EventImage::class, function (Faker\Generator $faker) {
     return [
         'image_path' => $faker->imageUrl(),
         'event_id'   => factory(App\Models\Event::class)->create()->id,

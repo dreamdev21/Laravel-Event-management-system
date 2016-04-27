@@ -6,8 +6,7 @@
 @stop
 
 @section('page_title')
-    <i class="ico-calendar"></i>
-    <i>{{$organiser->name}}</i> Events
+    {{$organiser->name}} Events
 @stop
 
 @section('top_nav')

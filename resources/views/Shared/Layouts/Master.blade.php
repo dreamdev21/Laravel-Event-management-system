@@ -38,8 +38,7 @@
 
     <div class="navbar-header">
         <a class="navbar-brand" href="javascript:void(0);">
-            <img style="width: 40px;" class="logo" alt="Attendize" src="{{asset('assets/images/logo.svg')}}"
-                 onerror="this.src='{{asset('assets/images/logo-white-50.png?v')}}'"/>
+            <img style="width: 150px;" class="logo" alt="Attendize" src="{{asset('assets/images/logo-light.png')}}"/>
         </a>
     </div>
 

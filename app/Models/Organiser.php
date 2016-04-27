@@ -50,6 +50,16 @@ class Organiser extends MyBaseModel
     }
 
     /**
+     * Get the orders related to an organiser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function orders()
+    {
+        return $this->hasManyThrough('\App\Models\Order', '\App\Models\Event');
+    }
+
+    /**
      * Get the full logo path of the organizer.
      *
      * @return mixed|string

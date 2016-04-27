@@ -3,7 +3,7 @@
 @section('title')
 @parent
 
-Event Surveys
+Event Widgets
 @stop
 
 @section('top_nav')
@@ -15,7 +15,7 @@ Event Surveys
 @stop
 
 @section('page_title')
-<i class='ico-cart mr5'></i>
+<i class='ico-code mr5'></i>
 Event Surveys
 @stop
 

@@ -37,6 +37,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
 
         return $ticket->save();
     }
+    
 
     /**
      * Update the amount of views a ticket has earned.
