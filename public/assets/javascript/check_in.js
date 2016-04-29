@@ -113,14 +113,17 @@ function populateAttendeeList(attendees) {
     if (jQuery.isEmptyObject(attendees)) {
         $('#attendee_list').html('There are no results.');
     } else {
-        for (i in attendees) {
-            $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived == '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
-                + 'Name: <b>' + attendees[i].first_name + ' '
-                + attendees[i].last_name
-                + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
-                + ' <br>Ticket: <b>' + attendees[i].ticket + '</b>'
-                + '<a href="" class="ci btn btn-successfulQrRead"><i class="ico-checkmark"></i></a> '
-                + '</li>');
+        for (var i in attendees) {
+            if(attendees.hasOwnProperty(i)){
+                $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived == '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
+                    + 'Name: <b>' + attendees[i].first_name + ' '
+                    + attendees[i].last_name
+                    + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
+                    + ' <br>Ticket: <b>' + attendees[i].ticket + '</b>'
+                    + '<a href="" class="ci btn btn-successfulQrRead"><i class="ico-checkmark"></i></a> '
+                    + '</li>');
+            }
+
         }
     }
 }
