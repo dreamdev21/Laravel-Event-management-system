@@ -13567,7 +13567,7 @@ function log() {
                                     if(data.redirectData)  {
                                         $.redirectPost(data.redirectUrl, data.redirectData);
                                     } else {
-                                        window.location = data.redirectUrl;
+                                        document.location.href = data.redirectUrl;
                                     }
                                 }
 

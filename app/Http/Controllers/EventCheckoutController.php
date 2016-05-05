@@ -250,6 +250,20 @@ class EventCheckoutController extends Controller
      */
     public function postCreateOrder(Request $request, $event_id)
     {
+
+        /*
+         * If there's no session kill the request and redirect back to the event homepage.
+         */
+        if( ! session()->get('ticket_order_' . $event_id)) {
+            return response()->json([
+                'status'      => 'error',
+                'message'     => 'Your session has expired.',
+                'redirectUrl' => route('showEventPage', [
+                    'event_id' => $event_id,
+                ])
+            ]);
+        }
+
         $mirror_buyer_info = ($request->get('mirror_buyer_info') == 'on');
         $event = Event::findOrFail($event_id);
         $order = new Order;
@@ -536,7 +550,12 @@ class EventCheckoutController extends Controller
                  */
                     foreach ($attendee_details['ticket']->questions as $question) {
 
+                        /*
+                         * If there are multiple answers to a question then joing them with a comma
+                         * and treat them as a single answer.
+                         */
                         $ticket_answer = $ticket_questions[$attendee_details['ticket']->id][$i][$question->id];
+                        $ticket_answer = is_array($ticket_answer) ? implode(', ', $ticket_answer) : $ticket_answer;
 
                         if(!empty($ticket_answer)) {
                             QuestionAnswer::create([
