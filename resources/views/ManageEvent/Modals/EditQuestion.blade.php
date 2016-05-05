@@ -40,18 +40,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="question-instructions">
-                                Instructions
-                            </label>
-                            {!! Form::text('instructions', $question->instructions, [
-                                'id' => 'question-instructions',
-                                'class' => 'form-control',
-                            ]) !!}
-                        </div>
                         <fieldset id="question-options" class="{{ $question->has_options ? 'hide' : '' }}" >
-                            <legend>Question Options</legend>
-                            <table class="table">
+                            <table >
                                 <tbody>
                                 @foreach ($question->options as $question_option)
                                     <tr>
