@@ -18,6 +18,7 @@ class OrganiserDashboardController extends MyBaseController
     {
         $organiser = Organiser::scope()->findOrFail($organiser_id);
         $upcoming_events = $organiser->events()->where('end_date', '>=', Carbon::now())->get();
+        $calendar_events = [];
 
         /* Prepare JSON array for events for use in the dashboard calendar */
         foreach($organiser->events as $event) {
