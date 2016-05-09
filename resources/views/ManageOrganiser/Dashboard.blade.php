@@ -22,15 +22,30 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-    {!!HTML::script('https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places')!!}
+    {!! HTML::script('https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places') !!}
     {!! HTML::script('vendor/geocomplete/jquery.geocomplete.min.js')!!}
+    {!! HTML::script('vendor/moment/moment.js')!!}
+    {!! HTML::script('vendor/fullcalendar/dist/fullcalendar.min.js')!!}
+    {!! HTML::style('vendor/fullcalendar/dist/fullcalendar.css')!!}
 
-    <style>
-        svg {
-            width: 100% !important;
-        }
-    </style>
+    <script>
+        $(function() {
+           $('#calendar').fullCalendar({
+               events: {!! $calendar_events !!},
+            header: {
+                left:   'prev,',
+                center: 'title',
+                right:  'next'
+            },
+            dayClick: function(date, jsEvent, view) {
 
+                   alert('Clicked on: ' + date.format());
+
+
+               }
+           });
+        });
+    </script>
 @stop
 
 @section('content')
@@ -66,8 +81,15 @@
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-6">
+
+        <div class="col-md-8">
+
+            <h4 style="margin-bottom: 25px;margin-top: 20px;">Event Calendar</h4>
+                    <div id="calendar"></div>
+
+
             <h4 style="margin-bottom: 25px;margin-top: 20px;">Upcoming Events</h4>
             @if($upcoming_events->count())
                 @foreach($upcoming_events as $event)
@@ -81,11 +103,11 @@
                 </div>
             @endif
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h4 style="margin-bottom: 25px;margin-top: 20px;">Recent Orders</h4>
               @if($organiser->orders->count())
             <ul class="list-group">
-                    @foreach($organiser->orders()->orderBy('created_at', 'desc')->take(30)->get() as $order)
+                    @foreach($organiser->orders()->orderBy('created_at', 'desc')->take(10)->get() as $order)
                         <li class="list-group-item">
                             <h6 class="ellipsis">
                                 <a href="{{ route('showEventDashboard', ['event_id' => $order->event->id]) }}">
