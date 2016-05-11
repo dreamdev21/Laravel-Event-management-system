@@ -39,9 +39,6 @@
             },
             dayClick: function(date, jsEvent, view) {
 
-                   alert('Clicked on: ' + date.format());
-
-
                }
            });
         });
