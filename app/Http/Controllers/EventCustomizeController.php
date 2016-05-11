@@ -144,7 +144,7 @@ class EventCustomizeController extends MyBaseController
             ]);
         }
 
-        $event->barcode_type = $request->get('barcode_type');
+        //$event->barcode_type = $request->get('barcode_type');
         $event->ticket_border_color = $request->get('ticket_border_color');
         $event->ticket_bg_color = $request->get('ticket_bg_color');
         $event->ticket_text_color = $request->get('ticket_text_color');
