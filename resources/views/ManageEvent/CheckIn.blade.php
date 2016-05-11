@@ -5,6 +5,9 @@
         Check In: {{$event->title}}
     </title>
 
+    {!! HTML::script('vendor/vue/dist/vue.min.js') !!}
+    {!! HTML::script('vendor/vue-resource/dist/vue-resource.min.js') !!}
+
     {!! HTML::style('assets/stylesheet/application.css') !!}
     {!! HTML::style('assets/stylesheet/check_in.css') !!}
     {!! HTML::script('vendor/jquery/jquery.js') !!}
@@ -18,56 +21,41 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <script>
-        $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': "<?php echo csrf_token() ?>"
-                }
-            });
-        });
-    </script>
+    <style>
+        body {
+            background: url({{asset('assets/images/background.png')}}) repeat;
+            background-color: #2E3254;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
-<body>
+<body id="app">
 <header>
     <div class="menuToggle hide">
         <i class="ico-menu"></i>
     </div>
     <div class="container">
         <div class="row">
-            <div id="app">
-                <ul>
-                    <li v-for="attendee in attendees">
-                        Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b>
-                        <br>
-                        Reference: <b>@{{ attendee.reference }}</b>
-                        <br>
-                        Ticket: <b>@{{ attendee.ticket_id }}</b>
-                        <a href="" class="ci btn btn-successfulQrRead">
-                            <i class="ico-checkmark"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
             <div class="col-md-12">
                 <div class="attendee_input_wrap">
                     <div class="input-group">
                                   <span class="input-group-btn">
-                                 <button title="Scan QR Code" class="btn btn-default qr_search" type="button"><i
-                                             class="ico-qrcode"></i></button>
+                                 <button @click="showQrModal" title="Scan QR Code" class="btn btn-default qr_search" type="button"><i
+                                              class="ico-qrcode"></i></button>
                                 </span>
                         {!!  Form::text('attendees_q', null, [
                     'class' => 'form-control attendee_search',
                             'id' => 'search',
+                            'v-model' => 'searchTerm',
+                            '@keyup' => 'fetchAttendees | debounce 500',
+                            '@keyup.esc' => 'clearSearch',
                             'placeholder' => 'Search by Attendee Name, Order Reference, Attendee Reference... '
                 ])  !!}
 
 
                     </div>
 
-                    <span class="clearSearch ico-cancel"></span>
+                    <span v-if='searchTerm' @click='clearSearch' class="clearSearch ico-cancel"></span>
                 </div>
             </div>
         </div>
@@ -81,10 +69,36 @@
             <div class="col-md-12">
                 <div class="attendee_list">
                     <h4 class="attendees_title">
-                        All Attendees
+                        <span v-if="!searchTerm">
+                            All Attendees
+                        </span>
+                        <span v-else v-cloak>
+                            @{{searchResultsCount}} @{{searchResultsCount | pluralize 'Result'}}
+                            for <b>@{{ searchTerm }}</b>
+                        </span>
                     </h4>
-                    <ul class="list-group" id="attendee_list">
-                        Loading Attendees...
+
+                    <div style="margin: 10px;" v-if="searchResultsCount == 0 && searchTerm" class="alert alert-info"
+                         v-cloak>
+                        No Attendees matching <b>@{{ searchTerm }}</b>
+                    </div>
+
+                    <ul v-if="searchResultsCount > 0" class="list-group" id="attendee_list" v-cloak>
+                        <li
+                        @click="toggleCheckin(attendee)"
+                        v-for="attendee in attendees"
+                        class="at list-group-item"
+                        :class = "{arrived : attendee.has_arrived}"
+                        >
+                        Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b>
+                        <br>
+                        Reference: <b>@{{ attendee.reference }}</b>
+                        <br>
+                        Ticket: <b>@{{ attendee.ticket }}</b>
+                        <a href="" class="ci btn btn-successfulQrRead">
+                            <i class="ico-checkmark"></i>
+                        </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -103,69 +117,45 @@
 </footer>
 
 {{--QR Modal--}}
-<div role="dialog" id="QrModal" class="modal fade" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                @if(session()->has('success_message'))
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-xs-12">
-                                <div class="alert alert-success alert-dismissible text-center" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                    <p><strong>Success</strong>: {{ session('success_message') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+<div role="dialog" id="QrModal" class="scannerModal" v-show="showScannerModal" v-cloak>
+    <div class="scannerModalContent">
 
+        <a @click="closeScanner"  class="closeScanner" href="javascript:void(0);">
+        <i class="ico-close"></i>
+        </a>
+        <video id="scannerVideo" autoplay></video>
 
-                <div id="ScanVideoOutter">
-                </div>
-                <div class="well" id="ScanResult"></div>
-                <canvas id="QrCanvas" width="800" height="600"></canvas>
+        <div class="scannerButtons">
+                    <a @click="initScanner" v-show="!isScanning" href="javascript:void(0);">
+                    Scan another ticket
+                    </a>
+        </div>
+        <div v-if="isScanning" class="scannerAimer">
+        </div>
 
-            </div>
-            <div class="modal-footer">
-                {!! Form::button('Close', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                <a class="btn btn-primary startScanner" href="javascript:void(0);"><i class="fa fa-refresh"></i> Scan
-                    another ticket</a>
+        <div v-if="scanResult" class="scannerResult @{{ scanResultType }}">
+            <i v-if="scanResultType == 'success'" class="ico-checkmark"></i>
+            <i v-if="scanResultType == 'error'" class="ico-close"></i>
+        </div>
 
-            </div>
-        </div><!-- /end modal content-->
+        <div class="ScanResultMessage">
+                    <span class="message" v-if="!isScanning">
+                        @{{{ scanResultMessage }}}
+                    </span>
+                    <span v-else>
+                        <div id="scanning-ellipsis">Scanning<span>.</span><span>.</span><span>.</span></div>
+                    </span>
+        </div>
+        <canvas id="QrCanvas" width="800" height="600"></canvas>
     </div>
 </div>
 {{-- /END QR Modal--}}
-{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js') !!}
 
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-            attendees: []
-        },
-        created: function () {
-            this.fetchData()
-        },
-        methods: {
-            fetchData: function() {
-                /* Ajax req for attendees*/
-                self.attendees = Attendize.attendees;
-            }
-        }
-    });
-
-    console.log(Attendize);
-
+Vue.http.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 </script>
 
-
 {!! HTML::script('vendor/qrcode-scan/llqrcode.js') !!}
-{!! HTML::script('assets/javascript/backend.js') !!}
 {!! HTML::script('assets/javascript/check_in.js') !!}
-{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js') !!}
-
 </body>
 </html>

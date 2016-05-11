@@ -1,285 +1,165 @@
-/**
- * @todo Refactor this
- */
+var checkinApp = new Vue({
+    el: '#app',
+    data: {
+        attendees: [],
+        searchTerm: '',
+        searchResultsCount: 0,
+        showScannerModal: false,
+        workingAway: false,
+        isInit: false,
+        isScanning: false,
+        videoElement: $('video#scannerVideo')[0],
+        canvasElement: $('canvas#QrCanvas')[0],
+        scannerDataUrl: '',
+        QrTimeout: null,
+        canvasContext: $('canvas#QrCanvas')[0].getContext('2d'),
+        successBeep: new Audio('/mp3/beep.mp3'),
+        scanResult: false,
+        scanResultMessage: '',
+        scanResultType: null
+    },
 
-var workingAway = false;
-var canvasContext = null;
-var c = 0;
-var stype = 0;
-var gUM = false;
-var webkit = false;
-var moz = false;
-var theVideo = null;
-var QrTimeout = null;
-var beepSound = new Audio('/mp3/beep.mp3');
-var vidhtml = '<video id="ScanVideo" autoplay></video>';
+    created: function () {
+        this.fetchAttendees()
+    },
+
+    ready: function () {
+    },
+
+    methods: {
+        fetchAttendees: function () {
+            this.$http.post(Attendize.checkInSearchRoute, {q: this.searchTerm}).then(function (res) {
+                this.attendees = res.data;
+                this.searchResultsCount = (Object.keys(res.data).length);
+            }, function () {
+                console.log('Failed to fetch attendees')
+            });
+        },
+        toggleCheckin: function (attendee) {
+
+            if(this.workingAway) {
+                return;
+            }
+            this.workingAway = true;
+            var that = this;
 
 
-$(document).ready(function() {
+            var checkinData = {
+                checking: attendee.has_arrived ? 'out' : 'in',
+                attendee_id: attendee.id,
+            };
 
-    search();
-
-    $('input#search').focus();
-
-    $(document.body).on('click', '.at', function(e) {
-
-        if ($(this).hasClass('working')) {
-            return false;
-        }
-
-        var hasArrived = $(this).hasClass('arrived'),
-            attendeeId = $(this).data('id'),
-            checking = hasArrived ? 'out' : 'in',
-            $this = $(this),
-            $icon = $('i', $this);
-
-
-        $this.addClass("working");
-        $icon.removeClass('ico-checkmark').addClass('ico-busy');
-
-
-        $.ajax({
-            type: "POST",
-            url: Attendize.checkInRoute,
-            data: {
-                attendee_id: attendeeId,
-                has_arrived: hasArrived ? 1 : 0,
-                checking: checking
-            },
-            cache: false,
-            success: function(data) {
-
-                if (data.status === 'success' || data.status === 'error') {
-
-                    if (data.checked === 'in') {
-                        $this.addClass('arrived').removeClass('not_arrived');
-                    } else if (data.checked === 'out') {
-                        $this.removeClass('arrived').addClass('not_arrived');
+            this.$http.post(Attendize.checkInRoute, checkinData).then(function (res) {
+                if (res.data.status == 'success' || res.data.status == 'error') {
+                    if (res.data.status == 'error') {
+                        alert(res.data.message);
                     }
-
-                    if (data.status === 'error') {
-                        alert(data.message);
-                    }
-
+                    attendee.has_arrived = checkinData.checking == 'out' ? 0 : 1;
+                    that.workingAway = false;
                 } else {
-                    alert('An unknown error has occured. Please try again.');
+                    /* @todo handle error*/
+                    that.workingAway = false;
+                }
+            });
+
+        },
+        clearSearch: function () {
+            this.searchTerm = '';
+            this.fetchAttendees();
+        },
+
+        /* QR Scanner Methods */
+
+        QrCheckin: function (attendeeReferenceCode) {
+
+            this.isScanning = false;
+
+            this.$http.post(Attendize.qrcodeCheckInRoute, {attendee_reference: attendeeReferenceCode}).then(function (res) {
+                this.successBeep.play();
+                this.scanResult = true;
+                this.scanResultMessage = res.data.message;
+                this.scanResultType = res.data.status;
+
+            }, function (response) {
+                this.scanResultMessage = 'Something went wrong! Refresh the page and try again';
+            });
+        },
+
+        showQrModal: function () {
+            this.showScannerModal = true;
+            this.initScanner();
+        },
+
+        initScanner: function () {
+
+            var that = this;
+            this.isScanning = true;
+            this.scanResult = false;
+
+            /*
+             If the scanner is already initiated clear it and start over.
+             */
+            if (this.isInit) {
+                clearTimeout(this.QrTimeout);
+                this.QrTimeout = setTimeout(function () {
+                    that.captureQrToCanvas();
+                }, 500);
+                return;
+            }
+
+            qrcode.callback = this.QrCheckin;
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            navigator.getUserMedia({video: true, audio: false}, function (stream) {
+                if (window.webkitURL) {
+                    that.videoElement.src = window.webkitURL.createObjectURL(stream);
+                } else {
+                    that.videoElement.mozSrcObject = stream;
                 }
 
-                $icon.addClass('ico-checkmark').removeClass('ico-busy');
-                $this.removeClass('working');
+                that.videoElement.play();
+
+            }, function () { /* error*/
+            });
+
+            this.isInit = true;
+            this.QrTimeout = setTimeout(function () {
+                that.captureQrToCanvas();
+            }, 500);
+
+        },
+        /**
+         * Takes stills from the video stream and sends them to the canvas so
+         * they can be analysed for QR codes.
+         */
+        captureQrToCanvas: function () {
+
+            if (!this.isInit) {
+                return;
             }
-        }, 'json');
-        e.preventDefault();
-    });
 
-    $('.clearSearch').on('click', function() {
-        $("input#search").val('').focus();
-        $(this).fadeOut();
-        search();
-    });
+            this.canvasContext.clearRect(0, 0, 600, 300);
 
-
-    $('.qr_search').on('click', function(e) {
-        $('#QrModal').modal('show');
-        loadQrReader();
-    });
-
-    $('.startScanner').on('click', function(e) {
-        e.preventDefault();
-        loadQrReader();
-    });
-
-    $( window ).resize(resizeVideo);
-
-    $("input#search").on("keyup", function(e) {
-        clearTimeout($.data(this, 'timer'));
-        var search_string = $(this).val();
-        if (search_string === '') {
-            $('.attendees_title').html('All Attendees');
-            $(this).data('timer', setTimeout(search, 100));
-            $('.clearSearch').fadeOut();
-        } else {
-            $('.attendees_title').html('Results for<b>: ' + search_string + '</b>');
-            $(this).data('timer', setTimeout(search, 500));
-            $('.clearSearch').fadeIn();
+            try {
+                this.canvasContext.drawImage(this.videoElement, 0, 0);
+                try {
+                    qrcode.decode();
+                }
+                catch (e) {
+                    console.log(e);
+                    this.QrTimeout = setTimeout(this.captureQrToCanvas, 500);
+                }
+                ;
+            }
+            catch (e) {
+                console.log(e);
+                this.QrTimeout = setTimeout(this.captureQrToCanvas, 500);
+            }
+        },
+        closeScanner: function () {
+            clearTimeout(this.QrTimeout);
+            this.showScannerModal = false;
         }
-    });
+    }
 });
 
-
-function populateAttendeeList(attendees) {
-    $('#attendee_list').empty();
-
-    if (jQuery.isEmptyObject(attendees)) {
-        $('#attendee_list').html('There are no results.');
-    } else {
-        for (var i in attendees) {
-            if(attendees.hasOwnProperty(i)){
-                $('#attendee_list').append('<li id="a_' + attendees[i].id + '" class="' + (attendees[i].has_arrived == '1' ? 'arrived' : 'not_arrived') + ' at list-group-item" data-id="' + attendees[i].id + '">'
-                    + 'Name: <b>' + attendees[i].first_name + ' '
-                    + attendees[i].last_name
-                    + ' </b><br>Reference: <b>' + attendees[i].reference + '</b>'
-                    + ' <br>Ticket: <b>' + attendees[i].ticket + '</b>'
-                    + '<a href="" class="ci btn btn-successfulQrRead"><i class="ico-checkmark"></i></a> '
-                    + '</li>');
-            }
-
-        }
-    }
-}
-
-function search() {
-    var query_value = $('input#search').val();
-
-    if(workingAway) {
-        return;
-    }
-    workingAway = true;
-
-    $.ajax({
-        type: "POST",
-        url: Attendize.checkInSearchRoute,
-        data: {q: query_value},
-        cache: false,
-        error: function() {
-            workingAway = false;
-        },
-        success: function(attendees) {
-            if (query_value !== '') {
-                $('.attendees_title').html('Results for<b>: ' + query_value + '</b>');
-            } else {
-                $('.attendees_title').html('All Attendees');
-            }
-
-            workingAway = false;
-            populateAttendeeList(attendees);
-        }
-    }, 'json');
-    return false;
-}
-
-// QRCODE reader Copyright 2011 Lazar Laszlo
-// http://www.webqr.com
-
-function resizeVideo() {
-    var $videoWrapper = $('#ScanVideoOutter');
-    var $video = $('#ScanVideo');
-
-    $video.height($videoWrapper.height());
-    $video.width($videoWrapper.width());
-}
-
-function captureToCanvas() {
-    if(stype!=1)
-        return;
-    if(gUM)
-    {
-        try{
-            canvasContext.drawImage(theVideo,0,0);
-            try{
-                qrcode.decode();
-            }
-            catch(e){
-                console.log(e);
-                QrTimeout = setTimeout(captureToCanvas, 500);
-            };
-        }
-        catch(e){
-            console.log(e);
-            QrTimeout = setTimeout(captureToCanvas, 500);
-        }
-    }
-}
-
-function htmlEntities(str) {
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-function read(qrcode_token)
-{
-    $.ajax({
-        type: "POST",
-        url: Attendize.qrcodeCheckInRoute,
-        data: {qrcode_token: htmlEntities(qrcode_token)},
-        cache: false,
-        complete: function(){
-            beepSound.play();
-        },
-        error: function() {
-            showMessage('Something has gone wrong. Please try again.');
-        },
-        success: function(response) {
-            $('#ScanResult').html("<b>" + response.message +"</b>");
-        }
-    });
-}
-
-
-
-function successfulQrRead(stream) {
-    if(webkit)
-        theVideo.src = window.URL.createObjectURL(stream);
-    else if(moz)
-    {
-        theVideo.mozSrcObject = stream;
-        theVideo.play();
-    }
-    else {
-        theVideo.src = stream;
-    }
-
-    gUM=true;
-    QrTimeout = setTimeout(captureToCanvas, 500);
-}
-
-function error(error) {
-    gUM=false;
-    return;
-}
-
-function loadQrReader()
-{
-
-    var $canvas = $('#QrCanvas');
-
-    $canvas.height('300px');
-    $canvas.width('600px');
-
-    canvasContext = $canvas[0].getContext('2d');
-    canvasContext.clearRect(0, 0, 600, 300);
-    qrcode.callback = read;
-
-    $('#ScanResult').html('<div id="scanning-ellipsis">Scanning<span>.</span><span>.</span><span>.</span></div>');
-    if(stype==1)
-    {
-        clearTimeout(QrTimeout);
-        QrTimeout = setTimeout(captureToCanvas, 500);
-        return;
-    }
-
-    $('#ScanVideoOutter').html(vidhtml);
-    theVideo = $("#ScanVideo")[0];
-
-    if(navigator.getUserMedia)
-    {
-        navigator.getUserMedia({video: true, audio: false}, successfulQrRead, error);
-    } else if(navigator.webkitGetUserMedia)
-    {
-        webkit=true;
-        navigator.webkitGetUserMedia({video:true, audio: false}, successfulQrRead, error);
-    }
-    else if(navigator.mediaDevices.getUserMedia)
-    {
-        moz=true;
-        navigator.mozGetUserMedia({video: true, audio: false}, successfulQrRead, error);
-    }
-    else if(navigator.mozGetUserMedia)
-    {
-        moz=true;
-        navigator.mozGetUserMedia({video: true, audio: false}, successfulQrRead, error);
-    }
-
-    stype=1;
-    QrTimeout = setTimeout(captureToCanvas, 500);
-
-}

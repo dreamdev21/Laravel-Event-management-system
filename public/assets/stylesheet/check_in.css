@@ -1,3 +1,5 @@
+[v-cloak] { display: none }
+
 ::-webkit-input-placeholder { /* WebKit browsers */
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
@@ -75,7 +77,8 @@ section.attendeeList {
     right: 25px;
     font-size: 24px;
     cursor: pointer;
-    display: none;
+    z-index: 99;
+    /*display: none;*/
 }
 
 .at {
@@ -121,27 +124,98 @@ footer {
     left: 0;
 }
 
-.modal-dialog {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.modal-content {
-    height: auto;
-    min-height: 100%;
-    border-radius: 0;
-}
-.modal-footer {
-    position: absolute;
-    width: 100%;
+.scannerModal {
+    position: fixed;
+    top: 0;
+    left: 0;
     bottom: 0;
+    min-height: 100%;
+    width: auto;
+    z-index: 999;
+    min-width: 100%;
 }
 
-.modal-body {
-    padding: 0;
+.closeScanner {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    color: #fff;
+    font-size: 25px;
+    opacity: .7;
 }
+
+.scannerButtons {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+}
+
+.scannerButtons a {
+    display: block;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    color: darkgreen;
+    font-weight: bold;
+}
+.scannerAimer {
+    width: 250px;
+    height: 250px;
+    border: 4px dashed rgba(255, 255, 255, .4);
+    margin: 0 auto;
+    margin-top: 80px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.scannerResult {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    margin-top: 80px;
+    border-radius: 140px;
+    position: relative;
+}
+
+.scannerResult i {
+    position: absolute;
+    top: 65px;
+    left: 75px;
+    font-size: 100px;
+}
+
+.scannerResult.success {
+    border: 4px solid #00ae68;
+}
+.scannerResult.success i {
+    color: #00ae68;
+}
+.scannerResult.error {
+    border: 4px solid #993d00;
+}
+.scannerResult.error i {
+    color: #993d00;
+}
+
+.ScanResultMessage {
+    transition: background 0.4s ease-in-out;
+    width: 250px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    padding: 15px;
+    text-transform: uppercase;
+    margin: 0 auto;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.63);
+}
+
+
 
 
 /* Small Devices, Tablets */
@@ -186,26 +260,15 @@ footer {
         border-radius: 0;
     }
 }
-#ScanResult {
-    width: 90%;
-}
+
 
 #ScanVideoOutter {
     min-width: 100%;
     min-height: 300px;
     position: relative;
     background: #999;
-}
-
-#ScanVideo {
-    position: absolute;
-    width: 100%;
-    height:100%;
-    min-height:250px;
-    min-width: 250px !important;
-    top: 0;
-    left: 0;
-    right: 0;
+    background: url(http://dev.attendize.com/assets/images/background.png) repeat;
+    background-color: #2E3254;
 }
 
 #qr-file {
@@ -214,6 +277,21 @@ footer {
 
 #QrCanvas{
     display:none;
+}
+
+video#scannerVideo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+    transition: 1s opacity;
+    background-color: #00AEFB;
 }
 
 #help-text{
@@ -237,45 +315,7 @@ footer {
 }
 
 
-#ScanResult {
-    transition: background 0.4s ease-in-out;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    font-size: 16px;
-}
 
-/* Mobile */
-/*@media only screen and (max-width: 480px) {*/
-/*#ScanResult {*/
-/*width: 90%;*/
-/*}*/
-
-/*#ScanVideoOutter {*/
-/*min-width: 100%;*/
-/*max-width: 100%;*/
-/*position: relative;*/
-/*}*/
-
-/*#ScanVideo {*/
-/*position: absolute;*/
-/*width: 100%;*/
-/*height:100%;*/
-/*top: 0;*/
-/*left: 0;*/
-/*right: 0;*/
-/*}*/
-
-/*#help-text{*/
-/*top: -35px;*/
-/*}*/
-
-/*#qrfile{*/
-/*width: 300px;*/
-/*}*/
-
-
-/*}*/
 
 
 @-webkit-keyframes opacity {

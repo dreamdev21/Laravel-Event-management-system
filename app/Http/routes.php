@@ -628,7 +628,7 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
          * -------
          * QRCode Check In App
          * -------
-         */
+
         Route::get('{event_id}/qrcode_check_in', [
             'as'   => 'showQRCodeChechIn',
             'uses' => 'EventQrcodeCheckInController@showCheckIn',
@@ -643,6 +643,7 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'confirmCheckInOrderTickets',
             'uses' => 'EventQrcodeCheckInController@confirmOrderTickets',
         ]);
+        */
 
         /*
          * -------
