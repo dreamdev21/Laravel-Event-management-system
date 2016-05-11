@@ -527,7 +527,7 @@ class EventAttendeesController extends MyBaseController
                                     'orders.order_reference',
                                     'tickets.title',
                                     'orders.created_at',
-                                    DB::raw("(CASE WHEN attendees.has_arrived = 1 THEN 'YES' ELSE 'NO' END) AS `attendees.has_arrived`"),
+                                    DB::raw("(CASE WHEN attendees.has_arrived THEN 'YES' ELSE 'NO' END) AS has_arrived"),
                                     'attendees.arrival_time',
                                     ])->get();
 
