@@ -143,6 +143,8 @@ class Order extends MyBaseModel
             'event' => $this->event,
             'tickets' => $this->event->tickets,
             'attendees' => $this->attendees,
+            'css'     => file_get_contents(public_path('assets/stylesheet/ticket.css')), 
+            'image'     => base64_encode(file_get_contents(public_path($this->event->organiser->logo_path))), 
         ];
 
         $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $this->order_reference;
