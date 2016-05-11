@@ -1,0 +1,31 @@
+web:
+  build: .
+  dockerfile: Dockerfile-nginx
+  ports:
+    - "8080:80"
+  links:
+    - php
+  volumes:
+    - .:/usr/share/nginx/html/attendize
+php:
+  build: .
+  dockerfile: Dockerfile-php
+  links:
+    - db
+    - maildev
+  volumes:
+    - .:/usr/share/nginx/html/attendize
+db:
+  image: postgres
+  environment:
+    - POSTGRES_USER=attendize
+    - POSTGRES_PASSWORD=attendize
+    - POSTGRES_DB=attendize
+  ports:
+    - "5433:5432"
+  volumes:
+    - ./docker/pgdata:/var/lib/postgresql/data
+maildev:
+  image: djfarrelly/maildev
+  ports:
+    - "1080:80"
