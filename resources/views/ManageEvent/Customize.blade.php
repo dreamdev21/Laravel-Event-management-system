@@ -311,14 +311,14 @@
                             {!! Form::label('social_show_twitter', 'Twitter') !!}
 
                         </div>
-                        <div class="custom-checkbox mb5">
-                            {!! Form::label('social_show_googleplus', 'Google+') !!}
-                                {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
 
-                        </div>
                         <div class="custom-checkbox mb5">
                             {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_email', 'Email') !!}
+                        </div>
+                        <div class="custom-checkbox mb5">
+                            {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::label('social_show_googleplus', 'Google+') !!}
                         </div>
                         <div class="custom-checkbox mb5">
                             {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
