@@ -594,6 +594,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventSurveyController@showEventQuestionAnswers',
         ]);
 
+        Route::get('{event_id}/answers/export/{export_as?}', [
+            'as'   => 'showExportAnswers',
+            'uses' => 'EventSurveyController@showExportAnswers',
+        ]);
+
 
         /*
          * -------

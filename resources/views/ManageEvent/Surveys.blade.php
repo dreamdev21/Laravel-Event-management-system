@@ -40,10 +40,10 @@ Event Surveys
                 <i class="ico-users"></i> Export Answers <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'xlsx'])}}">Excel (XLSX)</a></li>
-                <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'xls'])}}">Excel (XLS)</a></li>
-                <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'csv'])}}">CSV</a></li>
-                <li><a href="{{route('showExportOrders', ['event_id'=>$event->id,'export_as'=>'html'])}}">HTML</a></li>
+                <li><a href="{{route('showExportAnswers', ['event_id'=>$event->id,'export_as'=>'xlsx'])}}">Excel (XLSX)</a></li>
+                <li><a href="{{route('showExportAnswers', ['event_id'=>$event->id,'export_as'=>'xls'])}}">Excel (XLS)</a></li>
+                <li><a href="{{route('showExportAnswers', ['event_id'=>$event->id,'export_as'=>'csv'])}}">CSV</a></li>
+                <li><a href="{{route('showExportAnswers', ['event_id'=>$event->id,'export_as'=>'html'])}}">HTML</a></li>
             </ul>
         </div>
     </div>

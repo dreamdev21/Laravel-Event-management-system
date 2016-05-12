@@ -127,7 +127,7 @@
                                                     </span>
                                                 </div>
                                                 <span class="help-block">
-                                                    Added users will receive instructions complete their registration.
+                                                    Added users will receive further instruction via email.
                                                 </span>
                                             </td>
 

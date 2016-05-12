@@ -52,7 +52,7 @@
             @else
                 <div class="modal-body">
                     <div class="alert alert-info">
-                        Sorry, there's no answers to this question yet.
+                        Sorry, there are no answers to this question yet.
                     </div>
                 </div>
 

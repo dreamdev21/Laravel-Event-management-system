@@ -237,4 +237,36 @@ class EventSurveyController extends MyBaseController
         return view('ManageEvent.Modals.ViewAnswers', $data);
     }
 
+
+    public function showExportAnswers(Request $request, $event_id, $export_as = 'xlsx') {
+
+        Excel::create('answers-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
+
+            $excel->setTitle('Survey Answers');
+
+            // Chain the setters
+            $excel->setCreator(config('attendize.app_name'))
+                ->setCompany(config('attendize.app_name'));
+
+            $excel->sheet('survey_answers_sheet_!', function ($sheet) use ($event_id) {
+
+                $event = Event::scope()->findOrFail($event_id);
+
+                /*
+                 * @todo Build array of question and all its answers
+                 */
+
+                $sheet->fromArray([]);
+
+                // Set gray background on first row
+                $sheet->row(1, function ($row) {
+                    $row->setBackground('#f5f5f5');
+                });
+            });
+        })->export($export_as);
+
+
+    }
+
+
 }
