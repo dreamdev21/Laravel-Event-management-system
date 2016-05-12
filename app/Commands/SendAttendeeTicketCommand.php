@@ -62,7 +62,7 @@ class SendAttendeeTicketCommand extends Command implements ShouldQueue, SelfHand
             'tickets'   => $this->attendee->event->tickets,
             'attendees' => [$this->attendee],
             'css'     => file_get_contents(public_path('assets/stylesheet/ticket.css')), 
-            'image'     => base64_encode(file_get_contents(public_path($this->attendee->event->organiser->logo_path))), 
+            'image'     => base64_encode(file_get_contents(public_path($this->attendee->event->organiser->full_logo_path))),
         ];
 
         $pdf_file_name = $this->ticketOrder->order_reference.'-'.$this->attendee->id;

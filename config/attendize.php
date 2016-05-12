@@ -25,7 +25,7 @@ return [
     'event_pdf_tickets_path' => 'user_content/pdf_tickets',
     'event_bg_images' => 'assets/images/public/EventPage/backgrounds',
 
-    'fallback_organiser_logo_url' => '/assets/images/logo-100x100-lightBg.png',
+    'fallback_organiser_logo_url' => '/assets/images/logo-dark.png',
     'cdn_url' => '',
 
     'checkout_timeout_after' => env('CHECKOUT_TIMEOUT_AFTER', 30), #minutes
