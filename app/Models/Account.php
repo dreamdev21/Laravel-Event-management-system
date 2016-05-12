@@ -95,7 +95,7 @@ class Account extends MyBaseModel
      */
     public function currency()
     {
-        return $this->hasOne('\App\Models\Currency');
+        return $this->belongsTo('\App\Models\Currency');
     }
 
     /**

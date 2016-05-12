@@ -202,7 +202,7 @@ class Event extends MyBaseModel
     }
 
     /**
-     * Get the currency sybol.
+     * Get the currency symbol.
      *
      * @return \Illuminate\Support\Collection
      */

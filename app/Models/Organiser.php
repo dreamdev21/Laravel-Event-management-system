@@ -30,6 +30,16 @@ class Organiser extends MyBaseModel
     ];
 
     /**
+     * The account associated with the organiser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account()
+    {
+        return $this->belongsTo('\App\Models\Account');
+    }
+
+    /**
      * The events associated with the organizer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
