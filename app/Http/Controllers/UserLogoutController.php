@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Routing\Controller;
 
 class UserLogoutController extends Controller
 {
