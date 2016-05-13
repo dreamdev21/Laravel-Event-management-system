@@ -469,7 +469,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->text('message');
             $table->string('subject');
-            $table->integer('recipients'); //ticket_id or 0 for all
+            $table->integer('recipients')->nullable(); //ticket_id or null for all
             $table->unsignedInteger('account_id')->index();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
