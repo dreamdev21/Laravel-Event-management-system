@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Commands\MessageAttendeesCommand;
 use App\Commands\OrderTicketsCommand;
 use App\Commands\SendAttendeeTicketCommand;
 use App\Models\Attendee;
@@ -478,38 +479,13 @@ class EventAttendeesController extends MyBaseController
         $message = Message::createNew();
         $message->message = $request->get('message');
         $message->subject = $request->get('subject');
-	if ($request->get('recipients') != "all") {
-		$message->recipients = $request->get('recipients');
-	}
+        if ($request->get('recipients') != "all") {
+		    $message->recipients = $request->get('recipients');
+	    }
         $message->event_id = $event_id;
-	$message->sent_at = new \DateTime();
         $message->save();
 
-	$query = Attendee::where("event_id", $event_id);
-	if ($request->get('recipients') != "all") {
-		$query->where('ticket_id', $request->get('recipients'));
-	}
-	
-	$attendees = $query->get();
-
-	
-	foreach($attendees as $attendee) {
-
-		$data = [
-			'attendee'        => $attendee,
-			'message_content' => $request->get('message'),
-			'subject'         => $request->get('subject'),
-			'event'           => $attendee->event,
-			'email_logo'      => $attendee->event->organiser->full_logo_path,
-		];
-
-		Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
-		    $message->to($attendee->email, $attendee->full_name)
-			    ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
-			    ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
-			    ->subject($data['subject']);
-		});
-	}
+        $this->dispatch(new MessageAttendeesCommand($message));
 
         return response()->json([
             'status'  => 'success',
