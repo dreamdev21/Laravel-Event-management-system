@@ -44,14 +44,6 @@
                                         ])  !!}
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="checkbox ">
-                                        <input type="checkbox" name="send_copy" id="send_copy" value="1">
-                                        <label for="send_copy">&nbsp;&nbsp;Send a copy to
-                                            <strong>{{$event->organiser->email}}</strong></label>
-                                    </div>
-                                </div>
-
                                 <div class="form-group hide">
                                     {!! Form::label('sent_time', 'Schedule Send Time', array('class'=>'control-label required')) !!}
                                     {!!  Form::text('sent_time', Input::old('sent_time'),
