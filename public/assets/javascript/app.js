@@ -106,7 +106,7 @@ $(function () {
                     }
 
                     if (typeof data.redirectUrl !== 'undefined') {
-                        window.location = data.redirectUrl;
+                        window.location.href = data.redirectUrl;
                     }
 
                     break;

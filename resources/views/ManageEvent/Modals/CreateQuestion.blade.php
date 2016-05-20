@@ -1,5 +1,6 @@
-<div role="dialog" class="modal fade" style="display: none;">
+<div id="QuestionForm" role="dialog" class="modal fade" style="display: none;">
     {!!  Form::open(['url' => route('postCreateEventQuestion', ['event_id'=>$event->id]), 'id' => 'edit-question-form', 'class' => 'ajax']) !!}
+
     <script id="question-option-template" type="text/template">
         <tr>
             <td><input class="form-control" name="option[]" type="text"></td>
@@ -43,7 +44,7 @@
                 </div>
 
 
-                <fieldset id="question-options" {!! empty($question->has_options) ? ' class="hide"' : '' !!}>
+                <fieldset id="question-options" class="hide">
                     <h4>Question Options</h4>
                     <table class="table table-bordered table-condensed">
                         <tbody>
@@ -98,3 +99,5 @@
     </div>
     {!! Form::close() !!}
 </div>
+
+

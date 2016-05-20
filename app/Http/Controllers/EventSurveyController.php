@@ -8,6 +8,7 @@ use App\Models\Attendee;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionType;
+use JavaScript;
 use Illuminate\Http\Request;
 use Excel;
 
@@ -17,24 +18,29 @@ use Excel;
 
 class EventSurveyController extends MyBaseController
 {
-    
+
     /**
      * Show the event survey page
-     * 
+     *
      * @param Request $request
      * @param $event_id
      * @return mixed
      */
     public function showEventSurveys(Request $request, $event_id)
     {
+
         $event = Event::scope()->findOrFail($event_id);
 
+        JavaScript::put([
+            'postUpdateQuestionsOrderRoute' => route('postUpdateQuestionsOrder', ['event_id' => $event_id]),
+        ]);
+
         $data = [
-            'event' => $event,
-            'questions' => $event->questions,
+            'event'      => $event,
+            'questions'  => $event->questions->sortBy('sort_order'),
             'sort_order' => 'asc',
-            'sort_by' => 'title',
-            'q' => '',
+            'sort_by'    => 'title',
+            'q'          => '',
         ];
 
         return view('ManageEvent.Surveys', $data);
@@ -50,7 +56,7 @@ class EventSurveyController extends MyBaseController
         $event = Event::scope()->findOrFail($event_id);
 
         return view('ManageEvent.Modals.CreateQuestion', [
-            'event' => $event,
+            'event'          => $event,
             'question_types' => QuestionType::all(),
         ]);
     }
@@ -71,7 +77,7 @@ class EventSurveyController extends MyBaseController
         // Create question.
         $question = Question::createNew(false, false, true);
         $question->title = $request->get('title');
-        $question->is_required = ($request->get('is_required') == 'yes') ;
+        $question->is_required = ($request->get('is_required') == 'yes');
         $question->question_type_id = $request->get('question_type_id');
         $question->save();
 
@@ -99,8 +105,8 @@ class EventSurveyController extends MyBaseController
         session()->flash('message', 'Successfully Created Question');
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Refreshing..',
+            'status'      => 'success',
+            'message'     => 'Refreshing..',
             'redirectUrl' => '',
         ]);
     }
@@ -108,7 +114,7 @@ class EventSurveyController extends MyBaseController
 
     /**
      * Show the Edit Question Modal
-     * 
+     *
      * @param Request $request
      * @param $event_id
      * @param $question_id
@@ -120,8 +126,8 @@ class EventSurveyController extends MyBaseController
         $event = Event::scope()->findOrFail($event_id);
 
         $data = [
-            'question' => $question,
-            'event' => $event,
+            'question'       => $question,
+            'event'          => $event,
             'question_types' => QuestionType::all(),
         ];
 
@@ -131,7 +137,7 @@ class EventSurveyController extends MyBaseController
 
     /**
      * Edits a question
-     * 
+     *
      * @param Request $request
      * @param $event_id
      * @param $question_id
@@ -149,32 +155,38 @@ class EventSurveyController extends MyBaseController
         $question->question_type_id = $request->get('question_type_id');
         $question->save();
 
-        // Get options.
-        $options = $request->get('option');
+        $question_type = QuestionType::find($question->question_type_id);
 
-        $question->options()->delete();
+        if ($question_type->has_options) {
 
-        // Add options.
-        if ($options && is_array($options)) {
-            foreach ($options as $option_name) {
-                if (trim($option_name) !== '') {
-                    $question->options()->create([
-                        'name' => $option_name,
-                    ]);
+            // Get options.
+            $options = $request->get('option');
+
+            $question->options()->delete();
+
+            // Add options.
+            if ($options && is_array($options)) {
+                foreach ($options as $option_name) {
+                    if (trim($option_name) !== '') {
+                        $question->options()->create([
+                            'name' => $option_name,
+                        ]);
+                    }
                 }
             }
         }
 
+
         // Get tickets.
-        $ticket_ids = $request->get('tickets');
+        $ticket_ids = (array) $request->get('tickets');
 
         $question->tickets()->sync($ticket_ids);
 
         session()->flash('message', 'Successfully Edited Question');
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Refreshing..',
+            'status'      => 'success',
+            'message'     => 'Refreshing..',
             'redirectUrl' => '',
         ]);
 
@@ -182,7 +194,7 @@ class EventSurveyController extends MyBaseController
 
     /**
      * Delete a question
-     * 
+     *
      * @param Request $request
      * @param $event_id
      * @return mixed
@@ -193,14 +205,16 @@ class EventSurveyController extends MyBaseController
 
         $question = Question::scope()->find($question_id);
 
+        $question->answers()->delete();
+
         if ($question->delete()) {
 
             session()->flash('message', 'Question Successfully Deleted');
 
             return response()->json([
-                'status'  => 'success',
-                'message' => 'Refreshing..',
-                'redirectUrl' => route('showEventCustomize', ['event_id' => $event_id]) . '#questions',
+                'status'      => 'success',
+                'message'     => 'Refreshing..',
+                'redirectUrl' => '',
             ]);
         }
 
@@ -238,9 +252,17 @@ class EventSurveyController extends MyBaseController
     }
 
 
-    public function showExportAnswers(Request $request, $event_id, $export_as = 'xlsx') {
+    /**
+     * Export answers
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $export_as
+     */
+    public function showExportAnswers(Request $request, $event_id, $export_as = 'xlsx')
+    {
 
-        Excel::create('answers-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
+        Excel::create('answers-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
 
             $excel->setTitle('Survey Answers');
 
@@ -252,11 +274,26 @@ class EventSurveyController extends MyBaseController
 
                 $event = Event::scope()->findOrFail($event_id);
 
-                /*
-                 * @todo Build array of question and all its answers
-                 */
+                $rows[] = array_merge([
+                    'Order Ref',
+                    'Attendee Name',
+                    'Attendee Email',
+                    'Attendee Ticket'
+                ], $event->questions->lists('title')->toArray());
 
-                $sheet->fromArray([]);
+                $attendees = $event->attendees()->has('answers')->get();
+                foreach ($attendees as $attendee) {
+
+                    $rows[] = array_merge([
+                        $attendee->order->order_reference,
+                        $attendee->full_name,
+                        $attendee->email,
+                        $attendee->ticket->title
+                    ], $attendee->answers->lists('answer_text')->toArray());
+
+                }
+
+                $sheet->fromArray($rows);
 
                 // Set gray background on first row
                 $sheet->row(1, function ($row) {
@@ -268,5 +305,53 @@ class EventSurveyController extends MyBaseController
 
     }
 
+    public function postEnableQuestion(Request $request, $event_id, $question_id)
+    {
+
+        $question = Question::scope()->find($question_id);
+
+        $question->is_enabled = ($question->is_enabled == 1) ? 0 : 1;
+
+        if ($question->save()) {
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Question Successfully Updated',
+                'id'      => $question->id,
+            ]);
+        }
+
+        return response()->json([
+            'status'  => 'error',
+            'id'      => $question->id,
+            'message' => 'Whoops!, looks like something went wrong. Please try again.',
+        ]);
+    }
+
+
+    /**
+     * Updates the sort order of event questions
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function postUpdateQuestionsOrder(Request $request)
+    {
+
+        $question_ids = $request->get('question_ids');
+        $sort = 1;
+
+        foreach ($question_ids as $question_id) {
+            $question = Question::scope()->find($question_id);
+            $question->sort_order = $sort;
+            $question->save();
+            $sort++;
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Question Order Successfully Updated',
+        ]);
+
+    }
 
 }

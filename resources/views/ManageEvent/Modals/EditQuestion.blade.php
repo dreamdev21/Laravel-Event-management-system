@@ -40,17 +40,28 @@
                                 @endforeach
                             </select>
                         </div>
-                        <fieldset id="question-options" class="{{ $question->has_options ? 'hide' : '' }}" >
-                            <table >
+                        <fieldset id="question-options" class="{{ $question->question_type->has_options ? '' : 'hide' }}" >
+                            <h4>Question Options</h4>
+                            <table class="table table-condensed table-bordered">
                                 <tbody>
-                                @foreach ($question->options as $question_option)
+                                @if(count($question->options))
+                                    @foreach ($question->options as $question_option)
+                                        <tr>
+                                            <td><input class="form-control" name="option[]" type="text" value="{{ $question_option->name }}"></td>
+                                            <td width="50">
+                                                <i class="btn btn-danger ico-remove" onclick="removeQuestionOption(this);"></i>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
                                     <tr>
-                                        <td><input class="form-control" name="option[]" type="text" value="{{ $question_option->name }}"></td>
+                                        <td><input class="form-control" name="option[]" type="text" value=""></td>
                                         <td width="50">
-                                            <i class="btn btn-danger ico-remove" onclick="removeQuestionOption(this);"></i>
+
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @endif
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -66,8 +77,10 @@
                         </fieldset>
 
                         <div class="form-group">
+                            <div class="custom-checkbox ">
                             {!! Form::checkbox('is_required', 1, $question->is_required, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
                             {!! Form::label('is_required', 'Make this a required question') !!}
+                                </div>
                         </div>
 
                         <div class="form-group">
@@ -75,9 +88,10 @@
                                 Require this question for ticket(s):
                             </label>
                             @foreach ($event->tickets as $ticket)
-                                <br>
+                                <div class="custom-checkbox mb5">
                                 <input {{in_array($ticket->id, $question->tickets->lists('id')->toArray()) ? 'checked' : ''}} id="ticket_{{ $ticket->id }}" data-toggle="toggle" name="tickets[]" type="checkbox" value="{{ $ticket->id }}">
                                 <label for="ticket_{{ $ticket->id }}">&nbsp; {{ $ticket->title }}</label>
+                                    </div>
                             @endforeach
                         </div>
 

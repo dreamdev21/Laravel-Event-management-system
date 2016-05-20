@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Log;
 use Omnipay;
 use PDF;
+use PhpSpec\Exception\Exception;
 use Validator;
 
 class EventCheckoutController extends Controller
@@ -400,6 +401,14 @@ class EventCheckoutController extends Controller
     }
 
 
+    /**
+     * Attempt to complete a user's payment when they return from
+     * an off-site gateway
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function showEventCheckoutPaymentReturn(Request $request, $event_id)
     {
 
@@ -556,11 +565,17 @@ class EventCheckoutController extends Controller
                  */
                 foreach ($attendee_details['ticket']->questions as $question) {
 
+
+                    $ticket_answer = isset($ticket_questions[$attendee_details['ticket']->id][$i][$question->id]) ? $ticket_questions[$attendee_details['ticket']->id][$i][$question->id] : null;
+
+                    if (is_null($ticket_answer)) {
+                        continue;
+                    }
+
                     /*
                      * If there are multiple answers to a question then join them with a comma
                      * and treat them as a single answer.
                      */
-                    $ticket_answer = $ticket_questions[$attendee_details['ticket']->id][$i][$question->id];
                     $ticket_answer = is_array($ticket_answer) ? implode(', ', $ticket_answer) : $ticket_answer;
 
                     if (!empty($ticket_answer)) {

@@ -23,7 +23,7 @@ module.exports = function (grunt) {
             },
             js_frontend: {
                 src: [
-                    './public/vendor/jquery/jquery.js',
+                    './public/vendor/jquery/dist/jquery.min.js',
                     './public/vendor/bootstrap/dist/js/bootstrap.js',
                     './public/vendor/jquery-form/jquery.form.js',
                     './public/vendor/RRSSB/js/rrssb.js',
@@ -35,6 +35,7 @@ module.exports = function (grunt) {
             js_backend: {
                 src: [
                     './public/vendor/modernizr/modernizr.js',
+                    './public/vendor/html.sortable/dist/html.sortable.js',
                     './public/vendor/bootstrap/dist/js/bootstrap.js',
                     './public/vendor/jquery-form/jquery.form.js',
                     './public/vendor/humane-js/humane.js',

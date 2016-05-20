@@ -54,4 +54,6 @@ class Question extends MyBaseModel
     public function tickets() {
         return $this->belongsToMany('\App\Models\Ticket');
     }
+
+
 }
