@@ -78,7 +78,7 @@ Attendize will be available at `http://localhost:8080` and maildev at `http://lo
 
 ## License
 
-Attendize is open-sourced software licensed under the Attribution Assurance License. See (https://www.attendize.com/licence.php)[https://www.attendize.com/licence.php] for further details.
+Attendize is open-sourced software licensed under the Attribution Assurance License. See [https://www.attendize.com/licence.php](https://www.attendize.com/licence.php) for further details.
 
 ## Contributors 
 
