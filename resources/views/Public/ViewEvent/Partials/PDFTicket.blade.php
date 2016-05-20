@@ -20,6 +20,9 @@
                 padding: 10px;
                 margin-top: 10px;
             }
+            .bottom_info a {
+                color: #000 !important;
+            }
 
             .top_info {
                 position: fixed;
