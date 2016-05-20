@@ -7,13 +7,14 @@
 
 https://www.attendize.com
 
+> PLEASE NOTE: Attendize is in the early stages of development and therefore is likely to contain bugs and unfinished features. Be wary about using Attendize in a production environment.
+
 
 ######Demo Event Page: http://attendize.website/e/1/acmes-amazing-demo-event
 
 
 *Attendize* is an open-source event ticketing and event management application built using the Laravel PHP framework. Attendize was created to offer event organisers a simple solution to managing general admission events, without paying extortionate service fees.
 
-> PLEASE NOTE: Attendize is still in the early stages of development and therefore is likely to contain bugs. Be wary about using Attendize in a production environment. 
 
 ##Features
  - Beautiful mobile friendly event pages
@@ -77,7 +78,7 @@ Attendize will be available at `http://localhost:8080` and maildev at `http://lo
 
 ## License
 
-Attendize is open-sourced software licensed under the Attribution Assurance License
+Attendize is open-sourced software licensed under the Attribution Assurance License. See (https://www.attendize.com/licence.php)[https://www.attendize.com/licence.php] for further details.
 
 ## Contributors 
 
