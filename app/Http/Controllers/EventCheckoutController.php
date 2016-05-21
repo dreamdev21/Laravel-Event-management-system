@@ -166,7 +166,6 @@ class EventCheckoutController extends Controller
 
                 }
 
-
             }
 
         }
@@ -279,10 +278,8 @@ class EventCheckoutController extends Controller
         $validation_rules = $ticket_order['validation_rules'];
         $validation_messages = $ticket_order['validation_messages'];
 
-        if (!$mirror_buyer_info && $event->ask_for_all_attendees_info) {
-            $order->rules = $order->rules + $validation_rules;
-            $order->messages = $order->messages + $validation_messages;
-        }
+        $order->rules = $order->rules + $validation_rules;
+        $order->messages = $order->messages + $validation_messages;
 
         if (!$order->validate($request->all())) {
             return response()->json([
