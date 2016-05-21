@@ -18,8 +18,10 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 separator: ';',
-                stripBanners: true,
-
+                stripBanners: {
+                    block: true,
+                    line: true
+                },
             },
             js_frontend: {
                 src: [
@@ -58,7 +60,7 @@ module.exports = function (grunt) {
             },
             frontend: {
                 files: {
-                    './public/assets/javascript/frontend.js': './public/assets/javascript/frontend.js',
+                    './public/assets/javascript/frontend.js': ['<%= concat.js_frontend.dest %>'],
                 }
             },
             backend: {
