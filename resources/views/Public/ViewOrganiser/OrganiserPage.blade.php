@@ -8,6 +8,11 @@
                background-color: {{$organiser->page_header_bg_color}} !important;
                color: {{$organiser->page_text_color}} !important;
           }
+          .event-list > li > time {
+               color: {{$organiser->page_text_color}};
+               background-color: {{$organiser->page_header_bg_color}};
+          }
+
      </style>
 @stop
 

@@ -45,4 +45,5 @@
         {!!HTML::script('assets/javascript/frontend.js')!!}
 
         @include('Shared.Partials.GlobalFooterJS')
+</body>
 </html>

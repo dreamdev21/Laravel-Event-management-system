@@ -297,6 +297,7 @@ Small devices (tablets, 768px and up)
   #organiser_page_wrap {
     #intro {
       padding: 30px;
+      margin-top: 0;
     }
     #intro h1 {
       font-size: 2.236em;
@@ -370,21 +371,148 @@ Small devices (tablets, 768px and up)
 
 /*
 -----------------------------------------------------
-Event Listing
+Event Listing / Organiser Page
 -----------------------------------------------------
 */
-.event-listing {
-  .event .panel {
-    min-height: 140px;
+.event-listing-heading {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.event-list {
+  list-style: none;
+  font-family: 'Lato', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+.event-list > li {
+  background-color: #F3F3F3;
+  padding: 0px;
+  margin: 0px 0px 20px;
+}
+.event-list > li > time {
+  display: inline-block;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.event-list > li > time > span {
+  display: none;
+}
+.event-list > li > time > .day {
+  display: block;
+  font-size: 18pt;
+  font-weight: 100;
+  line-height: 1;
+}
+.event-list > li time > .month {
+  display: block;
+  font-size: 24pt;
+  font-weight: 900;
+  line-height: 1;
+}
+.event-list > li > img {
+  width: 100%;
+}
+.event-list > li > .info {
+  padding-top: 10px;
+  text-align: center;
+}
+.event-list > li > .info > .title {
+  font-size: 15pt;
+  font-weight: 500;
+  margin: 0px;
+}
+.event-list > li > .info > .desc {
+  font-size: 10pt;
+  font-weight: 300;
+  margin: 0px;
+}
+.event-list > li > .info > ul
+{
+  display: table;
+  list-style: none;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: #DEDEDE;
+}
+
+.event-list > li > .info > ul > li {
+  display: table-cell;
+  cursor: pointer;
+  color: rgb(30, 30, 30);
+  font-size: 11pt;
+  font-weight: 300;
+  padding: 3px 0px;
+}
+.event-list > li > .info > ul > li > a {
+  display: block;
+  width: 100%;
+  color: #6D6D6D;
+  text-decoration: none;
+}
+
+
+.event-list > li > .info > ul > li:hover {
+  color: rgb(30, 30, 30);
+  background-color: rgb(200, 200, 200);
+}
+
+
+@media (min-width: 768px) {
+
+  .event-list > li {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding: 0px;
+  }
+  .event-list > li > time,
+  .event-list > li > img  {
+    display: inline-block;
+  }
+  .event-list > li > time,
+  .event-list > li > img {
+    width: 120px;
+    float: left;
+  }
+  .event-list > li > .info {
+    background-color: rgb(245, 245, 245);
+    overflow: hidden;
+  }
+  .event-list > li > time,
+  .event-list > li > img {
+    width: 120px;
+    height: 120px;
+    padding: 0px;
+    margin: 0px;
+  }
+  .event-list > li > time > .day {
+    font-size: 56pt;
+  }
+  .event-list > li > .info {
+    position: relative;
+    height: 120px;
+    text-align: left;
+    padding-right: 40px;
+    padding-top: 30px;
+  }
+  .event-list > li > .info > .title,
+  .event-list > li > .info > .desc {
+    padding: 0px 10px;
+  }
+  .event-list > li > .info > ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background-color: #D2D2D2;
   }
 
-  .event_flyer {
-    text-align: center;
 
-  }
-
-  .event_flyer img {
-    max-height: 140px;
-    max-width: 100%;
-  }
 }
