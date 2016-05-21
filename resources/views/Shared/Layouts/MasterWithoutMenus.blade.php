@@ -10,7 +10,7 @@
         @yield('head')
 
         <!--JS-->
-       {!! HTML::script('vendor/jquery/jquery.js') !!}
+       {!! HTML::script('vendor/jquery/dist/jquery.min.js') !!}
         <!--/JS-->
 
         <!--Style-->
