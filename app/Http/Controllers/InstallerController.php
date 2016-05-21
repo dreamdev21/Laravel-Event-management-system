@@ -48,6 +48,7 @@ class InstallerController extends Controller
             public_path(config('attendize.event_pdf_tickets_path')),
             base_path('bootstrap/cache'),
             base_path('.env'),
+            base_path(),
         ];
 
         /*
@@ -60,6 +61,15 @@ class InstallerController extends Controller
             'fileinfo',
             'tokenizer',
             'gd',
+            'zip',
+        ];
+
+        /*
+         * Optional PHP extensions
+         */
+        $data['optional_requirements'] = [
+            'pdo_pgsql',
+            'pdo_mysql',
         ];
 
         return view('Installer.Installer', $data);
@@ -75,7 +85,7 @@ class InstallerController extends Controller
     {
         set_time_limit(300);
 
-        $database['type'] = 'mysql';
+        $database['type'] = $request->get('database_type');
         $database['host'] = $request->get('database_host');
         $database['name'] = $request->get('database_name');
         $database['username'] = $request->get('database_username');
@@ -98,25 +108,25 @@ class InstallerController extends Controller
             $is_db_valid = self::testDatabase($database);
 
             if ($is_db_valid === 'yes') {
-                return reponse()->json([
+                return [
                     'status'  => 'success',
                     'message' => 'Success, Your connection works!',
                     'test'    => 1,
-                ]);
+                ];
             }
 
-            return response()->json([
+            return [
                 'status'  => 'error',
                 'message' => 'Unable to connect! Please check your settings',
                 'test'    => 1,
-            ]);
+            ];
         }
 
         $config = "APP_ENV=production\n".
             "APP_DEBUG=false\n".
             "APP_URL={$app_url}\n".
-            "APP_KEY={$app_key}\n\n".
-            "DB_TYPE=mysql\n".
+            "APP_KEY={$app_key}\n".
+            "DB_TYPE={$database['type']}\n".
             "DB_HOST={$database['host']}\n".
             "DB_DATABASE={$database['name']}\n".
             "DB_USERNAME={$database['username']}\n".
@@ -126,7 +136,7 @@ class InstallerController extends Controller
             "MAIL_ENCRYPTION={$mail['encryption']}\n".
             "MAIL_HOST={$mail['host']}\n".
             "MAIL_USERNAME={$mail['username']}\n".
-            "MAIL_FROM_NAME={$mail['from_name']}\n".
+            "MAIL_FROM_NAME=\"{$mail['from_name']}\"\n".
             "MAIL_FROM_ADDRESS={$mail['from_address']}\n".
             "MAIL_PASSWORD={$mail['password']}\n\n";
 
@@ -135,13 +145,16 @@ class InstallerController extends Controller
         fclose($fp);
 
         Config::set('database.default', $database['type']);
-        Config::set('database.connections.mysql.host', $database['host']);
-        Config::set('database.connections.mysql.database', $database['name']);
-        Config::set('database.connections.mysql.username', $database['username']);
-        Config::set('database.connections.mysql.password', $database['password']);
+        Config::set("database.connections.{$database['type']}.host", $database['host']);
+        Config::set("database.connections.{$database['type']}.database", $database['name']);
+        Config::set("database.connections.{$database['type']}.username", $database['username']);
+        Config::set("database.connections.{$database['type']}.password", $database['password']);
 
         DB::reconnect();
 
+        //force laravel to regenerate a new key (see key:generate sources)
+        Config::set('app.key', $app_key);
+        Artisan::call('key:generate');
         Artisan::call('migrate', ['--force' => true]);
         if (Timezone::count() == 0) {
             Artisan::call('db:seed', ['--force' => true]);
@@ -158,10 +171,10 @@ class InstallerController extends Controller
     private function testDatabase($database)
     {
         Config::set('database.default', $database['type']);
-        Config::set('database.connections.mysql.host', $database['host']);
-        Config::set('database.connections.mysql.database', $database['name']);
-        Config::set('database.connections.mysql.username', $database['username']);
-        Config::set('database.connections.mysql.password', $database['password']);
+        Config::set("database.connections.{$database['type']}.host", $database['host']);
+        Config::set("database.connections.{$database['type']}.database", $database['name']);
+        Config::set("database.connections.{$database['type']}.username", $database['username']);
+        Config::set("database.connections.{$database['type']}.password", $database['password']);
 
         try {
             DB::reconnect();
