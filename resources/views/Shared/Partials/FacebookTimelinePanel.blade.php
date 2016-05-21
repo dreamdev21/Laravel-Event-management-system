@@ -1,11 +1,4 @@
-<div class="panel">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Facebook feed
-        </h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
+
             <div class="fb-page" data-href="https://www.facebook.com/{{$facebook_account}}"
                  data-tabs="timeline" data-small-header="false"
                  data-adapt-container-width="true"
@@ -17,6 +10,3 @@
                     </blockquote>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
