@@ -224,7 +224,6 @@ class EventCustomizeController extends MyBaseController
 
         $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
         $event->post_order_display_message = trim($request->get('post_order_display_message'));
-        $event->ask_for_all_attendees_info = ($request->get('ask_for_all_attendees_info') == 'on');
         $event->save();
 
         return response()->json([
