@@ -111,6 +111,9 @@ var checkinApp = new Vue({
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
             navigator.getUserMedia({video: true, audio: false}, function (stream) {
+
+                that.stream = stream;
+
                 if (window.webkitURL) {
                     that.videoElement.src = window.webkitURL.createObjectURL(stream);
                 } else {
@@ -159,6 +162,8 @@ var checkinApp = new Vue({
         closeScanner: function () {
             clearTimeout(this.QrTimeout);
             this.showScannerModal = false;
+            track = this.stream.getTracks()[0];
+            track.stop();
         }
     }
 });
