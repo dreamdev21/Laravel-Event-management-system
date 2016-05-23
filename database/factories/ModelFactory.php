@@ -167,7 +167,6 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
         'location_lat'               => $faker->latitude,
         'location_long'              => $faker->longitude,
         'location_google_place_id'   => $faker->randomDigit,
-        'ask_for_all_attendees_info' => 0,
         'pre_order_display_message'  => $faker->text,
         'post_order_display_message' => $faker->text,
         'social_share_text'          => 'Check Out [event_title] - [event_url]',

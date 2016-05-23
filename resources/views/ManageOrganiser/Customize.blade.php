@@ -130,7 +130,7 @@
                         @endif
                         <div class="form-group">
                             {!!  Form::labelWithHelp('organiser_logo', 'Organiser Logo', array('class'=>'control-label '),
-                                'We recommend a square image, as this will look best on printed tickets and event pages.')  !!}l
+                                'We recommend a square image, as this will look best on printed tickets and event pages.')  !!}
                             {!!Form::styledFile('organiser_logo')!!}
                         </div>
                     <div class="modal-footer">
