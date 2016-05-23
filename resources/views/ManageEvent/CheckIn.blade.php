@@ -10,7 +10,7 @@
 
     {!! HTML::style('assets/stylesheet/application.css') !!}
     {!! HTML::style('assets/stylesheet/check_in.css') !!}
-    {!! HTML::script('vendor/jquery/jquery.js') !!}
+    {!! HTML::script('vendor/jquery/dist/jquery.min.js') !!}
 
     @include('Shared/Layouts/ViewJavascript')
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
