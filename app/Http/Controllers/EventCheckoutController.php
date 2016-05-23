@@ -270,7 +270,6 @@ class EventCheckoutController extends Controller
             ]);
         }
 
-        $mirror_buyer_info = ($request->get('mirror_buyer_info') == 'on');
         $event = Event::findOrFail($event_id);
         $order = new Order;
         $ticket_order = session()->get('ticket_order_' . $event_id);
@@ -456,7 +455,6 @@ class EventCheckoutController extends Controller
         $request_data = $ticket_order['request_data'][0];
         $event = Event::findOrFail($ticket_order['event_id']);
         $attendee_increment = 1;
-        $mirror_buyer_info = isset($request_data['mirror_buyer_info']) ? ($request_data['mirror_buyer_info'] == 'on') : false;
         $ticket_questions = isset($request_data['ticket_holder_questions']) ? $request_data['ticket_holder_questions'] : [];
 
 
@@ -546,9 +544,9 @@ class EventCheckoutController extends Controller
             for ($i = 0; $i < $attendee_details['qty']; $i++) {
 
                 $attendee = new Attendee();
-                $attendee->first_name = $event->ask_for_all_attendees_info ? ($mirror_buyer_info ? $order->first_name : $request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']]) : $order->first_name;
-                $attendee->last_name = $event->ask_for_all_attendees_info ? ($mirror_buyer_info ? $order->last_name : $request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']]) : $order->last_name;
-                $attendee->email = $event->ask_for_all_attendees_info ? ($mirror_buyer_info ? $order->email : $request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']]) : $order->email;
+                $attendee->first_name = $request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']];
+                $attendee->last_name = $request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']];
+                $attendee->email = $request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']];
                 $attendee->event_id = $event_id;
                 $attendee->order_id = $order->id;
                 $attendee->ticket_id = $attendee_details['ticket']['id'];
