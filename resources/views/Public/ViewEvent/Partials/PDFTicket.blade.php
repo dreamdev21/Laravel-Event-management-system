@@ -81,9 +81,9 @@
                             <h4>Ticket Type</h4>
                             {{$attendee->ticket->title}}
                             <h4>Order Ref.</h4>
-                            #{{$order->order_reference}}
+                            {{$order->order_reference}}
                             <h4>Attendee Ref.</h4>
-                            #{{$attendee->reference}}
+                            {{$attendee->reference}}
                             <h4>Price</h4>
                             {{money($attendee->ticket->total_price, $order->event->currency->code)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency->code)}} Fees)
                         </div>

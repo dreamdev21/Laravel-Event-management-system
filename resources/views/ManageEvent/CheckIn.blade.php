@@ -92,7 +92,7 @@
                         >
                         Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b>
                         <br>
-                        Reference: <b>@{{ attendee.reference }}</b>
+                        Reference: <b>@{{ attendee.order_reference + '-' + attendee.reference_index }}</b>
                         <br>
                         Ticket: <b>@{{ attendee.ticket }}</b>
                         <a href="" class="ci btn btn-successfulQrRead">

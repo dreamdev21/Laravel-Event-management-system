@@ -98,7 +98,7 @@ Event Orders
                         <tr>
                             <td>
                                 <a href='javascript:void(0);' data-modal-id='view-order-{{ $order->id }}' data-href="{{route('showManageOrder', ['order_id'=>$order->id])}}" title="View Order #{{$order->order_reference}}" class="loadModal">
-                                    #{{$order->order_reference}}
+                                    {{$order->order_reference}}
                                 </a>
                             </td>
                             <td>

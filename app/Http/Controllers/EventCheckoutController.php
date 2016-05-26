@@ -551,7 +551,7 @@ class EventCheckoutController extends Controller
                 $attendee->order_id = $order->id;
                 $attendee->ticket_id = $attendee_details['ticket']['id'];
                 $attendee->account_id = $event->account->id;
-                $attendee->reference = $order->order_reference . '-' . ($attendee_increment);
+                $attendee->reference = $attendee_increment;
                 $attendee->save();
 
 

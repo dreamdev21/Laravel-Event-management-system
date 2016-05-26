@@ -54,13 +54,14 @@ class EventCheckInController extends MyBaseController
 
         $attendees = Attendee::scope()->withoutCancelled()
             ->join('tickets', 'tickets.id', '=', 'attendees.ticket_id')
+            ->join('orders', 'orders.id', '=', 'attendees.order_id')
             ->where(function ($query) use ($event_id) {
                 $query->where('attendees.event_id', '=', $event_id);
             })->where(function ($query) use ($searchQuery) {
                 $query->orWhere('attendees.first_name', 'like', $searchQuery . '%')
-                    ->orWhere(DB::raw("CONCAT_WS(' ', first_name, last_name)"), 'like', $searchQuery . '%')
+                    ->orWhere(DB::raw("CONCAT_WS(' ', attendees.first_name, attendees.last_name)"), 'like', $searchQuery . '%')
                     //->orWhere('attendees.email', 'like', $searchQuery . '%')
-                    ->orWhere('attendees.reference', 'like', $searchQuery . '%')
+                    ->orWhere('orders.order_reference', 'like', $searchQuery . '%')
                     ->orWhere('attendees.last_name', 'like', $searchQuery . '%');
             })
             ->select([
@@ -68,10 +69,11 @@ class EventCheckInController extends MyBaseController
                 'attendees.first_name',
                 'attendees.last_name',
                 'attendees.email',
-                'attendees.reference',
                 'attendees.arrival_time',
+                'attendees.reference_index',
                 'attendees.has_arrived',
                 'tickets.title as ticket',
+                'orders.order_reference'
             ])
             ->orderBy('attendees.first_name', 'ASC')
             ->get();

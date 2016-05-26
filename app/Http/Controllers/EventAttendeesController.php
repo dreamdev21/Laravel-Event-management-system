@@ -47,7 +47,6 @@ class EventAttendeesController extends MyBaseController
                     $query->where('orders.order_reference', 'like', $searchQuery . '%')
                         ->orWhere('attendees.first_name', 'like', $searchQuery . '%')
                         ->orWhere('attendees.email', 'like', $searchQuery . '%')
-                        ->orWhere('attendees.reference', 'like', $searchQuery . '%')
                         ->orWhere('attendees.last_name', 'like', $searchQuery . '%');
                 })
                 ->orderBy(($sort_by == 'order_reference' ? 'orders.' : 'attendees.') . $sort_by, $sort_order)
@@ -188,7 +187,7 @@ class EventAttendeesController extends MyBaseController
             $attendee->order_id = $order->id;
             $attendee->ticket_id = $ticket_id;
             $attendee->account_id = Auth::user()->account_id;
-            $attendee->reference = $order->order_reference . '-1';
+            $attendee->reference_index = 1;
             $attendee->save();
 
             if ($email_attendee == '1') {
@@ -344,7 +343,7 @@ class EventAttendeesController extends MyBaseController
                     $attendee->order_id = $order->id;
                     $attendee->ticket_id = $ticket_id;
                     $attendee->account_id = Auth::user()->account_id;
-                    $attendee->reference = $order->order_reference . '-1';
+                    $attendee->reference_index = 1;
                     $attendee->save();
 
                     if ($email_attendee == '1') {
@@ -542,7 +541,6 @@ class EventAttendeesController extends MyBaseController
                         'attendees.first_name',
                         'attendees.last_name',
                         'attendees.email',
-                        'attendees.reference',
                         'orders.order_reference',
                         'tickets.title',
                         'orders.created_at',
@@ -555,7 +553,6 @@ class EventAttendeesController extends MyBaseController
                     'First Name',
                     'Last Name',
                     'Email',
-                    'Ticket Reference',
                     'Order Reference',
                     'Ticket Type',
                     'Purchase Date',
