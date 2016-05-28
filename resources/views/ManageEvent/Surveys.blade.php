@@ -64,6 +64,9 @@
             <!--Start Questions table-->
     <div class="row">
         <script>
+            /*
+            @todo Move this into main JS file
+             */
             $(function () {
 
 
