@@ -51,8 +51,19 @@ class Question extends MyBaseModel
         return $this->hasMany('\App\Models\QuestionOption');
     }
 
-    public function tickets() {
+    public function tickets()
+    {
         return $this->belongsToMany('\App\Models\Ticket');
+    }
+
+    /**
+     * Scope a query to only include active questions.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsEnabled($query)
+    {
+        return $query->where('is_enabled', 1);
     }
 
 
