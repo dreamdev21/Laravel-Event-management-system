@@ -159,7 +159,7 @@ class EventCheckoutController extends Controller
                  */
                 foreach ($ticket->questions as $question) {
 
-                    if ($question->is_required) {
+                    if ($question->is_required && $question->is_enabled) {
                         $validation_rules['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id] = ['required'];
                         $validation_messages['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id . '.required'] = "This question is required";
                     }
@@ -551,7 +551,7 @@ class EventCheckoutController extends Controller
                 $attendee->order_id = $order->id;
                 $attendee->ticket_id = $attendee_details['ticket']['id'];
                 $attendee->account_id = $event->account->id;
-                $attendee->reference = $attendee_increment;
+                $attendee->reference_index = $attendee_increment;
                 $attendee->save();
 
 
