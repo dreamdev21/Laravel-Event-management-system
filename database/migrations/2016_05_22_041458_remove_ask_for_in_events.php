@@ -16,4 +16,9 @@ class RemoveAskForInEvents extends Migration
           $table->dropColumn('ask_for_all_attendees_info');
         });
     }
+
+    public function down()
+    {
+        
+    }
 }
