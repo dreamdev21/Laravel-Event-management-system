@@ -75,13 +75,13 @@ class EventAttendeesController extends MyBaseController
     }
 
     /**
-     * Show the 'Create Attendee' modal
+     * Show the 'Invite Attendee' modal
      *
      * @param Request $request
      * @param $event_id
      * @return string|View
      */
-    public function showCreateAttendee(Request $request, $event_id)
+    public function showInviteAttendee(Request $request, $event_id)
     {
         $event = Event::scope()->find($event_id);
 
@@ -90,28 +90,27 @@ class EventAttendeesController extends MyBaseController
          * @todo This is a bit hackish
          */
         if ($event->tickets->count() === 0) {
-            return '<script>showMessage("You need to create a ticket before you can add an attendee.");</script>';
+            return '<script>showMessage("You need to create a ticket before you can invite an attendee.");</script>';
         }
 
-        return view('ManageEvent.Modals.CreateAttendee', [
+        return view('ManageEvent.Modals.InviteAttendee', [
             'event'   => $event,
             'tickets' => $event->tickets()->lists('title', 'id'),
         ]);
     }
 
     /**
-     * Create an attendee
+     * Invite an attendee
      *
      * @param Request $request
      * @param $event_id
      * @return mixed
      */
-    public function postCreateAttendee(Request $request, $event_id)
+    public function postInviteAttendee(Request $request, $event_id)
     {
         $rules = [
             'first_name'   => 'required',
             'ticket_id'    => 'required|exists:tickets,id,account_id,' . \Auth::user()->account_id,
-            'ticket_price' => 'numeric|required',
             'email'        => 'email|required',
         ];
 
@@ -130,7 +129,7 @@ class EventAttendeesController extends MyBaseController
         }
 
         $ticket_id = $request->get('ticket_id');
-        $ticket_price = $request->get('ticket_price');
+        $ticket_price = 0;
         $attendee_first_name = $request->get('first_name');
         $attendee_last_name = $request->get('last_name');
         $attendee_email = $request->get('email');
@@ -195,10 +194,10 @@ class EventAttendeesController extends MyBaseController
             $this->dispatch(new GenerateTicket($order->order_reference."-".$attendee->reference_index));
 
             if ($email_attendee == '1') {
-              TicketMailer::sendAttendeeTicket($attendee);
+              TicketMailer::sendAttendeeInvite($attendee);
             }
 
-            session()->flash('message', 'Attendee Successfully Created');
+            session()->flash('message', 'Attendee Successfully Invited');
 
             DB::commit();
 
@@ -216,7 +215,7 @@ class EventAttendeesController extends MyBaseController
 
             return response()->json([
                 'status' => 'error',
-                'error'  => 'An error occurred while creating this attendee. Please try again.'
+                'error'  => 'An error occurred while inviting this attendee. Please try again.'
             ]);
         }
 
@@ -259,7 +258,6 @@ class EventAttendeesController extends MyBaseController
     {
         $rules = [
             'ticket_id'      => 'required|exists:tickets,id,account_id,' . \Auth::user()->account_id,
-            'ticket_price'   => 'numeric',
             'attendees_list' => 'required|mimes:csv,txt|max:5000|',
         ];
 
@@ -277,10 +275,7 @@ class EventAttendeesController extends MyBaseController
         }
 
         $ticket_id = $request->get('ticket_id');
-        $ticket_price = $request->get('ticket_price');
-        if ($request->get('ticket_price') == null) {
-            $ticket_price = 0;
-        }
+        $ticket_price = 0;
         $email_attendee = $request->get('email_ticket');
         $num_added = 0;
         if ($request->file('attendees_list')) {
@@ -311,6 +306,7 @@ class EventAttendeesController extends MyBaseController
                     $order->account_id = Auth::user()->account_id;
                     $order->event_id = $event_id;
                     $order->save();
+
                     /**
                      * Update qty sold
                      */
@@ -352,13 +348,13 @@ class EventAttendeesController extends MyBaseController
 
                     $this->dispatch(new GenerateTicket($attendee->getReferenceAttribute()));
                     if ($email_attendee == '1') {
-                        TicketMailer::sendAttendeeTicket($attendee);
+                        TicketMailer::sendAttendeeInvite($attendee);
                     }
                 }
             };
         }
 
-        session()->flash('message', $num_added . ' Attendees Successfully Created');
+        session()->flash('message', $num_added . ' Attendees Successfully Invited');
 
         return response()->json([
             'status'      => 'success',

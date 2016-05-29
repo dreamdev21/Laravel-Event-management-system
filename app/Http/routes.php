@@ -413,14 +413,14 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventAttendeesController@postResendTicketToAttendee',
         ]);
 
-        Route::get('{event_id}/attendees/create', [
-            'as'   => 'showCreateAttendee',
-            'uses' => 'EventAttendeesController@showCreateAttendee',
+        Route::get('{event_id}/attendees/invite', [
+            'as'   => 'showInviteAttendee',
+            'uses' => 'EventAttendeesController@showInviteAttendee',
         ]);
 
-        Route::post('{event_id}/attendees/create', [
-            'as'   => 'postCreateAttendee',
-            'uses' => 'EventAttendeesController@postCreateAttendee',
+        Route::post('{event_id}/attendees/invite', [
+            'as'   => 'postInviteAttendee',
+            'uses' => 'EventAttendeesController@postInviteAttendee',
         ]);
 
         Route::get('{event_id}/attendees/import', [
