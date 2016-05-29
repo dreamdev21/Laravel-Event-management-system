@@ -438,6 +438,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventAttendeesController@showPrintAttendees',
         ]);
 
+        Route::get('{event_id}/attendees/{attendee_id}/export_ticket', [
+            'as'   => 'showExportTicket',
+            'uses' => 'EventAttendeesController@showExportTicket',
+        ]);
+
         Route::get('{event_id}/attendees/export/{export_as?}', [
             'as'   => 'showExportAttendees',
             'uses' => 'EventAttendeesController@showExportAttendees',

@@ -129,6 +129,9 @@ Attendees
                                             data-href="{{route('showResendTicketToAttendee', ['attendee_id'=>$attendee->id])}}"
                                             class="loadModal"
                                             > Resend Ticket</a></li>
+                                        <li><a
+                                            href="{{route('showExportTicket', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
+                                            > Ticket PDF</a></li>
                                     </ul>
                                 </div>
 

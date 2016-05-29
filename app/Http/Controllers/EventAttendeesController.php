@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mailers\TicketMailer;
+use App\Jobs\GenerateTicket;
 use App\Commands\MessageAttendeesCommand;
-use App\Commands\OrderTicketsCommand;
-use App\Commands\SendAttendeeTicketCommand;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
@@ -19,6 +19,8 @@ use Excel;
 use Mail;
 use Response;
 use Validator;
+use Config;
+use Log;
 
 class EventAttendeesController extends MyBaseController
 {
@@ -190,8 +192,10 @@ class EventAttendeesController extends MyBaseController
             $attendee->reference_index = 1;
             $attendee->save();
 
+            $this->dispatch(new GenerateTicket($order->order_reference."-".$attendee->reference_index));
+
             if ($email_attendee == '1') {
-                $this->dispatch(new OrderTicketsCommand($order, false));
+              TicketMailer::sendAttendeeTicket($attendee);
             }
 
             session()->flash('message', 'Attendee Successfully Created');
@@ -346,8 +350,9 @@ class EventAttendeesController extends MyBaseController
                     $attendee->reference_index = 1;
                     $attendee->save();
 
+                    $this->dispatch(new GenerateTicket($attendee->getReferenceAttribute()));
                     if ($email_attendee == '1') {
-                        $this->dispatch(new OrderTicketsCommand($order, false));
+                        TicketMailer::sendAttendeeTicket($attendee);
                     }
                 }
             };
@@ -508,6 +513,32 @@ class EventAttendeesController extends MyBaseController
             'status'  => 'success',
             'message' => 'Message Successfully Sent',
         ]);
+    }
+
+    /**
+     * Downloads the ticket of an attendee as PDF
+     *
+     * @param $event_id
+     * @param $attendee_id
+     */
+    public function showExportTicket($event_id, $attendee_id)
+    {
+        $attendee = Attendee::scope()->findOrFail($attendee_id);
+
+        Config::set('queue.default', 'sync');
+        Log::info("*********");
+        Log::info($attendee_id);
+        Log::info($attendee);
+
+
+        $this->dispatch(new GenerateTicket($attendee->order->order_reference."-".$attendee->reference_index));
+
+        $pdf_file_name = $attendee->order->order_reference.'-'.$attendee->reference_index;
+        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$pdf_file_name;
+        $pdf_file = $pdf_file_path.'.pdf';
+
+
+        return response()->download($pdf_file);
     }
 
     /**
@@ -728,7 +759,8 @@ class EventAttendeesController extends MyBaseController
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        $this->dispatch(new SendAttendeeTicketCommand($attendee));
+        $this->dispatch(new GenerateTicket($attendee->getReferenceAttribute()));
+        TicketMailer::sendAttendeeTicket($attendee);
 
         return response()->json([
             'status'  => 'success',

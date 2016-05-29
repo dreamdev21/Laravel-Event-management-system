@@ -13,8 +13,19 @@ php:
   links:
     - db
     - maildev
+    - redis
   volumes:
     - .:/usr/share/nginx/html/attendize
+php-worker:
+  build: .
+  dockerfile: Dockerfile-php
+  links:
+    - db
+    - maildev
+    - redis
+  volumes:
+    - .:/usr/share/nginx/html/attendize
+  command: php artisan queue:work --daemon
 db:
   image: postgres
   environment:
@@ -29,3 +40,5 @@ maildev:
   image: djfarrelly/maildev
   ports:
     - "1080:80"
+redis:
+  image: redis
