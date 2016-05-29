@@ -23,8 +23,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                {!! Form::label('attendees_list', 'Import File', array('class'=>'control-label required')) !!}
-								
+                                {!! Form::labelWithHelp('attendees_list', 'Import File', array('class'=>'control-label required'),
+                                    'File must be .csv and the first line must contains first_name,last_name,email') !!}
                                 {!!  Form::styledFile('attendees_list',1,array('id'=>'input-attendees_list'))  !!}
                                 </div>
                             </div>
