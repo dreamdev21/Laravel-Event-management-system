@@ -20,7 +20,7 @@ class TicketMailer
       $message->to($order->email);
       $message->subject('Your tickets for the event '.$order->event->title);
 
-      $file_name = $order->reference;
+      $file_name = $order->order_reference;
       $file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$file_name.'.pdf';
 
       $message->attach($file_path);

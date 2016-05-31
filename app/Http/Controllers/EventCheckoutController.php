@@ -605,7 +605,7 @@ class EventCheckoutController extends Controller
             /*
              * Queue up some tasks - Emails to be sent, PDFs etc.
              */
-        $this->dispatch(new GenerateTicket($order->reference));
+        $this->dispatch(new GenerateTicket($order->order_reference));
         TicketMailer::sendOrderTickets($order);
 
 
