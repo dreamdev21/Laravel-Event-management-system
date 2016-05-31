@@ -413,14 +413,14 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventAttendeesController@postResendTicketToAttendee',
         ]);
 
-        Route::get('{event_id}/attendees/create', [
-            'as'   => 'showCreateAttendee',
-            'uses' => 'EventAttendeesController@showCreateAttendee',
+        Route::get('{event_id}/attendees/invite', [
+            'as'   => 'showInviteAttendee',
+            'uses' => 'EventAttendeesController@showInviteAttendee',
         ]);
 
-        Route::post('{event_id}/attendees/create', [
-            'as'   => 'postCreateAttendee',
-            'uses' => 'EventAttendeesController@postCreateAttendee',
+        Route::post('{event_id}/attendees/invite', [
+            'as'   => 'postInviteAttendee',
+            'uses' => 'EventAttendeesController@postInviteAttendee',
         ]);
 
         Route::get('{event_id}/attendees/import', [
@@ -436,6 +436,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
         Route::get('{event_id}/attendees/print', [
             'as'   => 'showPrintAttendees',
             'uses' => 'EventAttendeesController@showPrintAttendees',
+        ]);
+
+        Route::get('{event_id}/attendees/{attendee_id}/export_ticket', [
+            'as'   => 'showExportTicket',
+            'uses' => 'EventAttendeesController@showExportTicket',
         ]);
 
         Route::get('{event_id}/attendees/export/{export_as?}', [
