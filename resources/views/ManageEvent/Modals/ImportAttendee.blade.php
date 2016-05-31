@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 class="modal-title">
                     <i class="ico-user-plus"></i>
-                    Import Attendees</h3>
+                    Invite Attendees</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -18,24 +18,13 @@
                                    {!! Form::select('ticket_id', $tickets, null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                   {!! Form::label('ticket_price', 'Ticket Price', array('class'=>'control-label')) !!}
-                                    {!!  Form::text('ticket_price', Input::old('price'),
-                                                array(
-                                                'class'=>'form-control',
-                                                'placeholder'=>'E.g: 25.99'
-                                                ))  !!}
-                                </div>
-                            </div>
                         </div>
 						<!-- Import -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                {!! Form::label('attendees_list', 'Import File', array('class'=>'control-label required')) !!}
-								
+                                {!! Form::labelWithHelp('attendees_list', 'Import File', array('class'=>'control-label required'),
+                                    'File must be .csv and the first line must contains first_name,last_name,email') !!}
                                 {!!  Form::styledFile('attendees_list',1,array('id'=>'input-attendees_list'))  !!}
                                 </div>
                             </div>
@@ -45,7 +34,7 @@
                                 <div class="form-group">
                                     <div class="checkbox custom-checkbox">
                                         <input type="checkbox" name="email_ticket" id="email_ticket" value="1" />
-                                        <label for="email_ticket">&nbsp;&nbsp;Send confirmation & ticket to attendee.</label>
+                                        <label for="email_ticket">&nbsp;&nbsp;Send invitation & ticket to attendees.</label>
                                     </div>
                                 </div>
                             </div>

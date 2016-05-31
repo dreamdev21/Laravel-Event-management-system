@@ -519,6 +519,7 @@ class EventCheckoutController extends Controller
              */
             foreach ($ticket_order['tickets'] as $attendee_details) {
 
+<<<<<<< 15de38ab91b55e6c557d0db15a10718714e90c3d
                 /*
                  * Update ticket's quantity sold
                  */
@@ -531,6 +532,18 @@ class EventCheckoutController extends Controller
                 $ticket->increment('sales_volume', ($attendee_details['ticket']['price'] * $attendee_details['qty']));
                 $ticket->increment('organiser_fees_volume',
                     ($attendee_details['ticket']['organiser_booking_fee'] * $attendee_details['qty']));
+=======
+                $attendee = new Attendee();
+                $attendee->first_name = $request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']];
+                $attendee->last_name = $request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']];
+                $attendee->email = $request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']];
+                $attendee->event_id = $event_id;
+                $attendee->order_id = $order->id;
+                $attendee->ticket_id = $attendee_details['ticket']['id'];
+                $attendee->account_id = $event->account->id;
+                $attendee->reference_index = $attendee_increment;
+                $attendee->save();
+>>>>>>> ticket refactoring
 
 
                 /*
@@ -602,12 +615,11 @@ class EventCheckoutController extends Controller
              */
             session()->forget('ticket_order_' . $event->id);
 
+<<<<<<< 15de38ab91b55e6c557d0db15a10718714e90c3d
             /*
              * Queue up some tasks - Emails to be sent, PDFs etc.
              */
-        $this->dispatch(new GenerateTicket($order->reference));
-        TicketMailer::sendOrderTickets($order);
-
+            $this->dispatch(new OrderTicketsCommand($order));
 
 
         } catch (Exception $e) {
@@ -623,6 +635,14 @@ class EventCheckoutController extends Controller
         }
 
         DB::commit();
+=======
+        /*
+         * Queue up some tasks - Emails to be sent, PDFs etc.
+         */
+        $this->dispatch(new GenerateTicket($order->reference));
+        TicketMailer::sendOrderTickets($order);
+
+>>>>>>> ticket refactoring
 
         if ($return_json) {
             return response()->json([
