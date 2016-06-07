@@ -24,11 +24,8 @@
             $('.colorpicker').minicolors({
                  changeDelay: 500,
                  change: function() {
-                    $('#OrganiserPageDesign input').on('change', function (e) {
-                        var replaced = replaceUrlParam('{{route('showOrganiserHome', ['organiser_id'=>$organiser->id])}}', 'preview_styles', $('#OrganiserPageDesign form').serialize());
+                        var replaced = replaceUrlParam('{{route('showOrganiserHome', ['organiser_id'=>$organiser->id])}}', 'preview_styles', encodeURIComponent($('#OrganiserPageDesign form').serialize()));
                         document.getElementById('previewIframe').src = replaced;
-                        e.preventDefault();
-                    });
                 }
             });
 
