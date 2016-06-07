@@ -443,6 +443,43 @@ function toggleSubmitDisabled($submitButton) {
 }
 
 /**
+ * 
+ * @returns {{}}
+ */
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+/**
+ * Replaces a parameter in a URL with a new parameter
+ *
+ * @param url
+ * @param paramName
+ * @param paramValue
+ * @returns {*}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('\\b(' + paramName + '=).*?(&|$)')
+    if (url.search(pattern) >= 0) {
+        return url.replace(pattern, '$1' + paramValue + '$2');
+    }
+    return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
+}
+
+/**
  * Shows users a message.
  * Currently uses humane.js
  *
