@@ -407,7 +407,7 @@
                         <div class="col-sm-6">
                             <h4>Event Page Preview</h4>
 
-                            <div class="iframe_wrap" style="height: 600px; border: 1px solid #ccc;">
+                            <div class="iframe_wrap" style="overflow:hidden; height: 600px; border: 1px solid #ccc;">
                                 <iframe id="previewIframe"
                                         src="{{route('showEventPagePreview', ['event_id'=>$event->id])}}"
                                         frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%"

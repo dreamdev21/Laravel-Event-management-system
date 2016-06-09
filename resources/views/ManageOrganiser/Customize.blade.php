@@ -184,7 +184,7 @@
                         <div class="col-md-6">
                             <h4>Organiser Page Preview</h4>
                             <div class="preview iframe_wrap"
-                                 style="height: 500px; border: 1px solid #ccc; overflow: hidden;">
+                                 style="overflow:hidden; height: 500px; border: 1px solid #ccc; overflow: hidden;">
                                 <iframe id="previewIframe"
                                         src="{{ route('showOrganiserHome', ['organiser_id' => $organiser->id]) }}"
                                         frameborder="0" style="overflow:hidden;height:100%;width:100%" width="100%"
