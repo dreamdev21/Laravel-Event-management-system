@@ -9342,6 +9342,36 @@ $.cf = {
         }
     });
 
+    /**
+     * Scale the preview iFrames when changing the design of organiser/event pages.
+     */
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+        var target = $(e.target).attr("href");
+
+        if ($(target).hasClass('scale_iframe')) {
+
+            var $iframe = $('iframe', target);
+            var iframeWidth = $('.iframe_wrap').innerWidth();
+            var iframeHeight = $('.iframe_wrap').height();
+
+            $iframe.css({
+                width: 1200,
+                height: 1400
+            });
+
+            var iframeScale = (iframeWidth / 1200);
+            $iframe.css({
+                '-webkit-transform': 'scale(' + iframeScale + ')',
+                '-ms-transform': 'scale(' + iframeScale + ')',
+                'transform': 'scale(' + iframeScale + ')',
+                '-webkit-transform-origin': '0 0',
+                '-ms-transform-origin': '0 0',
+                'transform-origin': '0 0',
+            });
+        }
+    });
+
 });
 
 function changeQuestionType(select)

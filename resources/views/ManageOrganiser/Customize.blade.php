@@ -22,14 +22,12 @@
     <script>
         $(function () {
             $('.colorpicker').minicolors({
-                 changeDelay: 500,
-                 change: function() {
-                        var replaced = replaceUrlParam('{{route('showOrganiserHome', ['organiser_id'=>$organiser->id])}}', 'preview_styles', encodeURIComponent($('#OrganiserPageDesign form').serialize()));
-                        document.getElementById('previewIframe').src = replaced;
+                changeDelay: 500,
+                change: function () {
+                    var replaced = replaceUrlParam('{{route('showOrganiserHome', ['organiser_id'=>$organiser->id])}}', 'preview_styles', encodeURIComponent($('#OrganiserPageDesign form').serialize()));
+                    document.getElementById('previewIframe').src = replaced;
                 }
             });
-
-
 
         });
     </script>
@@ -147,7 +145,7 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
-                <div class="tab-pane" id="OrganiserPageDesign">
+                <div class="tab-pane scale_iframe" id="OrganiserPageDesign">
                     {!! Form::model($organiser, array('url' => route('postEditOrganiserPageDesign', ['event_id' => $organiser->id]), 'class' => 'ajax ')) !!}
 
                     <div class="row">
@@ -185,8 +183,10 @@
                         </div>
                         <div class="col-md-6">
                             <h4>Organiser Page Preview</h4>
-                            <div class="preview" style="height: 600px; border: 1px solid #ccc;">
-                                <iframe id="previewIframe" src="{{ route('showOrganiserHome', ['organiser_id' => $organiser->id]) }}"
+                            <div class="preview iframe_wrap"
+                                 style="height: 500px; border: 1px solid #ccc; overflow: hidden;">
+                                <iframe id="previewIframe"
+                                        src="{{ route('showOrganiserHome', ['organiser_id' => $organiser->id]) }}"
                                         frameborder="0" style="overflow:hidden;height:100%;width:100%" width="100%"
                                         height="100%"></iframe>
                             </div>

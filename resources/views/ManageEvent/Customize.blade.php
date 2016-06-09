@@ -97,7 +97,7 @@
             /* Color picker */
             $('.colorpicker').minicolors();
 
-            $('#ticket_design .colorpicker').on('change', function(e) {
+            $('#ticket_design .colorpicker').on('change', function (e) {
                 var borderColor = $('input[name="ticket_border_color"]').val();
                 var bgColor = $('input[name="ticket_bg_color"]').val();
                 var textColor = $('input[name="ticket_text_color"]').val();
@@ -124,8 +124,8 @@
 
             });
 
-
         });
+
 
     </script>
 
@@ -296,12 +296,12 @@
 
                         <div class="custom-checkbox mb5">
 
-                                {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_facebook', 'Facebook') !!}
                         </div>
                         <div class="custom-checkbox mb5">
 
-                                {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_twitter', 'Twitter') !!}
 
                         </div>
@@ -334,7 +334,7 @@
                     {!! Form::close() !!}
 
                 </div>
-                <div class="tab-pane {{$tab == 'design' ? 'active' : ''}}" id="design">
+                <div class="tab-pane scale_iframe {{$tab == 'design' ? 'active' : ''}}" id="design">
 
                     <div class="row">
                         <div class="col-sm-6">
@@ -407,7 +407,7 @@
                         <div class="col-sm-6">
                             <h4>Event Page Preview</h4>
 
-                            <div style="height: 600px; border: 1px solid #ccc;">
+                            <div class="iframe_wrap" style="height: 600px; border: 1px solid #ccc;">
                                 <iframe id="previewIframe"
                                         src="{{route('showEventPagePreview', ['event_id'=>$event->id])}}"
                                         frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%"
@@ -505,8 +505,6 @@
                     {!! Form::close() !!}
 
                 </div>
-
-
 
 
                 <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
