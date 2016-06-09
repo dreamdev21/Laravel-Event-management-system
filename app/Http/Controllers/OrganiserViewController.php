@@ -39,7 +39,7 @@ class OrganiserViewController extends Controller
         }
 
         $upcoming_events = $organiser->events()->where('end_date', '>=', Carbon::now())->get();
-        $past_events = $organiser->events()->where('end_date', '<', Carbon::now())->get();
+        $past_events = $organiser->events()->where('end_date', '<', Carbon::now())->limit(10)->get();
 
         $data = [
             'organiser'         => $organiser,
