@@ -131,7 +131,7 @@ Attendees
                                             > Resend Ticket</a></li>
                                         <li><a
                                             href="{{route('showExportTicket', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
-                                            > Ticket PDF</a></li>
+                                            >Download PDF Ticket</a></li>
                                     </ul>
                                 </div>
 
