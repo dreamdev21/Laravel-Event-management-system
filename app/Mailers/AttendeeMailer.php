@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Attendize\mailers;
+namespace App\Mailers;
 
 use App\Models\Attendee;
 use App\Models\Message;

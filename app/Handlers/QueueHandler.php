@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Attendize\handlers;
+namespace App\Handlers;
 
-use App\Attendize\mailers\OrderMailer;
+use App\Mailers\OrderMailer;
 use Attendee;
 use Order;
 

@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use App\Attendize\mailers\AttendeeMailer;
+use App\Mailers\AttendeeMailer;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
