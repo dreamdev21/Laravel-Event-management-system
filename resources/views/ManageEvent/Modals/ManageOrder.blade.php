@@ -157,6 +157,11 @@
                                             Cancelled
                                         </span>
                                         @endif
+                                        @if($attendee->is_refunded)
+                                            <span class="label label-danger">
+                                                Refunded
+                                            </span>
+                                        @endif
                                         {{$attendee->first_name}}
                                         {{$attendee->last_name}}
                                     </td>
