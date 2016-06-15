@@ -4199,6 +4199,10 @@ function processFormErrors($form, errors)
           .parent()
           .addClass('has-error');
     } else {
+      if($input.parent().hasClass('input-group')) {
+        $input = $input.parent();
+      }
+
       $input.after('<div class="help-block error">' + error + '</div>')
           .parent()
           .addClass('has-error');
