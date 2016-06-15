@@ -13,7 +13,6 @@ use Validator;
 
 class EventViewController extends Controller
 {
-
     /**
      * Show the homepage for an event
      *

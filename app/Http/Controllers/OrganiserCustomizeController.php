@@ -43,12 +43,12 @@ class OrganiserCustomizeController extends MyBaseController
             ]);
         }
 
-        $organiser->name = $request->get('name');
-        $organiser->about = $request->get('about');
-        $organiser->email = $request->get('email');
+        $organiser->name                  = $request->get('name');
+        $organiser->about                 = $request->get('about');
+        $organiser->email                 = $request->get('email');
         $organiser->enable_organiser_page = $request->get('enable_organiser_page');
-        $organiser->facebook = $request->get('facebook');
-        $organiser->twitter = $request->get('twitter');
+        $organiser->facebook              = $request->get('facebook');
+        $organiser->twitter               = $request->get('twitter');
 
         if ($request->get('remove_current_image') == '1') {
             $organiser->logo_path = '';
@@ -97,13 +97,13 @@ class OrganiserCustomizeController extends MyBaseController
         $event = Organiser::scope()->findOrFail($organiser_id);
 
         $rules = [
-            'page_bg_color' => ['required'],
+            'page_bg_color'        => ['required'],
             'page_header_bg_color' => ['required'],
-            'page_text_color' => ['required'],
+            'page_text_color'      => ['required'],
         ];
         $messages = [
             'page_header_bg_color.required' => 'Please enter a header background color.',
-            'page_bg_color.required' => 'Please enter a background color.',
+            'page_bg_color.required'        => 'Please enter a background color.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -115,14 +115,14 @@ class OrganiserCustomizeController extends MyBaseController
             ]);
         }
 
-        $event->page_bg_color = $request->get('page_bg_color');
+        $event->page_bg_color        = $request->get('page_bg_color');
         $event->page_header_bg_color = $request->get('page_header_bg_color');
-        $event->page_text_color = $request->get('page_text_color');
+        $event->page_text_color      = $request->get('page_text_color');
 
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Organiser Design Successfully Updated',
         ]);
     }

@@ -18,7 +18,6 @@ class OrganiserController extends MyBaseController
         return view('ManageOrganiser.SelectOrganiser');
     }
 
-
     /**
      * Show the create organiser page
      *
@@ -41,16 +40,16 @@ class OrganiserController extends MyBaseController
 
         if (!$organiser->validate($request->all())) {
             return response()->json([
-                        'status'   => 'error',
-                        'messages' => $organiser->errors(),
+                'status'   => 'error',
+                'messages' => $organiser->errors(),
             ]);
         }
 
-        $organiser->name = $request->get('name');
-        $organiser->about = $request->get('about');
-        $organiser->email = $request->get('email');
-        $organiser->facebook = $request->get('facebook');
-        $organiser->twitter = $request->get('twitter');
+        $organiser->name             = $request->get('name');
+        $organiser->about            = $request->get('about');
+        $organiser->email            = $request->get('email');
+        $organiser->facebook         = $request->get('facebook');
+        $organiser->twitter          = $request->get('twitter');
         $organiser->confirmation_key = str_random(15);
 
         if ($request->hasFile('organiser_logo')) {
@@ -73,16 +72,17 @@ class OrganiserController extends MyBaseController
                 $organiser->logo_path = config('attendize.organiser_images_path').'/'.$filename;
             }
         }
+
         $organiser->save();
 
         session()->flash('message', 'Successfully Created Organiser');
 
         return response()->json([
-                    'status'      => 'success',
-                    'message'     => 'Refreshing..',
-                    'redirectUrl' => route('showOrganiserDashboard', [
-                        'organiser_id' => $organiser->id,
-                    ]),
+            'status'      => 'success',
+            'message'     => 'Refreshing..',
+            'redirectUrl' => route('showOrganiserDashboard', [
+                'organiser_id' => $organiser->id,
+            ]),
         ]);
     }
 }

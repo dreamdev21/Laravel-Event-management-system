@@ -41,6 +41,4 @@ class OrganiserEventsController extends MyBaseController
 
         return view('ManageOrganiser.Events', $data);
     }
-
-    
 }
