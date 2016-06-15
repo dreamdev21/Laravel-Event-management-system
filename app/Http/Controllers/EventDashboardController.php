@@ -37,17 +37,15 @@ class EventDashboardController extends MyBaseController
 
         $startDate = new DateTime("-$num_days days");
         $dateItter = new DatePeriod(
-                $startDate, new DateInterval('P1D'), $num_days
+            $startDate, new DateInterval('P1D'), $num_days
         );
 
-        $original = $chartData;
-
         /*
-         * I have no idea what I was doing here, but it seems to work;
+         * Iterate through each possible date, if no stats exist for this date set default values
+         * Otherwise, if a date does exist use these values
          */
         $result = [];
         $tickets_data = [];
-        $i = 0;
         foreach ($dateItter as $date) {
             $views = 0;
             $sales_volume = 0;
@@ -55,15 +53,16 @@ class EventDashboardController extends MyBaseController
             $tickets_sold = 0;
             $organiser_fees_volume = 0;
 
-            foreach ($original as $item) {
+            foreach ($chartData as $item) {
                 if ($item['date'] == $date->format('Y-m-d')) {
-                    $views = $item['views'];
-                    $sales_volume = $item['sales_volume'];
+                    $views                 = $item['views'];
+                    $sales_volume          = $item['sales_volume'];
                     $organiser_fees_volume = $item['organiser_fees_volume'];
-                    $unique_views = $item['unique_views'];
-                    $tickets_sold = $item['tickets_sold'];
+                    $unique_views          = $item['unique_views'];
+                    $tickets_sold          = $item['tickets_sold'];
+
+                    break;
                 }
-                $i++;
             }
 
             $result[] = [
@@ -78,7 +77,7 @@ class EventDashboardController extends MyBaseController
         foreach($event->tickets as $ticket) {
             $tickets_data[] = [
                 'value' => $ticket->quantity_sold,
-                'label'       => $ticket->title,
+                'label' => $ticket->title,
             ];
         }
 
@@ -90,5 +89,4 @@ class EventDashboardController extends MyBaseController
 
         return view('ManageEvent.Dashboard', $data);
     }
-
 }

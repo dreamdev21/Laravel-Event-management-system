@@ -102,7 +102,7 @@ class RemindersController extends Controller
         ]);
 
         $credentials = $request->only(
-                'email', 'password', 'password_confirmation', 'token'
+            'email', 'password', 'password_confirmation', 'token'
         );
 
         $response = $this->passwords->reset($credentials, function ($user, $password) {
@@ -121,8 +121,8 @@ class RemindersController extends Controller
 
             default:
                 return redirect()->back()
-                                ->withInput($request->only('email'))
-                                ->withErrors(['email' => trans($response)]);
+                        ->withInput($request->only('email'))
+                        ->withErrors(['email' => trans($response)]);
         }
     }
 }

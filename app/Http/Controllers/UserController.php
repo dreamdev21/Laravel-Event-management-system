@@ -18,7 +18,7 @@ class UserController extends Controller
     public function showEditUser()
     {
         $data = [
-            'user'  => Auth::user(),
+            'user' => Auth::user(),
         ];
 
         return view('ManageUser.Modals.EditUser', $data);
@@ -52,8 +52,8 @@ class UserController extends Controller
 
         if ($validation->fails()) {
             return response()->json([
-                        'status'   => 'error',
-                        'messages' => $validation->messages()->toArray(),
+                'status'   => 'error',
+                'messages' => $validation->messages()->toArray(),
             ]);
         }
 
@@ -64,13 +64,13 @@ class UserController extends Controller
         }
 
         $user->first_name = $request->get('first_name');
-        $user->last_name = $request->get('last_name');
+        $user->last_name  = $request->get('last_name');
 
         $user->save();
 
         return response()->json([
-                    'status'  => 'success',
-                    'message' => 'Successfully Edited User',
+            'status'  => 'success',
+            'message' => 'Successfully Edited User',
         ]);
     }
 }

@@ -94,7 +94,6 @@ class EventCheckoutController extends Controller
 
             $ticket_quantity_remaining = $ticket->quantity_remaining;
 
-
             $max_per_person = min($ticket_quantity_remaining, $ticket->max_per_person);
 
             $quantity_available_validation_rules['ticket_' . $ticket_id] = [
@@ -159,16 +158,12 @@ class EventCheckoutController extends Controller
                  * Validation rules for custom questions
                  */
                 foreach ($ticket->questions as $question) {
-
                     if ($question->is_required && $question->is_enabled) {
                         $validation_rules['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id] = ['required'];
                         $validation_messages['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id . '.required'] = "This question is required";
                     }
-
                 }
-
             }
-
         }
 
         if (empty($tickets)) {
@@ -302,8 +297,8 @@ class EventCheckoutController extends Controller
                 $gateway = Omnipay::create($ticket_order['payment_gateway']->name);
 
                 $gateway->initialize($ticket_order['account_payment_gateway']->config + [
-                        'testMode' => config('attendize.enable_test_payments'),
-                    ]);
+                    'testMode' => config('attendize.enable_test_payments'),
+                ]);
 
                 switch ($ticket_order['payment_gateway']->id) {
                     case config('attendize.payment_gateway_paypal'):
@@ -322,7 +317,6 @@ class EventCheckoutController extends Controller
                                 ? $ticket_order['account_payment_gateway']->config['brandingName']
                                 : $event->organiser->name
                         ];
-                        break;
                         break;
                     case config('attendize.payment_gateway_stripe'):
                         $token = $request->get('stripeToken');
@@ -350,13 +344,10 @@ class EventCheckoutController extends Controller
                 $response = $transaction->send();
 
                 if ($response->isSuccessful()) {
-
                     session()->push('ticket_order_' . $event_id . '.transaction_id', $response->getTransactionReference());
 
                     return $this->completeOrder($event_id);
-
                 } elseif ($response->isRedirect()) {
-
                     /*
                      * As we're going off-site for payment we need to store some into in a session
                      */
@@ -368,7 +359,6 @@ class EventCheckoutController extends Controller
                         'redirectData' => $response->getRedirectData(),
                         'message'      => 'Redirecting to ' . $ticket_order['payment_gateway']->provider_name
                     ]);
-
                 } else {
                     // display error to customer
                     return response()->json([
@@ -389,7 +379,6 @@ class EventCheckoutController extends Controller
             }
         }
 
-
         /*
          * No payment required so go ahead and complete the order
          */
@@ -408,7 +397,6 @@ class EventCheckoutController extends Controller
      */
     public function showEventCheckoutPaymentReturn(Request $request, $event_id)
     {
-
         if ($request->get('is_payment_cancelled') == '1') {
             session()->flash('message', 'You cancelled your payment. You may try again.');
             return response()->redirectToRoute('showEventCheckout', [
@@ -438,7 +426,6 @@ class EventCheckoutController extends Controller
                 'is_payment_failed' => 1,
             ]);
         }
-
     }
 
     /**
@@ -450,18 +437,15 @@ class EventCheckoutController extends Controller
      */
     public function completeOrder($event_id, $return_json = true)
     {
-
         DB::beginTransaction();
 
         try {
-
             $order = new Order();
             $ticket_order = session()->get('ticket_order_' . $event_id);
             $request_data = $ticket_order['request_data'][0];
             $event = Event::findOrFail($ticket_order['event_id']);
             $attendee_increment = 1;
             $ticket_questions = isset($request_data['ticket_holder_questions']) ? $request_data['ticket_holder_questions'] : [];
-
 
             /*
              * Create the order
@@ -518,7 +502,6 @@ class EventCheckoutController extends Controller
              * Add the attendees
              */
             foreach ($ticket_order['tickets'] as $attendee_details) {
-
                 /*
                  * Update ticket's quantity sold
                  */
@@ -531,7 +514,6 @@ class EventCheckoutController extends Controller
                 $ticket->increment('sales_volume', ($attendee_details['ticket']['price'] * $attendee_details['qty']));
                 $ticket->increment('organiser_fees_volume',
                     ($attendee_details['ticket']['organiser_booking_fee'] * $attendee_details['qty']));
-
 
                 /*
                  * Insert order items (for use in generating invoices)
@@ -548,7 +530,6 @@ class EventCheckoutController extends Controller
                  * Create the attendees
                  */
                 for ($i = 0; $i < $attendee_details['qty']; $i++) {
-
                     $attendee = new Attendee();
                     $attendee->first_name = $request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']];
                     $attendee->last_name = $request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']];
@@ -560,13 +541,10 @@ class EventCheckoutController extends Controller
                     $attendee->reference_index = $attendee_increment;
                     $attendee->save();
 
-
                     /*
                      * Save the attendee's questions
                      */
                     foreach ($attendee_details['ticket']->questions as $question) {
-
-
                         $ticket_answer = isset($ticket_questions[$attendee_details['ticket']->id][$i][$question->id]) ? $ticket_questions[$attendee_details['ticket']->id][$i][$question->id] : null;
 
                         if (is_null($ticket_answer)) {
@@ -591,7 +569,6 @@ class EventCheckoutController extends Controller
                         }
                     }
 
-
                     /* Keep track of total number of attendees */
                     $attendee_increment++;
                 }
@@ -605,13 +582,9 @@ class EventCheckoutController extends Controller
             /*
              * Queue up some tasks - Emails to be sent, PDFs etc.
              */
-        $this->dispatch(new GenerateTicket($order->order_reference));
-        TicketMailer::sendOrderTickets($order);
-
-
-
+            $this->dispatch(new GenerateTicket($order->order_reference));
+            TicketMailer::sendOrderTickets($order);
         } catch (Exception $e) {
-
             Log::error($e);
             DB::rollBack();
 
@@ -619,7 +592,6 @@ class EventCheckoutController extends Controller
                 'status'  => 'error',
                 'message' => 'Whoops! There was a problem processing your order. Please try again.'
             ]);
-
         }
 
         DB::commit();
@@ -638,8 +610,6 @@ class EventCheckoutController extends Controller
             'is_embedded'     => $this->is_embedded,
             'order_reference' => $order->order_reference,
         ]);
-
-
     }
 
     /**
@@ -701,6 +671,4 @@ class EventCheckoutController extends Controller
         }
         return view('Public.ViewEvent.Partials.PDFTicket', $data);
     }
-
 }
-

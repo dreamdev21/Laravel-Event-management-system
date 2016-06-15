@@ -42,11 +42,11 @@ class OrganiserViewController extends Controller
         $past_events = $organiser->events()->where('end_date', '<', Carbon::now())->get();
 
         $data = [
-            'organiser'         => $organiser,
-            'tickets'           => $organiser->events()->orderBy('created_at', 'desc')->get(),
-            'is_embedded'       => 0,
-            'upcoming_events'   => $upcoming_events,
-            'past_events'       => $past_events,
+            'organiser'       => $organiser,
+            'tickets'         => $organiser->events()->orderBy('created_at', 'desc')->get(),
+            'is_embedded'     => 0,
+            'upcoming_events' => $upcoming_events,
+            'past_events'     => $past_events,
         ];
 
         return view('Public.ViewOrganiser.OrganiserPage', $data);

@@ -102,8 +102,8 @@ class EventController extends MyBaseController
 
             if ($validator->fails()) {
                 return Response::json([
-                            'status'   => 'error',
-                            'messages' => $validator->messages()->toArray(),
+                    'status'   => 'error',
+                    'messages' => $validator->messages()->toArray(),
                 ]);
             }
 
@@ -118,6 +118,10 @@ class EventController extends MyBaseController
         } elseif ($request->get('organiser_id')) {
             $event->organiser_id = $request->get('organiser_id');
         } else { /* Somethings gone horribly wrong */
+            return Response::json([
+                'status'   => 'error',
+                'messages' => 'There was an issue finding the organiser.',
+            ]);
         }
 
         $event->save();
@@ -149,12 +153,12 @@ class EventController extends MyBaseController
         }
 
         return response()->json([
-                    'status'      => 'success',
-                    'id'          => $event->id,
-                    'redirectUrl' => route('showEventTickets', [
-                        'event_id'  => $event->id,
-                        'first_run' => 'yup',
-                    ]),
+            'status'      => 'success',
+            'id'          => $event->id,
+            'redirectUrl' => route('showEventTickets', [
+                'event_id'  => $event->id,
+                'first_run' => 'yup',
+            ]),
         ]);
     }
 
@@ -256,10 +260,10 @@ class EventController extends MyBaseController
         }
 
         return response()->json([
-                    'status'      => 'success',
-                    'id'          => $event->id,
-                    'message'     => 'Event Successfully Updated',
-                    'redirectUrl' => '',
+            'status'      => 'success',
+            'id'          => $event->id,
+            'message'     => 'Event Successfully Updated',
+            'redirectUrl' => '',
         ]);
     }
 

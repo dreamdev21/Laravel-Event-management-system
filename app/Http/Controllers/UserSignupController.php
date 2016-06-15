@@ -95,8 +95,6 @@ class UserSignupController extends Controller
 
         session()->flash('message', 'Success! Your email is now verified. You can now login.');
 
-        //$this->auth->login($user);
-
         return redirect()->route('login');
     }
 }

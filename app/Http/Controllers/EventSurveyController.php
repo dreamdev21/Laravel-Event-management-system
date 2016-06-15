@@ -18,7 +18,6 @@ use Excel;
 
 class EventSurveyController extends MyBaseController
 {
-
     /**
      * Show the event survey page
      *
@@ -28,7 +27,6 @@ class EventSurveyController extends MyBaseController
      */
     public function showEventSurveys(Request $request, $event_id)
     {
-
         $event = Event::scope()->findOrFail($event_id);
 
         JavaScript::put([
@@ -70,7 +68,6 @@ class EventSurveyController extends MyBaseController
      */
     public function postCreateEventQuestion(StoreEventQuestionRequest $request, $event_id)
     {
-
         // Get the event or display a 'not found' warning.
         $event = Event::findOrFail($event_id);
 
@@ -324,7 +321,7 @@ class EventSurveyController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $question->id,
-            'message' => 'Whoops!, looks like something went wrong. Please try again.',
+            'message' => 'Whoops! Looks like something went wrong. Please try again.',
         ]);
     }
 
@@ -337,7 +334,6 @@ class EventSurveyController extends MyBaseController
      */
     public function postUpdateQuestionsOrder(Request $request)
     {
-
         $question_ids = $request->get('question_ids');
         $sort = 1;
 
@@ -352,7 +348,5 @@ class EventSurveyController extends MyBaseController
             'status'  => 'success',
             'message' => 'Question Order Successfully Updated',
         ]);
-
     }
-
 }

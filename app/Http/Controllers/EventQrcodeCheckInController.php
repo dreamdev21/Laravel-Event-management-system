@@ -59,7 +59,7 @@ class EventQrcodeCheckInController extends Controller
                         'tickets.title as ticket',
                     ])->first();
 
-        if(is_null($attendee)){
+        if (is_null($attendee)){
             return response()->json(['status'  => 'error', 'message' => "Invalid Ticket! Please try again."]);
         }
 
@@ -69,27 +69,26 @@ class EventQrcodeCheckInController extends Controller
                                     'has_arrived' => false
                                 ])->count();
 
-        if($relatedAttendesCount >= 1){
+        $appendedText = '';
+        if ($relatedAttendesCount >= 1){
             $confirmOrderTicketsRoute = route('confirmCheckInOrderTickets', [$event->id, $attendee->order_id]);
 
             $appendedText = '<br><br><form class="ajax" action="'. $confirmOrderTicketsRoute .'" method="POST">'. csrf_field() .'<button class="btn btn-primary btn-sm" type="submit"><i class="ico-ticket"></i> Check in all tickets associated to this order</button></form>';
-        } else {
-            $appendedText = '';
         }
 
         if ($attendee->has_arrived) {
             return response()->json([
-                        'status'  => 'error',
-                        'message' => 'Warning: This attendee has already been checked in at '. $attendee->arrival_time->format('H:i A, F j'). '.' . $appendedText
+                'status'  => 'error',
+                'message' => 'Warning: This attendee has already been checked in at '. $attendee->arrival_time->format('H:i A, F j'). '.' . $appendedText
             ]);
         }
 
         Attendee::find($attendee->id)->update(['has_arrived' => true, 'arrival_time' => Carbon::now()]);
 
         return response()->json([
-                    'status'  => 'success',
-                    'message' => 'Success !<br>Name: ' . $attendee->first_name . ' ' . $attendee->last_name . '<br>Reference: '. $attendee->reference . '<br>Ticket: '. $attendee->ticket . '.' . $appendedText
-                ]);
+            'status'  => 'success',
+            'message' => 'Success !<br>Name: ' . $attendee->first_name . ' ' . $attendee->last_name . '<br>Reference: '. $attendee->reference . '<br>Ticket: '. $attendee->ticket . '.' . $appendedText
+        ]);
     }
 
     /**
@@ -102,16 +101,15 @@ class EventQrcodeCheckInController extends Controller
     public function confirmOrderTickets($event_id, $order_id)
     {
         $updateRowsCount =  Attendee::scope()->where([
-                                'event_id' => $event_id, 
-                                'order_id' => $order_id, 
+                                'event_id' => $event_id,
+                                'order_id' => $order_id,
                                 'has_arrived' => false,
                                 'arrival_time' => Carbon::now(),
                             ])
                             ->update(['has_arrived' => true, 'arrival_time' => Carbon::now()]);
 
         return response()->json([
-
-           'message' => $updateRowsCount . ' Attendee(s) Checked in.'
+            'message' => $updateRowsCount . ' Attendee(s) Checked in.'
         ]);
     }
 }
