@@ -24,6 +24,14 @@
                         <label for="notify_attendee">&nbsp;&nbsp;Notify <b>{{$attendee->full_name}}</b> their ticket has been cancelled.</label>
                     </div>
                 </div>
+                @if(config('attendize.default_payment_gateway') == config('attendize.payment_gateway_stripe'))
+                    <div class="form-group">
+                            <div class="checkbox custom-checkbox">
+                                <input type="checkbox" name="refund_attendee" id="refund_attendee" value="1">
+                                <label for="refund_attendee">&nbsp;&nbsp;Refund <b>{{$attendee->full_name}}</b> for their ticket.</label>
+                            </div>
+                    </div>
+                @endif
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                {!! Form::hidden('attendee_id', $attendee->id) !!}
