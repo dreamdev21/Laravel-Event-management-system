@@ -197,7 +197,7 @@ return [
         'Crypt'        => Illuminate\Support\Facades\Crypt::class,
         'DB'           => Illuminate\Support\Facades\DB::class,
         'Eloquent'     => Illuminate\Database\Eloquent\Model::class,
-        'LaravelEvent' => Illuminate\Support\Facades\Event::class, // Changed Event to LaravelEvent
+        'LaravelEvent' => Illuminate\Support\Facades\Event::class,
         'File'         => Illuminate\Support\Facades\File::class,
         'Hash'         => Illuminate\Support\Facades\Hash::class,
         'Input'        => Illuminate\Support\Facades\Input::class,

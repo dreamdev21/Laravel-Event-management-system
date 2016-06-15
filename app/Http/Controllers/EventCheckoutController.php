@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\GenerateTicket;
-use App\Mailers\TicketMailer;
+use App\Events\OrderCompletedEvent;
 use App\Models\Affiliate;
 use App\Models\Attendee;
 use App\Models\Event;
@@ -351,7 +350,8 @@ class EventCheckoutController extends Controller
 
                 if ($response->isSuccessful()) {
 
-                    session()->push('ticket_order_' . $event_id . '.transaction_id', $response->getTransactionReference());
+                    session()->push('ticket_order_' . $event_id . '.transaction_id',
+                        $response->getTransactionReference());
 
                     return $this->completeOrder($event_id);
 
@@ -605,9 +605,8 @@ class EventCheckoutController extends Controller
             /*
              * Queue up some tasks - Emails to be sent, PDFs etc.
              */
-        $this->dispatch(new GenerateTicket($order->order_reference));
-        TicketMailer::sendOrderTickets($order);
-
+            Log::info('Firiing the event');
+            event(new OrderCompletedEvent($order));
 
 
         } catch (Exception $e) {

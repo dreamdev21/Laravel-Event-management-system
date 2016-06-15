@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mailers\TicketMailer;
+use App\Jobs\SendAttendeeInvite;
+use App\Jobs\SendAttendeeTicket;
+use App\Jobs\SendMessageToAttendees;
 use App\Jobs\GenerateTicket;
-use App\Commands\MessageAttendeesCommand;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
@@ -191,10 +192,9 @@ class EventAttendeesController extends MyBaseController
             $attendee->reference_index = 1;
             $attendee->save();
 
-            $this->dispatch(new GenerateTicket($order->order_reference."-".$attendee->reference_index));
 
             if ($email_attendee == '1') {
-              TicketMailer::sendAttendeeInvite($attendee);
+              $this->dispatch(new SendAttendeeInvite($attendee));
             }
 
             session()->flash('message', 'Attendee Successfully Invited');
@@ -346,9 +346,8 @@ class EventAttendeesController extends MyBaseController
                     $attendee->reference_index = 1;
                     $attendee->save();
 
-                    $this->dispatch(new GenerateTicket($attendee->getReferenceAttribute()));
                     if ($email_attendee == '1') {
-                        TicketMailer::sendAttendeeInvite($attendee);
+                        $this->dispatch(new SendAttendeeInvite($attendee));
                     }
                 }
             };
@@ -431,6 +430,7 @@ class EventAttendeesController extends MyBaseController
             'email_logo'      => $attendee->event->organiser->full_logo_path,
         ];
 
+        //@todo move this to the SendAttendeeMessage Job
         Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
             $message->to($attendee->email, $attendee->full_name)
                 ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
@@ -497,13 +497,14 @@ class EventAttendeesController extends MyBaseController
         $message = Message::createNew();
         $message->message = $request->get('message');
         $message->subject = $request->get('subject');
-        if ($request->get('recipients') != "all") {
-            $message->recipients = $request->get('recipients');
-        }
+        $message->recipients = ($request->get('recipients') == 'all') ? 'all' : $request->get('recipients');
         $message->event_id = $event_id;
         $message->save();
 
-        $this->dispatch(new MessageAttendeesCommand($message));
+        /*
+         * Queue the emails
+         */
+        $this->dispatch(new SendMessageToAttendees($message));
 
         return response()->json([
             'status'  => 'success',
@@ -755,8 +756,7 @@ class EventAttendeesController extends MyBaseController
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        $this->dispatch(new GenerateTicket($attendee->getReferenceAttribute()));
-        TicketMailer::sendAttendeeTicket($attendee);
+        $this->dispatch(new SendAttendeeTicket($attendee));
 
         return response()->json([
             'status'  => 'success',

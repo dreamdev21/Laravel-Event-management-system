@@ -3,34 +3,42 @@
 namespace App\Mailers;
 
 use App\Models\Order;
+use Log;
+use Mail;
 
-class OrderMailer extends Mailer
+class OrderMailer 
 {
     public function sendOrderNotification(Order $order)
     {
-        $this->sendTo($order->account->email, config('attendize.outgoing_email'), config('attendize.outgoing_email_name'), 'New order received on the event '.$order->event->title.' ['.$order->order_reference.']', 'Emails.OrderNotification', [
+        $data = [
+            'order' => $order
+        ];
+
+        Mail::send('Emails.OrderNotification', $data, function($message) use ($order) {
+            $message->to($order->account->email);
+            $message->subject('New order received on the event '.$order->event->title.' ['.$order->order_reference.']');
+        });
+
+    }
+
+    public function sendOrderTickets($order) {
+
+        Log::info("Sending ticket to: ".$order->email);
+
+        $data = [
             'order' => $order,
-        ]);
+        ];
+
+        Mail::send('Mailers.TicketMailer.SendOrderTickets', $data, function($message) use ($order) {
+            $message->to($order->email);
+            $message->subject('Your tickets for the event '.$order->event->title);
+
+            $file_name = $order->order_reference;
+            $file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$file_name.'.pdf';
+
+            $message->attach($file_path);
+        });
+
     }
 
-    public function sendOrderConfirmation(Order $order)
-    {
-        $ticket_pdf = public_path($order->ticket_pdf_path);
-
-        if (!file_exists($ticket_pdf)) {
-            $ticket_pdf = false;
-        }
-
-        $this->sendTo($order->email, config('attendize.outgoing_email'), $order->event->organiser->name, 'Your tickets & order confirmation for the event '.$order->event->title.' ['.$order->order_reference.']', 'Emails.OrderConfirmation', [
-            'order'      => $order,
-            'email_logo' => $order->event->organiser->full_logo_path,
-        ], $ticket_pdf);
-    }
-
-    public function sendTickets(Order $order)
-    {
-        //       $this->sendTo($order->account->email, config('attendize.outgoing_email'), config('attendize.outgoing_email_name'), 'New order received on the event '. $order->event->title .' ['. $order->order_reference .']', 'Emails.OrderNotification', [
-//            'order' => $order
-//        ]);
-    }
 }

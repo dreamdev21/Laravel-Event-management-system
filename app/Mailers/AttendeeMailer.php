@@ -7,23 +7,30 @@ use App\Models\Message;
 use App\Models\Order;
 use Carbon\Carbon;
 use Mail;
+use Log;
 
 class AttendeeMailer extends Mailer
 {
-    /**
-     * Send the attendee the ticket
-     *
-     * @param Attendee $attendee
-     * @param Order $order
-     * @param $ticket_path
-     */
-    public function sendAttendeeTicket(Attendee $attendee, Order $order, $ticket_path)
+
+    public function sendAttendeeTicket($attendee)
     {
-        $this->sendTo($attendee->email, config('attendize.outgoing_email'), $order->event->organiser->name, 'Your ticket for the event '.$order->event->title, 'Emails.AttendeeTicketResend', [
-            'order'      => $order,
-            'email_logo' => $order->event->organiser->full_logo_path,
-            'attendee'   => $attendee
-        ], $ticket_path);
+
+        Log::info("Sending ticket to: " . $attendee->email);
+
+        $data = [
+            'attendee' => $attendee,
+        ];
+
+        Mail::send('Mailers.TicketMailer.SendAttendeeTicket', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email);
+            $message->subject('Your ticket for the event ' . $attendee->order->event->title);
+
+            $file_name = $attendee->getReferenceAttribute();
+            $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
+
+            $message->attach($file_path);
+        });
+
     }
 
     /**
@@ -36,10 +43,11 @@ class AttendeeMailer extends Mailer
         $event = $message_object->event;
 
         $attendees = ($message_object->recipients == 'all')
-                 ? $event->attendees // all attendees
-                : Attendee::where('ticket_id', '=', $message_object->recipients)->where('account_id', '=', $message_object->account_id)->get();
+            ? $event->attendees // all attendees
+            : Attendee::where('ticket_id', '=', $message_object->recipients)->where('account_id', '=',
+                $message_object->account_id)->get();
 
-        foreach($attendees as $attendee) {
+        foreach ($attendees as $attendee) {
 
             $data = [
                 'attendee'        => $attendee,
@@ -61,4 +69,27 @@ class AttendeeMailer extends Mailer
         $message_object->sent_at = Carbon::now();
         $message_object->save();
     }
+
+    public function SendAttendeeInvite($attendee)
+    {
+
+        Log::info("Sending invite to: " . $attendee->email);
+
+        $data = [
+            'attendee' => $attendee,
+        ];
+
+        Mail::queue('Mailers.TicketMailer.SendAttendeeInvite', $data, function ($message) use ($attendee) {
+            $message->to($attendee->email);
+            $message->subject('Your ticket for the event ' . $attendee->order->event->title);
+
+            $file_name = $attendee->getReferenceAttribute();
+            $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
+
+            $message->attach($file_path);
+        });
+
+    }
+
+
 }
