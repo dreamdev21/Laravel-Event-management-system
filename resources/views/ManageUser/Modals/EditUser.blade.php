@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
    {!! Form::model($user, array('url' => route('postEditUser'), 'class' => 'ajax closeModalAfter')) !!}
     <div class="modal-dialog account_settings">
         <div class="modal-content">
@@ -12,7 +12,7 @@
                 @if(!Auth::user()->first_name)
                 <div class="alert alert-info">
                     <b>
-                        Welcome to Attendize!
+                        Welcome to {{config('attendize.app_name')}}!
                     </b><br>
                     Before you continue please update your account with your name and a new password.
                 </div>
@@ -54,21 +54,21 @@
 
                         <div class="form-group">
                             {!! Form::label('password', 'Old Password', array('class'=>'control-label')) !!}
-                            {!!  Form::text('password', '' ,
+                            {!!  Form::password('password',
                                         array(
                                         'class'=>'form-control'
                                         ))  !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('new_password', 'New Password', array('class'=>'control-label')) !!}
-                            {!!  Form::text('new_password', '',
+                            {!!  Form::password('new_password',
                                         array(
                                         'class'=>'form-control'
                                         ))  !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('new_password_confirmation', 'Confirm New Password', array('class'=>'control-label')) !!}
-                            {!!  Form::text('new_password_confirmation', '',
+                            {!!  Form::password('new_password_confirmation',
                                         array(
                                         'class'=>'form-control'
                                         ))  !!}

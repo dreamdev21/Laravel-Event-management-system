@@ -98,6 +98,7 @@ class Order extends MyBaseModel
         return $this->belongsTo('\App\Models\OrderStatus');
     }
 
+
     /**
      * Get the organizer fee of the order.
      *
@@ -125,7 +126,7 @@ class Order extends MyBaseModel
      */
     public function getFullNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
@@ -142,23 +143,25 @@ class Order extends MyBaseModel
             'event'     => $this->event,
             'tickets'   => $this->event->tickets,
             'attendees' => $this->attendees,
+            'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
+            'image'     => base64_encode(file_get_contents(public_path($this->event->organiser->full_logo_path))),
         ];
 
-        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$this->order_reference;
-        $pdf_file = $pdf_file_path.'.pdf';
+        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $this->order_reference;
+        $pdf_file = $pdf_file_path . '.pdf';
 
         if (file_exists($pdf_file)) {
             return true;
         }
 
         if (!is_dir($pdf_file_path)) {
-            File::makeDirectory($pdf_file_path, 0777, true, true);
+            File::makeDirectory(dirname($pdf_file_path), 0777, true, true);
         }
 
         PDF::setOutputMode('F'); // force to file
         PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file_path);
 
-        $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path').'/'.$this->order_reference.'.pdf';
+        $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path') . '/' . $this->order_reference . '.pdf';
         $this->save();
 
         return file_exists($pdf_file);
@@ -172,7 +175,7 @@ class Order extends MyBaseModel
         parent::boot();
 
         static::creating(function ($order) {
-            $order->order_reference = strtoupper(str_random(5)).date('jn');
+            $order->order_reference = strtoupper(str_random(5)) . date('jn');
         });
     }
 }

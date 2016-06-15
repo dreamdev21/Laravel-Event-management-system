@@ -1,12 +1,3 @@
-
-
-window.Attendize = {
-    DateFormat: 'dd-MM-yyyy',
-    DateTimeFormat: 'dd-MM-yyyy hh:mm',
-    GenericErrorMessage: 'Whoops!, An unknown error has occurred.'
-    + 'Please try again or contact support if the problem persists. '
-};
-
 $(function () {
 
     /*
@@ -15,13 +6,13 @@ $(function () {
      * --------------------------
      */
 
-    /* Datepciker */
+    /* Datepicker */
     $(document).ajaxComplete(function () {
         $('#DatePicker').remove();
         var $div = $("<div>", {id: "DatePicker"});
         $("body").append($div);
         $div.DateTimePicker({
-            dateTimeFormat: window.Attendize.DateTimeFormat
+            dateTimeFormat: Attendize.DateTimeFormat
         });
 
     });
@@ -52,9 +43,9 @@ $(function () {
      * --------------------
      * Ajaxify those forms
      * --------------------
-     * 
+     *
      * All forms with the 'ajax' class will automatically handle showing errors etc.
-     * 
+     *
      */
     $('form.ajax').ajaxForm({
         delegation: true,
@@ -75,6 +66,12 @@ $(function () {
             $('.uploadProgress').show().html('Uploading Images - ' + percentComplete + '% Complete...    ');
         },
         error: function (data, statusText, xhr, $form) {
+
+            // Form validation error.
+            if (422 == data.status) {
+                processFormErrors($form, $.parseJSON(data.responseText));
+                return;
+            }
 
             showMessage('Whoops!, it looks like something went wrong on our servers.\n\
                    Please try again, or contact support if the problem persists.');
@@ -109,30 +106,13 @@ $(function () {
                     }
 
                     if (typeof data.redirectUrl !== 'undefined') {
-                        window.location = data.redirectUrl;
+                        window.location.href = data.redirectUrl;
                     }
 
                     break;
 
                 case 'error':
-                    $.each(data.messages, function (index, error) {
-                        var $input = $(':input[name=' + index + ']', $form);
-
-                        if ($input.prop('type') === 'file') {
-                            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        } else {
-                            $input.after('<div class="help-block error">' + error + '</div>')
-                                .parent()
-                                .addClass('has-error');
-                        }
-
-                    });
-
-                    var $submitButton = $form.find('input[type=submit]');
-                    toggleSubmitDisabled($submitButton);
-
+                    processFormErrors($form, data.messages);
                     break;
 
                 default:
@@ -149,33 +129,25 @@ $(function () {
      * --------------------
      * Create a simple way to show remote dynamic modals from the frontend
      * --------------------
-     * 
-     * E.g : 
+     *
+     * E.g :
      * <a href='/route/to/modal' class='loadModal'>
      *  Click For Modal
      * </a>
-     * 
+     *
      */
     $(document.body).on('click', '.loadModal, [data-invoke~=modal]', function (e) {
 
         var loadUrl = $(this).data('href'),
-            modalId = $(this).data('modal-id'),
-            cacheResult = $(this).data('cache') === 'on';
+            cacheResult = $(this).data('cache') === 'on',
+            $button = $(this);
 
-        // $('#' + modalId).remove();
         $('.modal').remove();
         $('html').addClass('working');
 
-        /*
-         * Hopefully this message will rarely show
-         */
-        setTimeout(function () {
-            //showMessage('One second...'); #far to annoying
-        }, 750);
-
         $.ajax({
             url: loadUrl,
-            data: {'modal_id': modalId},
+            data: {},
             localCache: cacheResult,
             dataType: 'html',
             success: function (data) {
@@ -183,7 +155,7 @@ $(function () {
 
                 $('body').append(data);
 
-                var $modal = $('#' + modalId);
+                var $modal = $('.modal');
 
                 $modal.modal({
                     'backdrop': 'static'
@@ -197,6 +169,7 @@ $(function () {
                 });
 
                 $('html').removeClass('working');
+
             }
         }).done().fail(function (data) {
             $('html').removeClass('working');
@@ -218,14 +191,14 @@ $(function () {
 
     /*
      * -------------------------------------------------------------
-     * Simple way for any type of object to be deleted. 
+     * Simple way for any type of object to be deleted.
      * -------------------------------------------------------------
-     * 
+     *
      * E.g markup:
      * <a data-route='/route/to/delete' data-id='123' data-type='objectType'>
      *  Delete This Object
      * </a>
-     * 
+     *
      */
     $('.deleteThis').on('click', function (e) {
 
@@ -309,10 +282,6 @@ $(function () {
     /**
      * Toggle checkboxes
      */
-
-
-
-
     $(document.body).on('click', '.check-all', function (e) {
         var toggleClass = $(this).data('check-class');
         $('.' + toggleClass).each(function () {
@@ -393,7 +362,94 @@ $(function () {
         }
     });
 
+    /**
+     * Scale the preview iFrames when changing the design of organiser/event pages.
+     */
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+        var target = $(e.target).attr("href");
+
+        if ($(target).hasClass('scale_iframe')) {
+
+            var $iframe = $('iframe', target);
+            var iframeWidth = $('.iframe_wrap').innerWidth();
+            var iframeHeight = $('.iframe_wrap').height();
+
+            $iframe.css({
+                width: 1200,
+                height: 1400
+            });
+
+            var iframeScale = (iframeWidth / 1200);
+            $iframe.css({
+                '-webkit-transform': 'scale(' + iframeScale + ')',
+                '-ms-transform': 'scale(' + iframeScale + ')',
+                'transform': 'scale(' + iframeScale + ')',
+                '-webkit-transform-origin': '0 0',
+                '-ms-transform-origin': '0 0',
+                'transform-origin': '0 0',
+            });
+        }
+    });
+
 });
+
+function changeQuestionType(select)
+{
+    var select = $(select);
+    var selected = select.find(':selected');
+
+    if (selected.data('has-options') == '1') {
+        $('#question-options').removeClass('hide');
+    } else {
+        $('#question-options').addClass('hide');
+    }
+}
+
+
+
+function addQuestionOption()
+{
+    var tbody = $('#question-options tbody');
+    var questionOption = $('#question-option-template').html();
+
+    tbody.append(questionOption);
+}
+
+function removeQuestionOption(removeBtn)
+{
+    var removeBtn = $(removeBtn);
+    var tbody = removeBtn.parents('tbody');
+
+    if (tbody.find('tr').length > 1) {
+        removeBtn.parents('tr').remove();
+    } else {
+        alert('You must have at least one option.');
+    }
+}
+
+function processFormErrors($form, errors)
+{
+    $.each(errors, function (index, error)
+    {
+        var $input = $(':input[name=' + index + ']', $form);
+
+        if ($input.prop('type') === 'file') {
+            $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        } else {
+            $input.after('<div class="help-block error">' + error + '</div>')
+                .parent()
+                .addClass('has-error');
+        }
+
+    });
+
+    var $submitButton = $form.find('input[type=submit]');
+    toggleSubmitDisabled($submitButton);
+}
+
 
 
 /**
@@ -414,6 +470,43 @@ function toggleSubmitDisabled($submitButton) {
         .attr('disabled', true)
         .addClass('disabled')
         .val('Working...');
+}
+
+/**
+ * 
+ * @returns {{}}
+ */
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+/**
+ * Replaces a parameter in a URL with a new parameter
+ *
+ * @param url
+ * @param paramName
+ * @param paramValue
+ * @returns {*}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('\\b(' + paramName + '=).*?(&|$)')
+    if (url.search(pattern) >= 0) {
+        return url.replace(pattern, '$1' + paramValue + '$2');
+    }
+    return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
 }
 
 /**

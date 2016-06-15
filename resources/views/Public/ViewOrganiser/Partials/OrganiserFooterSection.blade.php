@@ -2,10 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                Event Ticketing By 
-                <a href="/">
-                    Attend<b>ize</b>
-                </a>
+                {{--Attendize is provided free of charge on the condition the below hyperlink is left in place.--}}
+                {{--See https://github.com/Attendize/Attendize/blob/master/LICENSE for more information.--}}
+                @include('Shared.Partials.PoweredBy')
             </div>
         </div>
     </div>

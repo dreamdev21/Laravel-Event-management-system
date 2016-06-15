@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade " style="display: none;">
+<div role="dialog"  class="modal fade " style="display: none;">
     {!! Form::open(array('url' => route('postCancelOrder', array('order_id' => $order->id)), 'class' => 'closeModalAfter ajax')) !!}
     <script>
         $(function () {

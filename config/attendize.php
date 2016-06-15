@@ -2,6 +2,10 @@
 
 return [
 
+    'version' => file_get_contents(base_path('VERSION')),
+
+    'ticket_status_sold_out' => 1,
+    'ticket_status_after_sale_date' => 2,//
     'enable_test_payments' => env('ENABLE_TEST_PAYMENTS', false),
 
     'payment_gateway_stripe'   => 1,
@@ -21,13 +25,11 @@ return [
     'event_pdf_tickets_path' => 'user_content/pdf_tickets',
     'event_bg_images' => 'assets/images/public/EventPage/backgrounds',
 
-    'fallback_organiser_logo_url' => '/assets/images/logo-100x100-lightBg.png',
+    'fallback_organiser_logo_url' => '/assets/images/logo-dark.png',
     'cdn_url' => '',
 
-    'checkout_timeout_after' => app()->environment('local', 'development') ? 30 : 8, #mintutes
+    'checkout_timeout_after' => env('CHECKOUT_TIMEOUT_AFTER', 30), #minutes
 
-    'ticket_status_sold_out' => 1,
-    'ticket_status_after_sale_date' => 2,
     'ticket_status_before_sale_date' => 3,
     'ticket_status_on_sale' => 4,
     'ticket_status_off_sale' => 5,
@@ -35,10 +37,20 @@ return [
     'ticket_booking_fee_fixed' => 0,
     'ticket_booking_fee_percentage' => 0,
 
+    /* Order statuses */
     'order_complete' => 1,
     'order_refunded' => 2,
     'order_partially_refunded' => 3,
     'order_cancelled' => 4,
+
+    /* Attendee question types */
+    'question_textbox_single'  => 1,
+    'question_textbox_multi'   => 2,
+    'question_dropdown_single' => 3,
+    'question_dropdown_multi'  => 4,
+    'question_checkbox_multi'  => 5,
+    'question_radio_single'    => 6,
+
 
     'default_timezone' => 30, #Europe/Dublin
     'default_currency' => 2, #Euro

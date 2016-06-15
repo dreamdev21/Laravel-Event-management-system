@@ -144,7 +144,7 @@ class EventCustomizeController extends MyBaseController
             ]);
         }
 
-        $event->barcode_type = $request->get('barcode_type');
+        //$event->barcode_type = $request->get('barcode_type');
         $event->ticket_border_color = $request->get('ticket_border_color');
         $event->ticket_bg_color = $request->get('ticket_bg_color');
         $event->ticket_text_color = $request->get('ticket_text_color');
@@ -224,7 +224,6 @@ class EventCustomizeController extends MyBaseController
 
         $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
         $event->post_order_display_message = trim($request->get('post_order_display_message'));
-        $event->ask_for_all_attendees_info = ($request->get('ask_for_all_attendees_info') == 'on');
         $event->save();
 
         return response()->json([

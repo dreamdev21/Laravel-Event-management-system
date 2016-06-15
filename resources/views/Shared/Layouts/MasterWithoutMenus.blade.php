@@ -3,12 +3,14 @@
 
         <title>@yield('title')</title>
 
+        @include('Shared/Layouts/ViewJavascript')
+
         @include('Shared.Partials.GlobalMeta')
 
         @yield('head')
 
         <!--JS-->
-       {!! HTML::script('vendor/jquery/jquery.js') !!}
+       {!! HTML::script('vendor/jquery/dist/jquery.min.js') !!}
         <!--/JS-->
 
         <!--Style-->
@@ -17,6 +19,18 @@
 
         <style>
 
+            body {
+                background: url({{asset('assets/images/background.png')}}) repeat;
+                background-color: #2E3254;
+            }
+
+            h2 {
+                text-align: center;
+                margin-bottom: 31px;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+                font-size: 23px;
+            }
             .panel {
                 background-color: #ffffff;
                 background-color: rgba(255,255,255,.95);
@@ -37,6 +51,10 @@
                 margin-bottom: 20px;
             }
 
+            .logo img {
+                width: 200px;
+            }
+
             .signup {
                 margin-top: 10px;
             }
@@ -52,18 +70,12 @@
             <section class="container">
                 @yield('content')
             </section>
+
         </section>
+        <div style="text-align: center; color: white" >
+        </div>
 
         {!!HTML::script('assets/javascript/backend.js')!!}
-        {!!HTML::script('vendor/jquery-backstretch/jquery.backstretch.min.js')!!}
-
-        <script>
-            $(function() {
-                $.backstretch([
-                 '{{asset('assets/images/splash.jpg')}}'
-                ], {duration: 3500, fade: 1000});
-            });
-        </script>
     </body>
     @include('Shared.Partials.GlobalFooterJS')
 </html>

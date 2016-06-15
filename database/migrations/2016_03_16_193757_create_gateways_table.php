@@ -27,7 +27,7 @@ class CreateGatewaysTable extends Migration
             $table->unsignedInteger('payment_gateway_id');
             $table->text('config');
             $table->softDeletes();
-            $table->timestamps();
+            $table->nullableTimestamps();
 
             $table->foreign('payment_gateway_id')->references('id')->on('payment_gateways')->onDelete('cascade');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');

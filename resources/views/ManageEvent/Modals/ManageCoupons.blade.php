@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade " style="display: none;">
+<div role="dialog"  class="modal fade " style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">

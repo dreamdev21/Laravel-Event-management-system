@@ -1,4 +1,4 @@
-<div role="dialog" id="{{$modal_id}}" class="modal fade" style="display: none;">
+<div role="dialog"  class="modal fade" style="display: none;">
 
     @include('ManageOrganiser.Partials.EventCreateAndEditJS');
 
@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="form-group custom-theme">
-                            {!! Form::label('description', 'Event Description', array('class'=>'control-label')) !!}
+                            {!! Form::label('description', 'Event Description', array('class'=>'control-label required')) !!}
                             {!!  Form::textarea('description', Input::old('description'),
                                         array(
                                         'class'=>'form-control  editable',

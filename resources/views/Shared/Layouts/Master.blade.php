@@ -16,17 +16,19 @@
         @show
     </title>
 
+    @include('Shared.Layouts.ViewJavascript')
+
     <!--Meta-->
     @include('Shared.Partials.GlobalMeta')
-            <!--/Meta-->
+   <!--/Meta-->
 
     <!--JS-->
-    {!! HTML::script(config('attendize.cdn_url_static_assets').'/vendor/jquery/jquery.js') !!}
-            <!--/JS-->
+    {!! HTML::script(config('attendize.cdn_url_static_assets').'/vendor/jquery/dist/jquery.min.js') !!}
+    <!--/JS-->
 
     <!--Style-->
     {!! HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/application.css') !!}
-            <!--/Style-->
+    <!--/Style-->
 
     @yield('head')
 </head>
@@ -36,8 +38,7 @@
 
     <div class="navbar-header">
         <a class="navbar-brand" href="javascript:void(0);">
-            <img style="width: 40px;" class="logo" alt="Attendize" src="{{asset('assets/images/logo.svg')}}"
-                 onerror="this.src='{{asset('assets/images/logo-white-50.png?v')}}'"/>
+            <img style="width: 150px;" class="logo" alt="Attendize" src="{{asset('assets/images/logo-light.png')}}"/>
         </a>
     </div>
 
@@ -83,6 +84,8 @@
 
 
                     <li class="divider"></li>
+                    <li><a target="_blank" href="https://www.attendize.com/feedback.php?v={{ config('attendize.version') }}"><span class="icon ico-megaphone"></span>Feedback / Bug Report</a></li>
+                    <li class="divider"></li>
                     <li><a href="{{route('logout')}}"><span class="icon ico-exit"></span>Sign Out</a></li>
                 </ul>
             </li>
@@ -118,7 +121,7 @@
     <!--/To The Top-->
 
 </section>
-<!--/Main Conent-->
+<!--/Main Content-->
 
 <!--JS-->
 {!! HTML::script('assets/javascript/backend.js') !!}
@@ -142,5 +145,6 @@
 @yield('foot')
 
 @include('Shared.Partials.GlobalFooterJS')
+
 </body>
 </html>

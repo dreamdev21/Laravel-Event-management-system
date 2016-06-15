@@ -3,7 +3,8 @@
 @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
     #header.navbar {
         > .navbar-toolbar {
-            background-color: lighten(@attendize-base-color, 15%);
+           background-color: lighten(@attendize-base-color, 15%);
+            color: @white;
         }
     }
 }
@@ -22,7 +23,6 @@
         // -----------------------------------
         > .navbar-header {
             background-color: @attendize-base-color;
-            border-bottom: 1px solid darken(@attendize-base-color, 3%);
             height: @header-height-md;
             float: left;
 
@@ -66,6 +66,8 @@
                     > a {
                         height: @header-height-md - 1;
                         line-height: @header-height-md;
+
+
                     }
                 }
 
@@ -193,6 +195,7 @@
                         > a {
                             height: @header-height-md - 1;
                             line-height: @header-height-md;
+
                         }
                     }
 
@@ -269,6 +272,21 @@
     }
 }
 
+
+@media(max-width: @screen-sm-max) {
+    #header.navbar {
+        > .navbar-toolbar {
+            > .navbar-nav {
+                > li {
+                    > a {
+                        color: @white;
+                    }
+                }
+            }
+
+        }
+    }
+}
 
 /* Extra small devices */
 

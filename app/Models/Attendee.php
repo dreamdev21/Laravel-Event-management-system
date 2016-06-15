@@ -32,6 +32,8 @@ class Attendee extends MyBaseModel
         'ticket_id',
         'account_id',
         'reference',
+        'has_arrived',
+        'arrival_time'
     ];
 
      /**
@@ -76,6 +78,14 @@ class Attendee extends MyBaseModel
     {
         return $this->belongsTo('\App\Models\Event');
     }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany('App\Models\QuestionAnswer');
+    }
 
     /**
      * Scope a query to return attendees that have not cancelled.
@@ -89,10 +99,15 @@ class Attendee extends MyBaseModel
         return $query->where('attendees.is_cancelled', '=', 0);
     }
 
-//
-//    public function getReferenceAttribute() {
-//        return $this->order->order_reference
-//    }
+
+    /**
+     * Get the attendee reference
+     *
+     * @return string
+     */
+    public function getReferenceAttribute() {
+        return $this->order->order_reference . '-' . $this->reference_index;
+    }
 
     /**
      * Get the full name of the attendee.
@@ -103,6 +118,8 @@ class Attendee extends MyBaseModel
     {
         return $this->first_name.' '.$this->last_name;
     }
+
+
 
     /**
      * The attributes that should be mutated to dates.

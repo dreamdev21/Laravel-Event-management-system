@@ -55,7 +55,7 @@
     // Navbar toolbar
     // -----------------------------------
     > .navbar-toolbar {
-        background-color: @attendize-base-color;
+        background-color: @white;
         //border-bottom: 1px solid darken(@maincontent-base-color, 3%);
         min-height: @header-height;
 
@@ -86,18 +86,17 @@
                     height: @header-height - 1;
                     line-height: @header-height;
                     /*color: lighten(@dark, 35%);*/
-                    color: @white;
+                    color: @attendize-base-color;
                     text-shadow: none;
 
                     &:hover,
                     &:focus {
-                        background-color: lighten(@attendize-base-color, 15%);
-                        color: @white;
+                        font-weight: bold;
                     }
 
                     &:active,
                     &.active {
-                        background-color: lighten(@attendize-base-color, 15%);
+                        background-color: lighten(@attendize-base-color, 50%);
                         color: @white;
                     }
 

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use DB;
 use Excel;
 use Log;
@@ -78,7 +79,6 @@ class EventOrdersController extends MyBaseController
     {
         $data = [
             'order'    => Order::scope()->find($order_id),
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.ManageOrder', $data);
@@ -283,7 +283,6 @@ class EventOrdersController extends MyBaseController
         $data = [
             'order'    => $order,
             'event'    => $order->event,
-            'modal_id' => $request->get('modal_id'),
         ];
 
         return view('ManageEvent.Modals.MessageOrder', $data);

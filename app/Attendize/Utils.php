@@ -4,6 +4,7 @@ namespace App\Attendize;
 
 class Utils
 {
+    
     public static function isRegistered()
     {
         return Auth::check() && Auth::user()->is_registered;

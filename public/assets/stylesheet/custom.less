@@ -18,6 +18,40 @@ MANAGE ORGANISERS
     max-height: 45px;
 }
 
+/* Dashboard calendar */
+#calendar {
+    border: 1px solid #ddd;
+    background: #fff;
+    /*padding: 17px;*/
+}
+#calendar .fc-button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    box-shadow: none;
+}
+#calendar .fc-event {
+    border-color: #fff;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    padding: 2px;
+    transition: none;
+}
+
+#calendar .fc-toolbar {
+    text-align: center;
+    margin-bottom: 0em;
+    padding: 7px;
+}
+#calendar h2 {
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+#calendar .fc-view {
+    margin: -1px;
+}
+
 
 
 /*
@@ -32,14 +66,11 @@ MANAGE EVENT
             a {
                 span {
                     padding:10px;
-                    background-color: lighten(@attendize-base-color, 8%);
                 }
             }
         }
     } 
 } 
-
-
 
 
 
@@ -148,14 +179,13 @@ Event Dashboard
 */
 
 
-
 .stat-box {
     padding: 20px;
-    background-color: lighten(@attendize-base-color, 15%);
-    color: #FFFFFF;
+    background-color: @white;
+    color: @attendize-base-color;
     text-align: center;
     margin-bottom: 10px;
-    border-bottom: 4px solid rgba(0,0,0,.2);
+    border: 1px solid @border-color;
 
 
     h3 {
@@ -167,13 +197,10 @@ Event Dashboard
     span {
         text-transform: uppercase;
         font-weight: lighter;
-        color: #D0F0FE;
+        color: lighten(@attendize-base-color, 50%);
     }
 }
 
-.stat-box:nth-child(odd) {
-    background-color: lighten(@attendize-base-color, 10%);
-}
 
 /*
 -----------------------------------------------------
@@ -372,3 +399,31 @@ html.working {
     width: 18px;
     height: 18px;
 }
+
+/* Quick fix for bootstrap default buttons*/
+.pagination>.active>span,
+.pagination>.active:focus>span,
+.pagination>.active:hover>span,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default,
+.pagination>li>a:hover, .pager>li>a:hover, .pagination>li>span:hover, .pager>li>span:hover, .pagination>li>a:focus, .pager>li>a:focus, .pagination>li>span:focus, .pager>li>span:focus
+{
+    color: #ffffff !important;
+}
+.btn-default .caret {
+    border-top-color: #fff;
+}
+.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-right: none;
+}
+
+
+.modal-backdrop {
+    background: url(../images/background.png) repeat;
+    background-color: @attendize-base-color;
+}
+
+

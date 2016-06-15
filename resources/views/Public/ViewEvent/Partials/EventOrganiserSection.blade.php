@@ -5,8 +5,13 @@
                 <div class="logo">
                     <img alt="{{$event->organiser->name}}" src="{{asset($event->organiser->full_logo_path)}}" property="logo">
                 </div>
-                <h3 property="name">
-                    {!!HTML::link('/o/'.$event->organiser->id, $event->organiser->name, array('title' => "Organiser Page"))!!}
+                    @if($event->organiser->enable_organiser_page)
+                    <a href="{{route('showOrganiserHome', [$event->organiser->id, Str::slug($event->organiser->name)])}}" title="Organiser Page">
+                        {{$event->organiser->name}}
+                    </a>
+                    @else
+                        {{$event->organiser->name}}
+                    @endif
                 </h3>
 
                 <p property="description">
@@ -14,12 +19,12 @@
                 </p>
                 <p>
                     @if($event->organiser->facebook)
-                        <a href="https://fb.com/{{$event->organiser->facebook}}" class="btn btn-facebook">
+                        <a property="sameAs" href="https://fb.com/{{$event->organiser->facebook}}" class="btn btn-facebook">
                             <i class="ico-facebook"></i>&nbsp; Facebook
                         </a>
                     @endif
                         @if($event->organiser->twitter)
-                            <a href="https://twitter.com/{{$event->organiser->twitter}}" class="btn btn-twitter">
+                            <a property="sameAs" href="https://twitter.com/{{$event->organiser->twitter}}" class="btn btn-twitter">
                                 <i class="ico-twitter"></i>&nbsp; Twitter
                             </a>
                         @endif

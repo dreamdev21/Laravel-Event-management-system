@@ -4,7 +4,7 @@
 
 <p>Hello</p>
 <p>
-    You have been added to an Attendize Ticketing account by {{$inviter->first_name.' '.$inviter->last_name}}.
+    You have been added to an {{ config('attendize.app_name') }} account by {{$inviter->first_name.' '.$inviter->last_name}}.
 </p>
 
 <p>
@@ -23,7 +23,7 @@
 </div>
 <br><br>
 <p>
-    If you have any questions, feedback or suggestions feel free to reply to this email.
+    If you have any questions please reply to this email.
 </p>
 <p>
     Thank you

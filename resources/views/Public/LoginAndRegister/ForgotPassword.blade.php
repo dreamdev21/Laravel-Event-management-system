@@ -13,8 +13,9 @@ Forgot Password
             <div class="panel-body">
 
                 <div class="logo">
-                   {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
+                   {!!HTML::image('assets/images/logo-dark.png')!!}
                 </div>
+                <h2>Forgot Password</h2>
 
                 @if (Session::has('status'))
                 <div class="alert alert-info">

@@ -20,32 +20,41 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="logo">
-                        {!!HTML::image('assets/images/logo-100x100-lightBg.png')!!}
+                        {!!HTML::image('assets/images/logo-dark.png')!!}
                     </div>
-                    <h1>Create Organiser</h1>
+                    <h2>Create Organiser</h2>
 
                     {!! Form::open(array('url' => route('postCreateOrganiser'), 'class' => 'ajax')) !!}
                     @if(@$_GET['first_run'] == '1')
                         <div class="alert alert-info">
-                            Before you create events you'll need to create an organiser. An an organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.
+                            Before you create events you'll need to create an organiser. An organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.
                         </div>
                     @endif
 
-                    <div class="form-group">
-                        {!! Form::label('name', 'Organiser Name', array('class'=>'required control-label ')) !!}
-                        {!!  Form::text('name', Input::old('name'),
-                                    array(
-                                    'class'=>'form-control'
-                                    ))  !!}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('name', 'Organiser Name', array('class'=>'required control-label ')) !!}
+                                {!!  Form::text('name', Input::old('name'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('email', 'Organiser Email', array('class'=>'control-label required')) !!}
+                                {!!  Form::text('email', Input::old('email'),
+                                            array(
+                                            'class'=>'form-control ',
+                                            'placeholder'=>''
+                                            ))  !!}
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        {!! Form::label('email', 'Organiser Email', array('class'=>'control-label required')) !!}
-                        {!!  Form::text('email', Input::old('email'),
-                                    array(
-                                    'class'=>'form-control ',
-                                    'placeholder'=>''
-                                    ))  !!}
-                    </div>
+
+
+
 
                     <div class="form-group">
                         {!! Form::label('about', 'Organiser Description', array('class'=>'control-label ')) !!}

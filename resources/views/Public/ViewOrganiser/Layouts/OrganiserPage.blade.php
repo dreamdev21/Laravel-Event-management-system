@@ -29,11 +29,9 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        @yield('head')
 
        {!!HTML::style('assets/stylesheet/frontend.css')!!}
-
-
+        @yield('head')
     </head>
     <body class="attendize">
         @include('Shared.Partials.FacebookSdk')
@@ -46,11 +44,6 @@
 
         {!!HTML::script('assets/javascript/frontend.js')!!}
 
-        <script>
-            $(function() {
-                $.backstretch('http://dev.attendize.com/website_assets/images/header/splash.jpg');
-            });
-        </script>
-
         @include('Shared.Partials.GlobalFooterJS')
+</body>
 </html>

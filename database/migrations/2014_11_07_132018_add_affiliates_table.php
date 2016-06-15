@@ -20,7 +20,7 @@ class AddAffiliatesTable extends Migration
             $table->timestamp('last_visit');
             $table->unsignedInteger('account_id')->index();
             $table->unsignedInteger('event_id');
-            $table->timestamps();
+            $table->nullableTimestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

@@ -33,10 +33,11 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
             $amount = $amount * -1;
         }
 
-        $ticket->ticket_revenue = $ticket->ticket_revenue + $amount;
+        $ticket->sales_volume = $ticket->sales_volume + $amount;
 
         return $ticket->save();
     }
+    
 
     /**
      * Update the amount of views a ticket has earned.
@@ -49,7 +50,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $cookie_name = 'visitTrack_'.$event_id.'_'.date('dmy');
@@ -73,7 +74,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $stats->sales_volume = $stats->sales_volume + $amount;
@@ -93,7 +94,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
     {
         $stats = $this->firstOrNew([
             'event_id' => $event_id,
-            'date'     => DB::raw('CURDATE()'),
+            'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
         $stats->increment('tickets_sold', $count);

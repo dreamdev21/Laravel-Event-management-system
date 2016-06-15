@@ -30,6 +30,16 @@ class Organiser extends MyBaseModel
     ];
 
     /**
+     * The account associated with the organiser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account()
+    {
+        return $this->belongsTo('\App\Models\Account');
+    }
+
+    /**
      * The events associated with the organizer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -47,6 +57,16 @@ class Organiser extends MyBaseModel
     public function attendees()
     {
         return $this->hasManyThrough('\App\Models\Attendee', '\App\Models\Event');
+    }
+
+    /**
+     * Get the orders related to an organiser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function orders()
+    {
+        return $this->hasManyThrough('\App\Models\Order', '\App\Models\Event');
     }
 
     /**

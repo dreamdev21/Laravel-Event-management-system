@@ -29,8 +29,13 @@ Attendees
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-ticket"></i> Add Attendee</button>
+            <button data-modal-id="InviteAttendee" href="javascript:void(0);"  data-href="{{route('showInviteAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> Invite Attendee</button>
         </div>
+        
+        <div class="btn-group btn-group-responsive">
+            <button data-modal-id="ImportAttendees" href="javascript:void(0);"  data-href="{{route('showImportAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> Invite Attendees</button>
+        </div>
+        
         <div class="btn-group btn-group-responsive">
             <a class="btn btn-success" href="{{route('showPrintAttendees', ['event_id'=>$event->id])}}" target="_blank" ><i class="ico-print"></i> Print Attendee List</a>
         </div>
@@ -103,12 +108,12 @@ Attendees
                             </td>
                             <td>
                                 <a href="javascript:void(0);" data-modal-id="view-order-{{ $attendee->order->id }}" data-href="{{route('showManageOrder', ['order_id'=>$attendee->order->id])}}" title="View Order #{{$attendee->order->order_reference}}" class="loadModal">
-                                    #{{$attendee->order->order_reference}}
+                                    {{$attendee->order->order_reference}}
                                 </a>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         @if($attendee->email)
                                         <li><a
@@ -124,6 +129,9 @@ Attendees
                                             data-href="{{route('showResendTicketToAttendee', ['attendee_id'=>$attendee->id])}}"
                                             class="loadModal"
                                             > Resend Ticket</a></li>
+                                        <li><a
+                                            href="{{route('showExportTicket', ['event_id'=>$event->id, 'attendee_id'=>$attendee->id])}}"
+                                            > Ticket PDF</a></li>
                                     </ul>
                                 </div>
 
@@ -158,7 +166,7 @@ Attendees
         @endif
     </div>
     <div class="col-md-12">
-        {!! $attendees->render() !!}
+        {!!$attendees->appends(['sort_by' => $sort_by, 'sort_order' => $sort_order, 'q' => $q])->render()!!}
     </div>
 </div>    <!--/End attendees table-->
 

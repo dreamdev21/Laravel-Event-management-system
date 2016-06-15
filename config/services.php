@@ -36,5 +36,9 @@ return [
 
     'twitter' => [
         'widget_id' => env('TWITTER_WIDGET_ID'),
+    ],
+
+    'sparkpost' => [
+        'secret' => env('SPARKPOST_SECRET')
     ]
 ];

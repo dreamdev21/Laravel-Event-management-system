@@ -13,14 +13,21 @@ use HttpClient;
 use Illuminate\Http\Request;
 use Input;
 use Response;
-use View;
+use Validator;
+use Hash;
+use Mail;
 
 class ManageAccountController extends MyBaseController
 {
+    /**
+     * Show the account modal
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function showEditAccount(Request $request)
     {
         $data = [
-            'modal_id' => $request->get('modal_id'),
             'account' => Account::find(Auth::user()->account_id),
             'timezones' => Timezone::lists('location', 'id'),
             'currencies' => Currency::lists('title', 'id'),
@@ -30,6 +37,7 @@ class ManageAccountController extends MyBaseController
 
         return view('ManageAccount.Modals.EditAccount', $data);
     }
+
 
     public function showStripeReturn()
     {
@@ -45,7 +53,7 @@ class ManageAccountController extends MyBaseController
             'url' => 'https://connect.stripe.com/oauth/token',
             'params' => [
 
-                'client_secret' => STRIPE_SECRET_KEY, //sk_test_iXk2Ky0DlhIcTcKMvsDa8iKI',
+                'client_secret' => STRIPE_SECRET_KEY,
                 'code' => Input::get('code'),
                 'grant_type' => 'authorization_code',
             ],
@@ -73,6 +81,12 @@ class ManageAccountController extends MyBaseController
         return redirect()->route('showEventsDashboard');
     }
 
+
+    /**
+     * Edit an account
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postEditAccount()
     {
         $account = Account::find(Auth::user()->account_id);
@@ -141,6 +155,11 @@ class ManageAccountController extends MyBaseController
         ]);
     }
 
+    /**
+     * Invite a user to the application
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postInviteUser()
     {
         $rules = [
@@ -153,10 +172,10 @@ class ManageAccountController extends MyBaseController
             'email.unique' => 'E-mail already in use for this account.',
         ];
 
-        $validation = \Validator::make(Input::all(), $rules, $messages);
+        $validation = Validator::make(Input::all(), $rules, $messages);
 
         if ($validation->fails()) {
-            return \Response::json([
+            return Response::json([
                 'status' => 'error',
                 'messages' => $validation->messages()->toArray(),
             ]);
@@ -166,7 +185,7 @@ class ManageAccountController extends MyBaseController
 
         $user = new User();
         $user->email = Input::get('email');
-        $user->password = \Hash::make($temp_password);
+        $user->password = Hash::make($temp_password);
         $user->account_id = Auth::user()->account_id;
         $user->save();
 
@@ -176,9 +195,9 @@ class ManageAccountController extends MyBaseController
             'inviter' => Auth::user(),
         ];
 
-        \Mail::send('Emails.inviteUser', $data, function ($message) use ($data) {
+        Mail::send('Emails.inviteUser', $data, function ($message) use ($data) {
             $message->to($data['user']->email)
-                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an Attendize Ticketing account.');
+                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an '. config('attendize.app_name') .' account.');
         });
 
         return Response::json([

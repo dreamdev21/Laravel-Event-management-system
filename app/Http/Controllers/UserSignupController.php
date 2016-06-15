@@ -73,6 +73,12 @@ class UserSignupController extends Controller
         return redirect('login');
     }
 
+    /**
+     * Confirm a user email
+     *
+     * @param $confirmation_code
+     * @return mixed
+     */
     public function confirmEmail($confirmation_code)
     {
         $user = User::whereConfirmationCode($confirmation_code)->first();

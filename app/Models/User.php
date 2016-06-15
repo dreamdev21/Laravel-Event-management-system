@@ -134,6 +134,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Get the full name of the user.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    /**
      * Boot all of the bootable traits on the model.
      */
     public static function boot()
@@ -142,6 +152,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         static::creating(function ($user) {
             $user->confirmation_code = str_random();
+            $user->api_token = str_random(60);
         });
     }
 }
