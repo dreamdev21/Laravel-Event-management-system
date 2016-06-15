@@ -4112,6 +4112,10 @@ function clearFormErrors($form) {
     $($form).find(':input')
             .parent()
             .removeClass('has-error');
+    $($form).find(':input')
+            .parent().parent()
+            .removeClass('has-error');
+
 }
 
 function showFormError($formElement, message) {
