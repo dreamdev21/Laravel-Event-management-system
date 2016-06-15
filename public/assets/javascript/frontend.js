@@ -3923,6 +3923,13 @@ function log() {
                     },
                     error: function(data, statusText, xhr, $form) {
                         $submitButton = $form.find('input[type=submit]');
+
+                        // Form validation error.
+                        if (422 == data.status) {
+                          processFormErrors($form, $.parseJSON(data.responseText));
+                          return;
+                        }
+
                         toggleSubmitDisabled($submitButton);
                         showMessage('Whoops!, it looks like something went wrong on our servers.\n\
                    Please try again, or contact support if the problem persists.');
@@ -4180,6 +4187,28 @@ $.extend(
             $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
         }
     });
+
+function processFormErrors($form, errors)
+{
+  $.each(errors, function (index, error)
+  {
+    var $input = $(':input[name=' + index + ']', $form);
+
+    if ($input.prop('type') === 'file') {
+      $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
+          .parent()
+          .addClass('has-error');
+    } else {
+      $input.after('<div class="help-block error">' + error + '</div>')
+          .parent()
+          .addClass('has-error');
+    }
+
+  });
+
+  var $submitButton = $form.find('input[type=submit]');
+  toggleSubmitDisabled($submitButton);
+}
 
 /*!
  * Smooth Scroll - v1.4.13 - 2013-11-02
