@@ -4,15 +4,15 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Mailers\AttendeeMailer;
-use App\Mailers\TicketMailer;
 use App\Models\Attendee;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendAttendeeTicket extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     public $attendee;
     
@@ -33,6 +33,7 @@ class SendAttendeeTicket extends Job implements ShouldQueue
      */
     public function handle(AttendeeMailer $attendeeMailer)
     {
+        $this->dispatchNow(new GenerateTicket($this->attendee->reference));
         $attendeeMailer->sendAttendeeTicket($this->attendee);
     }
 }

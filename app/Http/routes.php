@@ -443,6 +443,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventAttendeesController@showExportTicket',
         ]);
 
+        Route::get('{event_id}/attendees/{attendee_id}/ticket', [
+            'as'   => 'showAttendeeTicket',
+            'uses' => 'EventAttendeesController@showAttendeeTicket',
+        ]);
+
         Route::get('{event_id}/attendees/export/{export_as?}', [
             'as'   => 'showExportAttendees',
             'uses' => 'EventAttendeesController@showExportAttendees',

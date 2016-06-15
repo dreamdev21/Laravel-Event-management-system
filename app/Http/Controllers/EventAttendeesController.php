@@ -19,6 +19,7 @@ use DB;
 use Excel;
 use Mail;
 use Omnipay\Omnipay;
+use PDF;
 use Response;
 use Validator;
 use Config;
@@ -820,4 +821,33 @@ class EventAttendeesController extends MyBaseController
             'message' => 'Ticket Successfully Resent',
         ]);
     }
+
+
+    /**
+     * Show an attendee ticket
+     *
+     * @param Request $request
+     * @param $attendee_id
+     * @return bool
+     */
+    public function showAttendeeTicket(Request $request, $attendee_id)
+    {
+        $attendee = Attendee::scope()->findOrFail($attendee_id);
+
+        $data = [
+            'order'     => $attendee->order,
+            'event'     => $attendee->event,
+            'tickets'   => $attendee->ticket,
+            'attendees' => [$attendee],
+            'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
+            'image'     => base64_encode(file_get_contents(public_path($attendee->event->organiser->full_logo_path))),
+
+        ];
+
+        if ($request->get('download') == '1') {
+            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+        }
+        return view('Public.ViewEvent.Partials.PDFTicket', $data);
+    }
+
 }

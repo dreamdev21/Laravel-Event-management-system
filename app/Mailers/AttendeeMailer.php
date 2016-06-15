@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Mail;
 use Log;
 
+
 class AttendeeMailer extends Mailer
 {
 
@@ -25,7 +26,7 @@ class AttendeeMailer extends Mailer
             $message->to($attendee->email);
             $message->subject('Your ticket for the event ' . $attendee->order->event->title);
 
-            $file_name = $attendee->getReferenceAttribute();
+            $file_name = $attendee->reference;
             $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
 
             $message->attach($file_path);
