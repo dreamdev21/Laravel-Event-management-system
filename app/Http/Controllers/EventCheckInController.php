@@ -142,7 +142,7 @@ class EventCheckInController extends MyBaseController
                 'attendees.first_name',
                 'attendees.last_name',
                 'attendees.email',
-                'attendees.reference',
+                'attendees.reference_index',
                 'attendees.arrival_time',
                 'attendees.has_arrived',
                 'tickets.title as ticket',

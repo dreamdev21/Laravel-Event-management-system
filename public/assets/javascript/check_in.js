@@ -152,7 +152,6 @@ var checkinApp = new Vue({
                     console.log(e);
                     this.QrTimeout = setTimeout(this.captureQrToCanvas, 500);
                 }
-                ;
             }
             catch (e) {
                 console.log(e);
