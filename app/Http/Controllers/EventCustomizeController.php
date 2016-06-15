@@ -76,11 +76,11 @@ class EventCustomizeController extends MyBaseController
         $event = Event::scope()->findOrFail($event_id);
 
         $rules = [
-            'social_share_text' => ['max:3000'],
-            'social_show_facebook' => ['boolean'],
-            'social_show_twitter' => ['boolean'],
-            'social_show_linkedin' => ['boolean'],
-            'social_show_email' => ['boolean'],
+            'social_share_text'      => ['max:3000'],
+            'social_show_facebook'   => ['boolean'],
+            'social_show_twitter'    => ['boolean'],
+            'social_show_linkedin'   => ['boolean'],
+            'social_show_email'      => ['boolean'],
             'social_show_googleplus' => ['boolean'],
         ];
 
@@ -97,13 +97,13 @@ class EventCustomizeController extends MyBaseController
             ]);
         }
 
-        $event->social_share_text = $request->get('social_share_text');
-        $event->social_show_facebook = $request->get('social_show_facebook');
-        $event->social_show_linkedin = $request->get('social_show_linkedin');
-        $event->social_show_twitter = $request->get('social_show_twitter');
-        $event->social_show_email = $request->get('social_show_email');
+        $event->social_share_text      = $request->get('social_share_text');
+        $event->social_show_facebook   = $request->get('social_show_facebook');
+        $event->social_show_linkedin   = $request->get('social_show_linkedin');
+        $event->social_show_twitter    = $request->get('social_show_twitter');
+        $event->social_show_email      = $request->get('social_show_email');
         $event->social_show_googleplus = $request->get('social_show_googleplus');
-        $event->social_show_whatsapp = $request->get('social_show_whatsapp');
+        $event->social_show_whatsapp   = $request->get('social_show_whatsapp');
         $event->save();
 
         return response()->json([
@@ -125,10 +125,9 @@ class EventCustomizeController extends MyBaseController
         $event = Event::scope()->findOrFail($event_id);
 
         $rules = [
-            //'barcode_type' => ['required'],
-            'ticket_border_color' => ['required'],
-            'ticket_bg_color' => ['required'],
-            'ticket_text_color' => ['required'],
+            'ticket_border_color'   => ['required'],
+            'ticket_bg_color'       => ['required'],
+            'ticket_text_color'     => ['required'],
             'ticket_sub_text_color' => ['required'],
         ];
         $messages = [
@@ -144,7 +143,6 @@ class EventCustomizeController extends MyBaseController
             ]);
         }
 
-        //$event->barcode_type = $request->get('barcode_type');
         $event->ticket_border_color = $request->get('ticket_border_color');
         $event->ticket_bg_color = $request->get('ticket_bg_color');
         $event->ticket_text_color = $request->get('ticket_text_color');
@@ -171,12 +169,12 @@ class EventCustomizeController extends MyBaseController
 
         $rules = [
             'organiser_fee_percentage' => ['numeric', 'between:0,100'],
-            'organiser_fee_fixed' => ['numeric', 'between:0,100'],
+            'organiser_fee_fixed'      => ['numeric', 'between:0,100'],
         ];
         $messages = [
             'organiser_fee_percentage.numeric' => 'Please enter a value between 0 and 100',
-            'organiser_fee_fixed.numeric' => 'Please check the format. It should be in the format 0.00.',
-            'organiser_fee_fixed.between' => 'Please enter a value between 0 and 100.',
+            'organiser_fee_fixed.numeric'      => 'Please check the format. It should be in the format 0.00.',
+            'organiser_fee_fixed.between'      => 'Please enter a value between 0 and 100.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -222,7 +220,7 @@ class EventCustomizeController extends MyBaseController
             ]);
         }
 
-        $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
+        $event->pre_order_display_message  = trim($request->get('pre_order_display_message'));
         $event->post_order_display_message = trim($request->get('post_order_display_message'));
         $event->save();
 
@@ -248,7 +246,7 @@ class EventCustomizeController extends MyBaseController
         ];
         $messages = [
             'bg_image_path.mimes' => 'Please ensure you are uploading an image (JPG, PNG, JPEG)',
-            'bg_image_path.max' => 'Please ensure the image is not larger than 2.5MB',
+            'bg_image_path.max'   => 'Please ensure the image is not larger than 2.5MB',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

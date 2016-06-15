@@ -34,8 +34,8 @@ class UserLoginController extends Controller
          */
         if ($request->ajax()) {
             return Response::json([
-                        'status'      => 'success',
-                        'redirectUrl' => route('login'),
+                'status'      => 'success',
+                'redirectUrl' => route('login'),
             ]);
         }
 

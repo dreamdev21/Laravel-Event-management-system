@@ -14,7 +14,7 @@ class UserLogoutController extends Controller
     }
 
     /**
-     * Log a use out and redirect them
+     * Log a user out and redirect them
      *
      * @return mixed
      */
