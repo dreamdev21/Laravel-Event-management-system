@@ -187,8 +187,8 @@ class CreateUsersTable extends Migration
             $t->unsignedInteger('currency_id')->nullable();
             $t->foreign('currency_id')->references('id')->on('currencies');
 
-            $t->decimal('sales_volume', 13, 2)->nullable();
-            $t->decimal('organiser_fees_volume', 13, 2)->nullable();
+            $t->decimal('sales_volume', 13, 2)->default(0);
+            $t->decimal('organiser_fees_volume', 13, 2)->default(0);
             $t->decimal('organiser_fee_fixed', 13, 2)->default(0);
             $t->decimal('organiser_fee_percentage', 4, 3)->default(0);
             $t->unsignedInteger('organiser_id');
@@ -297,8 +297,8 @@ class CreateUsersTable extends Migration
             $t->dateTime('start_sale_date')->nullable();
             $t->dateTime('end_sale_date')->nullable();
 
-            $t->decimal('sales_volume', 13, 2)->nullable();
-            $t->decimal('organiser_fees_volume', 13, 2)->nullable();
+            $t->decimal('sales_volume', 13, 2)->default(0);
+            $t->decimal('organiser_fees_volume', 13, 2)->default(0);
 
             $t->tinyInteger('is_paused')->default(0);
 
@@ -429,8 +429,8 @@ class CreateUsersTable extends Migration
             $table->integer('unique_views')->default(0);
             $table->integer('tickets_sold')->default(0);
 
-            $table->decimal('sales_volume', 13, 2)->nullable();
-            $table->decimal('organiser_fees_volume', 13, 2)->nullable();
+            $table->decimal('sales_volume', 13, 2)->default(0);
+            $table->decimal('organiser_fees_volume', 13, 2)->default(0);
 
             $table->unsignedInteger('event_id')->index();
 
