@@ -13,5 +13,5 @@ namespace App\Models;
  */
 class OrderStatus extends \Illuminate\Database\Eloquent\Model
 {
-    //put your code here
+    public $timestamps = false;
 }

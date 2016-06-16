@@ -210,6 +210,7 @@ $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Ticket::class, function (Faker\Generator $faker) {
     return [
+        'user_id'               => factory(App\Models\User::class)->create()->id,
         'edited_by_user_id'     => factory(App\Models\User::class)->create()->id,
         'account_id'            => factory(App\Models\Account::class)->create()->id,
         'order_id'              => factory(App\Models\OrderStatus::class)->create()->id,
@@ -224,7 +225,7 @@ $factory->define(App\Models\Ticket::class, function (Faker\Generator $faker) {
         'start_sale_date'       => Carbon::now(),
         'end_sale_date'         => Carbon::now()->addDays(20),
         'sales_volume'          => 0,
-        'organizer_fees_volume' => 0,
+        'organiser_fees_volume' => 0,
         'is_paused'             => 0
     ];
 });
@@ -260,13 +261,12 @@ $factory->define(App\Models\Attendee::class, function (Faker\Generator $faker) {
         'first_name'               => $faker->firstName,
         'last_name'                => $faker->lastName,
         'email'                    => $faker->email,
-        'reference'                => $faker->text(20),
+        'reference_index'          => $faker->numberBetween(),
         'private_reference_number' => 1,
         'is_cancelled'             => false,
         'has_arrived'              => false,
         'arrival_time'             => Carbon::now(),
         'account_id'               => factory(App\Models\Account::class)->create()->id,
-
     ];
 });
 
@@ -275,7 +275,6 @@ $factory->define(App\Models\Message::class, function (Faker\Generator $faker) {
         'message'    => $faker->text,
         'subject'    => $faker->text,
         'recipients' => 0,
-
     ];
 });
 

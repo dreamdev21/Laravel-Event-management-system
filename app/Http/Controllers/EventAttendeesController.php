@@ -137,7 +137,7 @@ class EventAttendeesController extends MyBaseController
         $attendee_last_name = $request->get('last_name');
         $attendee_email = $request->get('email');
         $email_attendee = $request->get('email_ticket');
-        
+
         DB::beginTransaction();
 
         try {
