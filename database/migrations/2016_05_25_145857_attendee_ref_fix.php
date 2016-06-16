@@ -15,7 +15,7 @@ class AttendeeRefFix extends Migration
     public function up()
     {
         Schema::table('attendees', function (Blueprint $table) {
-            $table->integer('reference_index');
+            $table->integer('reference_index')->default(0);
         });
 
         $attendees = Attendee::all();
@@ -28,9 +28,6 @@ class AttendeeRefFix extends Migration
         Schema::table('attendees', function (Blueprint $table) {
             $table->dropColumn('reference');
         });
-
-
-
     }
 
     /**
@@ -54,8 +51,6 @@ class AttendeeRefFix extends Migration
                 $attendee->reference = $order->order_reference. '-' . ++$attendee_count;
                 $attendee->save();
             }
-
         }
-
     }
 }

@@ -217,7 +217,7 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
 
     Route::get('select_organiser', [
         'as'   => 'showSelectOrganiser',
-        'uses' => 'OrganiserController@showSelectOragniser',
+        'uses' => 'OrganiserController@showSelectOrganiser',
     ]);
 
     /*
@@ -233,10 +233,16 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'showOrganiserEvents',
             'uses' => 'OrganiserEventsController@showEvents',
         ]);
+
         Route::get('{organiser_id}/customize', [
             'as'   => 'showOrganiserCustomize',
             'uses' => 'OrganiserCustomizeController@showCustomize',
         ]);
+        Route::post('{organiser_id}/customize', [
+            'as'   => 'postEditOrganiser',
+            'uses' => 'OrganiserCustomizeController@postEditOrganiser',
+        ]);
+
         Route::get('create', [
             'as'   => 'showCreateOrganiser',
             'uses' => 'OrganiserController@showCreateOrganiser',
@@ -244,14 +250,6 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
         Route::post('create', [
             'as'   => 'postCreateOrganiser',
             'uses' => 'OrganiserController@postCreateOrganiser',
-        ]);
-        Route::get('{organiser_id}/edit', [
-            'as'   => 'showEditOrganiser',
-            'uses' => 'OrganiserController@showEditOrganiser',
-        ]);
-        Route::post('{organiser_id}/edit', [
-            'as'   => 'postEditOrganiser',
-            'uses' => 'OrganiserCustomizeController@postEditOrganiser',
         ]);
 
         Route::post('{organiser_id}/page_design', [

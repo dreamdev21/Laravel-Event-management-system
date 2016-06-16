@@ -28,14 +28,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     /**
      * Our test user
-     * 
+     *
      * @var
      */
     protected $test_user;
 
     /**
      * Our faker instance
-     * 
+     *
      * @var
      */
     protected $faker;
@@ -87,5 +87,4 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function tearDown(){
         parent::tearDown();
     }
-
 }

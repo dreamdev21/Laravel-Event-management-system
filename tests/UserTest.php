@@ -8,7 +8,7 @@ class UserTest extends TestCase
 {
 
     /**
-     * A basic test example.
+     * Test sign up page is successful
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class UserTest extends TestCase
             ->press('Sign Up')
             ->seePageIs(route('login'));
     }
-    
+
     public function testLogin()
     {
         $this->visit(route('login'))

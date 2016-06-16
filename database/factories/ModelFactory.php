@@ -55,8 +55,9 @@ $factory->define(App\Models\DateFormat::class, function (Faker\Generator $faker)
 
 $factory->define(App\Models\DateTimeFormat::class, function (Faker\Generator $faker) {
     return [
-        'format' => "Y-m-d H:i:s",
-        'label'  => "utc",
+        'format'        => "Y-m-d H:i:s",
+        'picker_format' => "Y-m-d H:i:s",
+        'label'         => "utc",
     ];
 });
 
@@ -132,6 +133,7 @@ $factory->define(App\Models\Organiser::class, function (Faker\Generator $faker) 
         'twitter'            => 'https://twitter.com/organizer-profile',
         'logo_path'          => 'path/to/logo',
         'is_email_confirmed' => 0,
+        'confirmation_key'   => str_random(15),
     ];
 });
 

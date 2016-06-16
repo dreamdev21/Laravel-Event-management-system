@@ -13,7 +13,7 @@ class OrganiserController extends MyBaseController
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showSelectOragniser()
+    public function showSelectOrganiser()
     {
         return view('ManageOrganiser.SelectOrganiser');
     }

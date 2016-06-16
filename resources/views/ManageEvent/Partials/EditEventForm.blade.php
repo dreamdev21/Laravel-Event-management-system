@@ -115,7 +115,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     {!! Form::label('start_date', 'Event Start Date', array('class'=>'required control-label')) !!}
-                    {!!  Form::text('start_date', $event->getFormatedDate('start_date'),
+                    {!!  Form::text('start_date', $event->getFormattedDate('start_date'),
                                                         [
                                                     'class'=>'form-control start hasDatepicker ',
                                                     'data-field'=>'datetime',
@@ -133,7 +133,7 @@
                                         [
                                     'class'=>'required control-label '
                                 ])  !!}
-                    {!!  Form::text('end_date', $event->getFormatedDate('end_date'),
+                    {!!  Form::text('end_date', $event->getFormattedDate('end_date'),
                                                 [
                                             'class'=>'form-control end hasDatepicker ',
                                             'data-field'=>'datetime',
