@@ -33,7 +33,7 @@ class UserController extends Controller
     public function postEditUser(Request $request)
     {
         $rules = [
-            'email'        => ['required', 'email', 'exists:users,email,account_id,'.Auth::user()->account_id],
+            'email'        => ['required', 'email', 'unique:users,email,' . Auth::user()->id . ',id,account_id,' . Auth::user()->account_id],
             'new_password' => ['min:5', 'confirmed', 'required_with:password'],
             'password'     => 'passcheck',
             'first_name'   => ['required'],
@@ -44,7 +44,7 @@ class UserController extends Controller
             'email.email'         => 'Please enter a valid E-mail address.',
             'email.required'      => 'E-mail address is required.',
             'password.passcheck'  => 'This password is incorrect.',
-            'email.exists'        => 'This E-mail has is already in use.',
+            'email.unique'        => 'This E-mail is already in use.',
             'first_name.required' => 'Please enter your first name.',
         ];
 
@@ -65,6 +65,7 @@ class UserController extends Controller
 
         $user->first_name = $request->get('first_name');
         $user->last_name  = $request->get('last_name');
+        $user->email      = $request->get('email');
 
         $user->save();
 
