@@ -20,13 +20,11 @@ class FirstRunMiddleware
      */
     public function handle($request, Closure $next)
     {
-        DB::enableQueryLog();
         /*
          * If there are no organisers then redirect the user to create one
          * else - if there's only one organiser bring the user straight there.
          */
         if (Organiser::scope()->count() === 0 && !($request->route()->getName() == 'showCreateOrganiser') && !($request->route()->getName() == 'postCreateOrganiser')) {
-            dd(DB::getQueryLog());
             return redirect(route('showCreateOrganiser', [
                 'first_run' => '1',
             ]));
