@@ -10,7 +10,7 @@ use Auth;
 use Carbon\Carbon;
 use Image;
 use Validator;
-
+use Log;
 
 class EventController extends MyBaseController
 {
@@ -43,8 +43,8 @@ class EventController extends MyBaseController
 
         if (!$event->validate($request->all())) {
             return response()->json([
-                        'status'   => 'error',
-                        'messages' => $event->errors(),
+                'status'   => 'error',
+                'messages' => $event->errors(),
             ]);
         }
 
@@ -101,7 +101,7 @@ class EventController extends MyBaseController
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->fails()) {
-                return Response::json([
+                return response()->json([
                     'status'   => 'error',
                     'messages' => $validator->messages()->toArray(),
                 ]);
@@ -118,13 +118,22 @@ class EventController extends MyBaseController
         } elseif ($request->get('organiser_id')) {
             $event->organiser_id = $request->get('organiser_id');
         } else { /* Somethings gone horribly wrong */
-            return Response::json([
+            return response()->json([
                 'status'   => 'error',
                 'messages' => 'There was an issue finding the organiser.',
             ]);
         }
 
-        $event->save();
+        try {
+            $event->save();
+        } catch (\Exception $e) {
+            Log::error($e);
+
+            return response()->json([
+                'status'   => 'error',
+                'messages' => 'Whoops! There was a problem creating your event. Please try again.',
+            ]);
+        }
 
         if ($request->hasFile('event_image')) {
             $path = public_path().'/'.config('attendize.event_images_path');

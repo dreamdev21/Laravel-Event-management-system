@@ -38,7 +38,7 @@
                         <div class="form-group">
                             {!! Form::label('start_sale_date', 'Start Sale On', ['class'=>' control-label']) !!}
 
-                            {!!  Form::text('start_sale_date', $ticket->getFormatedDate('start_sale_date'),
+                            {!!  Form::text('start_sale_date', $ticket->getFormattedDate('start_sale_date'),
                                 [
                                     'class' => 'form-control start hasDatepicker',
                                     'data-field' => 'datetime',
@@ -55,7 +55,7 @@
                                         [
                                     'class'=>' control-label '
                                 ])  !!}
-                            {!!  Form::text('end_sale_date', $ticket->getFormatedDate('end_sale_date'),
+                            {!!  Form::text('end_sale_date', $ticket->getFormattedDate('end_sale_date'),
                                 [
                                     'class' => 'form-control end hasDatepicker',
                                     'data-field' => 'datetime',

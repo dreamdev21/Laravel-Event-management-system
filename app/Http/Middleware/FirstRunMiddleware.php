@@ -6,6 +6,7 @@ use App\Models\Organiser;
 use Closure;
 use Redirect;
 use Request;
+use DB;
 
 class FirstRunMiddleware
 {
@@ -19,7 +20,6 @@ class FirstRunMiddleware
      */
     public function handle($request, Closure $next)
     {
-        
         /*
          * If there are no organisers then redirect the user to create one
          * else - if there's only one organiser bring the user straight there.

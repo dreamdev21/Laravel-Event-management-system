@@ -13,5 +13,5 @@ namespace App\Models;
  */
 class TicketStatus extends \Illuminate\Database\Eloquent\Model
 {
-    //put your code here
+    public $timestamps = false;
 }

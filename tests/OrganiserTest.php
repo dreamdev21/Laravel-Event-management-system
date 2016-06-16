@@ -7,10 +7,8 @@ use App\Models\Organiser;
 
 class OrganiserTest extends TestCase
 {
-    
     public function testCreateOrganiser()
     {
-
         $this->actingAs($this->test_user)
             ->visit(route('showCreateOrganiser'))
             ->type($this->faker->name, 'name')
@@ -23,13 +21,13 @@ class OrganiserTest extends TestCase
                 'status' => 'success'
             ]);
     }
-    
-    public function testEditOrganiser() 
+
+    public function testEditOrganiser()
     {
         $organiser = factory(App\Models\Organiser::class)->create();
 
         $this->actingAs($this->test_user)
-            ->visit(route('showEditOrganiser', ['organiser_id' => $organiser->id]))
+            ->visit(route('showOrganiserCustomize', ['organiser_id' => $organiser->id]))
             ->type($this->faker->name, 'name')
             ->type($this->faker->email, 'email')
             ->type($this->faker->email, 'about')
@@ -39,7 +37,5 @@ class OrganiserTest extends TestCase
             ->seeJson([
                 'status' => 'success'
             ]);
-
     }
-
 }
