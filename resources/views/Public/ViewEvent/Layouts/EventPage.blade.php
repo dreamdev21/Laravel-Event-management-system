@@ -79,7 +79,13 @@
     <body class="attendize">
         <div id="event_page_wrap" vocab="http://schema.org/" typeof="Event">
             @yield('content')
+
+            {{-- Push for sticky footer--}}
+            @stack('footer')
         </div>
+
+        {{-- Sticky Footer--}}
+        @yield('footer')
 
         <a href="#intro" style="display:none;" class="totop"><i class="ico-angle-up"></i>
             <span style="font-size:11px;">TOP</span></a>
