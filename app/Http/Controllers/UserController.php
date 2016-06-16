@@ -46,6 +46,7 @@ class UserController extends Controller
             'password.passcheck'  => 'This password is incorrect.',
             'email.unique'        => 'This E-mail is already in use.',
             'first_name.required' => 'Please enter your first name.',
+            'last_name.required'  => 'Please enter your last name.',
         ];
 
         $validation = Validator::make($request->all(), $rules, $messages);
@@ -60,7 +61,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         if ($request->get('password')) {
-            $user->password = Hash::make(Input::get('new_password'));
+            $user->password = Hash::make($request->get('new_password'));
         }
 
         $user->first_name = $request->get('first_name');
