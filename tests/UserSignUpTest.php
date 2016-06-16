@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Attendize\Utils;
 
-class UserTest extends TestCase
+class UserSignUpTest extends TestCase
 {
     /**
      * Test sign up page is successful
