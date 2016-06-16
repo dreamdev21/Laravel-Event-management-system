@@ -12,7 +12,6 @@ use Auth;
 use HttpClient;
 use Illuminate\Http\Request;
 use Input;
-use Response;
 use Validator;
 use Hash;
 use Mail;
@@ -94,7 +93,7 @@ class ManageAccountController extends MyBaseController
         $account = Account::find(Auth::user()->account_id);
 
         if (!$account->validate(Input::all())) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $account->errors(),
             ]);
@@ -107,7 +106,7 @@ class ManageAccountController extends MyBaseController
         $account->currency_id = Input::get('currency_id');
         $account->save();
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
             'id' => $account->id,
             'message' => 'Account Successfully Updated',
@@ -177,7 +176,7 @@ class ManageAccountController extends MyBaseController
         $validation = Validator::make(Input::all(), $rules, $messages);
 
         if ($validation->fails()) {
-            return Response::json([
+            return response()->json([
                 'status' => 'error',
                 'messages' => $validation->messages()->toArray(),
             ]);
@@ -204,7 +203,7 @@ class ManageAccountController extends MyBaseController
                 ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an '. config('attendize.app_name') .' account.');
         });
 
-        return Response::json([
+        return response()->json([
             'status' => 'success',
             'message' => 'Success! <b>' . $user->email . '</b> has been sent further instructions.',
         ]);

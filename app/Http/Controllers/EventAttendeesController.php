@@ -20,7 +20,6 @@ use Excel;
 use Mail;
 use Omnipay\Omnipay;
 use PDF;
-use Response;
 use Validator;
 use Config;
 use Log;
@@ -490,7 +489,7 @@ class EventAttendeesController extends MyBaseController
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return Response::json([
+            return response()->json([
                 'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
@@ -695,7 +694,7 @@ class EventAttendeesController extends MyBaseController
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
         if ($attendee->is_cancelled) {
-            return Response::json([
+            return response()->json([
                 'status'  => 'success',
                 'message' => 'Attendee Already Cancelled',
             ]);

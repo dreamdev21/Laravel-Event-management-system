@@ -33,7 +33,7 @@ class UserLoginController extends Controller
          * logged out and redirect them to the login page
          */
         if ($request->ajax()) {
-            return Response::json([
+            return response()->json([
                 'status'      => 'success',
                 'redirectUrl' => route('login'),
             ]);
