@@ -83,9 +83,8 @@ $(function() {
         toggleSubmitDisabled($submitButton);
 
         if ($form.hasClass('payment-form')) {
-            
             clearFormErrors($('.payment-form'));
-            
+
             Stripe.setPublishableKey($form.data('stripe-pub-key'));
 
             var
@@ -95,6 +94,7 @@ $(function() {
                     $cvcNumber = $('.card-cvc'),
                     $expiryMonth = $('.card-expiry-month'),
                     $expiryYear = $('.card-expiry-year');
+
 
             if (!Stripe.validateCardNumber($cardNumber.val())) {
                 showFormError($cardNumber, 'The credit card number appears to be invalid.');
@@ -131,7 +131,7 @@ $(function() {
                         $form.append($('<input type="hidden" name="stripeToken" />').val(token));
                         $form.ajaxSubmit(ajaxFormConf);
                     }
-                    
+
                 });
             } else {
                 showMessage('Please check your card details and try again.');
@@ -146,6 +146,7 @@ $(function() {
     $('a').smoothScroll({
         offset: -60
     });
+
 
     /* Scroll to top */
     $(window).scroll(function() {
@@ -171,6 +172,9 @@ $(function() {
         $('.ticket_holder_last_name').val($('#order_last_name').val());
         $('.ticket_holder_email').val($('#order_email').val());
     });
+
+    $('.card-number').payment('formatCardNumber');
+    $('.card-cvc').payment('formatCardCVC');
 
 });
 
@@ -201,7 +205,7 @@ function processFormErrors($form, errors)
 
 /**
  * Toggle a submit button disabled/enabled - duh!
- * 
+ *
  * @param element $submitButton
  * @returns void
  */
@@ -222,7 +226,7 @@ function toggleSubmitDisabled($submitButton) {
 
 /**
  * Clears given form of any error classes / messages
- * 
+ *
  * @param {Element} $form
  * @returns {void}
  */
@@ -247,7 +251,7 @@ function showFormError($formElement, message) {
 /**
  * Shows users a message.
  * Currently uses humane.js
- * 
+ *
  * @param string message
  * @returns void
  */
@@ -264,7 +268,7 @@ function hideMessage() {
 
 /**
  * Counts down to the given number of seconds
- * 
+ *
  * @param element $element
  * @param int seconds
  * @returns void
