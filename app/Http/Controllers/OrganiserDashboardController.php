@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Organiser;
 use Carbon\Carbon;
-use DB;
 
 class OrganiserDashboardController extends MyBaseController
 {

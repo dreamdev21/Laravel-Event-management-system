@@ -28,7 +28,7 @@ class UserTest extends TestCase
 
         $this->seeJson([
             'status' => 'success',
-            'message' => 'Successfully Edited User',
+            'message' => 'Successfully Saved Details',
         ]);
 
         $user = App\Models\User::find($this->test_user->id);
@@ -64,7 +64,7 @@ class UserTest extends TestCase
 
         $this->seeJson([
             'status' => 'success',
-            'message' => 'Successfully Edited User',
+            'message' => 'Successfully Saved Details',
         ]);
 
         $user = App\Models\User::find($this->test_user->id);

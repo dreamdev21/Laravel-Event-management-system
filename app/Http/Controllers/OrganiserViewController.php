@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class OrganiserViewController extends Controller
 {
-
     /**
      * Show the public organiser page
      *
