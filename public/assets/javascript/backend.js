@@ -9498,7 +9498,9 @@ function replaceUrlParam(url, paramName, paramValue) {
  */
 function showMessage(message) {
     humane.log(message, {
-        timeout: 3500
+        //timeout: 60000,
+        timeoutAfterMove: 2500,
+        waitForMove: true
     });
 }
 
