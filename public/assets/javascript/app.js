@@ -518,7 +518,8 @@ function replaceUrlParam(url, paramName, paramValue) {
  */
 function showMessage(message) {
     humane.log(message, {
-        timeout: 3500
+        timeoutAfterMove: 3000,
+        waitForMove: true
     });
 }
 

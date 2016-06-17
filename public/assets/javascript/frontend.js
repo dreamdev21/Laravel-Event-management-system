@@ -4156,7 +4156,8 @@ function showFormError($formElement, message) {
  */
 function showMessage(message) {
     humane.log(message, {
-        timeout: 2500
+        timeoutAfterMove: 3000,
+        waitForMove: true
     });
 }
 

@@ -139,7 +139,7 @@ $factory->define(App\Models\Organiser::class, function (Faker\Generator $faker) 
 
 $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
     return [
-        'title'                      => $faker->title,
+        'title'                      => $faker->name,
         'location'                   => $faker->text,
         'bg_type'                    => 'color',
         'bg_color'                   => config('attendize.event_default_bg_color'),

@@ -5,12 +5,14 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Organiser;
 
-class OrganiserTest extends TestCase
+class OrganiserCustomizeTest extends TestCase
 {
-    public function test_create_organiser_is_successful()
+    public function test_customize_organiser_is_successful()
     {
+        $organiser = factory(App\Models\Organiser::class)->create();
+
         $this->actingAs($this->test_user)
-            ->visit(route('showCreateOrganiser'))
+            ->visit(route('showOrganiserCustomize', ['organiser_id' => $organiser->id]))
             ->type($this->faker->name, 'name')
             ->type($this->faker->email, 'email')
             ->type($this->faker->email, 'about')
