@@ -49,9 +49,15 @@ class MyBaseController extends Controller
     {
         $event = Event::scope()->findOrFail($event_id);
 
+        $image_path = $event->organiser->full_logo_path;
+        if ($event->images->first() != null) {
+          $image_path = $event->images()->first()->image_path;
+        }
+
         return array_merge([
             'event' => $event,
             'questions' => $event->questions()->get(),
+            'image_path' => $image_path,
         ], $additional_data);
     }
 
