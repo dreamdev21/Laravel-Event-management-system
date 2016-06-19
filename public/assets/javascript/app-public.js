@@ -53,24 +53,9 @@ $(function() {
 
                             case 'error':
                                 if (data.messages) {
-                                    $.each(data.messages, function(index, error) {
-
-                                        /*
-                                         * use the class as the selector if the input name is an array.
-                                         */
-                                        var selector = (index.indexOf(".") >= 0) ? '.' + index.replace(/\./g, "\\.") : ':input[name=' + index + ']';
-
-                                        $(selector, $form)
-                                                .after('<div class="help-block error">' + error + '</div>')
-                                                .parent()
-                                                .addClass('has-error');
-                                    });
+                                    processFormErrors($form, data.messages);
+                                    return;
                                 }
-
-
-                                var $submitButton = $form.find('input[type=submit]');
-                                toggleSubmitDisabled($submitButton);
-
                                 break;
 
                             default:
