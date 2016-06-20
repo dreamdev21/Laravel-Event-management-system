@@ -72,7 +72,9 @@
                                {!! Form::hidden('tickets[]', $ticket->id) !!}
                                 <meta property="availability" content="http://schema.org/InStock">
                                 <select name="ticket_{{$ticket->id}}" class="form-control" style="text-align: center">
+                                    @if ($tickets->count() > 1)
                                     <option value="0">0</option>
+                                    @endif
                                     @for($i=$ticket->min_per_person; $i<=$ticket->max_per_person; $i++)
                                     <option value="{{$i}}">{{$i}}</option>
                                     @endfor
