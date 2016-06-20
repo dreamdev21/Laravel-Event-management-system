@@ -168,7 +168,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label('card-expiry-year', 'CVC Number') !!}
-                            <input required="required" name="card-cvc" type="password" placeholder="***"  class="form-control card-cvc" size="4" data-stripe="cvc">
+                            <input required="required" name="card-cvc" placeholder="***" class="form-control card-cvc" data-stripe="cvc">
                         </div>
                     </div>
                 </div>
