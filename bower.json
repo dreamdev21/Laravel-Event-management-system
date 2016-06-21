@@ -31,7 +31,8 @@
     "fullcalendar": "^2.7.1",
     "vue": "^1.0.24",
     "vue-resource": "^0.7.0",
-    "html.sortable": "^0.3.1"
+    "html.sortable": "^0.3.1",
+    "jquery.payment": "^1.4.2"
   },
   "resolutions": {
     "jquery": ">=1.5",
