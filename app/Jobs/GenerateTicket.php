@@ -60,12 +60,17 @@ class GenerateTicket extends Job implements ShouldQueue
       }
       $attendees = $query->get();
 
+      $image_path = $event->organiser->full_logo_path;
+      if ($event->images->first() != null) {
+        $image_path = $event->images()->first()->image_path;
+      }
+
       $data = [ 
         'order' => $order,
         'event' => $event,
         'attendees' => $attendees,
         'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
-        'image'     => base64_encode(file_get_contents(public_path($event->organiser->full_logo_path))),
+        'image'     => base64_encode(file_get_contents(public_path($image_path))),
       ];
 
       PDF::setOutputMode('F'); // force to file

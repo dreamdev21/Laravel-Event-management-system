@@ -15,7 +15,7 @@
 </style>
 <div class="ticket">
     <div class="logo">
-        {!! HTML::image(asset($event->organiser->full_logo_path)) !!}
+        {!! HTML::image(asset($image_path)) !!}
     </div>
 
     <div class="event_details">
