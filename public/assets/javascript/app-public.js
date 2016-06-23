@@ -163,7 +163,8 @@ function processFormErrors($form, errors)
 {
     $.each(errors, function (index, error)
     {
-        var $input = $(':input[name=' + index + ']', $form);
+        var selector = (index.indexOf(".") >= 0) ? '.' + index.replace(/\./g, "\\.") : ':input[name=' + index + ']';
+        var $input = $(selector, $form);
 
         if ($input.prop('type') === 'file') {
             $('#input-' + $input.prop('name')).append('<div class="help-block error">' + error + '</div>')
