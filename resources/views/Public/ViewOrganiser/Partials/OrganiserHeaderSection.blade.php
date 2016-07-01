@@ -7,9 +7,11 @@
                 </div>
             </div>
             <h1>{{$organiser->name}}</h1>
-            <div class="description">
+            @if($organiser->about)
+            <div class="description pa10">
                 {!! $organiser->about !!}
             </div>
+            @endif
         </div>
     </div>
 </section>
