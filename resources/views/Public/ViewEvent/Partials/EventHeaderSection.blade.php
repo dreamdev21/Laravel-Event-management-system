@@ -35,7 +35,7 @@
             <h1 property="name">{{$event->title}}</h1>
             <div class="event_venue">
                 <span property="startDate" content="{{ $event->start_date->toIso8601String() }}">
-                    {{ $event->start_date->toDayDateTimeString() }}
+                    {{ $event->start_date->format('D d M H:i A') }}
                 </span>
                 -
                 <span property="endDate" content="{{ $event->end_date->toIso8601String() }}">
@@ -44,7 +44,7 @@
                 @
                 <span property="location" typeof="Place">
                     <b property="name">{{$event->venue_name}}</b>
-                    <meta property="address" content="{{{ urldecode($event->venue_name) }}}">
+                    <meta property="address" content="{{ urldecode($event->venue_name) }}">
                 </span>
             </div>
 
