@@ -91,9 +91,11 @@
                         <div class="barcode">
                             {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
                         </div>
+                        @if($event->is_1d_barcode_enabled)
                         <div class="barcode_vertical">
-                  {{-- DNS1D::getBarcodeSVG($attendee->private_reference_number, "C39+", 1, 50) !!}<br>{{$attendee->private_reference_number --}}
+                            {!! DNS1D::getBarcodeSVG($attendee->private_reference_number, "C39+", 1, 50) !!}
                         </div>
+                        @endif
                     </div>
                 @endif
             @endforeach

@@ -551,6 +551,12 @@
                                                             ])  !!}
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {!! Form::label('is_1d_barcode_enabled', 'Show 1D barcode on tickets', ['class' => 'control-label required']) !!}
+                                {!! Form::select('is_1d_barcode_enabled', [1 => 'Yes', 0 => 'No'], $event->is_1d_barcode_enabled, ['class'=>'form-control']) !!}
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
 

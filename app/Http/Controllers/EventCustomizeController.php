@@ -20,9 +20,9 @@ class EventCustomizeController extends MyBaseController
     public function showCustomize($event_id = '', $tab = '')
     {
         $data = $this->getEventViewData($event_id, [
-            'available_bg_images' => $this->getAvailableBackgroundImages(),
+            'available_bg_images'        => $this->getAvailableBackgroundImages(),
             'available_bg_images_thumbs' => $this->getAvailableBackgroundImagesThumbs(),
-            'tab' => $tab,
+            'tab'                        => $tab,
         ]);
 
         return view('ManageEvent.Customize', $data);
@@ -92,22 +92,22 @@ class EventCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->social_share_text      = $request->get('social_share_text');
-        $event->social_show_facebook   = $request->get('social_show_facebook');
-        $event->social_show_linkedin   = $request->get('social_show_linkedin');
-        $event->social_show_twitter    = $request->get('social_show_twitter');
-        $event->social_show_email      = $request->get('social_show_email');
+        $event->social_share_text = $request->get('social_share_text');
+        $event->social_show_facebook = $request->get('social_show_facebook');
+        $event->social_show_linkedin = $request->get('social_show_linkedin');
+        $event->social_show_twitter = $request->get('social_show_twitter');
+        $event->social_show_email = $request->get('social_show_email');
         $event->social_show_googleplus = $request->get('social_show_googleplus');
-        $event->social_show_whatsapp   = $request->get('social_show_whatsapp');
+        $event->social_show_whatsapp = $request->get('social_show_whatsapp');
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Social Settings Successfully Updated',
         ]);
 
@@ -129,6 +129,7 @@ class EventCustomizeController extends MyBaseController
             'ticket_bg_color'       => ['required'],
             'ticket_text_color'     => ['required'],
             'ticket_sub_text_color' => ['required'],
+            'is_1d_barcode_enabled' => ['required'],
         ];
         $messages = [
             'ticket_bg_color.required' => 'Please enter a background color.',
@@ -138,7 +139,7 @@ class EventCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
@@ -147,11 +148,12 @@ class EventCustomizeController extends MyBaseController
         $event->ticket_bg_color = $request->get('ticket_bg_color');
         $event->ticket_text_color = $request->get('ticket_text_color');
         $event->ticket_sub_text_color = $request->get('ticket_sub_text_color');
+        $event->is_1d_barcode_enabled = $request->get('is_1d_barcode_enabled');
 
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Ticket Settings Updated',
         ]);
     }
@@ -181,7 +183,7 @@ class EventCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
@@ -191,7 +193,7 @@ class EventCustomizeController extends MyBaseController
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Order Page Successfully Updated',
         ]);
     }
@@ -215,17 +217,17 @@ class EventCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->pre_order_display_message  = trim($request->get('pre_order_display_message'));
+        $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
         $event->post_order_display_message = trim($request->get('post_order_display_message'));
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Order Page Successfully Updated',
         ]);
     }
@@ -253,7 +255,7 @@ class EventCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
@@ -297,7 +299,7 @@ class EventCustomizeController extends MyBaseController
         $event->save();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Event Page Successfully Updated',
             'runThis' => 'document.getElementById(\'previewIframe\').contentWindow.location.reload(true);',
         ]);

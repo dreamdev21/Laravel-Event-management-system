@@ -43,14 +43,18 @@
     background-color: #fdfdfd;
 }
 
-.ticket .barcode_vertical {
+.ticket   .barcode_vertical {
+    display: block;
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
     position: absolute;
-    right: 100px;
-    top: 171px;
-    width: 300px;
-}
-.ticket .barcode_vertical svg {
-    width:300px;
+    right: -38px;
+    bottom: 79px;
+    width: 192px;
+    height: 50px;
+    background: #fff;
 }
 
 .ticket .top_barcode {

@@ -39,4 +39,9 @@
     <div class="barcode">
         {!! DNS2D::getBarcodeSVG('hello', "QRCODE", 6, 6) !!}
     </div>
+    @if($event->is_1d_barcode_enabled)
+        <div class="barcode_vertical">
+            {!! DNS1D::getBarcodeSVG(12211221, "C39+", 1, 50) !!}
+        </div>
+    @endif
 </div>
