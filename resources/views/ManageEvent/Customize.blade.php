@@ -513,7 +513,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Ticket Border Color', ['class'=>'control-label required ']) !!}
+                                {!! Form::label('ticket_border_color', 'Ticket Border Color', ['class'=>'control-label required ']) !!}
                                 {!!  Form::input('text', 'ticket_border_color', Input::old('ticket_border_color'),
                                                             [
                                                             'class'=>'form-control colorpicker',
@@ -523,7 +523,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Ticket Background Color', ['class'=>'control-label required ']) !!}
+                                {!! Form::label('ticket_bg_color', 'Ticket Background Color', ['class'=>'control-label required ']) !!}
                                 {!!  Form::input('text', 'ticket_bg_color', Input::old('ticket_bg_color'),
                                                             [
                                                             'class'=>'form-control colorpicker',
@@ -533,7 +533,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Ticket Text Color', ['class'=>'control-label required ']) !!}
+                                {!! Form::label('ticket_text_color', 'Ticket Text Color', ['class'=>'control-label required ']) !!}
                                 {!!  Form::input('text', 'ticket_text_color', Input::old('ticket_text_color'),
                                                             [
                                                             'class'=>'form-control colorpicker',
@@ -543,7 +543,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Ticket Sub Text Color', ['class'=>'control-label required ']) !!}
+                                {!! Form::label('ticket_sub_text_color', 'Ticket Sub Text Color', ['class'=>'control-label required ']) !!}
                                 {!!  Form::input('text', 'ticket_sub_text_color', Input::old('ticket_border_color'),
                                                             [
                                                             'class'=>'form-control colorpicker',
