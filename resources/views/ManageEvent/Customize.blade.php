@@ -387,6 +387,9 @@
 
                                             {!! Form::hidden('bg_image_path_custom', ($event->bg_type == 'image') ? $event->bg_image_path : '') !!}
                                         </div>
+                                            <a class="btn btn-link" href="https://pixabay.com?ref=attendize" title="PixaBay Free Images">
+                                            Images Provided By <b>PixaBay.com</b>
+                                            </a>
                                     </div>
                                 </div>
 
