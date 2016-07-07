@@ -178,7 +178,7 @@ class EventCheckoutController extends Controller
         }
 
         /*
-         * The 'ticket_order' session stores everything we need to complete the transaction.
+         * The 'ticket_order_{event_id}' session stores everything we need to complete the transaction.
          */
         session()->set('ticket_order_' . $event->id, [
             'validation_rules'        => $validation_rules,
@@ -214,6 +214,9 @@ class EventCheckoutController extends Controller
             ]);
         }
 
+        /*
+         * Maybe display something prettier than this?
+         */
         exit('Please enable Javascript in your browser.');
     }
 
@@ -358,7 +361,8 @@ class EventCheckoutController extends Controller
                 } elseif ($response->isRedirect()) {
 
                     /*
-                     * As we're going off-site for payment we need to store some into in a session
+                     * As we're going off-site for payment we need to store some data in a session so it's available
+                     * when we return
                      */
                     session()->push('ticket_order_' . $event_id . '.transaction_data', $transaction_data);
 
