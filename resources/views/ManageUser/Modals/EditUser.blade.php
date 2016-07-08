@@ -1,6 +1,5 @@
 <div role="dialog"  class="modal fade" style="display: none;">
     {!! Form::model($user, array('url' => route('postEditUser'), 'class' => 'ajax closeModalAfter')) !!}
-        {!! Form::password('meaningless_password') !!}
         <div class="modal-dialog account_settings">
             <div class="modal-content">
                 <div class="modal-header text-center">
