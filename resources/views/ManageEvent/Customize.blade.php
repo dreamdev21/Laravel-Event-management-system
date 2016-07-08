@@ -124,6 +124,9 @@
 
             });
 
+            $('#enable_offline_payments').change(function () {
+                $('.offline_payment_details').toggle(this.checked);
+            }).change();
         });
 
 
@@ -500,6 +503,22 @@
                             checkout process.
                         </div>
                     </div>
+
+
+                        <h4>Offline Payment Settings</h4>
+                        <div class="form-group">
+                            <div class="custom-checkbox">
+                                <input {{ $event->enable_offline_payments ? 'checked="checked"' : '' }} data-toggle="toggle" id="enable_offline_payments" name="enable_offline_payments" type="checkbox" value="1">
+                                <label for="enable_offline_payments">Enable Offline Payments</label>
+                            </div>
+                        </div>
+                        <div class="offline_payment_details" style="display: none;">
+                            {!! Form::textarea('offline_payment_instructions', $event->offline_payment_instructions, ['class' => 'form-control']) !!}
+                            <div class="help-block">
+                                Enter instructions on how attendees can make payment offline.
+                            </div>
+                        </div>
+
 
                     <div class="panel-footer mt15 text-right">
                         {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
