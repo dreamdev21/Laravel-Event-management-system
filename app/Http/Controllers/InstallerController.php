@@ -138,6 +138,7 @@ class InstallerController extends Controller
             "MAIL_USERNAME={$mail['username']}\n".
             "MAIL_FROM_NAME=\"{$mail['from_name']}\"\n".
             "MAIL_FROM_ADDRESS={$mail['from_address']}\n".
+            "WKHTML2PDF_BIN_FILE=wkhtmltopdf-amd64\n".
             "MAIL_PASSWORD={$mail['password']}\n\n";
 
         $fp = fopen(base_path().'/.env', 'w');
