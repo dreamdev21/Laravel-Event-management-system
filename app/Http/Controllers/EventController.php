@@ -86,6 +86,11 @@ class EventController extends MyBaseController
 
         $event->currency_id = Auth::user()->account->currency_id;
         //$event->timezone_id = Auth::user()->account->timezone_id;
+        /*
+         * Set a default background for the event
+         */
+        $event->bg_type = 'image';
+        $event->bg_image_path = config('attendize.event_default_bg_image');
 
         if ($request->get('organiser_name')) {
             $organiser = Organiser::createNew(false, false, true);
