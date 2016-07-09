@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use DB;
 
 class AddSupportForOfflinePayments extends Migration
 {
@@ -21,6 +22,14 @@ class AddSupportForOfflinePayments extends Migration
             $table->text('offline_payment_instructions')->nullable();
         });
 
+        $order_statuses = [
+            [
+                'id' => 5,
+                'name' => 'Awaiting Payment',
+            ],
+        ];
+
+        DB::table('order_statuses')->insert($order_statuses);
 
     }
 
@@ -39,5 +48,8 @@ class AddSupportForOfflinePayments extends Migration
             $table->dropColumn('enable_offline_payments');
             $table->dropColumn('offline_payment_instructions');
         });
+
+        DB::table('order_statuses')->where('name', 'Awaiting Payment')->delete();
+
     }
 }
