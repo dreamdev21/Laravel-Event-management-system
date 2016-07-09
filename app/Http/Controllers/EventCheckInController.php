@@ -73,7 +73,8 @@ class EventCheckInController extends MyBaseController
                 'attendees.reference_index',
                 'attendees.has_arrived',
                 'tickets.title as ticket',
-                'orders.order_reference'
+                'orders.order_reference',
+                'orders.is_payment_received'
             ])
             ->orderBy('attendees.first_name', 'ASC')
             ->get();

@@ -90,7 +90,7 @@
                         class="at list-group-item"
                         :class = "{arrived : attendee.has_arrived}"
                         >
-                        Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b>
+                        Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b> &nbsp; <span v-if="!attendee.is_payment_received" class="label label-danger">Awaiting Payment</span>
                         <br>
                         Reference: <b>@{{ attendee.order_reference + '-' + attendee.reference_index }}</b>
                         <br>
