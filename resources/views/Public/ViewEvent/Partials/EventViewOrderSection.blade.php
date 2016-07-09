@@ -33,7 +33,7 @@
         font-size: 20px;
     }
 
-    .order_details.well {
+    .order_details.well, .offline_payment_instructions {
         margin-top: 25px;
         background-color: #FCFCFC;
         line-height: 30px;
@@ -93,6 +93,20 @@
                         </div>
                     </div>
                 </div>
+
+
+                    @if(!$order->is_payment_received)
+                        <h3>
+                            Payment Instructions
+                        </h3>
+                    <div class="alert alert-info">
+                        This order is awaiting payment. Please read the below instructions on how to make payment.
+                    </div>
+                    <div class="offline_payment_instructions well">
+                        {!! nl2br(e($event->offline_payment_instructions)) !!}
+                    </div>
+
+                    @endif
 
                 <h3>
                     Order Items
@@ -230,6 +244,8 @@
                         </tbody>
                     </table>
                 </div>
+
+
             </div>
         </div>
     </div>

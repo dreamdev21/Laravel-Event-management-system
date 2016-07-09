@@ -5,12 +5,20 @@ Hello,<br><br>
 
 You have received a new order for the event <b>{{$order->event->title}}</b>.<br><br>
 
+@if(!$order->is_payment_received)
+    <br><br>
+    <b>Please note: This order still requires payment.</b>
+    <br><br>
+@endif
+
+
 Order Summary:
 <br><br>
 Order Reference: <b>{{$order->order_reference}}</b><br>
 Order Name: <b>{{$order->full_name}}</b><br>
 Order Date: <b>{{$order->created_at->toDayDateTimeString()}}</b><br>
 Order Email: <b>{{$order->email}}</b><br>
+
 
 <h3>Order Items</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
