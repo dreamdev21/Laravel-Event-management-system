@@ -43,6 +43,7 @@ return [
     'order_refunded'                => 2,
     'order_partially_refunded'      => 3,
     'order_cancelled'               => 4,
+    'order_awaiting_payment'        => 5,
 
     /* Attendee question types */
     'question_textbox_single'       => 1,

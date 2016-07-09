@@ -299,6 +299,15 @@ class EventCheckoutController extends Controller
          * Begin payment attempt before creating the attendees etc.
          * */
         if ($ticket_order['order_requires_payment']) {
+
+            /*
+             * Check if the user has chosen to pay offline
+             * and if they are allowed
+             */
+            if($request->get('pay_offline') && $event->enable_offline_payments) {
+                return $this->completeOrder($event_id);
+            }
+
             try {
 
                 $gateway = Omnipay::create($ticket_order['payment_gateway']->name);
@@ -479,13 +488,14 @@ class EventCheckoutController extends Controller
             $order->first_name = $request_data['order_first_name'];
             $order->last_name = $request_data['order_last_name'];
             $order->email = $request_data['order_email'];
-            $order->order_status_id = config('attendize.order_complete');
+            $order->order_status_id = $request_data['pay_offline'] ? config('attendize.order_awaiting_payment') : config('attendize.order_complete');
             $order->amount = $ticket_order['order_total'];
             $order->booking_fee = $ticket_order['booking_fee'];
             $order->organiser_booking_fee = $ticket_order['organiser_booking_fee'];
             $order->discount = 0.00;
             $order->account_id = $event->account->id;
             $order->event_id = $ticket_order['event_id'];
+            $order->is_payment_received = $request_data['pay_offline'] ? 0 : 1;
             $order->save();
 
             /*
@@ -609,7 +619,7 @@ class EventCheckoutController extends Controller
             /*
              * Queue up some tasks - Emails to be sent, PDFs etc.
              */
-            Log::info('Firiing the event');
+            Log::info('Firing the event');
             event(new OrderCompletedEvent($order));
 
 
