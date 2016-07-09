@@ -161,6 +161,16 @@ $(function() {
     $('.card-number').payment('formatCardNumber');
     $('.card-cvc').payment('formatCardCVC');
 
+    $('#pay_offline').change(function () {
+        $('.online_payment').toggle(!this.checked);
+        $('.offline_payment').toggle(this.checked);
+
+        // Disable CC form inputs to prevent Chrome trying to validate hidden fields
+        $('.online_payment input:hidden,  .online_payment input select:hidden').attr('disabled', this.checked);
+
+    }).change();
+
+
 });
 
 function processFormErrors($form, errors)

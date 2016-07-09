@@ -9372,6 +9372,38 @@ $.cf = {
         }
     });
 
+    $(document.body).on('click', '.markPaymentReceived', function (e) {
+
+        var orderId = $(this).data('id'),
+            route = $(this).data('route');
+
+        $.post(route, 'order_id=' + orderId)
+            .done(function (data) {
+
+                if (typeof data.message !== 'undefined') {
+                    showMessage(data.message);
+                }
+
+                switch (data.status) {
+                    case 'success':
+                        setTimeout(function () {
+                            document.location.reload();
+                        }, 300);
+                        break;
+                    case 'error':
+                        /* Error */
+                        break;
+
+                    default:
+                        break;
+                }
+            }).fail(function (data) {
+            showMessage(Attendize.GenericErrorMessages);
+        });
+        e.preventDefault();
+    });
+
+
 });
 
 function changeQuestionType(select)

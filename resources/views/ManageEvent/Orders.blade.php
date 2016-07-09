@@ -122,7 +122,7 @@ Event Orders
                                 </a>
                             </td>
                             <td>
-                                <span class="label label-{{($order->is_refunded || $order->is_partially_refunded) ? 'warning' : 'success'}}">
+                                <span class="label label-{{(!$order->is_payment_received || $order->is_refunded || $order->is_partially_refunded) ? 'warning' : 'success'}}">
                                     {{$order->orderStatus->name}}
                                 </span>
                             </td>

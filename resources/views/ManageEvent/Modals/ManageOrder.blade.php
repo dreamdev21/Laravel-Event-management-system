@@ -21,6 +21,13 @@
                 </div>
                 @endif
 
+                @if(!$order->is_payment_received)
+                    <div class="alert alert-info">
+                        This order is awaiting payment.
+                    </div>
+                    <a data-id="{{ $order->id }}" data-route="{{ route('postMarkPaymentReceived', ['order_id' => $order->id]) }}" class="btn btn-primary btn-sm markPaymentReceived" href="javascript:void(0);">Mark Payment Received</a>
+                @endif
+
                 <h3>Order Overview</h3>
                 <style>
                     .order_overview b {

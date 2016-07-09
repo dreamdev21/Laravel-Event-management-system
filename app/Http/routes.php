@@ -494,6 +494,11 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventOrdersController@postCancelOrder',
         ]);
 
+        Route::post('order/{order_id}/mark_payment_received', [
+            'as'   => 'postMarkPaymentReceived',
+            'uses' => 'EventOrdersController@postMarkPaymentReceived',
+        ]);
+
         Route::get('{event_id}/orders/export/{export_as?}', [
             'as'   => 'showExportOrders',
             'uses' => 'EventOrdersController@showExportOrders',

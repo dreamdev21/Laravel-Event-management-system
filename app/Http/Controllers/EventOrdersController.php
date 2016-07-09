@@ -344,4 +344,26 @@ class EventOrdersController extends MyBaseController
             'message' => 'Message Successfully Sent',
         ]);
     }
+
+    /**
+     * Mark an order as payment received
+     *
+     * @param Request $request
+     * @param $order_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postMarkPaymentReceived(Request $request, $order_id) {
+        $order = Order::scope()->findOrFail($order_id);
+
+        $order->is_payment_received = 1;
+        $order->order_status_id = 1;
+
+        $order->save();
+
+        session()->flash('message', 'Order Payment Status Successfully Updated');
+
+        return response()->json([
+            'status'  => 'success',
+        ]);
+    }
 }
