@@ -153,7 +153,7 @@
                     <div class="offline_payment" style="display: none;">
                         <h5>Offline Payment Instructions</h5>
                         <div class="well">
-                            {!! nl2br(e($event->offline_payment_instructions)) !!}
+                            {!! Markdown::parse($event->offline_payment_instructions) !!}
                         </div>
                     </div>
 

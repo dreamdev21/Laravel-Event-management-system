@@ -103,7 +103,7 @@
                         This order is awaiting payment. Please read the below instructions on how to make payment.
                     </div>
                     <div class="offline_payment_instructions well">
-                        {!! nl2br(e($event->offline_payment_instructions)) !!}
+                        {!! Markdown::parse($event->offline_payment_instructions) !!}
                     </div>
 
                     @endif

@@ -15,11 +15,15 @@
             console.log(e);
         }
 
-        var simplemde = new SimpleMDE({
-            element: $(".ediatble")[0],
-            spellChecker: false,
-            status: false
-        });
+        $('.editable').each(function() {
+            var simplemde = new SimpleMDE({
+                element: this,
+                spellChecker: false,
+                status: false
+            });
+            simplemde.render();
+        })
+
         $("#DatePicker").remove();
         var $div = $("<div>", {id: "DatePicker"});
         $("body").append($div);
