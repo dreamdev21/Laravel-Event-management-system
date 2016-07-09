@@ -6,7 +6,6 @@ Hello,<br><br>
 You have received a new order for the event <b>{{$order->event->title}}</b>.<br><br>
 
 @if(!$order->is_payment_received)
-    <br><br>
     <b>Please note: This order still requires payment.</b>
     <br><br>
 @endif
