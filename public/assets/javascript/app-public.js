@@ -67,7 +67,7 @@ $(function() {
 
         toggleSubmitDisabled($submitButton);
 
-        if ($form.hasClass('payment-form')) {
+        if ($form.hasClass('payment-form') && !$('#pay_offline').is(":checked")) {
             clearFormErrors($('.payment-form'));
 
             Stripe.setPublishableKey($form.data('stripe-pub-key'));

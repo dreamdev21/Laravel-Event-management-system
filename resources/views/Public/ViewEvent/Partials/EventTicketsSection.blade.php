@@ -89,7 +89,17 @@
                         <tr class="checkout">
                             <td colspan="3">
                                 @if(!$is_free_event)
-                                    <img class="hidden-xs pull-left" src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
+                                    <div class="hidden-xs pull-left">
+                                    <img class="" src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}" />
+                                    @if($event->enable_offline_payments)
+
+                                    <div class="help-block" style="font-size: 11px;">
+                                        Offline Payment Methods Available
+                                    </div>
+                                    @endif
+
+                                    </div>
+
                                 @endif
                                 {!!Form::submit('Register', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
                             </td>
