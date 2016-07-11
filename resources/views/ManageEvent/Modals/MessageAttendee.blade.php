@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="checkbox">
+                            <div class="custom-checkbox">
                                 <input type="checkbox" name="send_copy" id="send_copy" value="1">
                                 <label for="send_copy">&nbsp;&nbsp;Send a copy to <b>{{$attendee->event->organiser->email}}</b></label>
                             </div>
