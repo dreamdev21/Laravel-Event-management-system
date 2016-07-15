@@ -52,7 +52,7 @@
                     <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;font-size: 100%;line-height: 1.6">
                         <td align="center" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;font-size: 100%;line-height: 1.6">
                             {{--Attendize is provided free of charge on the condition the below hyperlink is left in place.--}}
-                            {{--See https://github.com/Attendize/Attendize/blob/master/LICENSE for more information.--}}
+                            {{--See https://www.attendize.com/licence.php for more information.--}}
                             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;font-size: 14px;line-height: 1.6;color: #666;margin-bottom: 10px;font-weight: normal">Powered By <a href="https://www.attendize.com/?email_footer_powered_by" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;font-size: 100%;line-height: 1.6;color: #999">Attendize.com</a>.
                             </p>
                             @yield('footer')

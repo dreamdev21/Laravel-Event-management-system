@@ -102,7 +102,7 @@
 
             <div class="bottom_info">
                 {{--Attendize is provided free of charge on the condition the below hyperlink is left in place.--}}
-                {{--See https://github.com/Attendize/Attendize/blob/master/LICENSE for more information.--}}
+                {{--See https://www.attendize.com/licence.php for more information.--}}
                 @include('Shared.Partials.PoweredBy')
             </div>
         </div>
