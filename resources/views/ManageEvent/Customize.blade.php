@@ -298,32 +298,31 @@
                         <br>
 
                         <div class="custom-checkbox mb5">
-
-                            {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_facebook', 1, $event->social_show_facebook, ['id' => 'social_show_facebook', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_facebook', 'Facebook') !!}
                         </div>
                         <div class="custom-checkbox mb5">
 
-                            {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_twitter', 1, $event->social_show_twitter, ['id' => 'social_show_twitter', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_twitter', 'Twitter') !!}
 
                         </div>
 
                         <div class="custom-checkbox mb5">
-                            {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_email', 1, $event->social_show_email, ['id' => 'social_show_email', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_email', 'Email') !!}
                         </div>
                         <div class="custom-checkbox mb5">
-                            {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_googleplus', 1, $event->social_show_googleplus, ['id' => 'social_show_googleplus', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_googleplus', 'Google+') !!}
                         </div>
                         <div class="custom-checkbox mb5">
-                            {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_linkedin', 1, $event->social_show_linkedin, ['id' => 'social_show_linkedin', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_linkedin', 'LinkedIn') !!}
                         </div>
                         <div class="custom-checkbox">
 
-                            {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['data-toggle' => 'toggle']) !!}
+                            {!! Form::checkbox('social_show_whatsapp', 1, $event->social_show_whatsapp, ['id' => 'social_show_whatsapp', 'data-toggle' => 'toggle']) !!}
                             {!! Form::label('social_show_whatsapp', 'WhatsApp') !!}
 
 
