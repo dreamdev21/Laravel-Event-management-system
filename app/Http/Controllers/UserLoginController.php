@@ -66,6 +66,6 @@ class UserLoginController extends Controller
                 ->withInput();
         }
 
-        return Redirect::to(route('showSelectOrganiser'));
+        return redirect()->intended(route('showSelectOrganiser'));
     }
 }
