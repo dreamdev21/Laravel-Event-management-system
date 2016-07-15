@@ -14,14 +14,24 @@
             @elseif($question->question_type_id == config('attendize.question_checkbox_multi'))
                 <br>
                 @foreach($question->options as $option)
-                    {{$option->name}}
-                    {!! Form::checkbox("ticket_holder_questions[{$ticket->id}][{$i}][$question->id][]",$option->name, false,['class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}  "]) !!}<br>
+                    <?php
+                        $checkbox_id = md5($ticket->id.$i.$question->id.$option->name);
+                    ?>
+                    <div class="custom-checkbox">
+                        {!! Form::checkbox("ticket_holder_questions[{$ticket->id}][{$i}][$question->id][]",$option->name, false,['class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}  ", 'id' => $checkbox_id]) !!}
+                        <label for="{{ $checkbox_id }}">{{$option->name}}</label>
+                    </div>
                 @endforeach
             @elseif($question->question_type_id == config('attendize.question_radio_single'))
                 <br>
                 @foreach($question->options as $option)
-                    {{$option->name}}
-                    {!! Form::radio("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]",$option->name, false, ['class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}  "]) !!}<br>
+                    <?php
+                    $radio_id = md5($ticket->id.$i.$question->id.$option->name);
+                    ?>
+                <div class="custom-radio">
+                    {!! Form::radio("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]",$option->name, false, ['id' => $radio_id, 'class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}  "]) !!}
+                    <label for="{{ $radio_id }}">{{$option->name}}</label>
+                </div>
                 @endforeach
             @endif
 
