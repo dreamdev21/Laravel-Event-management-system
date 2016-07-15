@@ -7,8 +7,6 @@
     @include('Public.ViewEvent.Partials.EventShareSection')
     @include('Public.ViewEvent.Partials.EventMapSection')
     @include('Public.ViewEvent.Partials.EventOrganiserSection')
-@stop
-
-@section('footer')
     @include('Public.ViewEvent.Partials.EventFooterSection')
 @stop
+
