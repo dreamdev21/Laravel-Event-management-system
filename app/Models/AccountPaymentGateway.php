@@ -20,18 +20,24 @@ class AccountPaymentGateway extends MyBaseModel
         'config'
     ];
 
+    /**
+     * Account associated with gateway
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account() {
         return $this->belongsTo('\App\Models\Account');
     }
 
+    /**
+     * Parent payment gateway
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function payment_gateway()
     {
         return $this->belongsTo('\App\Models\PaymentGateway', 'payment_gateway_id', 'id');
     }
-
-
-
-
 
     /**
      * @param $val
