@@ -32,13 +32,19 @@
                 </span>
                 -
                 <span property="endDate" content="{{ $event->end_date->toIso8601String() }}">
-                    {{ $event->end_date->format('H:i A') }}
+                     @if($event->start_date->diff($event->end_date)->days <= 1)
+                        {{ $event->end_date->format('H:i A') }}
+                     @else
+                        {{ $event->end_date->format('D d M H:i A') }}
+                     @endif
+
                 </span>
                 @
                 <span property="location" typeof="Place">
                     <b property="name">{{$event->venue_name}}</b>
                     <meta property="address" content="{{ urldecode($event->venue_name) }}">
                 </span>
+
             </div>
 
             <div class="event_buttons">
