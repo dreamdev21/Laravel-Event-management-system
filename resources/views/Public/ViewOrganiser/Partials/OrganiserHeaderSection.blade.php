@@ -1,3 +1,13 @@
+@if(Auth::check())
+    <section id="adminBar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-primary btn-xs" href="{{route('showOrganiserDashboard' , ['organiser_id' => $organiser->id])}}" >Organiser Dashboard</a>
+                </div>
+            </div>
+    </section>
+    @endif
 <section id="intro" class="container">
     <div class="row">
         <div class="col-md-12">
