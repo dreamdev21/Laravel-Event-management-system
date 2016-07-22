@@ -32,7 +32,7 @@
                 </span>
                 -
                 <span property="endDate" content="{{ $event->end_date->toIso8601String() }}">
-                     @if($event->start_date->diff($event->end_date)->days <= 1)
+                     @if($event->start_date->diffInHours($event->end_date) <= 12)
                         {{ $event->end_date->format('H:i A') }}
                      @else
                         {{ $event->end_date->format('D d M H:i A') }}
