@@ -8,6 +8,7 @@
                 <a style="background-color: green; border-color: green;" class="btn btn-success btn-xs" href="{{route('MakeEventLive' , ['event_id' => $event->id])}}" >Publish Event</a>
                 @endif
             </div>
+        </div>
     </div>
 </section>
 @endif
@@ -37,14 +38,12 @@
                      @else
                         {{ $event->end_date->format('D d M H:i A') }}
                      @endif
-
                 </span>
                 @
                 <span property="location" typeof="Place">
                     <b property="name">{{$event->venue_name}}</b>
                     <meta property="address" content="{{ urldecode($event->venue_name) }}">
                 </span>
-
             </div>
 
             <div class="event_buttons">
