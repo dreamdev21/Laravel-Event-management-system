@@ -124,7 +124,7 @@ class Account extends MyBaseModel
      */
     public function active_payment_gateway()
     {
-        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id', 'payment_gateway_id');
+        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id', 'payment_gateway_id')->where('account_id', $this->id);
     }
 
     /**
