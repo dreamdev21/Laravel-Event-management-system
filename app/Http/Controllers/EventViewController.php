@@ -26,7 +26,7 @@ class EventViewController extends Controller
     {
         $event = Event::findOrFail($event_id);
 
-        if (!Auth::check() && !$event->is_live) {
+        if (Auth::user()->account_id !== $event->account_id && !$event->is_live) {
             return view('Public.ViewEvent.EventNotLivePage');
         }
 

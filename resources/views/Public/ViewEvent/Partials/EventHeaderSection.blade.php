@@ -1,14 +1,9 @@
-@if(Auth::check())
-<section id="adminBar">
+@if(!$event->is_live)
+<section id="goLiveBar">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-primary btn-xs" href="{{route('showEventDashboard' , ['event_id' => $event->id])}}" >Event Dashboard</a>
                 @if(!$event->is_live)
-                <a style="background-color: green; border-color: green;" class="btn btn-success btn-xs" href="{{route('MakeEventLive' , ['event_id' => $event->id])}}" >Publish Event</a>
+                This event is not visible to the public - <a style="background-color: green; border-color: green;" class="btn btn-success btn-xs" href="{{route('MakeEventLive' , ['event_id' => $event->id])}}" >Publish Event</a>
                 @endif
-            </div>
-        </div>
     </div>
 </section>
 @endif

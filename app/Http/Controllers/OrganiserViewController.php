@@ -21,7 +21,7 @@ class OrganiserViewController extends Controller
     {
         $organiser = Organiser::findOrFail($organiser_id);
 
-        if(!$organiser->enable_organiser_page && !Auth::check()) {
+        if(!$organiser->enable_organiser_page && Auth::user()->account_id !== $organiser->account_id) {
             abort(404);
         }
 
