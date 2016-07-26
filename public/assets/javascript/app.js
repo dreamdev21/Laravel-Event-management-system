@@ -73,8 +73,7 @@ $(function () {
                 return;
             }
 
-            showMessage('Whoops!, it looks like something went wrong on our servers.\n\
-                   Please try again, or contact support if the problem persists.');
+            showMessage('Whoops!, it looks like the server returned an error.');
 
             var $submitButton = $form.find('input[type=submit]');
             toggleSubmitDisabled($submitButton);
