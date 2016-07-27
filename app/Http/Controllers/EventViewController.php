@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attendize\Utils;
 use App\Models\Affiliate;
 use App\Models\Event;
 use App\Models\EventStats;
@@ -26,7 +27,7 @@ class EventViewController extends Controller
     {
         $event = Event::findOrFail($event_id);
 
-        if (Auth::user()->account_id !== $event->account_id && !$event->is_live) {
+        if (!Utils::userOwns($event) && !$event->is_live) {
             return view('Public.ViewEvent.EventNotLivePage');
         }
 

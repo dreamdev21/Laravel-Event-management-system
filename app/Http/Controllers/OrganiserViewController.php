@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attendize\Utils;
 use App\Models\Organiser;
 use Carbon\Carbon;
 use Auth;
@@ -21,7 +22,7 @@ class OrganiserViewController extends Controller
     {
         $organiser = Organiser::findOrFail($organiser_id);
 
-        if(!$organiser->enable_organiser_page && Auth::user()->account_id !== $organiser->account_id) {
+        if(!$organiser->enable_organiser_page && !Utils::userOwns($organiser)) {
             abort(404);
         }
 

@@ -7,7 +7,7 @@
                 {{--See https://github.com/Attendize/Attendize/blob/master/LICENSE for more information.--}}
                 @include('Shared.Partials.PoweredBy')
 
-                @if(Auth::user()->account_id === $organiser->account_id)
+                @if(Utils::userOwns($organiser))
                     &bull;
                     <a class="adminLink"
                        href="{{route('showOrganiserDashboard' , ['organiser_id' => $organiser->id])}}">Organiser

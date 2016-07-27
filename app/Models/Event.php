@@ -279,7 +279,7 @@ class Event extends MyBaseModel
     {
         return $this->sales_volume + $this->organiser_fees_volume;
     }
-
+    
     /**
      * The attributes that should be mutated to dates.
      *

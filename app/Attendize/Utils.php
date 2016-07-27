@@ -2,6 +2,9 @@
 
 namespace App\Attendize;
 
+use Auth;
+use PhpSpec\Exception\Exception;
+
 class Utils
 {
     
@@ -59,6 +62,32 @@ class Utils
     public static function isDownForMaintenance()
     {
         return file_exists(storage_path().'/framework/down');
+    }
+
+    /**
+     * Check if a user has admin access to events etc.
+     *
+     * @todo - This is a temp fix until user roles etc. are implemented
+     * @param $object
+     * @return bool
+     */
+    public static function userOwns($object)
+    {
+        if(!Auth::check()) {
+            return false;
+        }
+
+        try {
+
+            if(Auth::user()->account_id === $object->account_id) {
+                return true;
+            }
+
+        } catch(Exception $e) {
+            return false;
+        }
+
+        return false;
     }
 
     public static function file_upload_max_size()

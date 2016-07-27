@@ -7,7 +7,7 @@
                 {{--See https://www.attendize.com/licence.php for more information.--}}
                 @include('Shared.Partials.PoweredBy')
 
-                @if(Auth::user()->account_id === $event->account_id)
+                @if(Utils::userOwns($event))
                 &bull;
                 <a class="adminLink " href="{{route('showEventDashboard' , ['event_id' => $event->id])}}">Event
                     Dashboard</a>
