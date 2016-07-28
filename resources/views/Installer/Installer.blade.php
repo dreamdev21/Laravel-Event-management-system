@@ -252,10 +252,16 @@
                             Installation may make take several minutes to complete. Once you click '<b>Install Attendize</b>' the config settings will be written to this file: <b>{{base_path('.env')}}</b>. You can manually change these settings in the future by editing this file.
                         </p>
                         <p>
-                            If the install fails be sure to check the log file in <b>{{storage_path('logs')}}</b> to find the error.
+                            If the install fails be sure to check the log file in <b>{{storage_path('logs')}}</b>. If there are no errors in the log files also <b>check other log files on your server</b>.
                         </p>
                         <p>
-                            If you need help you can email us at <a href="mailto:help@attendize.com" target="_blank">help@attendize.com</a>.
+                            If you are using shared hosting please ask your host if they support the Attendize requirements before requesting support.
+                        </p>
+                        <p>
+                            If you still need help you can email us at <a href="mailto:help@attendize.com" target="_blank">help@attendize.com</a>. Please include as much detail as possible, including any errors in the log file.
+                        </p>
+                        <p>
+                            Please also  <a style="text-decoration: underline;" target="_blank" href="https://attendize.com/licence.php?from_installer">read the licence</a> before installing Attendize.
                         </p>
                     </div>
 
