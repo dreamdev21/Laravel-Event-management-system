@@ -50,7 +50,8 @@ class EventController extends MyBaseController
 
         $event->title = $request->get('title');
         $event->description = strip_tags($request->get('description'));
-        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_date')) : null;
+        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i',
+            $request->get('start_date')) : null;
 
         /*
          * Venue location info (Usually auto-filled from google maps)
@@ -82,7 +83,8 @@ class EventController extends MyBaseController
             $event->location_is_manual = 1;
         }
 
-        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_date')) : null;
+        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i',
+            $request->get('end_date')) : null;
 
         $event->currency_id = Auth::user()->account->currency_id;
         //$event->timezone_id = Auth::user()->account->timezone_id;
@@ -91,6 +93,7 @@ class EventController extends MyBaseController
          */
         $event->bg_type = 'image';
         $event->bg_image_path = config('attendize.event_default_bg_image');
+
 
         if ($request->get('organiser_name')) {
             $organiser = Organiser::createNew(false, false, true);
@@ -129,6 +132,32 @@ class EventController extends MyBaseController
             ]);
         }
 
+        /*
+         * Set the event defaults.
+         * @todo these could do mass assigned
+         */
+        $defaults = $event->organiser->event_defaults;
+        if ($defaults) {
+            $event->organiser_fee_fixed = $defaults->organiser_fee_fixed;
+            $event->organiser_fee_percentage = $defaults->organiser_fee_percentage;
+            $event->pre_order_display_message = $defaults->pre_order_display_message;
+            $event->post_order_display_message = $defaults->post_order_display_message;
+            $event->offline_payment_instructions = $defaults->offline_payment_instructions;
+            $event->enable_offline_payments = $defaults->enable_offline_payments;
+            $event->social_show_facebook = $defaults->social_show_facebook;
+            $event->social_show_linkedin = $defaults->social_show_linkedin;
+            $event->social_show_twitter = $defaults->social_show_twitter;
+            $event->social_show_email = $defaults->social_show_email;
+            $event->social_show_googleplus = $defaults->social_show_googleplus;
+            $event->social_show_whatsapp = $defaults->social_show_whatsapp;
+            $event->is_1d_barcode_enabled = $defaults->is_1d_barcode_enabled;
+            $event->ticket_border_color = $defaults->ticket_border_color;
+            $event->ticket_bg_color = $defaults->ticket_bg_color;
+            $event->ticket_text_color = $defaults->ticket_text_color;
+            $event->ticket_sub_text_color = $defaults->ticket_sub_text_color;
+        }
+
+
         try {
             $event->save();
         } catch (\Exception $e) {
@@ -141,10 +170,10 @@ class EventController extends MyBaseController
         }
 
         if ($request->hasFile('event_image')) {
-            $path = public_path().'/'.config('attendize.event_images_path');
-            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
+            $path = public_path() . '/' . config('attendize.event_images_path');
+            $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower($request->file('event_image')->getClientOriginalExtension());
 
-            $file_full_path = $path.'/'.$filename;
+            $file_full_path = $path . '/' . $filename;
 
             $request->file('event_image')->move($path, $filename);
 
@@ -158,10 +187,10 @@ class EventController extends MyBaseController
             $img->save($file_full_path);
 
             /* Upload to s3 */
-            \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
+            \Storage::put(config('attendize.event_images_path') . '/' . $filename, file_get_contents($file_full_path));
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = config('attendize.event_images_path').'/'.$filename;
+            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
@@ -189,15 +218,16 @@ class EventController extends MyBaseController
 
         if (!$event->validate($request->all())) {
             return response()->json([
-                        'status'   => 'error',
-                        'messages' => $event->errors(),
+                'status'   => 'error',
+                'messages' => $event->errors(),
             ]);
         }
 
         $event->is_live = $request->get('is_live');
         $event->title = $request->get('title');
         $event->description = strip_tags($request->get('description'));
-        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('start_date')) : null;
+        $event->start_date = $request->get('start_date') ? Carbon::createFromFormat('d-m-Y H:i',
+            $request->get('start_date')) : null;
 
         /*
          * If the google place ID is the same as before then don't update the venue
@@ -238,7 +268,8 @@ class EventController extends MyBaseController
             }
         }
 
-        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i', $request->get('end_date')) : null;
+        $event->end_date = $request->get('end_date') ? Carbon::createFromFormat('d-m-Y H:i',
+            $request->get('end_date')) : null;
 
         if ($request->get('remove_current_image') == '1') {
             EventImage::where('event_id', '=', $event->id)->delete();
@@ -247,10 +278,10 @@ class EventController extends MyBaseController
         $event->save();
 
         if ($request->hasFile('event_image')) {
-            $path = public_path().'/'.config('attendize.event_images_path');
-            $filename = 'event_image-'.md5(time().$event->id).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
+            $path = public_path() . '/' . config('attendize.event_images_path');
+            $filename = 'event_image-' . md5(time() . $event->id) . '.' . strtolower($request->file('event_image')->getClientOriginalExtension());
 
-            $file_full_path = $path.'/'.$filename;
+            $file_full_path = $path . '/' . $filename;
 
             $request->file('event_image')->move($path, $filename);
 
@@ -263,12 +294,12 @@ class EventController extends MyBaseController
 
             $img->save($file_full_path);
 
-            \Storage::put(config('attendize.event_images_path').'/'.$filename, file_get_contents($file_full_path));
+            \Storage::put(config('attendize.event_images_path') . '/' . $filename, file_get_contents($file_full_path));
 
             EventImage::where('event_id', '=', $event->id)->delete();
 
             $eventImage = EventImage::createNew();
-            $eventImage->image_path = config('attendize.event_images_path').'/'.$filename;
+            $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
         }
@@ -291,10 +322,10 @@ class EventController extends MyBaseController
     {
         if ($request->hasFile('event_image')) {
             $the_file = \File::get($request->file('event_image')->getRealPath());
-            $file_name = 'event_details_image-'.md5(microtime()).'.'.strtolower($request->file('event_image')->getClientOriginalExtension());
+            $file_name = 'event_details_image-' . md5(microtime()) . '.' . strtolower($request->file('event_image')->getClientOriginalExtension());
 
-            $relative_path_to_file = config('attendize.event_images_path').'/'.$file_name;
-            $full_path_to_file = public_path().'/'.$relative_path_to_file;
+            $relative_path_to_file = config('attendize.event_images_path') . '/' . $file_name;
+            $full_path_to_file = public_path() . '/' . $relative_path_to_file;
 
             $img = Image::make($the_file);
 
@@ -306,13 +337,13 @@ class EventController extends MyBaseController
             $img->save($full_path_to_file);
             if (\Storage::put($file_name, $the_file)) {
                 return response()->json([
-                    'link' => '/'.$relative_path_to_file,
+                    'link' => '/' . $relative_path_to_file,
                 ]);
             }
 
             return response()->json([
-                    'error' => 'There was a problem uploading your image.',
-                ]);
+                'error' => 'There was a problem uploading your image.',
+            ]);
         }
     }
 }
