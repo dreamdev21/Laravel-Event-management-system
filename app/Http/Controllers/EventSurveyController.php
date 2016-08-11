@@ -265,7 +265,7 @@ class EventSurveyController extends MyBaseController
             $excel->setCreator(config('attendize.app_name'))
                 ->setCompany(config('attendize.app_name'));
 
-            $excel->sheet('survey_answers_sheet_!', function ($sheet) use ($event_id) {
+            $excel->sheet('survey_answers_sheet_', function ($sheet) use ($event_id) {
 
                 $event = Event::scope()->findOrFail($event_id);
 
