@@ -10,7 +10,7 @@ use URL;
 class Event extends MyBaseModel
 {
     use SoftDeletes;
-    
+
     /**
      * The validation rules.
      *
@@ -222,6 +222,48 @@ class Event extends MyBaseModel
     }
 
     /**
+     * Return an array of attendees and answers they gave to questions at checkout
+     *
+     * @return array
+     */
+    public function getSurveyAnswersAttribute()
+    {
+        $rows[] = array_merge([
+            'Order Ref',
+            'Attendee Name',
+            'Attendee Email',
+            'Attendee Ticket'
+        ], $this->questions->lists('title')->toArray());
+
+        $attendees = $this->attendees()->has('answers')->get();
+
+        foreach ($attendees as $attendee) {
+
+            $answers = [];
+
+            foreach ($this->questions as $question) {
+
+                if (in_array($question->id, $attendee->answers->lists('question_id')->toArray())) {
+                    $answers[] = $attendee->answers->where('question_id', $question->id)->first()->answer_text;
+                } else {
+                    $answers[] = null;
+                }
+
+            }
+
+            $rows[] = array_merge([
+                $attendee->order->order_reference,
+                $attendee->full_name,
+                $attendee->email,
+                $attendee->ticket->title
+            ], $answers);
+
+        }
+
+        return $rows;
+    }
+
+    /**
      * Get the embed html code.
      *
      * @return string
@@ -229,7 +271,7 @@ class Event extends MyBaseModel
     public function getEmbedHtmlCodeAttribute()
     {
         return "<!--Attendize.com Ticketing Embed Code-->
-                <iframe style='overflow:hidden; min-height: 350px;' frameBorder='0' seamless='seamless' width='100%' height='100%' src='".$this->embed_url."' vspace='0' hspace='0' scrolling='auto' allowtransparency='true'></iframe>
+                <iframe style='overflow:hidden; min-height: 350px;' frameBorder='0' seamless='seamless' width='100%' height='100%' src='" . $this->embed_url . "' vspace='0' hspace='0' scrolling='auto' allowtransparency='true'></iframe>
                 <!--/Attendize.com Ticketing Embed Code-->";
     }
 
@@ -239,13 +281,13 @@ class Event extends MyBaseModel
      */
     public function getMapAddressAttribute()
     {
-        $string = $this->venue.','
-                .$this->location_street_number.','
-                .$this->location_address_line_1.','
-                .$this->location_address_line_2.','
-                .$this->location_state.','
-                .$this->location_post_code.','
-                .$this->location_country;
+        $string = $this->venue . ','
+            . $this->location_street_number . ','
+            . $this->location_address_line_1 . ','
+            . $this->location_address_line_2 . ','
+            . $this->location_state . ','
+            . $this->location_post_code . ','
+            . $this->location_country;
 
         return urlencode($string);
     }
@@ -257,7 +299,7 @@ class Event extends MyBaseModel
      */
     public function getBgImageUrlAttribute()
     {
-        return URL::to('/').'/'.$this->bg_image_path;
+        return URL::to('/') . '/' . $this->bg_image_path;
     }
 
     /**
@@ -267,7 +309,7 @@ class Event extends MyBaseModel
      */
     public function getEventUrlAttribute()
     {
-        return URL::to('/').'/e/'.$this->id.'/'.Str::slug($this->title);
+        return URL::to('/') . '/e/' . $this->id . '/' . Str::slug($this->title);
     }
 
     /**
@@ -279,7 +321,7 @@ class Event extends MyBaseModel
     {
         return $this->sales_volume + $this->organiser_fees_volume;
     }
-    
+
     /**
      * The attributes that should be mutated to dates.
      *

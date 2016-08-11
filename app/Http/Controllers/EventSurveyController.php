@@ -64,7 +64,7 @@ class EventSurveyController extends MyBaseController
      *
      * @access public
      * @param  StoreEventQuestionRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function postCreateEventQuestion(StoreEventQuestionRequest $request, $event_id)
     {
@@ -133,12 +133,12 @@ class EventSurveyController extends MyBaseController
 
 
     /**
-     * Edits a question
+     * Edit a question
      *
      * @param Request $request
      * @param $event_id
      * @param $question_id
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function postEditEventQuestion(Request $request, $event_id, $question_id)
     {
@@ -173,9 +173,8 @@ class EventSurveyController extends MyBaseController
             }
         }
 
-
         // Get tickets.
-        $ticket_ids = (array) $request->get('tickets');
+        $ticket_ids = (array)$request->get('tickets');
 
         $question->tickets()->sync($ticket_ids);
 
@@ -194,7 +193,7 @@ class EventSurveyController extends MyBaseController
      *
      * @param Request $request
      * @param $event_id
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function postDeleteEventQuestion(Request $request, $event_id)
     {
@@ -250,16 +249,14 @@ class EventSurveyController extends MyBaseController
 
 
     /**
-     * Export answers
+     * Export answers to xls, csv etc.
      *
-     * @todo This doesn't work :-|
      * @param Request $request
      * @param $event_id
      * @param string $export_as
      */
     public function showExportAnswers(Request $request, $event_id, $export_as = 'xlsx')
     {
-
         Excel::create('answers-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
 
             $excel->setTitle('Survey Answers');
@@ -272,26 +269,7 @@ class EventSurveyController extends MyBaseController
 
                 $event = Event::scope()->findOrFail($event_id);
 
-                $rows[] = array_merge([
-                    'Order Ref',
-                    'Attendee Name',
-                    'Attendee Email',
-                    'Attendee Ticket'
-                ], $event->questions->lists('title')->toArray());
-
-                $attendees = $event->attendees()->has('answers')->get();
-                foreach ($attendees as $attendee) {
-
-                    $rows[] = array_merge([
-                        $attendee->order->order_reference,
-                        $attendee->full_name,
-                        $attendee->email,
-                        $attendee->ticket->title
-                    ], $attendee->answers->lists('answer_text')->toArray());
-
-                }
-
-                $sheet->fromArray($rows);
+                $sheet->fromArray($event->survey_answers, null, 'A1', false, false);
 
                 // Set gray background on first row
                 $sheet->row(1, function ($row) {
@@ -299,13 +277,18 @@ class EventSurveyController extends MyBaseController
                 });
             });
         })->export($export_as);
-
-
     }
 
+    /**
+     * Toggle the enabled status of question
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param $question_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postEnableQuestion(Request $request, $event_id, $question_id)
     {
-
         $question = Question::scope()->find($question_id);
 
         $question->is_enabled = ($question->is_enabled == 1) ? 0 : 1;
@@ -330,7 +313,7 @@ class EventSurveyController extends MyBaseController
      * Updates the sort order of event questions
      *
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function postUpdateQuestionsOrder(Request $request)
     {
