@@ -39,6 +39,9 @@ https://www.attendize.com
  - Refund payments - partial refund & full refunds
  - Ability to add service charge to tickets
  - Messaging - eg. Email all attendees with X ticket
+ - Public event listings page for organisers
+ - Ability to ask custom questions during checkout
+ - Browser based QR code scanner for door management
     
 ##Upcoming Features
  - Theme support
@@ -48,8 +51,7 @@ https://www.attendize.com
  - Coupon/discount code support
  - Support for more payment providers
  - WordPress Plug-in 
- - Public event listings page for organisers
- - Custom questions during checkout
+
 
 ## Official Documentation
 
@@ -80,7 +82,7 @@ Attendize will be available at `http://localhost:8080` and maildev at `http://lo
 
 ## License
 
-Attendize is open-sourced software licensed under the Attribution Assurance License. See [https://www.attendize.com/licence.php](https://www.attendize.com/licence.php) for further details.
+Attendize is open-sourced software licensed under the Attribution Assurance License. See [https://www.attendize.com/licence.php](https://www.attendize.com/licence.php) for further details. We also have white-label licence options available.
 
 ## Contributors 
 
