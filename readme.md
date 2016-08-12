@@ -36,6 +36,7 @@ https://www.attendize.com
  - Widget support - embed ticket selling widget into existing websites / WordPress blogs
  - Social sharing 
  - Support multiple payment gateways - Stripe, PayPal & Coinbase so far, with more being added
+ - Support for offline payments
  - Refund payments - partial refund & full refunds
  - Ability to add service charge to tickets
  - Messaging - eg. Email all attendees with X ticket
