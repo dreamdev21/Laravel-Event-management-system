@@ -39,7 +39,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="stat-box">
-                <h3>{{ money($event->sales_volume + $event->organiser_fees_volume, $event->currency->code) }}</h3>
+                <h3>{{ money($event->sales_volume + $event->organiser_fees_volume, $event->currency) }}</h3>
                 <span>Sales Volume</span>
             </div>
         </div>
@@ -98,7 +98,7 @@
                             <h3 class="panel-title">
                                 Ticket Sales Volume
                                 <span style="color: green; float: right;">
-                                    {{money($event->sales_volume + $event->organiser_fees_volume, $event->currency->code)}}
+                                    {{money($event->sales_volume + $event->organiser_fees_volume, $event->currency)}}
                                     Total
                                 </span>
                             </h3>

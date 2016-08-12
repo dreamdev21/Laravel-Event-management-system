@@ -70,7 +70,7 @@
         <div class="col-sm-4">
             <div class="stat-box">
                 <h3>
-                    {{ money($organiser->events->sum('sales_volume') + $organiser->events->sum('organiser_fees_volume'), $organiser->account->currency->code) }}
+                    {{ money($organiser->events->sum('sales_volume') + $organiser->events->sum('organiser_fees_volume'), $organiser->account->currency) }}
                 </h3>
             <span>
                 Sales Volume

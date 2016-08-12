@@ -123,7 +123,7 @@
 
                                             <div class="help-text">
                                                 Refund the
-                                                entire {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code))}}
+                                                entire {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency))}}
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" name="refund_amount" class="form-control"
                                                                id="refundAmount"
-                                                               placeholder="Max {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code))}}">
+                                                               placeholder="Max {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency))}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@
                     @else
 
                         <div class="alert alert-info">
-                            All {{money($order->amount, $order->event->currency->code)}} of this order has been
+                            All {{money($order->amount, $order->event->currency)}} of this order has been
                             refunded.
                         </div>
 

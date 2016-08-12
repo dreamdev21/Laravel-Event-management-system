@@ -249,7 +249,7 @@
                                         <td>{{ $affiliate->name }}</td>
                                         <td>{{ $affiliate->visits }}</td>
                                         <td>{{ $affiliate->tickets_sold }}</td>
-                                        <td>{{ money($affiliate->sales_volume, $event->currency->code) }}</td>
+                                        <td>{{ money($affiliate->sales_volume, $event->currency) }}</td>
                                         <td>{{ $affiliate->updated_at->format('M dS H:i A') }}</td>
                                     </tr>
                                 @endforeach

@@ -23,7 +23,7 @@
                                 @if((int)ceil($ticket['full_price']) === 0)
                                 FREE
                                 @else
-                                {{ money($ticket['full_price'], $event->currency->code) }}
+                                {{ money($ticket['full_price'], $event->currency) }}
                                 @endif
                             </td>
                         </tr>
@@ -33,7 +33,7 @@
                 @if($order_total > 0)
                 <div class="panel-footer">
                     <h5>
-                        Total: <span style="float: right;"><b>{{ money($order_total + $total_booking_fee,$event->currency->code) }}</b></span>
+                        Total: <span style="float: right;"><b>{{ money($order_total + $total_booking_fee,$event->currency) }}</b></span>
                     </h5>
                 </div>
                 @endif

@@ -147,7 +147,7 @@ class EventOrdersController extends MyBaseController
             } elseif ($order->organiser_amount == 0) {
                 $error_message = 'Nothing to refund';
             } elseif ($refund_type !== 'full' && $refund_amount > round(($order->organiser_amount - $order->amount_refunded), 2)) {
-                $error_message = 'The maximum amount you can refund is '.(money($order->organiser_amount - $order->amount_refunded, $order->event->currency->code));
+                $error_message = 'The maximum amount you can refund is '.(money($order->organiser_amount - $order->amount_refunded, $order->event->currency));
             }
             if (!$error_message) {
                 try {

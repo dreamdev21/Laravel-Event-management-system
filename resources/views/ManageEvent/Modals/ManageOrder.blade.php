@@ -17,7 +17,7 @@
 
                 @if($order->is_refunded || $order->is_partially_refunded)
                  <div class="alert alert-info">
-                   {{money($order->amount_refunded, $order->event->currency->code)}} of this order has been refunded.
+                   {{money($order->amount_refunded, $order->event->currency)}} of this order has been refunded.
                 </div>
                 @endif
 
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-6">
-                            <b>Amount</b><br>{{money($order->total_amount, $order->event->currency->code)}}
+                            <b>Amount</b><br>{{money($order->total_amount, $order->event->currency)}}
                         </div>
 
                         <div class="col-sm-6 col-xs-6">
@@ -106,7 +106,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                       {{money($order_item->unit_price, $order->event->currency->code)}}
+                                       {{money($order_item->unit_price, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -114,7 +114,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         -
                                         @else
-                                        {{money($order_item->unit_booking_fee, $order->event->currency->code)}}
+                                        {{money($order_item->unit_booking_fee, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -122,7 +122,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency->code)}}
+                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -139,7 +139,7 @@
                                         <b>Sub Total</b>
                                     </td>
                                     <td colspan="2">
-                                        {{money($order->total_amount, $order->event->currency->code)}}
+                                        {{money($order->total_amount, $order->event->currency)}}
                                     </td>
                                 </tr>
                             </tbody>

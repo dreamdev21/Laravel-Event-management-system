@@ -122,7 +122,7 @@
                                     <i class="ico-ticket ticket_icon mr5 ellipsis"></i>
                                     {{$ticket->title}}
                                     <span class="pull-right">
-                        {{ ($ticket->is_free) ? "FREE" : money($ticket->price, $event->currency->code) }}
+                        {{ ($ticket->is_free) ? "FREE" : money($ticket->price, $event->currency) }}
                     </span>
                                 </h3>
                             </div>
@@ -148,8 +148,8 @@
                                     <li>
                                         <div class="section">
                                             <h4 class="nm hint--top"
-                                                title="{{money($ticket->sales_volume, $event->currency->code)}} + {{money($ticket->organiser_fees_volume, $event->currency->code)}} Organiser Booking Fees">
-                                                {{money($ticket->sales_volume + $ticket->organiser_fees_volume, $event->currency->code)}}
+                                                title="{{money($ticket->sales_volume, $event->currency)}} + {{money($ticket->organiser_fees_volume, $event->currency)}} Organiser Booking Fees">
+                                                {{money($ticket->sales_volume + $ticket->organiser_fees_volume, $event->currency)}}
                                                 <sub title="Doesn't account for refunds.">*</sub>
                                             </h4>
 

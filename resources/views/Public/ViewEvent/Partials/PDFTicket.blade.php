@@ -85,7 +85,7 @@
                             <h4>Attendee Ref.</h4>
                             {{$attendee->reference}}
                             <h4>Price</h4>
-                            {{money($attendee->ticket->total_price, $order->event->currency->code)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency->code)}} Fees)
+                            {{money($attendee->ticket->total_price, $order->event->currency)}} (inc. {{money($attendee->ticket->total_booking_fee, $order->event->currency)}} Fees)
                         </div>
 
                         <div class="barcode">

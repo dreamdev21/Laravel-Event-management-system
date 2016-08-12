@@ -13,14 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
 
-        $this->call('ConstantsSeeder');
-        $this->command->info('Seeded the constants!');
-
-        // $this->call('UserTableSeeder');
         $this->call('CountriesSeeder');
-        $this->command->info('Seeded the countries!');
-
+        $this->call('CurrencySeeder');
+        $this->call('OrderStatusSeeder');
+        $this->call('PaymentGatewaySeeder');
         $this->call('QuestionTypesSeeder');
-        $this->command->info('Seeded the question types!');
+        $this->call('TicketStatusSeeder');
+        $this->call('TimeZoneSeeder');
     }
 }

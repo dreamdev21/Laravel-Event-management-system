@@ -50,7 +50,7 @@ Order Email: <b>{{$order->email}}</b><br>
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                       {{money($order_item->unit_price, $order->event->currency->code)}}
+                                       {{money($order_item->unit_price, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -58,7 +58,7 @@ Order Email: <b>{{$order->email}}</b><br>
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         -
                                         @else
-                                        {{money($order_item->unit_booking_fee, $order->event->currency->code)}}
+                                        {{money($order_item->unit_booking_fee, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -66,7 +66,7 @@ Order Email: <b>{{$order->email}}</b><br>
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency->code)}}
+                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -83,7 +83,7 @@ Order Email: <b>{{$order->email}}</b><br>
                 <b>Sub Total</b>
             </td>
             <td colspan="2">
-               {{money($order->amount + $order->order_fee, $order->event->currency->code)}}
+               {{money($order->amount + $order->order_fee, $order->event->currency)}}
             </td>
         </tr>
     </table>
