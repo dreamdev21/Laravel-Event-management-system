@@ -4596,11 +4596,12 @@ function log() {
                         }
 
                         toggleSubmitDisabled($submitButton);
-                        showMessage('Whoops!, it looks like something went wrong on our servers.\n\
-                   Please try again, or contact support if the problem persists.');
+                        showMessage('Whoops!, it looks like the server returned an error.\n\
+                   Please try again, or contact the webmaster if the problem persists.');
                     },
                     success: function(data, statusText, xhr, $form) {
-
+                        var $submitButton = $form.find('input[type=submit]');
+                        
                         if (data.message) {
                             showMessage(data.message);
                         }
@@ -4614,9 +4615,6 @@ function log() {
                                         document.location.href = data.redirectUrl;
                                     }
                                 }
-
-                                var $submitButton = $form.find('input[type=submit]');
-                                toggleSubmitDisabled($submitButton);
                                 break;
 
                             case 'error':
@@ -4628,7 +4626,13 @@ function log() {
 
                             default:
                                 break;
+
+
                         }
+
+                        toggleSubmitDisabled($submitButton);
+
+
                     },
                     dataType: 'json'
                 };
