@@ -59,6 +59,13 @@ class EventCheckoutController extends Controller
 
         $event = Event::findOrFail($event_id);
 
+        if (!$request->has('tickets')) {
+            return response()->json([
+                'status'   => 'error',
+                'message' => 'No tickets selected',
+            ]);
+        }
+
         $ticket_ids = $request->get('tickets');
 
         /*
