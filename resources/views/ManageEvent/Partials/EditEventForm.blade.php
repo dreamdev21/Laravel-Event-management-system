@@ -98,7 +98,7 @@
                         {!! Form::label('location_post_code', 'Post Code', array('class'=>'control-label')) !!}
                         {!!  Form::text('location_post_code', $event->location_post_code, [
                                         'class'=>'form-control location_field',
-                                        'placeholder'=>'E.g: Dublin.'
+                                        'placeholder'=>'E.g: 94568.'
                             ])  !!}
                     </div>
                 </div>
