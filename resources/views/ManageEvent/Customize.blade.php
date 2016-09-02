@@ -491,7 +491,7 @@
 
                     </div>
                     <div class="form-group">
-                        {!! Form::label('post_order_display_message', 'Message to display to attendees before after they have completed their order.', array('class'=>'control-label ')) !!}
+                        {!! Form::label('post_order_display_message', 'Message to display to attendees after they have completed their order.', array('class'=>'control-label ')) !!}
 
                         {!!  Form::textarea('post_order_display_message', $event->post_order_display_message, [
                             'class' => 'form-control',
