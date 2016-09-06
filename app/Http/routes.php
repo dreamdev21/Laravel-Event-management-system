@@ -14,6 +14,7 @@ Route::get('install', [
     'as'   => 'showInstaller',
     'uses' => 'InstallerController@showInstaller',
 ]);
+
 Route::post('install', [
     'as'   => 'postInstaller',
     'uses' => 'InstallerController@postInstaller',

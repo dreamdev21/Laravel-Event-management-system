@@ -4,7 +4,6 @@ namespace App\Mailers;
 
 use App\Models\Attendee;
 use App\Models\Message;
-use App\Models\Order;
 use Carbon\Carbon;
 use Mail;
 use Log;

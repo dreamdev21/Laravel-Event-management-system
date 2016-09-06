@@ -130,7 +130,6 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
      *
      * @param $query
      * @param bool $accountId
-     * @param Request $request
      * @return mixed
      */
     public function scopeScope($query, $accountId = false)
