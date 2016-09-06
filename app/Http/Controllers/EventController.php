@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventImage;
 use App\Models\Organiser;
-use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Image;
-use Validator;
 use Log;
+use Validator;
 
 class EventController extends MyBaseController
 {

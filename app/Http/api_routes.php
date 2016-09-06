@@ -1,5 +1,15 @@
 <?php
 
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+
+    $api->get('events', function () {
+        return \App\Models\Event::all();
+    });
+
+});
+
 Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
     /*
@@ -42,7 +52,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
      * Check-In / Check-Out
      * ---------------
      */
-
 
 
     Route::get('/', function () {

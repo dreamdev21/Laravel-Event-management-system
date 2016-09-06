@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use File;
+use Illuminate\Http\Request;
 use Image;
 use Validator;
-use Illuminate\Http\Request;
 
 class EventCustomizeController extends MyBaseController
 {
@@ -225,7 +225,7 @@ class EventCustomizeController extends MyBaseController
         $event->pre_order_display_message = trim($request->get('pre_order_display_message'));
         $event->post_order_display_message = trim($request->get('post_order_display_message'));
         $event->offline_payment_instructions = trim($request->get('offline_payment_instructions'));
-        $event->enable_offline_payments = (int) $request->get('enable_offline_payments');
+        $event->enable_offline_payments = (int)$request->get('enable_offline_payments');
         $event->save();
 
         return response()->json([

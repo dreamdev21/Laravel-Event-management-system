@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateTicket;
 use App\Jobs\SendAttendeeInvite;
 use App\Jobs\SendAttendeeTicket;
 use App\Jobs\SendMessageToAttendees;
-use App\Jobs\GenerateTicket;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
@@ -13,16 +13,16 @@ use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
 use Auth;
+use Config;
 use DB;
 use Excel;
+use Illuminate\Http\Request;
+use Log;
 use Mail;
 use Omnipay\Omnipay;
 use PDF;
 use Validator;
-use Config;
-use Log;
 
 class EventAttendeesController extends MyBaseController
 {
@@ -111,9 +111,9 @@ class EventAttendeesController extends MyBaseController
     public function postInviteAttendee(Request $request, $event_id)
     {
         $rules = [
-            'first_name'   => 'required',
-            'ticket_id'    => 'required|exists:tickets,id,account_id,' . \Auth::user()->account_id,
-            'email'        => 'email|required',
+            'first_name' => 'required',
+            'ticket_id'  => 'required|exists:tickets,id,account_id,' . \Auth::user()->account_id,
+            'email'      => 'email|required',
         ];
 
         $messages = [
@@ -195,7 +195,7 @@ class EventAttendeesController extends MyBaseController
 
 
             if ($email_attendee == '1') {
-              $this->dispatch(new SendAttendeeInvite($attendee));
+                $this->dispatch(new SendAttendeeInvite($attendee));
             }
 
             session()->flash('message', 'Attendee Successfully Invited');
@@ -529,11 +529,11 @@ class EventAttendeesController extends MyBaseController
         Log::info($attendee);
 
 
-        $this->dispatch(new GenerateTicket($attendee->order->order_reference."-".$attendee->reference_index));
+        $this->dispatch(new GenerateTicket($attendee->order->order_reference . "-" . $attendee->reference_index));
 
-        $pdf_file_name = $attendee->order->order_reference.'-'.$attendee->reference_index;
-        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')).'/'.$pdf_file_name;
-        $pdf_file = $pdf_file_path.'.pdf';
+        $pdf_file_name = $attendee->order->order_reference . '-' . $attendee->reference_index;
+        $pdf_file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $pdf_file_name;
+        $pdf_file = $pdf_file_path . '.pdf';
 
 
         return response()->download($pdf_file);
@@ -718,7 +718,7 @@ class EventAttendeesController extends MyBaseController
             });
         }
 
-        if($request->get('refund_attendee') == '1') {
+        if ($request->get('refund_attendee') == '1') {
 
             try {
                 // This does not account for an increased/decreased ticket price

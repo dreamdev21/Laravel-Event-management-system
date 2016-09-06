@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-/*
-  Attendize.com   - Event Management & Ticketing
- */
+    /*
+      Attendize.com   - Event Management & Ticketing
+     */
 
 /**
  * Description of Message.
@@ -47,7 +47,7 @@ class Message extends MyBaseModel
 
         $ticket = Ticket::scope()->find($this->recipients);
 
-        return 'Ticket: '.$ticket->title;
+        return 'Ticket: ' . $ticket->title;
     }
 
     /**

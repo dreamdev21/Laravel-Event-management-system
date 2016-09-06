@@ -6,7 +6,6 @@ use App\Attendize\Utils;
 use App\Models\Account;
 use Closure;
 use Redirect;
-use Request;
 
 class CheckInstalled
 {
@@ -14,7 +13,7 @@ class CheckInstalled
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */
@@ -30,7 +29,7 @@ class CheckInstalled
         /*
          * Redirect user to signup page if there are no accounts
          */
-        if(Account::count() === 0 && !$request->is('signup*')) {
+        if (Account::count() === 0 && !$request->is('signup*')) {
             return redirect()->to('signup');
         }
 

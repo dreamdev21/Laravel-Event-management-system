@@ -31,9 +31,9 @@ class EventDashboardController extends MyBaseController
          * should be done in the DB
          */
         $chartData = EventStats::where('event_id', '=', $event->id)
-                ->where('date', '>', Carbon::now()->subDays($num_days)->format('Y-m-d'))
-                ->get()
-                ->toArray();
+            ->where('date', '>', Carbon::now()->subDays($num_days)->format('Y-m-d'))
+            ->get()
+            ->toArray();
 
         $startDate = new DateTime("-$num_days days");
         $dateItter = new DatePeriod(
@@ -55,11 +55,11 @@ class EventDashboardController extends MyBaseController
 
             foreach ($chartData as $item) {
                 if ($item['date'] == $date->format('Y-m-d')) {
-                    $views                 = $item['views'];
-                    $sales_volume          = $item['sales_volume'];
+                    $views = $item['views'];
+                    $sales_volume = $item['sales_volume'];
                     $organiser_fees_volume = $item['organiser_fees_volume'];
-                    $unique_views          = $item['unique_views'];
-                    $tickets_sold          = $item['tickets_sold'];
+                    $unique_views = $item['unique_views'];
+                    $tickets_sold = $item['tickets_sold'];
 
                     break;
                 }
@@ -74,7 +74,7 @@ class EventDashboardController extends MyBaseController
             ];
         }
 
-        foreach($event->tickets as $ticket) {
+        foreach ($event->tickets as $ticket) {
             $tickets_data[] = [
                 'value' => $ticket->quantity_sold,
                 'label' => $ticket->title,

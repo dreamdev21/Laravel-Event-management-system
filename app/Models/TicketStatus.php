@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-/*
-  Attendize.com   - Event Management & Ticketing
- */
+    /*
+      Attendize.com   - Event Management & Ticketing
+     */
 
 /**
  * Description of TicketStatuses.

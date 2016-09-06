@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use Illuminate\Http\Request;
-use Input;
 use Hash;
+use Illuminate\Http\Request;
 use Validator;
 
 class UserController extends Controller
@@ -33,7 +32,11 @@ class UserController extends Controller
     public function postEditUser(Request $request)
     {
         $rules = [
-            'email'        => ['required', 'email', 'unique:users,email,' . Auth::user()->id . ',id,account_id,' . Auth::user()->account_id],
+            'email'        => [
+                'required',
+                'email',
+                'unique:users,email,' . Auth::user()->id . ',id,account_id,' . Auth::user()->account_id
+            ],
             'new_password' => ['min:5', 'confirmed', 'required_with:password'],
             'password'     => 'passcheck',
             'first_name'   => ['required'],
@@ -65,8 +68,8 @@ class UserController extends Controller
         }
 
         $user->first_name = $request->get('first_name');
-        $user->last_name  = $request->get('last_name');
-        $user->email      = $request->get('email');
+        $user->last_name = $request->get('last_name');
+        $user->email = $request->get('email');
 
         $user->save();
 

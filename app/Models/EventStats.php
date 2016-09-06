@@ -7,21 +7,21 @@ use DB;
 
 class EventStats extends \Illuminate\Database\Eloquent\Model
 {
+    public static $unguarded = true;
     /**
      * Indicates if the model should be timestamped.
      *
      * @var bool $timestamps
      */
     public $timestamps = false;
-    public static $unguarded = true;
 
     /**
      * @todo This shouldn't be in a view.
      * Update the amount of revenue a ticket has earned.
      *
-     * @param int   $ticket_id
+     * @param int $ticket_id
      * @param float $amount
-     * @param bool  $deduct
+     * @param bool $deduct
      *
      * @return bool
      */
@@ -37,7 +37,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
 
         return $ticket->save();
     }
-    
+
 
     /**
      * Update the amount of views a ticket has earned.
@@ -53,7 +53,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
             'date'     => DB::raw('CURRENT_DATE'),
         ]);
 
-        $cookie_name = 'visitTrack_'.$event_id.'_'.date('dmy');
+        $cookie_name = 'visitTrack_' . $event_id . '_' . date('dmy');
 
         if (!Cookie::get($cookie_name)) {
             Cookie::queue($cookie_name, true, 60 * 24 * 14);

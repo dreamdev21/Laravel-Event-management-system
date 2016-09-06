@@ -61,7 +61,7 @@ class EventViewController extends Controller
 
                 $affiliate->save();
 
-                Cookie::queue('affiliate_'.$event_id, $affiliate_ref, 60 * 24 * 60);
+                Cookie::queue('affiliate_' . $event_id, $affiliate_ref, 60 * 24 * 60);
             }
         }
 
@@ -116,7 +116,7 @@ class EventViewController extends Controller
             $message->to($event->organiser->email, $event->organiser->name)
                 ->from(config('attendize.outgoing_email_noreply'), $data['sender_name'])
                 ->replyTo($data['sender_email'], $data['sender_name'])
-                ->subject('Message Regarding: '.$event->title);
+                ->subject('Message Regarding: ' . $event->title);
         });
 
         return response()->json([

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Attendize\Utils;
 use App\Models\Organiser;
-use Carbon\Carbon;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrganiserViewController extends Controller
@@ -22,14 +22,14 @@ class OrganiserViewController extends Controller
     {
         $organiser = Organiser::findOrFail($organiser_id);
 
-        if(!$organiser->enable_organiser_page && !Utils::userOwns($organiser)) {
+        if (!$organiser->enable_organiser_page && !Utils::userOwns($organiser)) {
             abort(404);
         }
 
         /*
          * If we are previewing styles from the backend we set them here.
          */
-        if($request->get('preview_styles') && Auth::check()) {
+        if ($request->get('preview_styles') && Auth::check()) {
             $query_string = rawurldecode($request->get('preview_styles'));
             parse_str($query_string, $preview_styles);
 

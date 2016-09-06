@@ -2,20 +2,18 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use App\Mailers\AttendeeMailer;
 use App\Models\Message;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Log;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class SendMessageToAttendees extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     public $attendeeMessage;
-    
+
     /**
      * Create a new job instance.
      *

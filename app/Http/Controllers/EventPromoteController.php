@@ -11,7 +11,7 @@ class EventPromoteController extends MyBaseController
     public function showPromote($event_id)
     {
         $data = [
-          'event' => Event::scope()->find($event_id),
+            'event' => Event::scope()->find($event_id),
         ];
 
         return view('ManageEvent.Promote', $data);

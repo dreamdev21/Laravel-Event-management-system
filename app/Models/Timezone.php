@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-/*
-  Attendize.com   - Event Management & Ticketing
- */
+    /*
+      Attendize.com   - Event Management & Ticketing
+     */
 
 /**
  * Description of Timezone.
@@ -15,7 +15,6 @@ class Timezone extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Indicates if the model should be timestamped.
-
      *
      * @var bool $timestamps
      */

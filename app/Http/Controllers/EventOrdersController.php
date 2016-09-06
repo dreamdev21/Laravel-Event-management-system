@@ -6,9 +6,9 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use DB;
 use Excel;
+use Illuminate\Http\Request;
 use Log;
 use Mail;
 use Omnipay;
@@ -29,8 +29,8 @@ class EventOrdersController extends MyBaseController
         $allowed_sorts = ['first_name', 'email', 'order_reference', 'order_status_id', 'created_at'];
 
         $searchQuery = $request->get('q');
-        $sort_by     = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
-        $sort_order  = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+        $sort_order = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
 
         $event = Event::scope()->find($event_id);
 
@@ -45,10 +45,10 @@ class EventOrdersController extends MyBaseController
 
             $orders = $event->orders()
                 ->where(function ($query) use ($searchQuery) {
-                    $query->where('order_reference', 'like', $searchQuery.'%')
-                        ->orWhere('first_name', 'like', $searchQuery.'%')
-                        ->orWhere('email', 'like', $searchQuery.'%')
-                        ->orWhere('last_name', 'like', $searchQuery.'%');
+                    $query->where('order_reference', 'like', $searchQuery . '%')
+                        ->orWhere('first_name', 'like', $searchQuery . '%')
+                        ->orWhere('email', 'like', $searchQuery . '%')
+                        ->orWhere('last_name', 'like', $searchQuery . '%');
                 })
                 ->orderBy($sort_by, $sort_order)
                 ->paginate();
@@ -131,10 +131,10 @@ class EventOrdersController extends MyBaseController
 
         $order = Order::scope()->findOrFail($order_id);
 
-        $refund_order  = ($request->get('refund_order') === 'on') ? true : false;
-        $refund_type   = $request->get('refund_type');
+        $refund_order = ($request->get('refund_order') === 'on') ? true : false;
+        $refund_type = $request->get('refund_type');
         $refund_amount = round(floatval($request->get('refund_amount')), 2);
-        $attendees     = $request->get('attendees');
+        $attendees = $request->get('attendees');
         $error_message = false;
 
         if ($refund_order && $order->payment_gateway->can_refund) {
@@ -146,8 +146,11 @@ class EventOrdersController extends MyBaseController
                 $error_message = 'This order has already been refunded';
             } elseif ($order->organiser_amount == 0) {
                 $error_message = 'Nothing to refund';
-            } elseif ($refund_type !== 'full' && $refund_amount > round(($order->organiser_amount - $order->amount_refunded), 2)) {
-                $error_message = 'The maximum amount you can refund is '.(money($order->organiser_amount - $order->amount_refunded, $order->event->currency));
+            } elseif ($refund_type !== 'full' && $refund_amount > round(($order->organiser_amount - $order->amount_refunded),
+                    2)
+            ) {
+                $error_message = 'The maximum amount you can refund is ' . (money($order->organiser_amount - $order->amount_refunded,
+                        $order->event->currency));
             }
             if (!$error_message) {
                 try {
@@ -210,7 +213,7 @@ class EventOrdersController extends MyBaseController
         }
 
         \Session::flash('message',
-            (!$refund_amount && !$attendees) ? 'Nothing To Do' : 'Successfully '.($refund_order ? ' Refunded Order' : ' ').($attendees && $refund_order ? ' & ' : '').($attendees ? 'Cancelled Attendee(s)' : ''));
+            (!$refund_amount && !$attendees) ? 'Nothing To Do' : 'Successfully ' . ($refund_order ? ' Refunded Order' : ' ') . ($attendees && $refund_order ? ' & ' : '') . ($attendees ? 'Cancelled Attendee(s)' : ''));
 
         return response()->json([
             'status'      => 'success',
@@ -228,9 +231,9 @@ class EventOrdersController extends MyBaseController
     {
         $event = Event::scope()->findOrFail($event_id);
 
-        Excel::create('orders-as-of-'.date('d-m-Y-g.i.a'), function ($excel) use ($event) {
+        Excel::create('orders-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($event) {
 
-            $excel->setTitle('Orders For Event: '.$event->title);
+            $excel->setTitle('Orders For Event: ' . $event->title);
 
             // Chain the setters
             $excel->setCreator(config('attendize.app_name'))
@@ -259,7 +262,15 @@ class EventOrdersController extends MyBaseController
 
                 // Add headings to first row
                 $sheet->row(1, [
-                    'First Name', 'Last Name', 'Email', 'Order Reference', 'Amount', 'Fully Refunded', 'Partially Refunded', 'Amount Refunded', 'Order Date',
+                    'First Name',
+                    'Last Name',
+                    'Email',
+                    'Order Reference',
+                    'Amount',
+                    'Fully Refunded',
+                    'Partially Refunded',
+                    'Amount Refunded',
+                    'Order Date',
                 ]);
 
                 // Set gray background on first row
@@ -282,8 +293,8 @@ class EventOrdersController extends MyBaseController
         $order = Order::scope()->findOrFail($order_id);
 
         $data = [
-            'order'    => $order,
-            'event'    => $order->event,
+            'order' => $order,
+            'event' => $order->event,
         ];
 
         return view('ManageEvent.Modals.MessageOrder', $data);
@@ -335,7 +346,7 @@ class EventOrdersController extends MyBaseController
                 $message->to($order->event->organiser->email)
                     ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                     ->replyTo($order->event->organiser->email, $order->event->organiser->name)
-                    ->subject($data['subject'].' [Organiser copy]');
+                    ->subject($data['subject'] . ' [Organiser copy]');
             });
         }
 
@@ -352,7 +363,8 @@ class EventOrdersController extends MyBaseController
      * @param $order_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function postMarkPaymentReceived(Request $request, $order_id) {
+    public function postMarkPaymentReceived(Request $request, $order_id)
+    {
         $order = Order::scope()->findOrFail($order_id);
 
         $order->is_payment_received = 1;
@@ -363,7 +375,7 @@ class EventOrdersController extends MyBaseController
         session()->flash('message', 'Order Payment Status Successfully Updated');
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
         ]);
     }
 }

@@ -9,12 +9,12 @@ use App\Models\PaymentGateway;
 use App\Models\Timezone;
 use App\Models\User;
 use Auth;
+use Hash;
 use HttpClient;
 use Illuminate\Http\Request;
 use Input;
-use Validator;
-use Hash;
 use Mail;
+use Validator;
 
 class ManageAccountController extends MyBaseController
 {
@@ -27,10 +27,10 @@ class ManageAccountController extends MyBaseController
     public function showEditAccount(Request $request)
     {
         $data = [
-            'account' => Account::find(Auth::user()->account_id),
-            'timezones' => Timezone::lists('location', 'id'),
-            'currencies' => Currency::lists('title', 'id'),
-            'payment_gateways' => PaymentGateway::lists('provider_name', 'id'),
+            'account'                  => Account::find(Auth::user()->account_id),
+            'timezones'                => Timezone::lists('location', 'id'),
+            'currencies'               => Currency::lists('title', 'id'),
+            'payment_gateways'         => PaymentGateway::lists('provider_name', 'id'),
             'account_payment_gateways' => AccountPaymentGateway::scope()->get()
         ];
 
@@ -49,12 +49,12 @@ class ManageAccountController extends MyBaseController
         }
 
         $request = [
-            'url' => 'https://connect.stripe.com/oauth/token',
+            'url'    => 'https://connect.stripe.com/oauth/token',
             'params' => [
 
                 'client_secret' => STRIPE_SECRET_KEY,
-                'code' => Input::get('code'),
-                'grant_type' => 'authorization_code',
+                'code'          => Input::get('code'),
+                'grant_type'    => 'authorization_code',
             ],
         ];
 
@@ -70,10 +70,10 @@ class ManageAccountController extends MyBaseController
 
         $account = Account::find(\Auth::user()->account_id);
 
-        $account->stripe_access_token    = $content->access_token;
-        $account->stripe_refresh_token   = $content->refresh_token;
+        $account->stripe_access_token = $content->access_token;
+        $account->stripe_refresh_token = $content->refresh_token;
         $account->stripe_publishable_key = $content->stripe_publishable_key;
-        $account->stripe_data_raw        = json_encode($content);
+        $account->stripe_data_raw = json_encode($content);
 
         $account->save();
 
@@ -94,21 +94,21 @@ class ManageAccountController extends MyBaseController
 
         if (!$account->validate(Input::all())) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $account->errors(),
             ]);
         }
 
-        $account->first_name  = Input::get('first_name');
-        $account->last_name   = Input::get('last_name');
-        $account->email       = Input::get('email');
+        $account->first_name = Input::get('first_name');
+        $account->last_name = Input::get('last_name');
+        $account->email = Input::get('email');
         $account->timezone_id = Input::get('timezone_id');
         $account->currency_id = Input::get('currency_id');
         $account->save();
 
         return response()->json([
-            'status' => 'success',
-            'id' => $account->id,
+            'status'  => 'success',
+            'id'      => $account->id,
             'message' => 'Account Successfully Updated',
         ]);
     }
@@ -139,7 +139,7 @@ class ManageAccountController extends MyBaseController
         $account_payment_gateway = AccountPaymentGateway::firstOrNew(
             [
                 'payment_gateway_id' => $gateway_id,
-                'account_id' => $account->id,
+                'account_id'         => $account->id,
             ]);
         $account_payment_gateway->config = $config;
         $account_payment_gateway->account_id = $account->id;
@@ -150,8 +150,8 @@ class ManageAccountController extends MyBaseController
         $account->save();
 
         return response()->json([
-            'status' => 'success',
-            'id' => $account_payment_gateway->id,
+            'status'  => 'success',
+            'id'      => $account_payment_gateway->id,
             'message' => 'Payment Information Successfully Updated',
         ]);
     }
@@ -177,7 +177,7 @@ class ManageAccountController extends MyBaseController
 
         if ($validation->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validation->messages()->toArray(),
             ]);
         }
@@ -186,25 +186,25 @@ class ManageAccountController extends MyBaseController
 
         $user = new User();
 
-        $user->email      = Input::get('email');
-        $user->password   = Hash::make($temp_password);
+        $user->email = Input::get('email');
+        $user->password = Hash::make($temp_password);
         $user->account_id = Auth::user()->account_id;
 
         $user->save();
 
         $data = [
-            'user' => $user,
+            'user'          => $user,
             'temp_password' => $temp_password,
-            'inviter' => Auth::user(),
+            'inviter'       => Auth::user(),
         ];
 
         Mail::send('Emails.inviteUser', $data, function ($message) use ($data) {
             $message->to($data['user']->email)
-                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an '. config('attendize.app_name') .' account.');
+                ->subject($data['inviter']->first_name . ' ' . $data['inviter']->last_name . ' added you to an ' . config('attendize.app_name') . ' account.');
         });
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Success! <b>' . $user->email . '</b> has been sent further instructions.',
         ]);
     }

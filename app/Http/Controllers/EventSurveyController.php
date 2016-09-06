@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventQuestionRequest;
-use App\Models\Event;
 use App\Models\Attendee;
+use App\Models\Event;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionType;
-use JavaScript;
-use Illuminate\Http\Request;
 use Excel;
+use Illuminate\Http\Request;
+use JavaScript;
 
 /*
   Attendize.com   - Event Management & Ticketing

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-/*
-  Attendize.com   - Event Management & Ticketing
- */
+    /*
+      Attendize.com   - Event Management & Ticketing
+     */
 
 /**
  * Description of DateTimeFormat.
@@ -14,19 +14,17 @@ namespace App\Models;
 class DateTimeFormat extends \Illuminate\Database\Eloquent\Model
 {
     /**
-     * The database table used by the model.
-     *
-     * @var string $table
-     */
-    protected $table = 'datetime_formats';
-
-    /**
      * Indicates whether the model should be timestamped.
      *
      * @var bool $timestamps
      */
     public $timestamps = false;
-
+    /**
+     * The database table used by the model.
+     *
+     * @var string $table
+     */
+    protected $table = 'datetime_formats';
     /**
      * Indicates whether the model should use soft deletes.
      *

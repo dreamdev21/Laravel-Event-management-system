@@ -4,12 +4,17 @@ namespace App\Models;
 
 use App\Attendize\Utils;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use DB;
 
 class Account extends MyBaseModel
 {
     use SoftDeletes;
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array $dates
+     */
+    public $dates = ['deleted_at'];
     /**
      * The validation rules
      *
@@ -20,14 +25,6 @@ class Account extends MyBaseModel
         'last_name'  => ['required'],
         'email'      => ['required', 'email'],
     ];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array $dates
-     */
-    public $dates = ['deleted_at'];
-
     /**
      * The validation error messages.
      *
@@ -99,6 +96,16 @@ class Account extends MyBaseModel
     }
 
     /**
+     * Alias for $this->account_payment_gateways()
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gateways()
+    {
+        return $this->account_payment_gateways();
+    }
+
+    /**
      * Payment gateways associated with an account
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -109,33 +116,14 @@ class Account extends MyBaseModel
     }
 
     /**
-     * Alias for $this->account_payment_gateways()
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function gateways() {
-        return $this->account_payment_gateways();
-    }
-
-    /**
      * Get an accounts active payment gateway
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function active_payment_gateway()
     {
-        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id', 'payment_gateway_id')->where('account_id', $this->id);
-    }
-
-    /**
-     * Get an accounts gateways
-     *
-     * @param $gateway_id
-     * @return mixed
-     */
-    public function getGateway($gateway_id)
-    {
-        return $this->gateways->where('payment_gateway_id', $gateway_id)->first();
+        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id',
+            'payment_gateway_id')->where('account_id', $this->id);
     }
 
     /**
@@ -149,14 +137,23 @@ class Account extends MyBaseModel
     {
         $gateway = $this->getGateway($gateway_id);
 
-        if($gateway && is_array($gateway->config)) {
+        if ($gateway && is_array($gateway->config)) {
             return isset($gateway->config[$key]) ? $gateway->config[$key] : false;
         }
 
         return false;
     }
 
-
+    /**
+     * Get an accounts gateways
+     *
+     * @param $gateway_id
+     * @return mixed
+     */
+    public function getGateway($gateway_id)
+    {
+        return $this->gateways->where('payment_gateway_id', $gateway_id)->first();
+    }
 
     /**
      * Get the stripe api key.

@@ -2,18 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class QuestionOption extends MyBaseModel
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @access protected
-     * @var array
-     */
-    protected $fillable = ['name'];
-
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,6 +11,13 @@ class QuestionOption extends MyBaseModel
      * @var bool
      */
     public $timestamps = false;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @access protected
+     * @var array
+     */
+    protected $fillable = ['name'];
 
     /**
      * The question associated with the question option.

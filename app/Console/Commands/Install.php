@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Timezone;
 use App\Models\Account;
+use App\Models\Timezone;
 use App\Models\User;
 use DB;
+use Hash;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use PhpSpec\Exception\Exception;
-use Hash;
 
 class Install extends Command
 {
@@ -45,7 +45,7 @@ class Install extends Command
         }
 
         $this->comment('--------------------');
-        $this->comment('Attempting to install Attendize v'.$version);
+        $this->comment('Attempting to install Attendize v' . $version);
         $this->comment('--------------------');
 
 
@@ -71,7 +71,7 @@ class Install extends Command
         /*
          * If there is no account prompt the user to create one;
          */
-        if(Account::count() === 0) {
+        if (Account::count() === 0) {
             DB::beginTransaction();
             try {
                 $this->comment('--------------------');

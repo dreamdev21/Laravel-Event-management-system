@@ -6,5 +6,5 @@ namespace App\Http\Controllers;
 
 class EventQuestionsController extends MyBaseController
 {
-    
+
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Organiser;
 use File;
-use Image;
 use Illuminate\Http\Request;
+use Image;
 use Validator;
 
 class OrganiserCustomizeController extends MyBaseController
@@ -43,12 +43,12 @@ class OrganiserCustomizeController extends MyBaseController
             ]);
         }
 
-        $organiser->name                  = $request->get('name');
-        $organiser->about                 = $request->get('about');
-        $organiser->email                 = $request->get('email');
+        $organiser->name = $request->get('name');
+        $organiser->about = $request->get('about');
+        $organiser->email = $request->get('email');
         $organiser->enable_organiser_page = $request->get('enable_organiser_page');
-        $organiser->facebook              = $request->get('facebook');
-        $organiser->twitter               = $request->get('twitter');
+        $organiser->facebook = $request->get('facebook');
+        $organiser->twitter = $request->get('twitter');
 
         if ($request->get('remove_current_image') == '1') {
             $organiser->logo_path = '';
@@ -56,9 +56,9 @@ class OrganiserCustomizeController extends MyBaseController
 
         if ($request->hasFile('organiser_logo')) {
             $the_file = \File::get($request->file('organiser_logo')->getRealPath());
-            $file_name = str_slug($organiser->name).'-logo-'.$organiser->id.'.'.strtolower($request->file('organiser_logo')->getClientOriginalExtension());
+            $file_name = str_slug($organiser->name) . '-logo-' . $organiser->id . '.' . strtolower($request->file('organiser_logo')->getClientOriginalExtension());
 
-            $relative_path_to_file = config('attendize.organiser_images_path').'/'.$file_name;
+            $relative_path_to_file = config('attendize.organiser_images_path') . '/' . $file_name;
             $full_path_to_file = public_path($relative_path_to_file);
 
             $img = Image::make($the_file);
@@ -110,14 +110,14 @@ class OrganiserCustomizeController extends MyBaseController
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
+                'status'   => 'error',
                 'messages' => $validator->messages()->toArray(),
             ]);
         }
 
-        $event->page_bg_color        = $request->get('page_bg_color');
+        $event->page_bg_color = $request->get('page_bg_color');
         $event->page_header_bg_color = $request->get('page_header_bg_color');
-        $event->page_text_color      = $request->get('page_text_color');
+        $event->page_text_color = $request->get('page_text_color');
 
         $event->save();
 

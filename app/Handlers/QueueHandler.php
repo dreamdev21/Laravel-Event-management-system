@@ -37,7 +37,7 @@ class QueueHandler
             'attendees' => $order->attendees,
         ];
 
-        $pdf_file = storage_path().'/'.$order->order_reference;
+        $pdf_file = storage_path() . '/' . $order->order_reference;
         exit($pdf_file);
 
         PDF::setOutputMode('F'); // force to file
@@ -61,7 +61,8 @@ class QueueHandler
         $message_object = Message::find($data['message_id']);
         $event = $message_object->event;
 
-        $attendees = ($message_object->recipients == 0) ? $event->attendees : Attendee::where('ticket_id', '=', $message_object->recipients)->where('account_id', '=', $message_object->account_id)->get();
+        $attendees = ($message_object->recipients == 0) ? $event->attendees : Attendee::where('ticket_id', '=',
+            $message_object->recipients)->where('account_id', '=', $message_object->account_id)->get();
 
         $toFields = [];
         foreach ($attendees as $attendee) {
@@ -76,9 +77,9 @@ class QueueHandler
 
         Mail::send('Emails.messageAttendees', $data, function ($message) use ($toFields, $event, $message_object) {
             $message->to($toFields)
-                    ->from(config('attendize.outgoing_email_noreply'), $event->organiser->name)
-                    ->replyTo($event->organiser->email, $event->organiser->name)
-                    ->subject($message_object->subject);
+                ->from(config('attendize.outgoing_email_noreply'), $event->organiser->name)
+                ->replyTo($event->organiser->email, $event->organiser->name)
+                ->subject($message_object->subject);
         });
 
         $message_object->is_sent = 1;

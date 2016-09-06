@@ -7,10 +7,6 @@ use Artisan;
 use Config;
 use DB;
 use Illuminate\Http\Request;
-use Input;
-use Redirect;
-use Response;
-use View;
 
 class InstallerController extends Controller
 {
@@ -122,26 +118,26 @@ class InstallerController extends Controller
             ];
         }
 
-        $config = "APP_ENV=production\n".
-            "APP_DEBUG=false\n".
-            "APP_URL={$app_url}\n".
-            "APP_KEY={$app_key}\n".
-            "DB_TYPE={$database['type']}\n".
-            "DB_HOST={$database['host']}\n".
-            "DB_DATABASE={$database['name']}\n".
-            "DB_USERNAME={$database['username']}\n".
-            "DB_PASSWORD={$database['password']}\n\n".
-            "MAIL_DRIVER={$mail['driver']}\n".
-            "MAIL_PORT={$mail['port']}\n".
-            "MAIL_ENCRYPTION={$mail['encryption']}\n".
-            "MAIL_HOST={$mail['host']}\n".
-            "MAIL_USERNAME={$mail['username']}\n".
-            "MAIL_FROM_NAME=\"{$mail['from_name']}\"\n".
-            "MAIL_FROM_ADDRESS={$mail['from_address']}\n".
-            "WKHTML2PDF_BIN_FILE=wkhtmltopdf-amd64\n".
+        $config = "APP_ENV=production\n" .
+            "APP_DEBUG=false\n" .
+            "APP_URL={$app_url}\n" .
+            "APP_KEY={$app_key}\n" .
+            "DB_TYPE={$database['type']}\n" .
+            "DB_HOST={$database['host']}\n" .
+            "DB_DATABASE={$database['name']}\n" .
+            "DB_USERNAME={$database['username']}\n" .
+            "DB_PASSWORD={$database['password']}\n\n" .
+            "MAIL_DRIVER={$mail['driver']}\n" .
+            "MAIL_PORT={$mail['port']}\n" .
+            "MAIL_ENCRYPTION={$mail['encryption']}\n" .
+            "MAIL_HOST={$mail['host']}\n" .
+            "MAIL_USERNAME={$mail['username']}\n" .
+            "MAIL_FROM_NAME=\"{$mail['from_name']}\"\n" .
+            "MAIL_FROM_ADDRESS={$mail['from_address']}\n" .
+            "WKHTML2PDF_BIN_FILE=wkhtmltopdf-amd64\n" .
             "MAIL_PASSWORD={$mail['password']}\n\n";
 
-        $fp = fopen(base_path().'/.env', 'w');
+        $fp = fopen(base_path() . '/.env', 'w');
         fwrite($fp, $config);
         fclose($fp);
 
@@ -162,7 +158,7 @@ class InstallerController extends Controller
         }
         Artisan::call('optimize', ['--force' => true]);
 
-        $fp = fopen(base_path().'/installed', 'w');
+        $fp = fopen(base_path() . '/installed', 'w');
         fwrite($fp, $version);
         fclose($fp);
 

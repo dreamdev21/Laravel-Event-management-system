@@ -4,9 +4,6 @@ namespace app\Http\Middleware;
 
 use App\Models\Organiser;
 use Closure;
-use Redirect;
-use Request;
-use DB;
 
 class FirstRunMiddleware
 {
@@ -14,7 +11,7 @@ class FirstRunMiddleware
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */

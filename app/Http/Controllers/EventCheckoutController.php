@@ -9,8 +9,8 @@ use App\Models\Event;
 use App\Models\EventStats;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\ReservedTickets;
 use App\Models\QuestionAnswer;
+use App\Models\ReservedTickets;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use Cookie;
@@ -61,7 +61,7 @@ class EventCheckoutController extends Controller
 
         if (!$request->has('tickets')) {
             return response()->json([
-                'status'   => 'error',
+                'status'  => 'error',
                 'message' => 'No tickets selected',
             ]);
         }
@@ -311,7 +311,7 @@ class EventCheckoutController extends Controller
              * Check if the user has chosen to pay offline
              * and if they are allowed
              */
-            if($request->get('pay_offline') && $event->enable_offline_payments) {
+            if ($request->get('pay_offline') && $event->enable_offline_payments) {
                 return $this->completeOrder($event_id);
             }
 
@@ -489,7 +489,7 @@ class EventCheckoutController extends Controller
             if (isset($ticket_order['transaction_id'])) {
                 $order->transaction_id = $ticket_order['transaction_id'][0];
             }
-            if ($ticket_order['order_requires_payment'] && !isset($request_data['pay_offline']) ) {
+            if ($ticket_order['order_requires_payment'] && !isset($request_data['pay_offline'])) {
                 $order->payment_gateway_id = $ticket_order['payment_gateway']->id;
             }
             $order->first_name = $request_data['order_first_name'];

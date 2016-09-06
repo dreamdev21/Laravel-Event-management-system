@@ -2,12 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use App\Mailers\OrderMailer;
 use App\Models\Order;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class SendOrderNotification extends Job implements ShouldQueue
 {

@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEventQuestionRequest;
 use App\Models\Event;
-use App\Models\Question;
-use App\Models\QuestionType;
 use Illuminate\Http\Request;
 
 /*
@@ -32,7 +29,6 @@ class EventWidgetsController extends MyBaseController
 
         return view('ManageEvent.Widgets', $data);
     }
-
 
 
 }
