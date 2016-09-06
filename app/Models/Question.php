@@ -65,6 +65,4 @@ class Question extends MyBaseModel
     {
         return $query->where('is_enabled', 1);
     }
-
-
 }

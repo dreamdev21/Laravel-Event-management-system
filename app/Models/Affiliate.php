@@ -25,7 +25,7 @@ class Affiliate extends \Illuminate\Database\Eloquent\Model
     /**
      * The attributes that should be mutated to dates.
      *
-     * @var array $dates
+     * @return array $dates
      */
     public function getDates()
     {
