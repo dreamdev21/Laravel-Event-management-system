@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('email', 'Email Address', array('class'=>'control-label')) !!}
+                            {!! Form::label('email', 'Email Address', array('class'=>'control-label required')) !!}
 
                             {!!  Form::text('email', Input::old('email'),
                                                 array(
