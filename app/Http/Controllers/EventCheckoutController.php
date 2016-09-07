@@ -324,11 +324,18 @@ class EventCheckoutController extends Controller
                         'testMode' => config('attendize.enable_test_payments'),
                     ]);
 
+                $transaction_data = [
+                        'amount'      => ($ticket_order['order_total'] + $ticket_order['organiser_booking_fee']),
+                        'currency'    => $event->currency->code,
+                        'description' => 'Order for customer: ' . $request->get('order_email'),
+                    ];
+
+
                 switch ($ticket_order['payment_gateway']->id) {
                     case config('attendize.payment_gateway_paypal'):
                     case config('attendize.payment_gateway_coinbase'):
 
-                        $transaction_data = [
+                        $transaction_data += [
                             'cancelUrl' => route('showEventCheckoutPaymentReturn', [
                                 'event_id'             => $event_id,
                                 'is_payment_cancelled' => 1
@@ -344,20 +351,24 @@ class EventCheckoutController extends Controller
                         break;
                     case config('attendize.payment_gateway_stripe'):
                         $token = $request->get('stripeToken');
-                        $transaction_data = [
+                        $transaction_data += [
                             'token' => $token,
                         ];
                         break;
                     case config('attendize.payment_gateway_migs'):
 
-                        $transaction_data = [
-                            'transactionId' => 12345,
+                        $transaction_data += [
+                            'transactionId' => "",       // TODO: Where to generate transaction id?
                             'returnUrl' => route('showEventCheckoutPaymentReturn', [
                                 'event_id'              => $event_id,
                                 'is_payment_successful' => 1
                             ]),
                             
                         ];
+
+                        // Order description in MIGS is only 34 characters long; so we need to truncate
+                        $transaction_data['description'] = substr($transaction_data['description'], 0, 34);
+
                         break;
                     default:
                         Log::error('No payment gateway configured.');
@@ -368,11 +379,6 @@ class EventCheckoutController extends Controller
                         break;
                 }
 
-                $transaction_data = [
-                        'amount'      => ($ticket_order['order_total'] + $ticket_order['organiser_booking_fee']),
-                        'currency'    => $event->currency->code,
-                        'description' => 'Order for customer: ' . $request->get('order_email'),
-                    ] + $transaction_data;
 
                 $transaction = $gateway->purchase($transaction_data);
 
