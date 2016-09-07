@@ -324,19 +324,11 @@ class EventCheckoutController extends Controller
                         'testMode' => config('attendize.enable_test_payments'),
                     ]);
 
-				$transaction_data = [];
-				
                 switch ($ticket_order['payment_gateway']->id) {
-					case config('attendize.payment_gateway_migs'):
-
-                        $transaction_data = [
-							'transactionId' => 1,
-						];
-						
-                    case config('attendize.payment_gateway_paypal'):					
+                    case config('attendize.payment_gateway_paypal'):
                     case config('attendize.payment_gateway_coinbase'):
 
-                        $transaction_data += [
+                        $transaction_data = [
                             'cancelUrl' => route('showEventCheckoutPaymentReturn', [
                                 'event_id'             => $event_id,
                                 'is_payment_cancelled' => 1
@@ -354,6 +346,17 @@ class EventCheckoutController extends Controller
                         $token = $request->get('stripeToken');
                         $transaction_data = [
                             'token' => $token,
+                        ];
+                        break;
+                    case config('attendize.payment_gateway_migs'):
+
+                        $transaction_data = [
+                            'transactionId' => 12345,
+                            'returnUrl' => route('showEventCheckoutPaymentReturn', [
+                                'event_id'              => $event_id,
+                                'is_payment_successful' => 1
+                            ]),
+                            
                         ];
                         break;
                     default:
@@ -390,12 +393,19 @@ class EventCheckoutController extends Controller
                      */
                     session()->push('ticket_order_' . $event_id . '.transaction_data', $transaction_data);
 					Log::info("Redirect url: " . $response->getRedirectUrl());
-                    return response()->json([
+
+                    $return = [
                         'status'       => 'success',
                         'redirectUrl'  => $response->getRedirectUrl(),
-                        //'redirectData' => $response->getRedirectData(),
                         'message'      => 'Redirecting to ' . $ticket_order['payment_gateway']->provider_name
-                    ]);
+                    ];
+
+                    // GET method requests should not have redirectData on the JSON return string
+                    if($response->getRedirectMethod() == 'POST') {
+                        $return['redirectData'] = $response->getRedirectData();
+                    }
+
+                    return response()->json($return);
 
                 } else {
                     // display error to customer
