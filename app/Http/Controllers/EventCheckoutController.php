@@ -283,6 +283,7 @@ class EventCheckoutController extends Controller
         $event = Event::findOrFail($event_id);
         $order = new Order;
         $ticket_order = session()->get('ticket_order_' . $event_id);
+		Log::info($ticket_order);
 
         $validation_rules = $ticket_order['validation_rules'];
         $validation_messages = $ticket_order['validation_messages'];
@@ -323,11 +324,19 @@ class EventCheckoutController extends Controller
                         'testMode' => config('attendize.enable_test_payments'),
                     ]);
 
+				$transaction_data = [];
+				
                 switch ($ticket_order['payment_gateway']->id) {
-                    case config('attendize.payment_gateway_paypal'):
-                    case config('attendize.payment_gateway_coinbase'):
+					case config('attendize.payment_gateway_migs'):
 
                         $transaction_data = [
+							'transactionId' => 1,
+						];
+						
+                    case config('attendize.payment_gateway_paypal'):					
+                    case config('attendize.payment_gateway_coinbase'):
+
+                        $transaction_data += [
                             'cancelUrl' => route('showEventCheckoutPaymentReturn', [
                                 'event_id'             => $event_id,
                                 'is_payment_cancelled' => 1
@@ -340,7 +349,6 @@ class EventCheckoutController extends Controller
                                 ? $ticket_order['account_payment_gateway']->config['brandingName']
                                 : $event->organiser->name
                         ];
-                        break;
                         break;
                     case config('attendize.payment_gateway_stripe'):
                         $token = $request->get('stripeToken');
@@ -381,11 +389,11 @@ class EventCheckoutController extends Controller
                      * when we return
                      */
                     session()->push('ticket_order_' . $event_id . '.transaction_data', $transaction_data);
-
+					Log::info("Redirect url: " . $response->getRedirectUrl());
                     return response()->json([
                         'status'       => 'success',
                         'redirectUrl'  => $response->getRedirectUrl(),
-                        'redirectData' => $response->getRedirectData(),
+                        //'redirectData' => $response->getRedirectData(),
                         'message'      => 'Redirecting to ' . $ticket_order['payment_gateway']->provider_name
                     ]);
 

@@ -11,6 +11,7 @@ return [
     'payment_gateway_stripe'   => 1,
     'payment_gateway_paypal'   => 2,
     'payment_gateway_coinbase' => 3,
+	'payment_gateway_migs'     => 4,
 
     'outgoing_email_noreply' => env('MAIL_FROM_ADDRESS'),
     'outgoing_email'         => env('MAIL_FROM_ADDRESS'),
@@ -54,14 +55,14 @@ return [
     'question_radio_single'         => 6,
 
 
-    'default_timezone'           => 30, #Europe/Dublin
-    'default_currency'           => 2, #Euro
+    'default_timezone'           => 92, #Asia/Singapore
+    'default_currency'           => 15, #Philippine Peso
     'default_date_format'        => 'j M, Y',
     'default_date_picker_format' => 'd M, yyyy',
     'default_datetime_format'    => 'F j, Y, g:i a',
     'default_query_cache'        => 120, #Minutes
     'default_locale'             => 'en',
-    'default_payment_gateway'    => 1, #Stripe=1 Paypal=2 BitPay=3
+    'default_payment_gateway'    => 4, #Stripe=1 Paypal=2 BitPay=3 MIGS=4
 
     'cdn_url_user_assets'   => '',
     'cdn_url_static_assets' => ''
