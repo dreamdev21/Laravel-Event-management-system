@@ -6,8 +6,8 @@ use App\Events\OrderCompletedEvent;
 use App\Jobs\GenerateTicket;
 use App\Jobs\SendOrderNotification;
 use App\Jobs\SendOrderTickets;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
 class OrderCompletedListener implements ShouldQueue
@@ -28,7 +28,7 @@ class OrderCompletedListener implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  OrderCompletedEvent $event
+     * @param  OrderCompletedEvent  $event
      * @return void
      */
     public function handle(OrderCompletedEvent $event)
