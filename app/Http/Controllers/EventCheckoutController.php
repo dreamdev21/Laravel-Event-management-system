@@ -283,7 +283,6 @@ class EventCheckoutController extends Controller
         $event = Event::findOrFail($event_id);
         $order = new Order;
         $ticket_order = session()->get('ticket_order_' . $event_id);
-		Log::info($ticket_order);
 
         $validation_rules = $ticket_order['validation_rules'];
         $validation_messages = $ticket_order['validation_messages'];
@@ -358,16 +357,16 @@ class EventCheckoutController extends Controller
                     case config('attendize.payment_gateway_migs'):
 
                         $transaction_data += [
-                            'transactionId' => "1",       // TODO: Where to generate transaction id?
+                            'transactionId' => $event_id . date('YmdHis'),       // TODO: Where to generate transaction id?
                             'returnUrl' => route('showEventCheckoutPaymentReturn', [
                                 'event_id'              => $event_id,
                                 'is_payment_successful' => 1
                             ]),
-                            
+
                         ];
 
-                        // Order description in MIGS is only 34 characters long; so we need to truncate
-                        $transaction_data['description'] = substr($transaction_data['description'], 0, 34);
+                        // Order description in MIGS is only 34 characters long; so we need a short description
+                        $transaction_data['description'] = "Ticket sales";
 
                         break;
                     default:
