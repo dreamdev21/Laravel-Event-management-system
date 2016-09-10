@@ -15,7 +15,6 @@ class Timezone extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Indicates if the model should be timestamped.
-
      *
      * @var bool $timestamps
      */

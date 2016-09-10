@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Attendee extends MyBaseModel
 {
-
     use SoftDeletes;
 
     /**
@@ -99,7 +98,6 @@ class Attendee extends MyBaseModel
         return $query->where('attendees.is_cancelled', '=', 0);
     }
 
-
     /**
      * Get the attendee reference
      *
@@ -120,16 +118,13 @@ class Attendee extends MyBaseModel
     }
 
 
-
     /**
      * The attributes that should be mutated to dates.
      *
-     * @var array $dates
+     * @return array $dates
      */
     public function getDates()
     {
         return ['created_at', 'updated_at', 'arrival_time'];
     }
-
-
 }

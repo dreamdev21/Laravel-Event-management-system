@@ -13,6 +13,7 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
      * @var bool $timestamps
      */
     public $timestamps = false;
+
     public static $unguarded = true;
 
     /**
@@ -37,7 +38,6 @@ class EventStats extends \Illuminate\Database\Eloquent\Model
 
         return $ticket->save();
     }
-    
 
     /**
      * Update the amount of views a ticket has earned.

@@ -40,7 +40,8 @@ class AccountPaymentGateway extends MyBaseModel
     }
 
     /**
-     * @param $val
+     * @param $value
+     *
      * @return mixed
      */
     public function getConfigAttribute($value) {
@@ -50,6 +51,4 @@ class AccountPaymentGateway extends MyBaseModel
     public function setConfigAttribute($value) {
         $this->attributes['config'] = json_encode($value);
     }
-
-
 }

@@ -7,7 +7,6 @@ use App\Jobs\GenerateTicket;
 use App\Jobs\SendOrderNotification;
 use App\Jobs\SendOrderTickets;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
