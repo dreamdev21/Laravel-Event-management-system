@@ -124,4 +124,16 @@ class EventViewController extends Controller
             'message' => 'Message Successfully Sent',
         ]);
     }
+
+    public function showCalendarIcs(Request $request, $event_id)
+    {
+        $event = Event::findOrFail($event_id);
+
+        $icsContent = $event->getIcsForEvent();
+
+        return response()->make($icsContent, 200, [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="event.ics'
+        ]);
+    }
 }
