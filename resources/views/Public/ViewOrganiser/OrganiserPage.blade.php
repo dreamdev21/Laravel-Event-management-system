@@ -21,3 +21,7 @@
      @include('Public.ViewOrganiser.Partials.OrganiserEventsSection')
      @include('Public.ViewOrganiser.Partials.OrganiserFooterSection')
 @stop
+
+@section('foot')
+     @include('Public.Partials.ga', ['analyticsCode' => $organiser->google_analytics_code])
+@stop
