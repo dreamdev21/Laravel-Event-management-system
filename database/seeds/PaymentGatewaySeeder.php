@@ -37,6 +37,14 @@ class PaymentGatewaySeeder extends Seeder
                 'is_on_site' => 0,
                 'can_refund' => 0,
             ],
+            [
+                'id' => 4,
+                'name' => 'Migs_ThreeParty',
+                'provider_name' => 'MasterCard Internet Gateway Service',
+                'provider_url' => 'https://www.mastercard.com/gateway/payment-processing/online-credit-card-and-debit-card-payment-processing.html',
+                'is_on_site' => 0,
+                'can_refund' => 0,
+            ],
         ];
 
         DB::table('payment_gateways')->insert($payment_gateways);

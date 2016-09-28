@@ -121,6 +121,36 @@
 
 </section>
 
+{{--BDO MIGS--}}
+<section class="payment_gateway_options"  id="gateway_{{config('attendize.payment_gateway_migs')}}">
+    <h4>Mastercard Internet Gateway Service Settings</h4>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {!! Form::label('migs[merchantAccessCode]', 'Merchant Access Code', array('class'=>'control-label ')) !!}
+                {!! Form::text('migs[merchantAccessCode]', $account->getGatewayConfigVal(config('attendize.payment_gateway_migs'), 'merchantAccessCode'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {!! Form::label('migs[merchantId]', 'Merchant ID', ['class'=>'control-label ']) !!}
+                {!! Form::text('migs[merchantId]', $account->getGatewayConfigVal(config('attendize.payment_gateway_migs'), 'merchantId'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                {!! Form::label('migs[secureHash]', 'Secure Hash Code', array('class'=>'control-label ')) !!}
+                {!! Form::text('migs[secureHash]', $account->getGatewayConfigVal(config('attendize.payment_gateway_migs'), 'secureHash'),[ 'class'=>'form-control'])  !!}
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
 
 
 
