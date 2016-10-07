@@ -26,7 +26,7 @@ class AccountPaymentGateway extends MyBaseModel
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account() {
-        return $this->belongsTo('\App\Models\Account');
+        return $this->belongsTo(\App\Models\Account::class);
     }
 
     /**
@@ -36,7 +36,7 @@ class AccountPaymentGateway extends MyBaseModel
      */
     public function payment_gateway()
     {
-        return $this->belongsTo('\App\Models\PaymentGateway', 'payment_gateway_id', 'id');
+        return $this->belongsTo(\App\Models\PaymentGateway::class, 'payment_gateway_id', 'id');
     }
 
     /**

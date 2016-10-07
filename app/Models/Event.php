@@ -48,7 +48,7 @@ class Event extends MyBaseModel
      */
     public function questions()
     {
-        return $this->belongsToMany('\App\Models\Question', 'event_question');
+        return $this->belongsToMany(\App\Models\Question::class, 'event_question');
     }
 
     /**
@@ -58,7 +58,7 @@ class Event extends MyBaseModel
      */
     public function questions_with_tashed()
     {
-        return $this->belongsToMany('\App\Models\Question', 'event_question')->withTrashed();
+        return $this->belongsToMany(\App\Models\Question::class, 'event_question')->withTrashed();
     }
 
     /**
@@ -68,7 +68,7 @@ class Event extends MyBaseModel
      */
     public function attendees()
     {
-        return $this->hasMany('\App\Models\Attendee');
+        return $this->hasMany(\App\Models\Attendee::class);
     }
 
     /**
@@ -78,7 +78,7 @@ class Event extends MyBaseModel
      */
     public function images()
     {
-        return $this->hasMany('\App\Models\EventImage');
+        return $this->hasMany(\App\Models\EventImage::class);
     }
 
     /**
@@ -88,7 +88,7 @@ class Event extends MyBaseModel
      */
     public function messages()
     {
-        return $this->hasMany('\App\Models\Message')->orderBy('created_at', 'DESC');
+        return $this->hasMany(\App\Models\Message::class)->orderBy('created_at', 'DESC');
     }
 
     /**
@@ -98,7 +98,7 @@ class Event extends MyBaseModel
      */
     public function tickets()
     {
-        return $this->hasMany('\App\Models\Ticket');
+        return $this->hasMany(\App\Models\QuestionType::class);
     }
 
     /**
@@ -108,7 +108,7 @@ class Event extends MyBaseModel
      */
     public function stats()
     {
-        return $this->hasMany('\App\Models\EventStats');
+        return $this->hasMany(\App\Models\EventStats::class);
     }
 
     /**
@@ -118,7 +118,7 @@ class Event extends MyBaseModel
      */
     public function affiliates()
     {
-        return $this->hasMany('\App\Models\Affiliate');
+        return $this->hasMany(\App\Models\Affiliate::class);
     }
 
     /**
@@ -128,7 +128,7 @@ class Event extends MyBaseModel
      */
     public function orders()
     {
-        return $this->hasMany('\App\Models\Order');
+        return $this->hasMany(\App\Models\Order::class);
     }
 
     /**
@@ -138,7 +138,7 @@ class Event extends MyBaseModel
      */
     public function account()
     {
-        return $this->belongsTo('\App\Models\Account');
+        return $this->belongsTo(\App\Models\Account::class);
     }
 
     /**
@@ -148,7 +148,7 @@ class Event extends MyBaseModel
      */
     public function currency()
     {
-        return $this->belongsTo('\App\Models\Currency');
+        return $this->belongsTo(\App\Models\Currency::class);
     }
 
     /**
@@ -158,7 +158,7 @@ class Event extends MyBaseModel
      */
     public function organiser()
     {
-        return $this->belongsTo('\App\Models\Organiser');
+        return $this->belongsTo(\App\Models\Organiser::class);
     }
 
     /**

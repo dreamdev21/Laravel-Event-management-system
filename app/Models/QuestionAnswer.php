@@ -20,7 +20,7 @@ class QuestionAnswer extends MyBaseModel
      */
     public function event()
     {
-        return $this->belongsToMany('\App\Models\Event');
+        return $this->belongsToMany(\App\Models\Event::class);
     }
 
     /**
@@ -28,7 +28,7 @@ class QuestionAnswer extends MyBaseModel
      */
     public function question()
     {
-        return $this->belongsTo('\App\Models\Question')->withTrashed();
+        return $this->belongsTo(\App\Models\Question::class)->withTrashed();
     }
 
     /**
@@ -36,7 +36,7 @@ class QuestionAnswer extends MyBaseModel
      */
     public function attendee()
     {
-        return $this->belongsTo('\App\Models\Attendee');
+        return $this->belongsTo(\App\Models\Attendee::class);
     }
 
 }

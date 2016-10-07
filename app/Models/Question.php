@@ -21,7 +21,7 @@ class Question extends MyBaseModel
      */
     public function events()
     {
-        return $this->belongsToMany('\App\Models\Event');
+        return $this->belongsToMany(\App\Models\Event::class);
     }
 
     /**
@@ -32,12 +32,12 @@ class Question extends MyBaseModel
      */
     public function question_type()
     {
-        return $this->belongsTo('\App\Models\QuestionType');
+        return $this->belongsTo(\App\Models\QuestionType::class);
     }
 
     public function answers()
     {
-        return $this->hasMany('\App\Models\QuestionAnswer');
+        return $this->hasMany(\App\Models\QuestionAnswer::class);
     }
 
     /**
@@ -48,12 +48,12 @@ class Question extends MyBaseModel
      */
     public function options()
     {
-        return $this->hasMany('\App\Models\QuestionOption');
+        return $this->hasMany(\App\Models\QuestionOption::class);
     }
 
     public function tickets()
     {
-        return $this->belongsToMany('\App\Models\Ticket');
+        return $this->belongsToMany(\App\Models\QuestionType::class);
     }
 
     /**

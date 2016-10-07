@@ -75,7 +75,7 @@ class Account extends MyBaseModel
      */
     public function users()
     {
-        return $this->hasMany('\App\Models\User');
+        return $this->hasMany(\App\Models\User::class);
     }
 
     /**
@@ -85,7 +85,7 @@ class Account extends MyBaseModel
      */
     public function orders()
     {
-        return $this->hasMany('\App\Models\Order');
+        return $this->hasMany(\App\Models\Order::class);
     }
 
     /**
@@ -95,7 +95,7 @@ class Account extends MyBaseModel
      */
     public function currency()
     {
-        return $this->belongsTo('\App\Models\Currency');
+        return $this->belongsTo(\App\Models\Currency::class);
     }
 
     /**
@@ -105,7 +105,7 @@ class Account extends MyBaseModel
      */
     public function account_payment_gateways()
     {
-        return $this->hasMany('\App\Models\AccountPaymentGateway');
+        return $this->hasMany(\App\Models\AccountPaymentGateway::class);
     }
 
     /**
@@ -124,7 +124,7 @@ class Account extends MyBaseModel
      */
     public function active_payment_gateway()
     {
-        return $this->hasOne('\App\Models\AccountPaymentGateway', 'payment_gateway_id', 'payment_gateway_id')->where('account_id', $this->id);
+        return $this->hasOne(\App\Models\AccountPaymentGateway::class, 'payment_gateway_id', 'payment_gateway_id')->where('account_id', $this->id);
     }
 
     /**
