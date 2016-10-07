@@ -65,7 +65,7 @@ class Attendee extends MyBaseModel
      */
     public function ticket()
     {
-        return $this->belongsTo(\App\Models\QuestionType::class);
+        return $this->belongsTo(\App\Models\Ticket::class);
     }
 
     /**

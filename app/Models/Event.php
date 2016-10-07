@@ -98,7 +98,7 @@ class Event extends MyBaseModel
      */
     public function tickets()
     {
-        return $this->hasMany(\App\Models\QuestionType::class);
+        return $this->hasMany(\App\Models\Ticket::class);
     }
 
     /**
