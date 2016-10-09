@@ -366,7 +366,7 @@ class EventCheckoutController extends Controller
                         ];
 
                         // Order description in MIGS is only 34 characters long; so we need a short description
-                        $transaction_data['description'] = "Ticket sales";
+                        $transaction_data['description'] = "Ticket sales " . $transaction_data['transactionId'];
 
                         break;
                     default:
