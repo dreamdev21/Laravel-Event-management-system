@@ -55,7 +55,7 @@ class Attendee extends MyBaseModel
      */
     public function order()
     {
-        return $this->belongsTo('\App\Models\Order');
+        return $this->belongsTo(\App\Models\Order::class);
     }
 
     /**
@@ -65,7 +65,7 @@ class Attendee extends MyBaseModel
      */
     public function ticket()
     {
-        return $this->belongsTo('\App\Models\Ticket');
+        return $this->belongsTo(\App\Models\Ticket::class);
     }
 
     /**
@@ -75,7 +75,7 @@ class Attendee extends MyBaseModel
      */
     public function event()
     {
-        return $this->belongsTo('\App\Models\Event');
+        return $this->belongsTo(\App\Models\Event::class);
     }
 
     /**

@@ -36,7 +36,7 @@ class Organiser extends MyBaseModel
      */
     public function account()
     {
-        return $this->belongsTo('\App\Models\Account');
+        return $this->belongsTo(\App\Models\Account::class);
     }
 
     /**
@@ -46,7 +46,7 @@ class Organiser extends MyBaseModel
      */
     public function events()
     {
-        return $this->hasMany('\App\Models\Event');
+        return $this->hasMany(\App\Models\Event::class);
     }
 
     /**
@@ -56,7 +56,7 @@ class Organiser extends MyBaseModel
      */
     public function attendees()
     {
-        return $this->hasManyThrough('\App\Models\Attendee', '\App\Models\Event');
+        return $this->hasManyThrough(\App\Models\Attendee::class, \App\Models\Event::class);
     }
 
     /**
@@ -66,7 +66,7 @@ class Organiser extends MyBaseModel
      */
     public function orders()
     {
-        return $this->hasManyThrough('\App\Models\Order', '\App\Models\Event');
+        return $this->hasManyThrough(\App\Models\Order::class, \App\Models\Event::class);
     }
 
     /**

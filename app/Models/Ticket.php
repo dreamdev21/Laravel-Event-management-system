@@ -39,7 +39,7 @@ class Ticket extends MyBaseModel
      */
     public function event()
     {
-        return $this->belongsTo('\App\Models\Event');
+        return $this->belongsTo(\App\Models\Event::class);
     }
 
     /**
@@ -49,7 +49,7 @@ class Ticket extends MyBaseModel
      */
     public function order()
     {
-        return $this->belongsToMany('\App\Models\Order');
+        return $this->belongsToMany(\App\Models\Order::class);
     }
 
     /**
@@ -59,7 +59,7 @@ class Ticket extends MyBaseModel
      */
     public function questions()
     {
-        return $this->belongsToMany('\App\Models\Question');
+        return $this->belongsToMany(\App\Models\Question::class);
     }
 
     /**
