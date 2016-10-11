@@ -33,6 +33,7 @@
                             <li class="active"><a href="#general_account" data-toggle="tab">General</a></li>
                             <li><a href="#payment_account" data-toggle="tab">Payment</a></li>
                             <li><a href="#users_account" data-toggle="tab">Users</a></li>
+                            <li><a href="#about" data-toggle="tab">About</a></li>
                         </ul>
                         <div class="tab-content panel">
                             <div class="tab-pane active" id="general_account">
@@ -137,6 +138,33 @@
                                     </table>
                                 </div>
                                 {!! Form::close() !!}
+                            </div>
+                            <div class="tab-pane " id="about">
+                                <h4>
+                                    Version Information
+                                </h4>
+                                <p>
+                                    @if($version_info['is_outdated'])
+                                        Your version (<b>{{ $version_info['installed'] }}</b>) of Attendize is out of date. The latest version (<b>{{ $version_info['latest'] }}</b>) can be <a href="https://attendize.com/documentation.php#download" target="_blank">downloaded here</a>.
+                                    @else
+                                        Your Attendize version (<b>{{ $version_info['installed'] }}</b>) is up to date!
+                                    @endif
+                                </p>
+
+                                <h4>
+                                    Licence Information
+                                </h4>
+                                <p>
+                                    Attendize is licenced under the <b><a target="_blank"
+                                                                          href="https://tldrlegal.com/license/attribution-assurance-license-(aal)#summary">Attribution Assurance Licence (AAL)</a></b>. This licence requires the <b>'Powered
+                                        By Attendize'</b> notice to be kept in place on any Attendize installation. If you wish to remove references to Attendize you must purchase one of the white-label licences <b><a target="_blank" href="https://attendize.com/licence.php">listed here</a></b>.
+                                </p>
+                                <h4>
+                                    Open-source Software
+                                </h4>
+                                <p>
+                                    Attendize is built using many fantastic open-source libraries. You can see an overview of these on <b><a href="https://libraries.io/github/Attendize/Attendize?ref=Attendize_About_Page" target="_blank">libraries.io</a></b>.
+                                </p>
                             </div>
                         </div>
                     </div>
