@@ -95,7 +95,7 @@ class Order extends MyBaseModel
      */
     public function orderStatus()
     {
-        return $this->belongsTo('\App\Models\\App\Models\OrderStatus::class');
+        return $this->belongsTo(\App\Models\OrderStatus::class);
     }
 
 
