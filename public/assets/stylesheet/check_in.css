@@ -102,6 +102,7 @@ section.attendeeList {
     width: 40px;
     height: 40px;
     line-height: 20px;
+    background-color: #ebebeb;
 }
 
 .at.arrived {

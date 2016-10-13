@@ -88,7 +88,7 @@
                         @click="toggleCheckin(attendee)"
                         v-for="attendee in attendees"
                         class="at list-group-item"
-                        :class = "{arrived : attendee.has_arrived}"
+                        :class = "{arrived : attendee.has_arrived || attendee.has_arrived == '1'}"
                         >
                         Name: <b>@{{ attendee.first_name }} @{{ attendee.last_name }} </b> &nbsp; <span v-if="!attendee.is_payment_received" class="label label-danger">Awaiting Payment</span>
                         <br>
