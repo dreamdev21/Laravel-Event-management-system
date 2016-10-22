@@ -4,6 +4,7 @@
 html, body {
   height: 100%;
 }
+
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -69,7 +70,7 @@ section h1 {
     border: none;
     margin-bottom: 0;
     margin-top: 20px;
-    color:#fff;
+    color: #fff;
     background-color: #AF5050;
   }
 
@@ -85,12 +86,12 @@ section h1 {
 }
 
 #goLiveBar {
-  background-color: rgba(255,255,255,.9);
+  background-color: rgba(255, 255, 255, .9);
   text-align: center;
   padding: 10px;
 }
 
-.adminLink,.adminLink:hover  {
+.adminLink, .adminLink:hover {
   color: #fff;
 }
 
@@ -268,13 +269,12 @@ footer, .push {
 
   .contact_form {
     display: none;
-    padding:20px;
+    padding: 20px;
     margin-top: 25px;
     text-align: left;
   }
 
 }
-
 
 .totop {
   border-radius: 0;
@@ -286,6 +286,15 @@ footer, .push {
   background-color: #fff;
   background-color: rgba(255, 255, 255, .4);
   color: #000;
+}
+
+.powered_by_embedded  {
+  text-align: center;
+  padding: 4px;
+
+  a {
+    color: #333 !important;
+  }
 }
 
 /* ==========================================================================
@@ -314,8 +323,6 @@ Small devices (tablets, 768px and up)
   }
 
   #organiser_page_wrap {
-
-
 
     #intro {
       padding: 30px;
@@ -410,11 +417,13 @@ Event Listing / Organiser Page
   margin: 0px;
   padding: 0px;
 }
+
 .event-list > li {
   background-color: #F3F3F3;
   padding: 0px;
   margin: 0px 0px 20px;
 }
+
 .event-list > li > time {
   display: inline-block;
   width: 100%;
@@ -426,37 +435,43 @@ Event Listing / Organiser Page
 .event-list > li > time > span {
   display: none;
 }
+
 .event-list > li > time > .day {
   display: block;
   font-size: 18pt;
   font-weight: 100;
   line-height: 1;
 }
+
 .event-list > li time > .month {
   display: block;
   font-size: 24pt;
   font-weight: 900;
   line-height: 1;
 }
+
 .event-list > li > img {
   width: 100%;
 }
+
 .event-list > li > .info {
   padding-top: 10px;
   text-align: center;
 }
+
 .event-list > li > .info > .title {
   font-size: 15pt;
   font-weight: 500;
   margin: 0px;
 }
+
 .event-list > li > .info > .desc {
   font-size: 10pt;
   font-weight: 300;
   margin: 0px;
 }
-.event-list > li > .info > ul
-{
+
+.event-list > li > .info > ul {
   display: table;
   list-style: none;
   margin: 10px 0px 0px;
@@ -474,6 +489,7 @@ Event Listing / Organiser Page
   font-weight: 300;
   padding: 3px 0px;
 }
+
 .event-list > li > .info > ul > li > a {
   display: block;
   width: 100%;
@@ -481,12 +497,10 @@ Event Listing / Organiser Page
   text-decoration: none;
 }
 
-
 .event-list > li > .info > ul > li:hover {
   color: rgb(30, 30, 30);
   background-color: rgb(200, 200, 200);
 }
-
 
 @media (min-width: 768px) {
 
@@ -497,19 +511,23 @@ Event Listing / Organiser Page
     height: 120px;
     padding: 0px;
   }
+
   .event-list > li > time,
-  .event-list > li > img  {
+  .event-list > li > img {
     display: inline-block;
   }
+
   .event-list > li > time,
   .event-list > li > img {
     width: 120px;
     float: left;
   }
+
   .event-list > li > .info {
     background-color: rgb(245, 245, 245);
     overflow: hidden;
   }
+
   .event-list > li > time,
   .event-list > li > img {
     width: 120px;
@@ -517,9 +535,11 @@ Event Listing / Organiser Page
     padding: 0px;
     margin: 0px;
   }
+
   .event-list > li > time > .day {
     font-size: 56pt;
   }
+
   .event-list > li > .info {
     position: relative;
     height: 120px;
@@ -527,16 +547,17 @@ Event Listing / Organiser Page
     padding-right: 40px;
     padding-top: 30px;
   }
+
   .event-list > li > .info > .title,
   .event-list > li > .info > .desc {
     padding: 0px 10px;
   }
+
   .event-list > li > .info > ul {
     position: absolute;
     left: 0px;
     bottom: 0px;
     background-color: #D2D2D2;
   }
-
 
 }

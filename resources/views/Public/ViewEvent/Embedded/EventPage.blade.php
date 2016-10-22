@@ -2,4 +2,5 @@
 
 @section('content')
     @include('Public.ViewEvent.Partials.EventTicketsSection')
+    @include('Public.ViewEvent.Embedded.Partials.PoweredByEmbedded')
 @stop

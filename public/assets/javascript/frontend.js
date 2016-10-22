@@ -4601,7 +4601,7 @@ function log() {
                     },
                     success: function(data, statusText, xhr, $form) {
                         var $submitButton = $form.find('input[type=submit]');
-                        
+
                         if (data.message) {
                             showMessage(data.message);
                         }
@@ -4772,7 +4772,7 @@ function processFormErrors($form, errors)
 }
 
 /**
- * Toggle a submit button disabled/enabled - duh!
+ * Toggle a submit button disabled/enabled
  *
  * @param element $submitButton
  * @returns void
