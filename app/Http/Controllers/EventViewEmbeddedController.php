@@ -19,7 +19,7 @@ class EventViewEmbeddedController extends Controller
 
         $data = [
             'event'       => $event,
-            'tickets'     => $event->tickets()->orderBy('created_at', 'desc')->get(),
+            'tickets'     => $event->tickets()->where('is_hidden', 0)->orderBy('created_at', 'desc')->get(),
             'is_embedded' => '1',
         ];
 
