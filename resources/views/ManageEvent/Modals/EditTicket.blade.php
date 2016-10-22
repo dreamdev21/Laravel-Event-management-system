@@ -81,6 +81,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="row more-options">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="custom-checkbox">
+                                {!! Form::checkbox('is_hidden', null, null, ['id' => 'is_hidden']) !!}
+                                {!! Form::label('is_hidden', 'Hide this ticket', array('class'=>' control-label')) !!}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <a href="javascript:void(0);" class="show-more-options">
                     More Options
                 </a>

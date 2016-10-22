@@ -119,7 +119,11 @@
                                  data-href="{{ route('showEditTicket', ['event_id' => $event->id, 'ticket_id' => $ticket->id]) }}"
                                  class="panel-heading loadModal">
                                 <h3 class="panel-title">
-                                    <i class="ico-ticket ticket_icon mr5 ellipsis"></i>
+                                    @if($ticket->is_hidden)
+                                        <i title="This ticket is hidden" class="ico-eye-blocked ticket_icon mr5 ellipsis"></i>
+                                    @else
+                                        <i class="ico-ticket ticket_icon mr5 ellipsis"></i>
+                                    @endif
                                     {{$ticket->title}}
                                     <span class="pull-right">
                         {{ ($ticket->is_free) ? "FREE" : money($ticket->price, $event->currency) }}
