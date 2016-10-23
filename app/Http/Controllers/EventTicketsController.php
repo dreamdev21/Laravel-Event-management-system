@@ -26,13 +26,14 @@ class EventTicketsController extends MyBaseController
             'title'         => 'Ticket title',
             'quantity_sold' => 'Quantity sold',
             'sales_volume'  => 'Sales volume',
+            'sort_order'  => 'Custom Sort Order',
         ];
 
         // Getting get parameters.
         $q = $request->get('q', '');
         $sort_by = $request->get('sort_by');
         if (isset($allowed_sorts[$sort_by]) === false) {
-            $sort_by = 'title';
+            $sort_by = 'sort_order';
         }
 
         // Find event or return 404 error.
