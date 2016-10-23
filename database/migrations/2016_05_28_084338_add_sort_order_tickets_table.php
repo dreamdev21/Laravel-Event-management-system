@@ -13,7 +13,7 @@ class AddSortOrderTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->integer('sort_order')->default(1);
+            $table->integer('sort_order')->default(0);
         });
     }
 
