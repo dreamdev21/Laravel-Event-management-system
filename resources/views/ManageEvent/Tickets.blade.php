@@ -18,7 +18,7 @@
     <script>
         $(function () {
             $('.sortable').sortable({
-                handle: '.sortHanlde',
+                handle: '.sortHandle',
                 forcePlaceholderSize: true,
                 placeholderClass: 'col-md-4 col-sm-6 col-xs-12',
             }).bind('sortupdate', function (e, ui) {
