@@ -94,11 +94,13 @@
                                                 ))  !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('google_analytics_code', 'Organiser Analytics Code', array('class'=>'control-label')) !!}
+                        {!! Form::label('google_analytics_code', 'Google Analytics Code', array('class'=>'control-label')) !!}
                         {!!  Form::text('google_analytics_code', Input::old('google_analytics_code'),
                                                 array(
-                                                'class'=>'form-control'
-                                                ))  !!}
+                                                'class'=>'form-control',
+                                                'placeholder' => 'UA-XXXXX-X',
+                                                ))
+                        !!}
                     </div>
                     <div class="row">
                         <div class="col-md-6">

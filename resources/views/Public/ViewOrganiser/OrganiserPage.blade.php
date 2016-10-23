@@ -1,6 +1,5 @@
 @extends('Public.ViewOrganiser.Layouts.OrganiserPage')
 
-
 @section('head')
      <style>
           body { background-color: {{$organiser->page_bg_color}} !important; }
@@ -14,6 +13,9 @@
           }
 
      </style>
+     @if($organiser->google_analytics_code)
+          @include('Public.Partials.ga', ['analyticsCode' => $organiser->google_analytics_code])
+     @endif
 @stop
 
 @section('content')
@@ -22,8 +24,3 @@
      @include('Public.ViewOrganiser.Partials.OrganiserFooterSection')
 @stop
 
-@if($organiser->google_analytics_code)
-     @section('foot')
-          @include('Public.Partials.ga', ['analyticsCode' => $organiser->google_analytics_code])
-     @stop
-@endif
