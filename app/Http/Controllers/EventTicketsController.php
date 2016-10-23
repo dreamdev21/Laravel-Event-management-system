@@ -253,4 +253,28 @@ class EventTicketsController extends MyBaseController
             ]),
         ]);
     }
+
+    /**
+     * Updates the sort order of tickets
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postUpdateTicketsOrder(Request $request)
+    {
+        $ticket_ids = $request->get('ticket_ids');
+        $sort = 1;
+
+        foreach ($ticket_ids as $ticket_id) {
+            $ticket = Ticket::scope()->find($ticket_id);
+            $ticket->sort_order = $sort;
+            $ticket->save();
+            $sort++;
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Ticket Order Successfully Updated',
+        ]);
+    }
 }

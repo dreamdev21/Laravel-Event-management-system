@@ -364,6 +364,10 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'as'   => 'postPauseTicket',
             'uses' => 'EventTicketsController@postPauseTicket',
         ]);
+        Route::post('{event_id}/tickets/order', [
+            'as'   => 'postUpdateTicketsOrder',
+            'uses' => 'EventTicketsController@postUpdateTicketsOrder',
+        ]);
 
         /*
          * Ticket questions

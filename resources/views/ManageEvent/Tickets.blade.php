@@ -14,38 +14,35 @@
     Event Tickets
 @stop
 
-
 @section('head')
     <script>
         $(function () {
-
-
             $('.sortable').sortable({
                 handle: '.sortHanlde',
                 forcePlaceholderSize: true,
                 placeholderClass: 'col-md-4 col-sm-6 col-xs-12',
             }).bind('sortupdate', function (e, ui) {
 
-                var data = $('.sortable tr').map(function () {
-                    return $(this).data('question-id');
+                var data = $('.sortable .ticket').map(function () {
+                    return $(this).data('ticket-id');
                 }).get();
 
                 $.ajax({
                     type: 'POST',
-                    url: '',//Attendize.postUpdateTicketsOrderRoute,
+                    url: '{{ route('postUpdateTicketsOrder' ,['event_id' => $event->id]) }}',
                     dataType: 'json',
-                    data: {question_ids: data},
+                    data: {ticket_ids: data},
                     success: function (data) {
-                        showMessage(data.message)
+                        showMessage(data.message);
                     },
                     error: function (data) {
-                        console.log(data);
+                        showMessage('Something went wrong. Please try again.');
                     }
                 });
             });
         });
     </script>
-    @stop
+@stop
 
 @section('menu')
     @include('ManageEvent.Partials.Sidebar')
@@ -93,7 +90,6 @@
 
 @section('content')
     @if($tickets->count())
-
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <div class='order_options'>
@@ -106,109 +102,104 @@
                 </div>
             </div>
         </div>
-        @endif
-                <!--Start ticket table-->
-        <div class="row sortable">
-            @if($tickets->count())
+    @endif
+    <!--Start ticket table-->
+    <div class="row sortable">
+        @if($tickets->count())
 
-                @foreach($tickets as $ticket)
-                    <div id="ticket_{{$ticket->id}}" class="col-md-4 col-sm-6 col-xs-12 ">
-                        <div class="panel panel-success ticket">
-
-                            <div style="cursor: pointer;" data-modal-id='ticket-{{ $ticket->id }}'
-                                 data-href="{{ route('showEditTicket', ['event_id' => $event->id, 'ticket_id' => $ticket->id]) }}"
-                                 class="panel-heading loadModal">
-                                <h3 class="panel-title">
-                                    @if($ticket->is_hidden)
-                                        <i title="This ticket is hidden" class="ico-eye-blocked ticket_icon mr5 ellipsis"></i>
-                                    @else
-                                        <i class="ico-ticket ticket_icon mr5 ellipsis"></i>
-                                    @endif
-                                    {{$ticket->title}}
-                                    <span class="pull-right">
+            @foreach($tickets as $ticket)
+                <div id="ticket_{{$ticket->id}}" class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="panel panel-success ticket" data-ticket-id="{{$ticket->id}}">
+                        <div style="cursor: pointer;" data-modal-id='ticket-{{ $ticket->id }}'
+                             data-href="{{ route('showEditTicket', ['event_id' => $event->id, 'ticket_id' => $ticket->id]) }}"
+                             class="panel-heading loadModal">
+                            <h3 class="panel-title">
+                                @if($ticket->is_hidden)
+                                    <i title="This ticket is hidden"
+                                       class="ico-eye-blocked ticket_icon mr5 ellipsis"></i>
+                                @else
+                                    <i class="ico-ticket ticket_icon mr5 ellipsis"></i>
+                                @endif
+                                {{$ticket->title}}
+                                <span class="pull-right">
                         {{ ($ticket->is_free) ? "FREE" : money($ticket->price, $event->currency) }}
                     </span>
-                                </h3>
+                            </h3>
+                        </div>
+                        <div class='panel-body'>
+                            <ul class="nav nav-section nav-justified mt5 mb5">
+                                <li>
+                                    <div class="section">
+                                        <h4 class="nm">{{ $ticket->quantity_sold }}</h4>
+
+                                        <p class="nm text-muted">Sold</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="section">
+                                        <h4 class="nm">
+                                            {{ ($ticket->quantity_available === null) ? '&infin;' : $ticket->quantity_remaining }}
+                                        </h4>
+
+                                        <p class="nm text-muted">Remaining</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="section">
+                                        <h4 class="nm hint--top"
+                                            title="{{money($ticket->sales_volume, $event->currency)}} + {{money($ticket->organiser_fees_volume, $event->currency)}} Organiser Booking Fees">
+                                            {{money($ticket->sales_volume + $ticket->organiser_fees_volume, $event->currency)}}
+                                            <sub title="Doesn't account for refunds.">*</sub>
+                                        </h4>
+                                        <p class="nm text-muted">Revenue</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer" style="height: 56px;">
+                            <div class="sortHandle" title="Drag to re-order">
+                                <i class="ico-paragraph-justify"></i>
                             </div>
-
-                            <div class='panel-body'>
-                                <ul class="nav nav-section nav-justified mt5 mb5">
-                                    <li>
-                                        <div class="section">
-                                            <h4 class="nm">{{ $ticket->quantity_sold }}</h4>
-
-                                            <p class="nm text-muted">Sold</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="section">
-                                            <h4 class="nm">
-                                                {{ ($ticket->quantity_available === null) ? '&infin;' : $ticket->quantity_remaining }}
-                                            </h4>
-
-                                            <p class="nm text-muted">Remaining</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="section">
-                                            <h4 class="nm hint--top"
-                                                title="{{money($ticket->sales_volume, $event->currency)}} + {{money($ticket->organiser_fees_volume, $event->currency)}} Organiser Booking Fees">
-                                                {{money($ticket->sales_volume + $ticket->organiser_fees_volume, $event->currency)}}
-                                                <sub title="Doesn't account for refunds.">*</sub>
-                                            </h4>
-
-                                            <p class="nm text-muted">Revenue</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="panel-footer sortHandle" style="height: 56px;">
-                                <ul class="nav nav-section nav-justified">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            @if($ticket->sale_status === config('attendize.ticket_status_on_sale'))
-                                                @if($ticket->is_paused)
-                                                    Ticket Sales Paused &nbsp;
-                                                    <span class="pauseTicketSales label label-info"
-                                                          data-id="{{$ticket->id}}"
-                                                          data-route="{{route('postPauseTicket', ['event_id'=>$event->id])}}">
+                            <ul class="nav nav-section nav-justified">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        @if($ticket->sale_status === config('attendize.ticket_status_on_sale'))
+                                            @if($ticket->is_paused)
+                                                Ticket Sales Paused &nbsp;
+                                                <span class="pauseTicketSales label label-info"
+                                                      data-id="{{$ticket->id}}"
+                                                      data-route="{{route('postPauseTicket', ['event_id'=>$event->id])}}">
                                     <i class="ico-play4"></i> Resume
                                 </span>
-                                                @else
-                                                    On Sale &nbsp;
-                                                    <span class="pauseTicketSales label label-info"
-                                                          data-id="{{$ticket->id}}"
-                                                          data-route="{{route('postPauseTicket', ['event_id'=>$event->id])}}">
+                                            @else
+                                                On Sale &nbsp;
+                                                <span class="pauseTicketSales label label-info"
+                                                      data-id="{{$ticket->id}}"
+                                                      data-route="{{route('postPauseTicket', ['event_id'=>$event->id])}}">
                                     <i class="ico-pause"></i> Pause
                                 </span>
-                                                @endif
-                                            @else
-                                                {{\App\Models\TicketStatus::find($ticket->sale_status)->name}}
                                             @endif
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                        @else
+                                            {{\App\Models\TicketStatus::find($ticket->sale_status)->name}}
+                                        @endif
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                @endforeach
-
+                </div>
+            @endforeach
+        @else
+            @if($q)
+                @include('Shared.Partials.NoSearchResults')
             @else
-
-                @if($q)
-                    @include('Shared.Partials.NoSearchResults')
-                @else
-                    @include('ManageEvent.Partials.TicketsBlankSlate')
-                @endif
-
-
+                @include('ManageEvent.Partials.TicketsBlankSlate')
             @endif
-        </div><!--/ end ticket table-->
-
-        <div class="row">
-            <div class="col-md-12">
-                {!! $tickets->appends(['q' => $q, 'sort_by' => $sort_by])->render() !!}
-            </div>
+        @endif
+    </div><!--/ end ticket table-->
+    <div class="row">
+        <div class="col-md-12">
+            {!! $tickets->appends(['q' => $q, 'sort_by' => $sort_by])->render() !!}
         </div>
+    </div>
 @stop
-
