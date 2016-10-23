@@ -166,7 +166,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('card-number', 'Card Number') !!}
-                                    <input required="required" name="card-number" type="text" autocomplete="off" placeholder="**** **** **** ****" class="form-control card-number" size="20" data-stripe="number">
+                                    <input required="required" type="text" autocomplete="off" placeholder="**** **** **** ****" class="form-control card-number" size="20" data-stripe="number">
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('card-expiry-year', 'CVC Number') !!}
-                                    <input required="required" name="card-cvc" placeholder="***" class="form-control card-cvc" data-stripe="cvc">
+                                    <input required="required" placeholder="***" class="form-control card-cvc" data-stripe="cvc">
                                 </div>
                             </div>
                         </div>
