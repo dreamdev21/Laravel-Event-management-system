@@ -170,7 +170,7 @@ $(function() {
         $('.offline_payment').toggle(this.checked);
 
         // Disable CC form inputs to prevent Chrome trying to validate hidden fields
-        $('.online_payment input:hidden,  .online_payment input select:hidden').attr('disabled', this.checked);
+        $('.online_payment input,  .online_payment select').attr('disabled', this.checked);
 
     }).change();
 
