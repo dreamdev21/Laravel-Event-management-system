@@ -1,8 +1,3 @@
-## ATTENTION DESIGNERS
-We are looking for someone to redesign our default theme. If you are a designer and would like to contribute please get in touch at hello@attendize.com.
-In return we will permanently include your name and a hyperlink to your website in the footer of the theme, which would generate a significant number of back-links.
-
-
 <p align="center">
   <img src="https://www.attendize.com/img/logo-dark.png" alt="Attendize"/>
 </p>
