@@ -352,11 +352,11 @@ class EventCheckoutController extends Controller
                     case config('attendize.payment_gateway_stripe'):
                         $token = $request->get('stripeToken');
                         $transaction_data += [
-                            'token' => $token,
+                            'token'         => $token,
+                            'receipt_email' => $request->get('order_email'),
                         ];
                         break;
                     case config('attendize.payment_gateway_migs'):
-
                         $transaction_data += [
                             'transactionId' => $event_id . date('YmdHis'),       // TODO: Where to generate transaction id?
                             'returnUrl' => route('showEventCheckoutPaymentReturn', [
