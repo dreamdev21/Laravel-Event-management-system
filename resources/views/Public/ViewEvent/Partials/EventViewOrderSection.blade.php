@@ -41,6 +41,10 @@
         color: #656565;
         overflow: hidden;
     }
+
+    .ticket_download_link {
+        border-bottom: 3px solid;
+    }
 </style>
 
 <section id="order_form" class="container">
@@ -51,7 +55,7 @@
             </span>
             <h1>Thank you for your order!</h1>
             <h2>
-                Your <a href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
+                Your <a title="Download Tickets" class="ticket_download_link" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
             </h2>
         </div>
     </div>
