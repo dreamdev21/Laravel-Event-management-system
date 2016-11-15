@@ -1,5 +1,5 @@
 <div role="dialog" class="modal fade" style="display: none;">
-    {!! Form::open(array('url' => route('postEditSponsor', array('event_id' => $event->id)), 'class' => 'ajax')) !!}
+    {!! Form::open(array('url' => route('postEditSponsor', ['event_id' => $sponsor->event_id, 'sponsor_id' => $sponsor->id]), 'class' => 'ajax')) !!}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">

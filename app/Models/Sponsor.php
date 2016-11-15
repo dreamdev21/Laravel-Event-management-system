@@ -4,12 +4,6 @@ namespace App\Models;
 /*
   Attendize.com   - Event Management & Ticketing
  */
-
-/**
- * Description of Activity.
- *
- * @author JapSeyz
- */
 class Sponsor extends \Illuminate\Database\Eloquent\Model
 {
 

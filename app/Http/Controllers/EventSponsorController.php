@@ -10,6 +10,8 @@ use Validator;
 
 class EventSponsorController extends MyBaseController
 {
+    /* TODO: PROTECT THE SPONSORS FROM DELETION BY UNAUTHORIZED USERS */
+
     /**
      * Show the Sponsor Overview Page
      *
@@ -54,6 +56,9 @@ class EventSponsorController extends MyBaseController
         return response()->json([
             'status' => 'success',
             'message' => 'The sponsor has been created',
+            'redirectUrl' => route('showEventSponsors', [
+                'event_id' => $event_id,
+            ]),
         ]);
     }
 
@@ -70,7 +75,7 @@ class EventSponsorController extends MyBaseController
     public function showEditSponsor(Request $request, $event_id, $sponsor_id)
     {
         $data = [
-            'sponsor' => Sponsor::scope()->find($sponsor_id),
+            'sponsor' => Sponsor::find($sponsor_id),
         ];
 
         return view('ManageEvent.Modals.ManageSponsor', $data);
@@ -93,6 +98,9 @@ class EventSponsorController extends MyBaseController
         return response()->json([
             'status' => 'success',
             'message' => 'The sponsor has been updated',
+            'redirectUrl' => route('showEventSponsors', [
+                'event_id' => $event_id,
+            ]),
         ]);
     }
 
@@ -109,11 +117,14 @@ class EventSponsorController extends MyBaseController
      */
     public function postDeleteSponsor(Request $request, $event_id, $sponsor_id)
     {
-        Sponsor::scope()->where('id', $sponsor_id)->delete();
+        Sponsor::where('id', $sponsor_id)->delete();
 
         return response()->json([
             'status' => 'success',
             'message' => 'The sponsor has been deleted',
+            'redirectUrl' => route('showEventSponsors', [
+                'event_id' => $event_id,
+            ]),
         ]);
     }
 
@@ -144,7 +155,7 @@ class EventSponsorController extends MyBaseController
         }
 
         if ($sponsor_id) {
-            $sponsor = Sponsor::scope()->findOrFail($sponsor_id);
+            $sponsor = Sponsor::findOrFail($sponsor_id);
         } else {
             $sponsor = new Sponsor;
 
@@ -152,7 +163,7 @@ class EventSponsorController extends MyBaseController
             $sponsor->event_id = $event_id;
         }
 
-        if($request->hasFile('sponsor_logo')) {
+        if ($request->hasFile('sponsor_logo')) {
             $file = $request->file('sponsor_logo');
             $name = md5_file($file->path()) . md5(time()) . '.' . $file->guessExtension();
             $path = 'user_content/sponsors/';

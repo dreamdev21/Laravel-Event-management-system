@@ -602,7 +602,7 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventSponsorController@postCreateSponsor'
         ]);
 
-        Route::post('{event_id}/sponsors/{sponsor_id}/edit', [
+        Route::get('{event_id}/sponsors/{sponsor_id}/edit', [
             'as'   => 'showEditSponsor',
             'uses' => 'EventSponsorController@showEditSponsor'
         ]);

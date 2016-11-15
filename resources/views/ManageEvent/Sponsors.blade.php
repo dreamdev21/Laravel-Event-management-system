@@ -53,17 +53,18 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>On Ticket</th>
+                                <th colspan="2">On Ticket</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($event->sponsors as $sponsor)
-                                <tr href='javascript:void(0);' data-modal-id='view-sponsor-{{ $sponsor->id }}' data-href="{{route('showEditSponsor', ['sponsor_id'=>$sponsor->id, 'sponsor_id', $sponsor->id])}}" title="View Sponsor {{$sponsor->name}}" class="loadModal">
-                                    <td>{{ $sponsor->name }}</td>
+                                <tr>
+                                    <td>
+                                        <a href='javascript:void(0);' data-modal-id='view-sponsor-{{ $sponsor->id }}' data-href="{{route('showEditSponsor', ['event_id'=>$event->id, 'sponsor_id' => $sponsor->id])}}" class="loadModal">{{ $sponsor->name }}</a>
+                                    </td>
                                     <td>{{ $sponsor->on_ticket  ? 'Yes' : 'No' }}</td>
                                     <td>
-                                        {!! Form::open(array('url' => route('postDeleteSponsor', ['event_id' => $event->id, 'sponsor_id', $sponsor->id]), 'class' => 'ajax')) !!}
-
+                                        {!! Form::open(array('url' => route('postDeleteSponsor', ['event_id' => $event->id, 'sponsor_id' => $sponsor->id]), 'class' => 'ajax text-right')) !!}
                                             {!! Form::submit('Delete Sponsor', ['class'=>"btn btn-danger"]) !!}
                                         {!! Form::close() !!}
                                     </td>

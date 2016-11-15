@@ -44,7 +44,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                 {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit('Gem Sponsor', ['class'=>"btn btn-success"]) !!}
+                {!! Form::submit('Save Sponsor', ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
         {!! Form::close() !!}
