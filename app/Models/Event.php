@@ -52,6 +52,16 @@ class Event extends MyBaseModel
     }
 
     /**
+    * The sponsors associated with the event.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function sponsors()
+     {
+         return $this->hasMany(Sponsor::class);
+     }
+
+    /**
      * The questions associated with the event.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
