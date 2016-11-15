@@ -741,9 +741,18 @@ class EventCheckoutController extends Controller
         ];
 
         if ($request->get('download') == '1') {
-            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+            if(count($this->event->ticket_sponsors)) {
+                PDF::html('Public.ViewEvent.Partials.PDFSponsorTicket', $data, 'Tickets');
+            } else {
+                PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+            }
         }
-        return view('Public.ViewEvent.Partials.PDFTicket', $data);
+
+        if(count($this->event->ticket_sponsors)) {
+            return view('Public.ViewEvent.Partials.PDFSponsorTicket', $data);
+        } else {
+            return view('Public.ViewEvent.Partials.PDFTicket', $data);
+        }
     }
 
 }

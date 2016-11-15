@@ -52,14 +52,24 @@ class Event extends MyBaseModel
     }
 
     /**
-    * The sponsors associated with the event.
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * The sponsors associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function sponsors()
-     {
-         return $this->hasMany(Sponsor::class);
-     }
+    {
+        return $this->hasMany(Sponsor::class);
+    }
+
+    /**
+     * The ticket_sponsors associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ticket_sponsors()
+    {
+        return $this->hasMany(Sponsor::class)->where('on_ticket', 1);
+    }
 
     /**
      * The questions associated with the event.

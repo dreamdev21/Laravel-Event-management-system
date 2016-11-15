@@ -55,7 +55,7 @@
         <div class="container">
             @foreach($attendees as $attendee)
                 @if(!$attendee->is_cancelled)
-                    <div class="ticket">
+                    <div class="ticket no-sponsors">
 
                         <div class='logo'>
 				<img alt="{{$event->organiser->full_logo_path}}" src="data:image/png;base64, {{$image}}" />

@@ -1,5 +1,43 @@
-.ticket {
-    /*page-break-after: always;*/
+/*
+* ---------
+* Global
+* ---------
+*/
+.ticket table {
+    width: 100%;
+}
+
+.ticket h1 {
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.ticket h4 {
+    font-size: 17px;
+    margin: 6px auto;
+    text-transform: uppercase;
+    color: #999;
+
+}
+
+.ticket hr {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+.ticket .info {
+    color: #000;
+}
+
+
+
+/*
+* ---------
+* No-Sponsors
+* ---------
+*/
+.ticket.no-sponsors {
     padding: 10px;
     border: 1px solid #000;
     width: 700px;
@@ -15,22 +53,7 @@
     overflow: hidden;
 }
 
-.ticket table {
-    width: 100%;
-}
-
-.ticket h1 {
-    margin-bottom: 5px;
-    margin-top: 0px;
-}
-
-.ticket hr {
-    border: none;
-    border-bottom: 1px solid #ccc;
-    margin: 5px 0;
-}
-
-.ticket .barcode {
+.ticket.no-sponsors .barcode {
     width: 150px;
     height: 150px;
     position: absolute;
@@ -43,7 +66,7 @@
     background-color: #fdfdfd;
 }
 
-.ticket   .barcode_vertical {
+.ticket.no-sponsors .barcode_vertical {
     display: block;
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
@@ -57,24 +80,12 @@
     background: #fff;
 }
 
-.ticket .top_barcode {
-    margin-bottom: 15px;
-}
-
-.ticket h4 {
-    font-size: 17px;
-    margin: 6px auto;
-    text-transform: uppercase;
-    color: #999;
-
-}
-
-.ticket .event_details, .ticket .attendee_details {
+.ticket.no-sponsors .event_details, .ticket.no-sponsors .attendee_details {
     position: absolute;
     top: 15px;
 }
 
-.ticket .event_details {
+.ticket.no-sponsors .event_details {
     left: 175px;
     overflow: hidden;
     max-width: 210px;
@@ -83,7 +94,7 @@
     top: 50px;
 }
 
-.ticket .attendee_details {
+.ticket.no-sponsors .attendee_details {
     left: 390px;
     overflow: hidden;
     max-width: 195px;
@@ -92,7 +103,7 @@
     top: 50px;
 }
 
-.ticket .logo {
+.ticket.no-sponsors .logo {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -103,6 +114,99 @@
     text-align: center;
 }
 
-.ticket .logo img {
+.ticket.no-sponsors .logo img {
     max-width: 110px;
+}
+
+
+/*
+* ---------
+* Sponsors
+* ---------
+*/
+
+.ticket.sponsors {
+    page-break-after: always;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    height: auto;
+    font-size: 14px;
+    color: #999;
+    overflow: hidden;
+}
+
+.ticket.sponsors .header {
+    height: 150px;
+    position: relative;
+    background: #662d91;
+}
+
+.ticket.sponsors .header .logo {
+    color: #fff;
+    font-size: 7rem;
+    line-height: 75px;
+    text-align: center;
+    display: inline-block;
+}
+
+.ticket.sponsors .barcode {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    overflow: hidden;
+    text-align: center;
+    color: #000;
+}
+
+.ticket.sponsors .left_column, .ticket .right_column {
+    position: absolute;
+    overflow: hidden;
+}
+
+.ticket.sponsors .left_column {
+    max-width: 250px;
+}
+
+.ticket.sponsors .right_column {
+    left: 250px;
+    max-width: 250px;
+}
+
+.ticket.sponsors .logo-column {
+    position: absolute;
+    max-width: 200px;
+    right: 0;
+    top: 50px;
+}
+
+.ticket.sponsors .footer {
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+}
+
+.ticket.sponsors .footer img {
+    max-width: 30%;
+    display: inline-block;
+    margin: 30px;
+}
+
+.ticket.sponsors .body {
+    position: relative;
+    height: 300px;
+}
+
+.ticket.sponsors .text-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    text-align: center;
+}
+
+.ticket.sponsors .text-logo img {
+    width: 200px;
 }
