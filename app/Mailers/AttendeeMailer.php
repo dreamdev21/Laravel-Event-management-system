@@ -57,7 +57,7 @@ class AttendeeMailer extends Mailer
                 'email_logo'      => $attendee->event->organiser->full_logo_path,
             ];
 
-            Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
+            Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
                 $message->to($attendee->email, $attendee->full_name)
                     ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                     ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)

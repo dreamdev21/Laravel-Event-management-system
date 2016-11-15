@@ -432,7 +432,7 @@ class EventAttendeesController extends MyBaseController
         ];
 
         //@todo move this to the SendAttendeeMessage Job
-        Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
+        Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
             $message->to($attendee->email, $attendee->full_name)
                 ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                 ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
@@ -441,7 +441,7 @@ class EventAttendeesController extends MyBaseController
 
         /* Could bcc in the above? */
         if ($request->get('send_copy') == '1') {
-            Mail::send('Emails.messageAttendees', $data, function ($message) use ($attendee, $data) {
+            Mail::send('Emails.messageReceived', $data, function ($message) use ($attendee, $data) {
                 $message->to($attendee->event->organiser->email, $attendee->event->organiser->name)
                     ->from(config('attendize.outgoing_email_noreply'), $attendee->event->organiser->name)
                     ->replyTo($attendee->event->organiser->email, $attendee->event->organiser->name)
