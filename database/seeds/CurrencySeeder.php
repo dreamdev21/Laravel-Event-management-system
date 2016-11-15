@@ -92,7 +92,7 @@ class CurrencySeeder extends Seeder
                 'id' => 6,
                 'title' => 'Czech Koruna',
                 'symbol_left' => '',
-                'symbol_right' => 'Kč',
+                'symbol_right' => 'Kč ',
                 'code' => 'CZK',
                 'decimal_place' => 2,
                 'value' => 19.16900063,
@@ -105,7 +105,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 7,
                 'title' => 'Danish Krone',
-                'symbol_left' => 'kr',
+                'symbol_left' => 'kr ',
                 'symbol_right' => '',
                 'code' => 'DKK',
                 'decimal_place' => 2,
@@ -133,7 +133,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 9,
                 'title' => 'Hungarian Forint',
-                'symbol_left' => 'Ft',
+                'symbol_left' => 'Ft ',
                 'symbol_right' => '',
                 'code' => 'HUF',
                 'decimal_place' => 2,
@@ -189,7 +189,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 13,
                 'title' => 'Norwegian Krone',
-                'symbol_left' => 'kr',
+                'symbol_left' => 'kr ',
                 'symbol_right' => '',
                 'code' => 'NOK',
                 'decimal_place' => 2,
@@ -217,7 +217,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 15,
                 'title' => 'Philippine Peso',
-                'symbol_left' => 'Php',
+                'symbol_left' => 'Php ',
                 'symbol_right' => '',
                 'code' => 'PHP',
                 'decimal_place' => 2,
@@ -259,7 +259,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 18,
                 'title' => 'Swedish Krona',
-                'symbol_left' => 'kr',
+                'symbol_left' => 'kr ',
                 'symbol_right' => '',
                 'code' => 'SEK',
                 'decimal_place' => 2,
@@ -273,7 +273,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 19,
                 'title' => 'Swiss Franc',
-                'symbol_left' => 'CHF',
+                'symbol_left' => 'CHF ',
                 'symbol_right' => '',
                 'code' => 'CHF',
                 'decimal_place' => 2,
@@ -329,7 +329,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 23,
                 'title' => 'Icelandic króna',
-                'symbol_left' => 'kr',
+                'symbol_left' => 'kr ',
                 'symbol_right' => '',
                 'code' => 'ISK',
                 'decimal_place' => 2,
@@ -343,7 +343,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 24,
                 'title' => 'Croatian kuna',
-                'symbol_left' => 'kn',
+                'symbol_left' => 'kn ',
                 'symbol_right' => '',
                 'code' => 'HRK',
                 'decimal_place' => 2,
@@ -357,7 +357,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 25,
                 'title' => 'Romanian leu',
-                'symbol_left' => 'lei',
+                'symbol_left' => 'lei ',
                 'symbol_right' => '',
                 'code' => 'RON',
                 'decimal_place' => 2,
@@ -441,7 +441,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 31,
                 'title' => 'Malaysian ringgit',
-                'symbol_left' => 'RM',
+                'symbol_left' => 'RM ',
                 'symbol_right' => '',
                 'code' => 'MYR',
                 'decimal_place' => 2,
@@ -469,7 +469,7 @@ class CurrencySeeder extends Seeder
             [
                 'id' => 33,
                 'title' => 'Indonesian rupiah',
-                'symbol_left' => 'Rp',
+                'symbol_left' => 'Rp ',
                 'symbol_right' => '',
                 'code' => 'IDR',
                 'decimal_place' => 2,
@@ -525,8 +525,5 @@ class CurrencySeeder extends Seeder
         ];
 
         DB::table('currencies')->insert($currencies);
-
-
-
     }
 }
