@@ -13,7 +13,7 @@
 
     }
 </style>
-<div class="ticket">
+<div class="ticket no-sponsors">
     <div class="logo">
         {!! HTML::image(asset($image_path)) !!}
     </div>

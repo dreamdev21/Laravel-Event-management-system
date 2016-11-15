@@ -26,7 +26,7 @@
             <div class="ticket sponsors">
                 <div class="header">
                     <div class='logo'>
-                        <span>{{ $event->name }}</span>
+                        <span>{{ $event->title }}</span>
                     </div>
                     <div class="barcode">
                         {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
@@ -35,28 +35,28 @@
                 </div>
                 <div class="body">
                     <div class="left_column">
-                        <h4>{{ trans('label.name') }}</h4>
+                        <h4>Name</h4>
                         <span class="info">{{$attendee->first_name.' '.$attendee->last_name}}</span>
 
-                        <h4>{{ trans('ticket.order') }}</h4>
+                        <h4>Order No.</h4>
                         <span class="info">{{$order->order_reference}}</span>
 
-                        <h4>{{ trans('event.start') }}</h4>
-                        <span class="info">{{ localize_date($event->start_date, 'd. M. H:i') }}</span>
+                        <h4>Start Date</h4>
+                        <span class="info">{{ $event->start_date->format('m-d H:i') }}</span>
 
-                        <h4>{{ trans('label.amount') }}</h4>
+                        <h4>Price</h4>
                         <span class="info">{{money($attendee->ticket->total_price, $order->event->currency)}}</span>
                     </div>
 
                     <div class="right_column">
-                        <h4>{{ trans('ticket.type') }}</h4>
+                        <h4>Ticket Type</h4>
                         <span class="info">{{$attendee->ticket->title}}</span>
 
-                        <h4>{{ trans('ticket.number') }}</h4>
+                        <h4>Ticket Number</h4>
                         <span class="info">{{$attendee->reference}}</span>
 
-                        <h4>{{ trans('event.end') }}</h4>
-                        <span class="info">{{ localize_date($event->end_date, 'd. M. H:i') }}</span>
+                        <h4>End Date</h4>
+                        <span class="info">{{ $event->end_date->format('m-d H:i') }}</span>
                     </div>
 
                     <div class="logo-column">

@@ -43,7 +43,6 @@
     width: 700px;
     margin: 0 auto;
     margin-top: 20px;
-    background: #000;
     position: relative;
     height: 330px;
     font-size: 12px;
@@ -140,6 +139,7 @@
     height: 150px;
     position: relative;
     background: #662d91;
+    margin-bottom:20px;
 }
 
 .ticket.sponsors .header .logo {
@@ -148,6 +148,11 @@
     line-height: 75px;
     text-align: center;
     display: inline-block;
+    width:500px;
+}
+
+.ticket.sponsors h4{
+    margin-top: 2rem;
 }
 
 .ticket.sponsors .barcode {
@@ -178,8 +183,19 @@
 .ticket.sponsors .logo-column {
     position: absolute;
     max-width: 200px;
+    height:auto;
     right: 0;
-    top: 50px;
+    top: 0;
+}
+
+.ticket.sponsors .logo-column img {
+    width:200px;
+    height: auto;
+}
+
+.ticket.sponsors .body {
+    position: relative;
+    height: 250px;
 }
 
 .ticket.sponsors .footer {
@@ -189,14 +205,11 @@
 }
 
 .ticket.sponsors .footer img {
-    max-width: 30%;
+    max-width: 150px;
+    max-height:250px;
+    height:auto;
     display: inline-block;
     margin: 30px;
-}
-
-.ticket.sponsors .body {
-    position: relative;
-    height: 300px;
 }
 
 .ticket.sponsors .text-logo {

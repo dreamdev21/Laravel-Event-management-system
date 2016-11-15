@@ -73,7 +73,7 @@ class GenerateTicket extends Job implements ShouldQueue
         ];
 
         PDF::setOutputMode('F'); // force to file
-        if(count($this->event->ticket_sponsors)) {
+        if(count($event->ticket_sponsors)) {
             PDF::html('Public.ViewEvent.Partials.PDFSponsorTicket', $data, $file_path);
         } else {
             PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $file_path);
