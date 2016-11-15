@@ -16,7 +16,7 @@
                             {!!  Form::text('name', Input::old('name'),
                                         array(
                                         'class'=>'form-control',
-                                        'placeholder'=>'JapSeyz inc.'
+                                        'placeholder'=>'Company ApS'
                                         ))  !!}
                         </div>
 
