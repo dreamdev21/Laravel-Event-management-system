@@ -137,7 +137,7 @@
 */
 
 .ticket.sponsors h4{
-    margin-top: 2rem;
+    margin-top: 4rem;
     color:#000;
     font-weight:800;
 }
@@ -187,8 +187,15 @@
     padding-bottom: 5rem;
 }
 
+.ticket.sponsors .body h4,
+.ticket.sponsors .body span
+.ticket.sponsors .body p{
+    line-height:.3rem;
+}
+
 .ticket.sponsors .ticket-data{
     padding-bottom: 2rem;
+    padding-left: 3rem;
 }
 
 .ticket.sponsors .logo{
@@ -207,7 +214,11 @@
 
 .ticket.sponsors .sponsor{
     height: 10rem;
-    margin:25px 0;
+}
+
+.ticket.sponsors .sponsor:nth-child(1),
+.ticket.sponsors .sponsor:nth-child(2){
+    margin:30px 0;
 }
 
 .ticket.sponsors .footer img {
