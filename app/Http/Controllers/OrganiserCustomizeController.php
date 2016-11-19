@@ -64,7 +64,7 @@ class OrganiserCustomizeController extends MyBaseController
 
             $img = Image::make($the_file);
 
-            $img->resize(200, 200, function ($constraint) {
+            $img->resize(250, 250, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
