@@ -177,6 +177,7 @@
                                     </td>
                                     <td>
                                         {{{$attendee->ticket->title}}}
+                                        {{{$order->order_reference}}}-{{{$attendee->reference_index}}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -187,6 +188,11 @@
             </div> <!-- /end modal body-->
 
             <div class="modal-footer">
+                <a href="javascript:void(0);" data-modal-id="edit-order-{{ $order->id }}" data-href="{{route('showEditOrder', ['order_id'=>$order->id])}}" title="Edit Order" class="btn btn-info loadModal">
+                    Edit
+                </a>
+                <a class="btn btn-primary" target="_blank" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">Print Tickets</a>
+                <span class="pauseTicketSales btn btn-success" data-id="{{$order->id}}" data-route="{{route('resendOrder', ['order_id'=>$order->id])}}">Resend Tickets</span>
                {!! Form::button('Close', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
             </div>
         </div><!-- /end modal content-->

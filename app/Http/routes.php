@@ -494,6 +494,21 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventOrdersController@manageOrder',
         ]);
 
+        Route::post('order/{order_id}/resend', [
+            'as' => 'resendOrder',
+            'uses' => 'EventOrdersController@resendOrder',
+        ]);
+
+        Route::get('order/{order_id}/show/edit', [
+            'as' => 'showEditOrder',
+            'uses' => 'EventOrdersController@showEditOrder',
+        ]);
+
+        Route::post('order/{order_id}/edit', [
+           'as' => 'postOrderEdit',
+            'uses' => 'EventOrdersController@postEditOrder',
+        ]);
+
         Route::get('order/{order_id}/cancel', [
             'as'   => 'showCancelOrder',
             'uses' => 'EventOrdersController@showCancelOrder',
