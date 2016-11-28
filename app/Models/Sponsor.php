@@ -6,7 +6,6 @@ namespace App\Models;
  */
 class Sponsor extends \Illuminate\Database\Eloquent\Model
 {
-
     /**
      * Get the full logo path of the sponsor.
      *
@@ -19,5 +18,10 @@ class Sponsor extends \Illuminate\Database\Eloquent\Model
         }
 
         return config('attendize.fallback_organiser_logo_url');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
     }
 }

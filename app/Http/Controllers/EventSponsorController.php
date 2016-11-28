@@ -143,6 +143,7 @@ class EventSponsorController extends MyBaseController
             'name' => 'required|max:250',
             'sponsor_logo' => 'image',
             'on_ticket' => 'boolean',
+            'is_active' => 'boolean',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -173,6 +174,7 @@ class EventSponsorController extends MyBaseController
         }
 
         $sponsor->on_ticket = $request->has('on_ticket');
+        $sponsor->is_active = $request->has('is_active');
         $sponsor->name = $request->get('name');
 
         $sponsor->save();

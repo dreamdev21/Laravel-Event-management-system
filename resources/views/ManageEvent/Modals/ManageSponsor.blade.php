@@ -38,6 +38,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="well well-sm well-small">
+                                        {!! Form::label('is_active', 'Active?', array('class'=>'control-label ')) !!}
+                                        {!! Form::checkbox('is_active', 1, $sponsor->is_active) !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
