@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendee;
 use App\Models\Event;
+use App\Models\EventStats;
 use App\Models\Order;
 use DB;
 use Excel;
@@ -207,8 +208,18 @@ class EventOrdersController extends MyBaseController
         if ($attendees) {
             foreach ($attendees as $attendee_id) {
                 $attendee = Attendee::scope()->where('id', '=', $attendee_id)->first();
+                $attendee->ticket->decrement('quantity_sold');
+                $attendee->ticket->decrement('sales_volume', $attendee->ticket->price);
+                $order->event->decrement('sales_volume', $attendee->ticket->price);
+                $order->decrement('amount', $attendee->ticket->price);
                 $attendee->is_cancelled = 1;
                 $attendee->save();
+
+                $eventStats = EventStats::where('event_id', $attendee->event_id)->where('date', $attendee->created_at->format('Y-m-d'))->first();
+                if($eventStats){
+                    $eventStats->decrement('tickets_sold',  1);
+                    $eventStats->decrement('sales_volume',  $attendee->ticket->price);
+                }
             }
         }
 
