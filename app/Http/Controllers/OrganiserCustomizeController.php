@@ -56,24 +56,7 @@ class OrganiserCustomizeController extends MyBaseController
         }
 
         if ($request->hasFile('organiser_logo')) {
-            $the_file = \File::get($request->file('organiser_logo')->getRealPath());
-            $file_name = str_slug($organiser->name).'-logo-'.$organiser->id.'.'.strtolower($request->file('organiser_logo')->getClientOriginalExtension());
-
-            $relative_path_to_file = config('attendize.organiser_images_path').'/'.$file_name;
-            $full_path_to_file = public_path($relative_path_to_file);
-
-            $img = Image::make($the_file);
-
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $img->save($full_path_to_file);
-
-            if (\Storage::put($file_name, $the_file)) {
-                $organiser->logo_path = $relative_path_to_file;
-            }
+            $organiser->setLogo($request->file('organiser_logo'));
         }
 
         $organiser->save();
