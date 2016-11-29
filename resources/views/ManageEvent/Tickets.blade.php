@@ -93,7 +93,7 @@
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <div class='order_options'>
-                    <span class="event_count">{{$tickets->count()}} events</span>
+                    <span class="event_count">{{$tickets->count()}} tickets</span>
                 </div>
             </div>
             <div class="col-md-2 col-xs-6 col-md-offset-7">
