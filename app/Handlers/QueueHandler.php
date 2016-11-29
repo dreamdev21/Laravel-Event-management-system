@@ -75,7 +75,7 @@ class QueueHandler
             'subject'         => $message_object->subject,
         ];
 
-        Mail::send('Emails.messageAttendees', $data, function ($message) use ($toFields, $event, $message_object) {
+        Mail::send('Emails.messageReceived', $data, function ($message) use ($toFields, $event, $message_object) {
             $message->to($toFields)
                 ->from(config('attendize.outgoing_email_noreply'), $event->organiser->name)
                 ->replyTo($event->organiser->email, $event->organiser->name)

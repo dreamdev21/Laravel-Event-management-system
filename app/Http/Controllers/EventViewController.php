@@ -112,7 +112,7 @@ class EventViewController extends Controller
             'event'           => $event,
         ];
 
-        Mail::send('Emails.messageOrganiser', $data, function ($message) use ($event, $data) {
+        Mail::send('Emails.messageReceived', $data, function ($message) use ($event, $data) {
             $message->to($event->organiser->email, $event->organiser->name)
                 ->from(config('attendize.outgoing_email_noreply'), $data['sender_name'])
                 ->replyTo($data['sender_email'], $data['sender_name'])

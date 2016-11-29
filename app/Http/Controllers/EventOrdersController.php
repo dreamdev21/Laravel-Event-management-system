@@ -427,7 +427,7 @@ class EventOrdersController extends MyBaseController
             'email_logo'      => $order->event->organiser->full_logo_path,
         ];
 
-        Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
+        Mail::send('Emails.messageReceived', $data, function ($message) use ($order, $data) {
             $message->to($order->email, $order->full_name)
                 ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                 ->replyTo($order->event->organiser->email, $order->event->organiser->name)
@@ -436,7 +436,7 @@ class EventOrdersController extends MyBaseController
 
         /* Send a copy to the Organiser with a different subject */
         if ($request->get('send_copy') == '1') {
-            Mail::send('Emails.messageOrder', $data, function ($message) use ($order, $data) {
+            Mail::send('Emails.messageReceived', $data, function ($message) use ($order, $data) {
                 $message->to($order->event->organiser->email)
                     ->from(config('attendize.outgoing_email_noreply'), $order->event->organiser->name)
                     ->replyTo($order->event->organiser->email, $order->event->organiser->name)
