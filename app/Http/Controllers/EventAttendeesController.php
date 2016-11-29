@@ -692,6 +692,7 @@ class EventAttendeesController extends MyBaseController
     public function postCancelAttendee(Request $request, $event_id, $attendee_id)
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
+        $error_message = false; //Prevent "variable doesn't exist" error message
 
         if ($attendee->is_cancelled) {
             return response()->json([
