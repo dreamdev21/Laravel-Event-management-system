@@ -596,6 +596,43 @@ Route::group(['middleware' => ['auth', 'first.run']], function () {
             'uses' => 'EventWidgetsController@showEventWidgets',
         ]);
 
+
+        /*
+         * ---------
+         * Sponsors
+         * ---------
+         */
+        Route::get('{event_id}/sponsors', [
+            'as'   => 'showEventSponsors',
+            'uses' => 'EventSponsorController@showSponsors',
+        ]);
+
+        Route::get('{event_id}/sponsors/create', [
+            'as'   => 'showCreateSponsor',
+            'uses' => 'EventSponsorController@showCreateSponsor',
+        ]);
+
+        Route::post('{event_id}/sponsors/create', [
+            'as'   => 'postCreateSponsor',
+            'uses' => 'EventSponsorController@postCreateSponsor'
+        ]);
+
+        Route::get('{event_id}/sponsors/{sponsor_id}/edit', [
+            'as'   => 'showEditSponsor',
+            'uses' => 'EventSponsorController@showEditSponsor'
+        ]);
+
+        Route::post('{event_id}/sponsors/{sponsor_id}/edit', [
+            'as'   => 'postEditSponsor',
+            'uses' => 'EventSponsorController@postEditSponsor'
+        ]);
+
+        Route::post('{event_id}/sponsors/{sponsor_id}/delete', [
+            'as'   => 'postDeleteSponsor',
+            'uses' => 'EventSponsorController@postDeleteSponsor'
+        ]);
+
+
         /*
          * -------
          * Event Survey page

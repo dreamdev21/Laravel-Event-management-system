@@ -2,7 +2,7 @@
 <style>
     .ticket {
         border: 1px solid {{$event->ticket_border_color}};
-        background: {{$event->ticket_bg_color}} ;
+        background: {{$event->ticket_bg_color}};
         color: {{$event->ticket_sub_text_color}};
         border-left-color: {{$event->ticket_border_color}} ;
     }
@@ -13,7 +13,7 @@
 
     }
 </style>
-<div class="ticket">
+<div class="ticket no-sponsors">
     <div class="logo">
         {!! HTML::image(asset($image_path)) !!}
     </div>
