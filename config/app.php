@@ -92,7 +92,7 @@ return [
     */
 
     'key'    => env('APP_KEY', 'SomeRandomString'),
-    'cipher' => 'AES-256-CBC',
+    'cipher' => MCRYPT_RIJNDAEL_128,
 
     /*
     |--------------------------------------------------------------------------
@@ -232,6 +232,7 @@ return [
         'Purifier'     => Mews\Purifier\Facades\Purifier::class,
         'Markdown'     => MaxHoffmann\Parsedown\ParsedownFacade::class,
         'Omnipay'      => Omnipay\Omnipay::class,
+       // 'Omnipay'      => Omnipay\Omnipay::class,
 
     ],
 ];
