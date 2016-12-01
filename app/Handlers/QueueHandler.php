@@ -41,11 +41,8 @@ class QueueHandler
         exit($pdf_file);
 
         PDF::setOutputMode('F'); // force to file
-        if(count($this->event->ticket_sponsors)) {
-            PDF::html('Public.ViewEvent.Partials.PDFSponsorTicket', $data, $pdf_file);
-        } else {
-            PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file);
-        }
+        PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file);
+
         //1
         $this->orderMailer->sendOrderNotification($order);
         //2

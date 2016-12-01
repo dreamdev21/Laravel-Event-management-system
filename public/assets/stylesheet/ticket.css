@@ -1,20 +1,19 @@
-/*
-* ---------
-* Variables
-* ---------
-*/
-.color-primary {
-    color: #662483!important;
+.ticket {
+    /*page-break-after: always;*/
+    padding: 10px;
+    border: 1px solid #000;
+    width: 700px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: #000;
+    position: relative;
+    height: 330px;
+    font-size: 12px;
+    color: #999;
+    border-left-width: 3px;
+    border-left-color: #000;
+    overflow: hidden;
 }
-.color-alt {
-    color: #f39200!important;
-}
-
-/*
-* ---------
-* Global
-* ---------
-*/
 
 .ticket table {
     width: 100%;
@@ -25,46 +24,13 @@
     margin-top: 0px;
 }
 
-.ticket h4 {
-    font-size: 17px;
-    margin: 6px auto;
-    text-transform: uppercase;
-    color: #999;
-
-}
-
 .ticket hr {
     border: none;
     border-bottom: 1px solid #ccc;
     margin: 5px 0;
 }
 
-.ticket .b-l-2{
-    border-left: 2px solid #000;
-}
-
-
-/*
-* ---------
-* No-Sponsors
-* ---------
-*/
-.ticket.no-sponsors {
-    padding: 10px;
-    border: 1px solid #000;
-    width: 700px;
-    margin: 0 auto;
-    margin-top: 20px;
-    position: relative;
-    height: 330px;
-    font-size: 12px;
-    color: #999;
-    border-left-width: 3px;
-    border-left-color: #000;
-    overflow: hidden;
-}
-
-.ticket.no-sponsors .barcode {
+.ticket .barcode {
     width: 150px;
     height: 150px;
     position: absolute;
@@ -77,7 +43,7 @@
     background-color: #fdfdfd;
 }
 
-.ticket.no-sponsors .barcode_vertical {
+.ticket   .barcode_vertical {
     display: block;
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
@@ -91,12 +57,24 @@
     background: #fff;
 }
 
-.ticket.no-sponsors .event_details, .ticket.no-sponsors .attendee_details {
+.ticket .top_barcode {
+    margin-bottom: 15px;
+}
+
+.ticket h4 {
+    font-size: 17px;
+    margin: 6px auto;
+    text-transform: uppercase;
+    color: #999;
+
+}
+
+.ticket .event_details, .ticket .attendee_details {
     position: absolute;
     top: 15px;
 }
 
-.ticket.no-sponsors .event_details {
+.ticket .event_details {
     left: 175px;
     overflow: hidden;
     max-width: 210px;
@@ -105,7 +83,7 @@
     top: 50px;
 }
 
-.ticket.no-sponsors .attendee_details {
+.ticket .attendee_details {
     left: 390px;
     overflow: hidden;
     max-width: 195px;
@@ -114,7 +92,7 @@
     top: 50px;
 }
 
-.ticket.no-sponsors .logo {
+.ticket .logo {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -125,104 +103,6 @@
     text-align: center;
 }
 
-.ticket.no-sponsors .logo img {
+.ticket .logo img {
     max-width: 110px;
-}
-
-
-/*
-* ---------
-* Sponsors
-* ---------
-*/
-
-.ticket.sponsors h4{
-    margin-top: 4rem;
-    color:#000;
-    font-weight:800;
-}
-
-.ticket.sponsors span, .ticket.sponsors p{
-    margin:0;
-}
-
-.ticket.sponsors {
-    page-break-after: always;
-    margin: 0 auto;
-    background: #fff;
-    position: relative;
-    height: auto;
-    font-size: 14px;
-    color:#000;
-    overflow: hidden;
-}
-
-.ticket.sponsors .header {
-    height: 150px;
-    position: relative;
-    margin-bottom:20px;
-    font-size: 7rem;
-    line-height: 75px;
-    font-weight:300;
-}
-
-.ticket.sponsors .ticket-type{
-    font-size:3rem;
-    margin-bottom:0;
-}
-
-.ticket.sponsors .event-title{
-    line-height:30px;
-    font-weight:500;
-}
-
-.ticket.sponsors .barcode {
-    margin-top: 30px;
-    text-align: center;
-    color: #000;
-}
-
-.ticket.sponsors .body {
-    position: relative;
-    padding-bottom: 5rem;
-}
-
-.ticket.sponsors .body h4,
-.ticket.sponsors .body span
-.ticket.sponsors .body p{
-    line-height:.3rem;
-}
-
-.ticket.sponsors .ticket-data{
-    padding-bottom: 2rem;
-    padding-left: 3rem;
-}
-
-.ticket.sponsors .logo{
-    text-align: center;
-}
-
-.ticket.sponsors .logo img {
-    height: 200px;
-}
-
-.ticket.sponsors .footer {
-    text-align: center;
-    vertical-align: top;
-    position: relative;
-}
-
-.ticket.sponsors .sponsor{
-    height: 10rem;
-}
-
-.ticket.sponsors .sponsor:nth-child(1),
-.ticket.sponsors .sponsor:nth-child(2){
-    margin:30px 0;
-}
-
-.ticket.sponsors .footer img {
-    max-width: 100%;
-    max-height: 100%;
-    height:auto;
 }

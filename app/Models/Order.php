@@ -159,12 +159,7 @@ class Order extends MyBaseModel
         }
 
         PDF::setOutputMode('F'); // force to file
-
-        if(count($this->event->ticket_sponsors)) {
-            PDF::html('Public.ViewEvent.Partials.PDFSponsorTicket', $data, $pdf_file_path);
-        } else {
-            PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file_path);
-        }
+        PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, $pdf_file_path);
 
         $this->ticket_pdf_path = config('attendize.event_pdf_tickets_path') . '/' . $this->order_reference . '.pdf';
         $this->save();
