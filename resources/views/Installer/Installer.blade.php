@@ -258,7 +258,7 @@
                             If you are using shared hosting please ask your host if they support the Attendize requirements before requesting support.
                         </p>
                         <p>
-                            If you still need help you can email us at <a href="mailto:help@attendize.com" target="_blank">help@attendize.com</a>. Please include as much detail as possible, including any errors in the log file.
+                            If you still need help you can ask a question in the <a href="https://attendize.com/forum/">support forum</a>. Please include as much detail as possible, including any errors in the log file.
                         </p>
                         <p>
                             Please also  <a style="text-decoration: underline;" target="_blank" href="https://attendize.com/licence.php?from_installer">read the licence</a> before installing Attendize.
