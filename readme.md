@@ -4,13 +4,11 @@
 # Attendize 
 ### Open-source ticket selling and event management platform
 
-[![Join the chat at https://gitter.im/Attendize/Attendize](https://badges.gitter.im/Attendize/Attendize.svg)](https://gitter.im/Attendize/Attendize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 https://www.attendize.com
 
 > PLEASE NOTE: Attendize is in the early stages of development and therefore is likely to contain bugs and unfinished features. Be wary about using Attendize in a production environment.
 
-
+> Please ask any questions/report bugs in our new support forum: https://attendize.com/forum/
 
 ######Demo Event Page: http://attendize.website/e/1/acmes-amazing-demo-event
 
