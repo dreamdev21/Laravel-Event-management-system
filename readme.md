@@ -15,8 +15,9 @@ https://www.attendize.com
 
 *Attendize* is an open-source event ticketing and event management application built using the Laravel PHP framework. Attendize was created to offer event organisers a simple solution to managing general admission events, without paying extortionate service fees.
 
+The current version (v1.X.X) will not receive any significant feature improvements, only security fixes. All effort will go into developing v2.0.0.
 
-##Features
+##Current Features (v1.X.X)
  - Beautiful mobile friendly event pages
  - Easy attendee management - Refunds, Messaging etc.
  - Data export - attendees list to XLS, CSV etc.
@@ -42,10 +43,12 @@ https://www.attendize.com
  - Ability to ask custom questions during checkout
  - Browser based QR code scanner for door management
     
-##Upcoming Features
+## Upcoming changes in v2.0.0
  - Theme support
  - Plugin Support
  - Localisation 
+ - Increased test coverage
+ - Laravel 5.4
  - IOS/Android check-in / door management apps
  - Coupon/discount code support
  - Support for more payment providers
