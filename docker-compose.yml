@@ -1,44 +1,66 @@
-web:
-  build: .
-  dockerfile: Dockerfile-nginx
-  ports:
+version: '2'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
     - "8080:80"
-  links:
-    - php
-  volumes:
-    - .:/usr/share/nginx/html/attendize
-php:
-  build: .
-  dockerfile: Dockerfile-php
-  links:
-    - db
-    - maildev
-    - redis
-  volumes:
-    - .:/usr/share/nginx/html/attendize
-php-worker:
-  build: .
-  dockerfile: Dockerfile-php
-  links:
-    - db
-    - maildev
-    - redis
-  volumes:
-    - .:/usr/share/nginx/html/attendize
-  command: php artisan queue:work --daemon
-db:
-  image: postgres
-  environment:
-    - POSTGRES_USER=attendize
-    - POSTGRES_PASSWORD=attendize
-    - POSTGRES_DB=attendize
-  ports:
-    - "5433:5432"
-  volumes:
-    - ./docker/pgdata:/var/lib/postgresql/data
-maildev:
-  image: djfarrelly/maildev
-  ports:
-    - "1080:80"
-redis:
-  image: redis
+    networks:
+      - attendizenet
+    volumes:
+      - .:/usr/share/nginx/html/attendize
+    depends_on:
+      - php
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    depends_on:
+      - db
+      - maildev
+      - redis
+    volumes:
+      - .:/usr/share/nginx/html/attendize
+    networks: 
+      - attendizenet
+  php-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    depends_on:
+      - db
+      - maildev
+      - redis
+    volumes:
+      - .:/usr/share/nginx/html/attendize
+    command: php artisan queue:work --daemon
+    networks:
+      - attendizenet
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=attendize
+      - POSTGRES_PASSWORD=attendize
+      - POSTGRES_DB=attendize
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./docker/pgdata:/var/lib/postgresql/data
+    networks:
+    - attendizenet
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"
+    networks:
+      - attendizenet
+  redis:
+    image: redis
+    networks:
+      - attendizenet
+
+networks:
+  attendizenet:
+    driver: bridge
