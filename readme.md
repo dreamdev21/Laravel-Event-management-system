@@ -1,8 +1,11 @@
 <p align="center">
   <img src="https://www.attendize.com/img/logo-dark.png" alt="Attendize"/>
 </p>
-# Attendize 
-### Open-source ticket selling and event management platform
+
+<h1>Attendize</h1>
+<p>
+Open-source ticket selling and event management platform
+</p>
 
 https://www.attendize.com
 
@@ -10,14 +13,16 @@ https://www.attendize.com
 
 > Please ask any questions/report bugs in our new support forum: https://attendize.com/forum/
 
-######Demo Event Page: http://attendize.website/e/1/acmes-amazing-demo-event
+Demo Event Page: http://attendize.website/e/1/acmes-amazing-demo-event
+---
 
 
 *Attendize* is an open-source event ticketing and event management application built using the Laravel PHP framework. Attendize was created to offer event organisers a simple solution to managing general admission events, without paying extortionate service fees.
 
 The current version (v1.X.X) will not receive any significant feature improvements, only security fixes. All effort will go into developing <a href="https://github.com/Attendize/Attendize/tree/develop">v2.0.0</a>.
 
-##Current Features (v1.X.X)
+Current Features (v1.X.X)
+---
  - Beautiful mobile friendly event pages
  - Easy attendee management - Refunds, Messaging etc.
  - Data export - attendees list to XLS, CSV etc.
@@ -43,7 +48,8 @@ The current version (v1.X.X) will not receive any significant feature improvemen
  - Ability to ask custom questions during checkout
  - Browser based QR code scanner for door management
     
-## Upcoming changes in v2.0.0
+Upcoming changes in v2.0.0
+---
  - Theme support
  - Plugin Support
  - Localisation 
@@ -54,17 +60,19 @@ The current version (v1.X.X) will not receive any significant feature improvemen
  - Support for more payment providers
  - WordPress Plug-in 
 
-
-## Official Documentation
+Official Documentation
+---
 
 Limited Documentation available at https://www.attendize.com/documentation.php. Github will be updated with more comprehensive documentation soon.
 
 
-## Contribution
+Contribution
+---
 
 Feel free to fork and contribute. I could use the help!
 
-## Docker dev environment
+Docker dev environment
+---
 
 To run a docker dev entionment do the following:
 
@@ -82,11 +90,13 @@ docker-compose run php php artisan attendize:install
 
 Attendize will be available at `http://localhost:8080` and maildev at `http://localhost:1080`
 
-## License
+License
+---
 
 Attendize is open-sourced software licensed under the Attribution Assurance License. See [https://www.attendize.com/licence.php](https://www.attendize.com/licence.php) for further details. We also have white-label licence options available.
 
-## Contributors 
+Contributors 
+---
 
 * Brett B ([Github](https://github.com/bretto36))
 * G0dLik3 ([Github](https://github.com/G0dLik3))
