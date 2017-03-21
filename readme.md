@@ -1,5 +1,6 @@
 <p align="center">
   <img src="https://www.attendize.com/img/logo-dark.png" alt="Attendize"/>
+  <img style='border: 1px solid #444;' src="https://attendize.com/img/screenshots/screen1.PNG" alt="Attendize"/>
 </p>
 
 <h1>Attendize</h1>
