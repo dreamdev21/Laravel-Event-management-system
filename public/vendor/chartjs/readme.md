@@ -20,10 +20,10 @@ The next generation and release of Chart.js has been well under way this year an
 - Even more extensible via new element controllers, combo chart support, and hook system
 - Bug fixes not addressed in 1.x, and much, much more...
 
-#####Contributing to 2.0
+##### Contributing to 2.0
 Submit PR's to the v2.0-dev branch.
 
-#####Building and Testing
+##### Building and Testing
 `gulp build`, `gulp test`
 
 ## v1.x Status: Feature Complete

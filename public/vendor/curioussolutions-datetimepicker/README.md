@@ -1,9 +1,9 @@
-##NEW AnyPicker
+## NEW AnyPicker
 Check our newly released picker library for Mobile OS - [AnyPicker](https://curioussolutions.in/libraries/anypicker/ "AnyPicker
 Details")
 ![](http://curioussolutions.in/libraries/anypicker/content/images/github-datepicker.png)
 
-##DateTimePicker [![Join the chat at https://gitter.im/CuriousSolutions/DateTimePicker](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CuriousSolutions/DateTimePicker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## DateTimePicker [![Join the chat at https://gitter.im/CuriousSolutions/DateTimePicker](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CuriousSolutions/DateTimePicker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 **Responsive jQuery DateTime Picker library for Web & Mobile**
@@ -19,7 +19,7 @@ Users can change values using +/- buttons or type values directly into the textb
 For web, picker can be binded relative to reference element, were it will appear at the bottom of the element. For mobile, the picker can appear as a dialog box covering entire window. 
 
 
-##Browser Support
+## Browser Support
 - Chrome, Firefox, Safari, Opera, IE 9+
 - Android 2.3+, iOS 6+, Windows Phone 8
 
@@ -29,7 +29,7 @@ For demo & api documentation visit [Plugin Page](http://curioussolutions.github.
 Details")
 
 
-##Build System
+## Build System
 
 - Install devDependencies listed in "package.json" 
 
@@ -45,7 +45,7 @@ Tasks configured in "Gruntfile.js"
 - Minify "src/DateTimePicker.css" to "dist/DateTimePicker.min.css"
 
 
-##Installations
+## Installations
 
 - npm
 
@@ -55,7 +55,7 @@ Tasks configured in "Gruntfile.js"
 
     `bower install curioussolutions-datetimepicker`
 
-##CDN
+## CDN
 DateTimePicker is hosted on [jsDelivr](http://www.jsdelivr.com).
 
 Files - Latest
@@ -72,7 +72,7 @@ Files - Particular Version
 <script type="text/javascript" src="//cdn.jsdelivr.net/datetimepicker/<version>/DateTimePicker.min.js"></script>
 ```
 
-##Authors
+## Authors
 [Neha Kadam](https://github.com/nehakadam): Principle Developer
 
 Special thanks:
@@ -84,6 +84,6 @@ Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
 
 
 
-##License
+## License
 
 Licensed under the MIT License
