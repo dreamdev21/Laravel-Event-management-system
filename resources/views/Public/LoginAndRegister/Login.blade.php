@@ -20,12 +20,12 @@
                     @endif
 
                     <div class="form-group">
-                        {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
+                        {!! Form::label('email', trans('login.email'), ['class' => 'control-label']) !!}
                         {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
-                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">Forgot password?</a>)
+                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">{{ trans('passwords.password') }}</a>)
                         {!! Form::password('password',  ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
