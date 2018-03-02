@@ -13,9 +13,9 @@
                     </div>
 
                     @if(Session::has('failed'))
-                        <h4 class="text-danger mt0">Whoops! </h4>
+                        <h4 class="text-danger mt0">{{ trans('login.session-failed-title') }} </h4>
                         <ul class="list-group">
-                            <li class="list-group-item">Please check your details and try again.</li>
+                            <li class="list-group-item">{{ trans('login.session-failed-body') }}</li>
                         </ul>
                     @endif
 
@@ -24,17 +24,17 @@
                         {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
-                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">{{ trans('passwords.password') }}</a>)
+                        {!! Form::label('password', trans('login.password'), ['class' => 'control-label']) !!}
+                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">{{ trans('login.forgot-password') }}</a>)
                         {!! Form::password('password',  ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-success">Login</button>
+                        <button type="submit" class="btn btn-block btn-success">{{ trans('login.login') }}</button>
                     </div>
 
                     @if(Utils::isAttendize())
                     <div class="signup">
-                        <span>Don't have any account? <a class="semibold" href="{{ url('signup') }}">Sign up</a></span>
+                        <span>{{ trans('login.dont-have-account') }} <a class="semibold" href="{{ url('signup') }}">{{ trans('login.signup') }}</a></span>
                     </div>
                     @endif
                 </div>
