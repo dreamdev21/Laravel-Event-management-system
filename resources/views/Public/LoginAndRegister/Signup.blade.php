@@ -12,18 +12,18 @@ Sign Up
                 <div class="logo">
                    {!! HTML::image('assets/images/logo-dark.png') !!}
                 </div>
-                <h2>Sign up</h2>
+                <h2>{{ trans('common.signup') }}</h2>
 
                 @if(Input::get('first_run'))
                     <div class="alert alert-info">
-                        You're almost there. Just create a user account and you're ready to go.
+                        {{ trans('common.signup-alert-info') }}
                     </div>
                 @endif
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group {{ ($errors->has('first_name')) ? 'has-error' : '' }}">
-                            {!! Form::label('first_name', 'First Name', ['class' => 'control-label required']) !!}
+                            {!! Form::label('first_name', trans('common.first-name'), ['class' => 'control-label required']) !!}
                             {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
                             @if($errors->has('first_name'))
                                 <p class="help-block">{{ $errors->first('first_name') }}</p>
@@ -32,7 +32,7 @@ Sign Up
                     </div>
                     <div class="col-md-6">
                         <div class="form-group {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
-                            {!! Form::label('last_name', 'Last Name', ['class' => 'control-label']) !!}
+                            {!! Form::label('last_name', trans('common.last-name'), ['class' => 'control-label']) !!}
                             {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
                             @if($errors->has('last_name'))
                                 <p class="help-block">{{ $errors->first('last_name') }}</p>
@@ -42,21 +42,21 @@ Sign Up
                 </div>
 
                 <div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
-                    {!! Form::label('email', 'Email', ['class' => 'control-label required']) !!}
+                    {!! Form::label('email', trans('common.email'), ['class' => 'control-label required']) !!}
                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     @if($errors->has('email'))
                         <p class="help-block">{{ $errors->first('email') }}</p>
                     @endif
                 </div>
                 <div class="form-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
-                    {!! Form::label('password', 'Password', ['class' => 'control-label required']) !!}
+                    {!! Form::label('password', trans('common.password'), ['class' => 'control-label required']) !!}
                     {!! Form::password('password',  ['class' => 'form-control']) !!}
                     @if($errors->has('password'))
                         <p class="help-block">{{ $errors->first('password') }}</p>
                     @endif
                 </div>
                 <div class="form-group {{ ($errors->has('password_confirmation')) ? 'has-error' : '' }}">
-                    {!! Form::label('password_confirmation', 'Password again', ['class' => 'control-label required']) !!}
+                    {!! Form::label('password_confirmation', trans('common.password-confirmation'), ['class' => 'control-label required']) !!}
                     {!! Form::password('password_confirmation',  ['class' => 'form-control']) !!}
                     @if($errors->has('password_confirmation'))
                         <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
@@ -67,7 +67,7 @@ Sign Up
                 <div class="form-group {{ ($errors->has('terms_agreed')) ? 'has-error' : '' }}">
                     <div class="checkbox custom-checkbox">
                         {!! Form::checkbox('terms_agreed', Input::old('terms_agreed'), false, ['id' => 'terms_agreed']) !!}
-                        {!! Form::rawLabel('terms_agreed', '&nbsp;&nbsp;I agree to <a target="_blank" href="'.route('termsAndConditions').'"> Terms & Conditions </a>') !!}
+                        {!! Form::rawLabel('terms_agreed', '&nbsp;&nbsp;'.trans('common.signup-agree').'<a target="_blank" href="'.route('termsAndConditions').'"> '.trans('common.signup-terms').'</a>') !!}
                         @if ($errors->has('terms_agreed'))
                             <p class="help-block">{{ $errors->first('terms_agreed') }}</p>
                         @endif
@@ -76,12 +76,12 @@ Sign Up
                 @endif
 
                 <div class="form-group ">
-                   {!! Form::submit('Sign Up', array('class'=>"btn btn-block btn-success")) !!}
+                   {!! Form::submit(trans('common.signup'), array('class'=>"btn btn-block btn-success")) !!}
                 </div>
 
                 @if($is_attendize)
                     <div class="signup">
-                        <span>Already have account? <a class="semibold" href="/login">Sign In</a></span>
+                        <span>{{ trans('common.already-have-account') }} <a class="semibold" href="/login">{{ trans('common.signin') }}</a></span>
                     </div>
                 @endif
             </div>

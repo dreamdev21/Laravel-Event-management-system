@@ -13,28 +13,28 @@
                     </div>
 
                     @if(Session::has('failed'))
-                        <h4 class="text-danger mt0">{{ trans('login.session-failed-title') }} </h4>
+                        <h4 class="text-danger mt0">{{ trans('common.session-failed-title') }} </h4>
                         <ul class="list-group">
-                            <li class="list-group-item">{{ trans('login.session-failed-body') }}</li>
+                            <li class="list-group-item">{{ trans('common.session-failed-body') }}</li>
                         </ul>
                     @endif
 
                     <div class="form-group">
-                        {!! Form::label('email', trans('login.email'), ['class' => 'control-label']) !!}
+                        {!! Form::label('email', trans('common.email'), ['class' => 'control-label']) !!}
                         {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('password', trans('login.password'), ['class' => 'control-label']) !!}
-                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">{{ trans('login.forgot-password') }}</a>)
+                        {!! Form::label('password', trans('common.password'), ['class' => 'control-label']) !!}
+                        (<a class="forgotPassword" href="{{route('forgotPassword')}}" tabindex="-1">{{ trans('common.forgot-password') }}</a>)
                         {!! Form::password('password',  ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-success">{{ trans('login.login') }}</button>
+                        <button type="submit" class="btn btn-block btn-success">{{ trans('common.login') }}</button>
                     </div>
 
                     @if(Utils::isAttendize())
                     <div class="signup">
-                        <span>{{ trans('login.dont-have-account') }} <a class="semibold" href="{{ url('signup') }}">{{ trans('login.signup') }}</a></span>
+                        <span>{{ trans('common.dont-have-account') }} <a class="semibold" href="{{ url('signup') }}">{{ trans('common.signup') }}</a></span>
                     </div>
                     @endif
                 </div>
