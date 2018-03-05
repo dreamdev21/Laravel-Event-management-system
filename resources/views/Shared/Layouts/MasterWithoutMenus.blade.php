@@ -1,4 +1,10 @@
-<html>
+<html dir = "<?php
+if (App::getLocale() == "ar"){
+    echo 'rtl';
+}else{
+    echo 'ltr';
+}
+?>">
     <head>
 
         <title>@yield('title')</title>
