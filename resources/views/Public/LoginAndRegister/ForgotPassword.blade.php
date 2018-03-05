@@ -15,32 +15,33 @@ Forgot Password
                 <div class="logo">
                    {!!HTML::image('assets/images/logo-dark.png')!!}
                 </div>
-                <h2>Forgot Password</h2>
+                <h2>{{ trans('common.forgot-password') }}</h2>
 
                 @if (Session::has('status'))
                 <div class="alert alert-info">
-                    An email with the password reset has been sent to your email.
+
+                    {{ trans('common.forgot-pass-email-sent') }}
                 </div>
                 @else
 
                 @if(Session::has('error'))
-                <h4 class="text-danger mt0">Whoops! </h4>
+                <h4 class="text-danger mt0">{{ trans('common.session-failed-title') }} </h4>
                 <ul class="list-group">
                     <li class="list-group-item">{{Session::get('error')}}</li>
                 </ul>
                 @endif
 
                 <div class="form-group">
-                   {!! Form::label('email', 'Your Email') !!}
+                   {!! Form::label('email', trans('common.email')) !!}
                    {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                 </div>
 
                 <div class="form-group nm">
-                    <button type="submit" class="btn btn-block btn-success">Submit</button>
+                    <button type="submit" class="btn btn-block btn-success">{{ trans('common.submit') }}</button>
                 </div>
                 <div class="signup">
                     <a class="semibold" href="{{route('login')}}">
-                        <i class="ico ico-arrow-left"></i> Back to login
+                        <i class="ico ico-arrow-left"></i>{{ trans('common.back-to-login') }}
                     </a>
                 </div>
             </div>
