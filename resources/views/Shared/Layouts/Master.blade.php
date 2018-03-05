@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html dir = "<?php
+    if (App::getLocale() == "ar"){
+        echo 'rtl';
+    }else{
+        echo 'ltr';
+    }
+?>">
 <head>
     <!--
               _   _                 _ _

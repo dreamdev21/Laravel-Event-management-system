@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "74ae3e33d49f30f297378b9bfef38b01",
+    "content-hash": "2c26e13bb743ab5b026545782c87bfe1",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -708,6 +708,51 @@
                 "uri"
             ],
             "time": "2016-04-13T19:56:01+00:00"
+        },
+        {
+            "name": "ied3vil/language-switcher",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ied3vil/LanguageSwitcher.git",
+                "reference": "42bcc88dfaec378dc0bc13d3dd0c2830fb43f25c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ied3vil/LanguageSwitcher/zipball/42bcc88dfaec378dc0bc13d3dd0c2830fb43f25c",
+                "reference": "42bcc88dfaec378dc0bc13d3dd0c2830fb43f25c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "ied3vil\\": "src/ied3vil/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Razvan-Cristian Marian",
+                    "email": "ied3vil@gmail.com",
+                    "homepage": "http://www.ied3vil.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Language Switcher",
+            "homepage": "https://github.com/ied3vil/language-switcher",
+            "keywords": [
+                "language",
+                "laravel",
+                "php",
+                "switcher"
+            ],
+            "time": "2017-11-01T12:08:53+00:00"
         },
         {
             "name": "intervention/image",

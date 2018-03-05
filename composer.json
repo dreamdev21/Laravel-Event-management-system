@@ -29,7 +29,8 @@
         "predis/predis": "~1.0",
         "guzzlehttp/guzzle": "^6.2",
         "omnipay/migs": "^2.1",
-        "mcamara/laravel-localization": "^1.3"
+        "mcamara/laravel-localization": "^1.3",
+        "ied3vil/language-switcher": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
