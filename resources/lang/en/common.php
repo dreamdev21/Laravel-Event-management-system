@@ -53,7 +53,10 @@ return [
     'forgot-pass-email-sent'        =>"An email with the password reset has been sent to your email.",
     'forgot-password'        =>"Forgot Password",
 
-
-
+    /*
+    Language
+    */
+    'en'        =>"English",
+    'ar'        =>"Arabic",
 
 ];

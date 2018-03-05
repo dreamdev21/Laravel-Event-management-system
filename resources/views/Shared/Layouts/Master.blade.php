@@ -56,6 +56,20 @@
         @yield('top_nav')
 
         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ trans('common.'. App::getLocale()) }}
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (Config::get('app.languages') as $language)
+                        @if ($language != App::getLocale())
+                            <li>
+                                <a href="/{{$language }}">{{ trans('common.'. $language) }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </li>
             <li class="dropdown profile">
 
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
