@@ -14,16 +14,16 @@ Reset Password
                 <div class="logo">
                    {!!HTML::image('assets/images/logo-dark.png')!!}
                 </div>
-                <h2>Reset Password</h2>
+                <h2>{{ trans('common.reset-password') }}</h2>
                 @if (Session::has('status'))
                 <div class="alert alert-info">
-                    An email with the password reset has been sent to your email.
+                    {{ trans('common.message-resetpass-email-sent') }}
                 </div>
                 @else
 
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>{{ trans('common.session-failed-title') }}</strong> {{ trans('common.resetpass-error-input') }}<br><br>
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -33,24 +33,24 @@ Reset Password
                 @endif
 
                 <div class="form-group">
-                    {!! Form::label('email', 'Your Email', ['class' => 'control-label']) !!}
+                    {!! Form::label('email', trans('common.email'), ['class' => 'control-label']) !!}
                     {!! Form::text('email', null, ['class' => 'form-control', 'autofocus' => true]) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('password', 'New Password', ['class' => 'control-label']) !!}
+                    {!! Form::label('password', trans('common.new-password')'New Password', ['class' => 'control-label']) !!}
                     {!! Form::password('password',  ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('password_confirmation', 'Confirm Password', ['class' => 'control-label']) !!}
+                    {!! Form::label('password_confirmation', trans('common.confirm-password')'Confirm Password', ['class' => 'control-label']) !!}
                     {!! Form::password('password_confirmation',  ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::hidden('token',  $token) !!}
                 <div class="form-group nm">
-                    <button type="submit" class="btn btn-block btn-success">Submit</button>
+                    <button type="submit" class="btn btn-block btn-success">{{ trans('common.submit') }}</button>
                 </div>
                 <div class="signup">
                   <a class="semibold" href="{{route('login')}}">
-                      <i class="ico ico-arrow-left"></i> Back to login
+                      <i class="ico ico-arrow-left"></i> {{ trans('common.back-to-login') }}
                   </a>
                 </div>
             </div>

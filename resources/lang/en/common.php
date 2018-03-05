@@ -33,5 +33,15 @@ return [
     'signup-terms'     => 'Terms & Conditions',
     'already-have-account'      => "Already have account? ",
     'signin'        =>"Sign In",
+    'reset-password'        =>"Reset Password",
+    'message-resetpass-email-sent'        =>"An email with the password reset has been sent to your email.",
+    'resetpass-error-input'        =>"There were some problems with your input.",
+    'new-password'        =>"New Password",
+    'confirm-password'        =>"Confirm Password",
+    'submit'        =>"Submit",
+    'back-to-login'        =>"Back to login",
+
+
+
 
 ];
