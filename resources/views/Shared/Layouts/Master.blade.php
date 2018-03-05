@@ -34,6 +34,10 @@
 
     <!--Style-->
     {!! HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/application.css') !!}
+    <?php if (App::getLocale() == "ar"){
+        echo ' <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" rel="stylesheet"/>';
+    }
+    ?>
     <!--/Style-->
 
     @yield('head')
