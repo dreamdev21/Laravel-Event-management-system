@@ -41,5 +41,9 @@ return [
     'tickets' => 'TICKETS',
     'details' => 'DETAILS',
     'location' => 'LOCATION',
+    /*
+        Partials/EventOrganiserSection.blade.php
 
+    */
+    'contact' => 'Contact',
 ];

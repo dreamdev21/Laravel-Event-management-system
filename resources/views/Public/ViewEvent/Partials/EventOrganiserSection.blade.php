@@ -29,38 +29,38 @@
                             </a>
                         @endif
                     <button onclick="$(function(){ $('.contact_form').slideToggle(); });" type="button" class="btn btn-primary">
-                        <i class="ico-envelop"></i>&nbsp; Contact
+                        <i class="ico-envelop"></i>&nbsp; {{ trans('viewevent.contact') }}
                     </button>
                 </p>
                 <div class="contact_form well well-sm">
                     {!! Form::open(array('url' => route('postContactOrganiser', array('event_id' => $event->id)), 'class' => 'reset ajax')) !!}
                     <h3>Contact <i>{{$event->organiser->name}}</i></h3>
                     <div class="form-group">
-                        {!! Form::label('Your Name') !!}
+                        {!! Form::label(trans('common.your-name')) !!}
                         {!! Form::text('name', null,
                             array('required',
                                   'class'=>'form-control',
-                                  'placeholder'=>'Your name')) !!}
+                                  'placeholder'=>trans('common.your-name'))) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('Your E-mail Address') !!}
+                        {!! Form::label(trans('common.your-email')) !!}
                         {!! Form::text('email', null,
                             array('required',
                                   'class'=>'form-control',
-                                  'placeholder'=>'Your e-mail address')) !!}
+                                  'placeholder'=>trans('common.your-email'))) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('Your Message') !!}
+                        {!! Form::label(trans('common.your-message')) !!}
                         {!! Form::textarea('message', null,
                             array('required',
                                   'class'=>'form-control',
-                                  'placeholder'=>'Your message')) !!}
+                                  'placeholder'=>trans('common.your-message'))) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::submit('Send Message',
+                        {!! Form::submit(trans('common.send-message'),
                           array('class'=>'btn btn-primary')) !!}
                     </div>
                 </div>

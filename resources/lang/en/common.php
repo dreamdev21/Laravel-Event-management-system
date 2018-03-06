@@ -23,6 +23,12 @@ return [
     'expiry-year' => 'Expiry Year',
     'cvc-number' => 'CVC Number',
     'checkout' => 'Checkout',
+    'your-name' => 'Your Name',
+    'your-email' => 'Your E-mail Address',
+    'your-message' => 'Your Message',
+    'send-message' => 'Send Message',
+
+
     /*
     /*
        Login page
