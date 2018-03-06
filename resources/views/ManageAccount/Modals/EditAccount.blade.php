@@ -122,7 +122,7 @@
                                         <tr>
                                             <td colspan="3">
                                                 <div class="input-group">
-                                                    {!! Form::text('email', '',  ['class' => 'form-control', 'placeholder' => 'Email Address']) !!}
+                                                    {!! Form::text('email', '',  ['class' => 'form-control', 'placeholder' => trans('manageevent.email-address')]) !!}
                                                     <span class="input-group-btn">
                                                           {!!Form::submit('Add User', ['class' => 'btn btn-primary'])!!}
                                                     </span>

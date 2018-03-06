@@ -29,11 +29,11 @@ Attendees
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="InviteAttendee" href="javascript:void(0);"  data-href="{{route('showInviteAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> Invite Attendee</button>
+            <button data-modal-id="InviteAttendee" href="javascript:void(0);"  data-href="{{route('showInviteAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> {{ trans('manageevent.invite-attendees') }}</button>
         </div>
         
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="ImportAttendees" href="javascript:void(0);"  data-href="{{route('showImportAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> Invite Attendees</button>
+            <button data-modal-id="ImportAttendees" href="javascript:void(0);"  data-href="{{route('showImportAttendee', ['event_id'=>$event->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> {{ trans('manageevent.invite-attendees') }}</button>
         </div>
         
         <div class="btn-group btn-group-responsive">

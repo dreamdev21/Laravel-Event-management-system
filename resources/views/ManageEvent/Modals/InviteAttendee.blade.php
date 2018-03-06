@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 class="modal-title">
                     <i class="ico-user"></i>
-                    Invite Attendee</h3>
+                    {{ trans('manageevent.invite-attendees') }}</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('email', 'Email Address', array('class'=>'control-label required')) !!}
+                            {!! Form::label('email', trans('manageevent.email-address'), array('class'=>'control-label required')) !!}
 
                             {!!  Form::text('email', Input::old('email'),
                                                 array(
@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <div class="checkbox custom-checkbox">
                                 <input type="checkbox" name="email_ticket" id="email_ticket" value="1" />
-                                <label for="email_ticket">&nbsp;&nbsp;Send invitation & ticket to attendee.</label>
+                                <label for="email_ticket">&nbsp;&nbsp;{{ trans('manageevent.send-invitation-ticket') }}</label>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-               {!! Form::submit('Invite Attendee', ['class'=>"btn btn-success"]) !!}
+               {!! Form::submit(trans('manageevent.invite-attendees') , ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
        {!! Form::close() !!}

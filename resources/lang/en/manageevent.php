@@ -90,6 +90,11 @@ return [
     'import-file' => 'Import File',
     'send-invitation-ticket' => 'Send invitation & ticket to attendees.',
     'create-attendees' => 'Create Attendees',
+    /*
+      Modals/InviteAttendee.blade.php
 
+   */
+    'email-address' => 'Email Address',
+    'send-invitation-ticket' => 'Send invitation & ticket to attendee.',
 
 ];
