@@ -2,11 +2,11 @@
 
 @section('title')
     @parent
-    Organiser Events
+    {{ trans('manageorganiser.organiser-event') }}
 @stop
 
 @section('page_title')
-    {{$organiser->name}} Events
+    {{$organiser->name}} {{ trans('manageorganiser.events') }}
 @stop
 
 @section('top_nav')
@@ -26,14 +26,14 @@
     <div class="col-md-9">
         <div class="btn-toolbar">
             <div class="btn-group btn-group-responsive">
-                <a href="#" data-modal-id="CreateEvent" data-href="{{route('showCreateEvent', ['organiser_id' => @$organiser->id])}}" class="btn btn-success loadModal"><i class="ico-plus"></i> Create Event</a>
+                <a href="#" data-modal-id="CreateEvent" data-href="{{route('showCreateEvent', ['organiser_id' => @$organiser->id])}}" class="btn btn-success loadModal"><i class="ico-plus"></i> {{ trans('manageorganiser.create-event') }}</a>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         {!! Form::open(array('url' => route('showOrganiserEvents', ['organiser_id'=>$organiser->id]), 'method' => 'get')) !!}
         <div class="input-group">
-            <input name="q" value="{{$search['q'] or ''}}" placeholder="Search Events.." type="text" class="form-control">
+            <input name="q" value="{{$search['q'] or ''}}" placeholder="{{ trans('manageorganiser.search-events') }}" type="text" class="form-control">
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
         </span>
@@ -50,16 +50,16 @@
             <div class="col-md-3 col-xs-6">
                 <div class="order_options">
                     <span class="event_count">
-                        {{$organiser->events->count()}} events
+                        {{$organiser->events->count()}} {{ trans('manageorganiser.events') }}
                     </span>
                 </div>
             </div>
             <div class="col-md-2 col-xs-6 col-md-offset-7">
                 <div class="order_options">
                     {!!Form::select('sort_by_select', [
-                        'start_date' => 'Start date',
-                        'created_at' => 'Created',
-                        'title' => 'Event title'
+                        'start_date' => trans('common.start-date'),
+                        'created_at' => trans('manageorganiser.created'),
+                        'title' => trans('manageorganiser.event-title')
 
                         ], $search['sort_by'], ['class' => 'form-control pull right'])!!}
                 </div>

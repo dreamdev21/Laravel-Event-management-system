@@ -96,7 +96,7 @@ return [
     'save-changes' => 'Save Changes',
 
     /*
-       Customize.blade.php
+       Dashboard.blade.php
 
    */
     'sales-volume' => 'Sales Volume',
@@ -107,5 +107,11 @@ return [
     'recent-orders' => 'Recent Orders',
     'registered' => 'registered',
     'no-recent-orders' => 'Looks like there are no recent orders.',
+    /*
+      Events.blade.php
+
+  */
+    'search-events' => 'Search Events..',
+    'created' => 'Created',
 
 ];
