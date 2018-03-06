@@ -55,7 +55,7 @@
             <div class="btn-group btn-group-responsive">
                 <button data-modal-id='CreateTicket'
                         data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}"
-                        class='loadModal btn btn-success' type="button"><i class="ico-ticket"></i> Create Ticket
+                        class='loadModal btn btn-success' type="button"><i class="ico-ticket"></i> {{ trans('manageevent.create-ticket') }}
                 </button>
             </div>
             @if(false)

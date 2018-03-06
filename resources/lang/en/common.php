@@ -55,6 +55,7 @@ return [
     'change-password' => 'Change Password',
     'cancel' => 'Cancel',
     'save-details' => 'Save Details',
+    'close' => 'Close',
 
 
 

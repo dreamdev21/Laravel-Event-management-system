@@ -100,7 +100,7 @@
                 <a href="" class="btn btn-success">
                     {{ trans('manageevent.create-question') }}
                 </a>
-                <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}" class="loadModal btn btn-success" type="button" ><i class="ico-ticket"></i> Create Ticket</button>
+                <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}" class="loadModal btn btn-success" type="button" ><i class="ico-ticket"></i> {{ trans('manageevent.create-ticket') }}</button>
             </div>
         </div><!-- /end modal content-->
     </div>

@@ -43,4 +43,19 @@ return [
     'require-question' => 'Make this a required question',
     'require-question-for-ticket' => 'Require this question for ticket(s):',
     'save-question' => 'Save Question',
+    /*
+           Modals/CreateTicketblade.php
+
+       */
+    'create-ticket' => 'Create Ticket',
+    'ticket-title' => 'Ticket Title',
+    'ticket-price' => 'Ticket Price',
+    'quantity-available' => 'Quantity Available',
+    'ticket-description' => 'Ticket Description',
+    'start-sale-on' => 'Start Sale On',
+    'end-sale-on' => 'End Sale On',
+    'minumum-ticket-per-order' => 'Minimum Tickets Per Order',
+    'max-ticket-per-order' => 'Max Tickets Per Order',
+    'hide-ticket' => 'Hide this ticket',
+    'more-options' => 'More Options',
 ];

@@ -41,7 +41,7 @@
                                                     <?php
                                                     $is_free_event = false;
                                                     ?>
-                                                    <span title='{{money($ticket->price, $event->currency)}} Ticket Price + {{money($ticket->total_booking_fee, $event->currency)}} Booking Fees'>{{money($ticket->total_price, $event->currency)}} </span>
+                                                    <span title='{{money($ticket->price, $event->currency)}} + {{trans('manageevent.ticket-price')}} + {{money($ticket->total_booking_fee, $event->currency)}} Booking Fees'>{{money($ticket->total_price, $event->currency)}} </span>
                                                     <meta property="priceCurrency"
                                                           content="{{ $event->currency->code }}">
                                                     <meta property="price"

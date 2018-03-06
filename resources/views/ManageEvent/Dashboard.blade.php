@@ -302,7 +302,7 @@
                         Edit Event Page Design <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
-                        Create Tickets <i class="ico ico-arrow-right3"></i>
+                        {{ trans('manageevent.create-ticket') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
                         Website Embed Code <i class="ico ico-arrow-right3"></i>
