@@ -48,10 +48,19 @@ return [
     'refunded-amount' => 'Refunded Amount',
     'order-attendees' => 'Order Attendees',
     'cancelled' => 'Cancelled',
+    'event' => 'Event',
+    'organiser' => 'Organiser',
+    'venue' => 'Venue',
+    'start-date' => 'Start Date',
+    'time' => 'Time',
+    'end-date' => 'End Date',
+    'name' => 'Name',
+    'ticket-type' => 'Ticket Type',
+    'order-ref' => 'Order Ref.',
+    'attendee-ref' => 'Attendee Ref.',
 
 
 
-    /*
     /*
        Login page
        */
