@@ -142,8 +142,16 @@ return [
     'leave-blank-send' => 'Leave blank to send immediately.',
     'sent-any-messages' => 'You have not sent any messages for this event.',
     /*
-     Modals/MessageOrder.blade.php
+         Modals/MessageOrder.blade.php
 
-  */
+      */
     'order-instructed-to-send' => 'The order contact will be instructed to send any reply to',
+    /*
+      Modals/ResendTicketToAttendee.blade.php
+
+   */
+    'resend-ticket-to' => 'Resend Ticket to',
+    'attendee-ticket-to' => 'The attendee will be sent another copy of their ticket to',
+    'send-ticket' => 'Send Ticket',
+
 ];
