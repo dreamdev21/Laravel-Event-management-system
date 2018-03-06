@@ -79,10 +79,17 @@ return [
     /*
       Modals/EditOrder.blade.php
 
-  */
+   */
     'edit-ticket' => 'Edit Ticket',
     'save-ticket' => 'Save Ticket',
+    /*
+          Modals/ImportAttendee.blade.php
 
+       */
+    'invite-attendees' => 'Invite Attendees',
+    'import-file' => 'Import File',
+    'send-invitation-ticket' => 'Send invitation & ticket to attendees.',
+    'create-attendees' => 'Create Attendees',
 
 
 ];

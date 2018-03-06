@@ -86,7 +86,7 @@ Attendees
                                {!!Html::sortable_link('Email', $sort_by, 'email', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
                             </th>
                             <th>
-                               {!!Html::sortable_link('Ticket', $sort_by, 'ticket_id', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
+                               {!!Html::sortable_link(trans('common.ticket'), $sort_by, 'ticket_id', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
                             </th>
                             <th>
                                {!!Html::sortable_link('Order Ref.', $sort_by, 'order_reference', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}

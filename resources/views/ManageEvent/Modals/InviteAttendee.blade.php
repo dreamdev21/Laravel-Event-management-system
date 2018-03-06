@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                   {!! Form::label('ticket_id', 'Ticket', array('class'=>'control-label required')) !!}
+                                   {!! Form::label('ticket_id', trans('common.ticket'), array('class'=>'control-label required')) !!}
                                    {!! Form::select('ticket_id', $tickets, null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                 </div>
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-               {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+               {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
                {!! Form::submit('Invite Attendee', ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->

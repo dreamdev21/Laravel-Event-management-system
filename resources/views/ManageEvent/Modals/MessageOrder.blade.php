@@ -48,7 +48,7 @@
 
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-               {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+               {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
                {!! Form::submit('Send Message', ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
