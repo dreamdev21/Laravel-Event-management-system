@@ -1,15 +1,15 @@
 @extends('Shared.Layouts.BlankSlate')
 
 @section('blankslate-icon-class')
-    ico-question2
+    {{ trans('manageevent.ico-question2') }}
 @stop
 
 @section('blankslate-title')
-    No Questions Yet
+    {{ trans('manageevent.no-questions-yet') }}
 @stop
 
 @section('blankslate-text')
-    Here you can add questions which attendees will be asked to answer during the check-out process.
+    {{ trans('manageevent.here-you-can-add') }}
 @stop
 
 @section('blankslate-body')

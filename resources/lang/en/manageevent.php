@@ -215,5 +215,14 @@ return [
     'event-surveys' => 'Event Surveys',
     'html-embed-code' => 'HTML Embed Code',
 
+    /*
+    Partials/SurveyBlankSlate.blade.php
+
+   */
+    'ico-question2' => 'ico-question2',
+    'no-questions-yet' => 'No Questions Yet',
+    'here-you-can-add' => 'Here you can add questions which attendees will be asked to answer during the check-out process.',
+
+
 
 ];
