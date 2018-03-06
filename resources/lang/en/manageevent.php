@@ -69,6 +69,14 @@ return [
    */
     'order' => 'Order:',
     'update-order' => 'Update Order',
+    'edit-attendee' => 'Edit Attendee',
+    /*
+       Modals/EditOrder.blade.php
+
+   */
+    'edit-question' => 'Edit Question',
+    'question' => 'Question',
+
 
 
 

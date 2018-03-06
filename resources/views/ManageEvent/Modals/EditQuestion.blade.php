@@ -14,12 +14,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-question"></i>
-                    Edit Question</h3>
+                    {{ trans('manageevent.edit-question') }}</h3>
             </div>
             <div class="modal-body">
                         <div class="form-group">
                             <label for="question-title" class="required">
-                                Question
+                                {{ trans('manageevent.question') }}
                             </label>
                             {!! Form::text('title', $question->title, [
                                 'id' => 'question-title',
@@ -99,7 +99,7 @@
 
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-                {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
                 {!! Form::submit(trans('manageevent.save-question'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
