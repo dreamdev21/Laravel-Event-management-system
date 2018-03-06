@@ -14,13 +14,13 @@
                                <thead>
                                <tr>
                                    <th>
-                                       Attendee Details
+                                       {{ trans('manageevent.attendee-details') }}
                                    </th>
                                    <th>
-                                       Ticket
+                                       {{ trans('common.ticket') }}
                                    </th>
                                    <th>
-                                       Answer
+                                       {{ trans('manageevent.answer') }}
                                    </th>
                                </tr>
 
@@ -32,7 +32,7 @@
 
                                            {{ $answer->attendee->full_name }}
                                            @if($answer->attendee->is_cancelled)
-                                               (<span title="This attendee has been cancelled" class="text-danger">Cancelled</span>)
+                                               (<span title="This attendee has been cancelled" class="text-danger">{{ trans('common.cancelled') }}</span>)
                                            @endif<br>
                                            <a title="Go to attendee: {{ $answer->attendee->full_name }}" href="{{route('showEventAttendees', ['event_id' => $answer->attendee->event_id, 'q' => $answer->attendee->reference])}}">{{ $answer->attendee->email }}</a><br>
 
@@ -52,7 +52,7 @@
             @else
                 <div class="modal-body">
                     <div class="alert alert-info">
-                        Sorry, there are no answers to this question yet.
+                        {{ trans('manageevent.no-answers') }}
                     </div>
                 </div>
 

@@ -154,4 +154,13 @@ return [
     'attendee-ticket-to' => 'The attendee will be sent another copy of their ticket to',
     'send-ticket' => 'Send Ticket',
 
+    /*
+      Modals/ViewAnswers.blade.php
+
+   */
+    'attendee-details' => 'Attendee Details',
+    'answer' => 'Answer',
+    'no-answers' => 'Sorry, there are no answers to this question yet.',
+
+
 ];
