@@ -41,5 +41,12 @@ return [
     'revenue' => 'Revenue',
     'edit' => 'Edit',
     'manage' => 'Manage',
+    /*
+       Partials/EventBlankSlate.blade.php
+
+   */
+    'ico-ticket' => 'ico-ticket',
+    'no-events' => 'No Events Yet!',
+    'message-label' => 'Looks like you have yet to create an event. You can create one by clicking the button below.',
 
 ];
