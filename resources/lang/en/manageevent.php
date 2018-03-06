@@ -171,11 +171,20 @@ return [
     /*
       Partials/EditEventForm.blade.php
 
-   */
+    */
     'event-visibility' => 'Event Visibility',
     'make-event-visible' => 'Make event visible to the public.',
     'hide-event-visible' => 'Hide event from the public.',
     'event-flyer' => 'Event Flyer',
     'current-event-flyer' => 'Current Event Flyer',
     'delete-question' => 'Delete?',
+    /*
+     Partials/OrdersBlankSlate.blade.php
+
+    */
+    'ico-cart' => 'ico-cart',
+    'no-orders-yet' => 'No Orders Yet',
+    'new-orders-appear' => 'New orders will appear here as they are created.',
+
+
 ];

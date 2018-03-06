@@ -2,15 +2,15 @@
 
 
 @section('blankslate-icon-class')
-    ico-cart
+    {{ trans('manageevent.ico-cart') }}
 @stop
 
 @section('blankslate-title')
-    No Orders Yet
+    {{ trans('manageevent.no-orders-yet') }}
 @stop
 
 @section('blankslate-text')
-    New orders will appear here as they are created.
+    {{ trans('manageevent.new-orders-appear') }}
 @stop
 
 @section('blankslate-body')
