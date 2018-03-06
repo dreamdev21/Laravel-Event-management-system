@@ -58,6 +58,7 @@ return [
     'close' => 'Close',
     'amount' => 'Amount',
     'refunded' => 'Refunded',
+    'time' => 'Time',
 
 
 

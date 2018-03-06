@@ -19,20 +19,20 @@
     </div>
 
     <div class="event_details">
-        <h4>Event</h4>Demo Event<h4>Organiser</h4>Demo Organiser<h4>Venue</h4>Demo Location<h4>Start Date / Time</h4>
+        <h4>{{ trans('common.event') }}</h4>{{ trans('manageevent.demo-event') }}<h4>{{ trans('common.organiser') }}</h4>{{ trans('manageevent.demo-organiser') }}<h4>{{ trans('common.venue') }}</h4>{{ trans('manageevent.demo-location') }}<h4>{{ trans('manageevent.start-date') }} / {{ trans('manageevent.time') }}</h4>
         Mar 18th 4:08PM
-        <h4>End Date / Time</h4>
+        <h4>{{ trans('manageevent.end-date') }} / {{ trans('manageevent.time') }}</h4>
         Mar 18th 5:08PM
     </div>
 
     <div class="attendee_details">
-        <h4>Name</h4>Bill Blogs<h4>Ticket Type</h4>
-        General Admission
-        <h4>Order Ref.</h4>
+        <h4>{{ trans('common.name') }}</h4>{{ trans('manageevent.bill-blogs') }}<h4>{{ trans('common.ticket-type') }}</h4>
+        {{ trans('manageevent.general-adminssion') }}
+        <h4>{{ trans('manageevent.order-ref') }}</h4>
         #YLY9U73
-        <h4>Attendee Ref.</h4>
+        <h4>{{ trans('manageevent.attendee-ref') }}</h4>
         #YLY9U73-1
-        <h4>Price</h4>
+        <h4>{{ trans('common.price') }}</h4>
         €XX.XX
     </div>
 

@@ -222,7 +222,15 @@ return [
     'ico-question2' => 'ico-question2',
     'no-questions-yet' => 'No Questions Yet',
     'here-you-can-add' => 'Here you can add questions which attendees will be asked to answer during the check-out process.',
+    /*
+    Partials/TicketDesignPreview.blade.php
 
+   */
+    'demo-event' => 'Demo Event',
+    'demo-organiser' => 'Demo Organiser',
+    'demo-location' => 'Demo Location',
+    'bill-blogs' => 'Bill Blogs',
+    'general-adminssion' => 'General Admission',
 
 
 ];

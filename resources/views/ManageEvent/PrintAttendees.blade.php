@@ -28,7 +28,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Ticket</th>
-                    <th>Order Ref.</th>
+                    <th>{{ trans('manageevent.order-ref') }}</th>
                     <th>Purchase Date</th>
                     <th>Arrived</th>
                 </tr>
