@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 class="modal-title">
                     <i class="ico-ticket"></i>
-                    Edit Ticket: <em>{{$ticket->title}}</em></h3>
+                    {{ trans('manageevent.edit-ticket') }}: <em>{{$ticket->title}}</em></h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -98,7 +98,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit('Save Ticket', ['class'=>"btn btn-success"]) !!}
+                {!! Form::submit(trans('manageevent.save-ticket'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
        {!! Form::close() !!}

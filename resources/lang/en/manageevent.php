@@ -76,7 +76,12 @@ return [
    */
     'edit-question' => 'Edit Question',
     'question' => 'Question',
+    /*
+      Modals/EditOrder.blade.php
 
+  */
+    'edit-ticket' => 'Edit Ticket',
+    'save-ticket' => 'Save Ticket',
 
 
 
