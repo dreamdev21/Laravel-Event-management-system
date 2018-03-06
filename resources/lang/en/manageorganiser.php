@@ -56,4 +56,10 @@ return [
     'dashboard' => 'Dashboard',
     'events' => 'Events',
     'customize' => 'Customize',
+    /*
+       Partials/Sidebar.blade.php
+
+   */
+    'organiser-page' => 'Organiser Page',
+
 ];
