@@ -48,11 +48,11 @@ Event Surveys
                         <h4>{{ trans('manageevent.instructions') }}</h4>
 
                         <p>
-                            Simply copy and paste the HTML provided into your website wherever you would like the widget to appear.
+                            {{ trans('manageevent.simply-copy-paste') }}
                         </p>
 
                         <h5>
-                            <b>Embed Preview</b>
+                            <b>{{ trans('manageevent.embed-preivew') }}</b>
                         </h5>
 
                         <div class="preview_embed" style="border:1px solid #ddd; padding: 5px;">

@@ -205,4 +205,12 @@ return [
     'surveys' => 'Surveys',
     'event-tools' => 'Event Tools',
     'widgets' => 'Widgets',
+    /*
+     Partials/Widget.blade.php
+
+    */
+    'simply-copy-paste' => 'Simply copy and paste the HTML provided into your website wherever you would like the widget to appear.',
+    'embed-preivew' => 'Embed Preview',
+
+
 ];
