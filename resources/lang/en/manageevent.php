@@ -186,5 +186,22 @@ return [
     'no-orders-yet' => 'No Orders Yet',
     'new-orders-appear' => 'New orders will appear here as they are created.',
 
+    /*
+     Partials/ManageEvent.blade.php
 
+    */
+    'main-menu' => 'Main Menu',
+    'back-to' => 'Back To',
+    'event-menu' => 'Event Menu',
+    /*
+     Partials/Sidebar.blade.php
+
+    */
+    'orders' => 'Orders',
+    'attendees' => 'Attendees',
+    'promote' => 'Promote',
+    'customize' => 'Customize',
+    'check-in' => 'Check-In',
+    'surveys' => 'Surveys',
+    'widgets' => 'Widgets',
 ];
