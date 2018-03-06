@@ -6,37 +6,37 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-cancel"></i>
-                    Cancel <b>{{$attendee->full_name}} <b></h3>
+                    Cancel <b>{{$attendee->full_name}} <b> </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    Cancelling Attendees will remove them from the attendee list.
+                    {{ trans('manageevent.cancelling-remove-list') }}
                 </p>
 
                 <p>
-                    If you would like to refund the order which this attendee belongs to you can do so
-                    <a href="{{route('showEventOrders', ['event_id' => $attendee->event->id, 'q' => $attendee->order->order_reference])}}">here</a>.
+                    {{  trans('manageevent.if-refund-order') }}
+                    <a href="{{route('showEventOrders', ['event_id' => $attendee->event->id, 'q' => $attendee->order->order_reference])}}">{{ trans('manageevent.here') }}</a>.
                 </p>
                 <br>
                 <div class="form-group">
                     <div class="checkbox custom-checkbox">
                         <input type="checkbox" name="notify_attendee" id="notify_attendee" value="1">
-                        <label for="notify_attendee">&nbsp;&nbsp;Notify <b>{{$attendee->full_name}}</b> their ticket has been cancelled.</label>
+                        <label for="notify_attendee">&nbsp;&nbsp;{{ trans('manageevent.notify') }} <b>{{$attendee->full_name}}</b>{{ trans('manageevent.ticket-cancelled') }}</label>
                     </div>
                 </div>
                 @if(config('attendize.default_payment_gateway') == config('attendize.payment_gateway_stripe'))
                     <div class="form-group">
                             <div class="checkbox custom-checkbox">
                                 <input type="checkbox" name="refund_attendee" id="refund_attendee" value="1">
-                                <label for="refund_attendee">&nbsp;&nbsp;Refund <b>{{$attendee->full_name}}</b> for their ticket.</label>
+                                <label for="refund_attendee">&nbsp;&nbsp;{{ trans('manageevent.refund') }} <b>{{$attendee->full_name}}</b> {{ trans('manageevent.for-their-ticket') }}</label>
                             </div>
                     </div>
                 @endif
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                {!! Form::hidden('attendee_id', $attendee->id) !!}
-               {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-               {!! Form::submit('Confirm Cancel Attendee', ['class'=>"btn btn-success"]) !!}
+               {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+               {!! Form::submit(trans('common.confirm-cancel-attendee'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
        {!! Form::close() !!}
