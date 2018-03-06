@@ -48,5 +48,12 @@ return [
     'ico-ticket' => 'ico-ticket',
     'no-events' => 'No Events Yet!',
     'message-label' => 'Looks like you have yet to create an event. You can create one by clicking the button below.',
+    /*
+       Partials/Sidebar.blade.php
 
+   */
+    'organiser-menu' => 'Organiser Menu',
+    'dashboard' => 'Dashboard',
+    'events' => 'Events',
+    'customize' => 'Customize',
 ];
