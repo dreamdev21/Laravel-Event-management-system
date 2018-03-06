@@ -96,5 +96,19 @@ return [
    */
     'email-address' => 'Email Address',
     'send-invitation-ticket' => 'Send invitation & ticket to attendee.',
+    /*
+      Modals/ManageCoupons.blade.php
+
+   */
+    'coupons' => 'Coupons',
+    'what-age-are-you' => 'What age are you?',
+    'text-box' => 'Text Box',
+    'drop-down-list' => 'Drop Down List',
+    'checkbox-t-f' => 'Checkbox (True/False)',
+    'instructions' => 'Instructions',
+    'use-comma' => 'Please use a comma to separate options.',
+    'delete-question' => 'Delete Question',
+
+
 
 ];
