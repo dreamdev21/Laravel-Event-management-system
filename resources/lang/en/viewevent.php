@@ -57,7 +57,13 @@ return [
     'sales-have-ended' => 'Sales Have Ended',
     'offline-payment-method-available' => 'Offline Payment Methods Available',
     'tickets-unavalible' => 'Tickets are currently unavailable.',
+    /*
+       Partials/EventViewOrderSection.blade.php
 
+   */
+    'confirm-email-sent' => ' and a confirmation email have been sent to you.',
+    'payment-instructions' => 'Payment Instructions',
+    'alert-info-awaiting-payment' => 'This order is awaiting payment. Please read the below instructions on how to make payment.',
 
 
 

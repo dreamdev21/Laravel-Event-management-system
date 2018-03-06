@@ -37,6 +37,18 @@ return [
     'sub-total' => 'SUB TOTAL',
     'tax-fee' => 'TAXES &amp; FEES',
     'total-payable' => 'TOTAL PAYABLE',
+    'thankyou-order' => 'Thank you for your order!',
+    'your' => 'Your ',
+    'amount' => 'Amount',
+    'reference' => 'Reference',
+    'date' => 'Date',
+    'order-items' => 'Order Items',
+    'ticket' => 'Ticket',
+    'booking-fee' => 'Booking Fee',
+    'refunded-amount' => 'Refunded Amount',
+    'order-attendees' => 'Order Attendees',
+    'cancelled' => 'Cancelled',
+
 
 
     /*

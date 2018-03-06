@@ -53,9 +53,9 @@
             <span class="massive-icon">
                 <i class="ico ico-checkmark-circle"></i>
             </span>
-            <h1>Thank you for your order!</h1>
+            <h1>{{ trans('common.thankyou-order') }}</h1>
             <h2>
-                Your <a title="Download Tickets" class="ticket_download_link" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
+                {{ trans('common.your') }} <a title="Download Tickets" class="ticket_download_link" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">{{ trans('viewevent.tickets') }}</a> {{ trans('viewevent.confirm-email-sent') }}
             </h2>
         </div>
     </div>
@@ -73,27 +73,27 @@
                 <div class="order_details well">
                     <div class="row">
                         <div class="col-sm-4 col-xs-6">
-                            <b>First Name</b><br> {{$order->first_name}}
+                            <b>{{ trans('common.first-name') }}</b><br> {{$order->first_name}}
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <b>Last Name</b><br> {{$order->last_name}}
+                            <b>{{ trans('common.last-name') }}</b><br> {{$order->last_name}}
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <b>Amount</b><br> {{$order->event->currency_symbol}}{{number_format($order->total_amount,2)}}
+                            <b>{{ trans('common.amount') }}</b><br> {{$order->event->currency_symbol}}{{number_format($order->total_amount,2)}}
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <b>Reference</b><br> {{$order->order_reference}}
+                            <b>{{ trans('common.reference') }}</b><br> {{$order->order_reference}}
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <b>Date</b><br> {{$order->created_at->toDateTimeString()}}
+                            <b>{{ trans('common.date') }}</b><br> {{$order->created_at->toDateTimeString()}}
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <b>Email</b><br> {{$order->email}}
+                            <b>{{ trans('common.email') }}</b><br> {{$order->email}}
                         </div>
                     </div>
                 </div>
@@ -101,10 +101,10 @@
 
                     @if(!$order->is_payment_received)
                         <h3>
-                            Payment Instructions
+                            {{ trans('viewevent.payment-instructions') }}
                         </h3>
                     <div class="alert alert-info">
-                        This order is awaiting payment. Please read the below instructions on how to make payment.
+                        {{  trans('viewevent.alert-info-awaiting-payment') }}
                     </div>
                     <div class="offline_payment_instructions well">
                         {!! Markdown::parse($event->offline_payment_instructions) !!}
@@ -113,7 +113,7 @@
                     @endif
 
                 <h3>
-                    Order Items
+                    {{ trans('common.order-items') }}
                 </h3>
 
                 <div class="table-responsive">
@@ -121,19 +121,19 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Ticket
+                                    {{ trans('common.ticket') }}
                                 </th>
                                 <th>
-                                    Quantity
+                                    {{ trans('common.quantity') }}
                                 </th>
                                 <th>
-                                    Price
+                                    {{ trans('common.price') }}
                                 </th>
                                 <th>
-                                    Booking Fee
+                                    {{ trans('common.booking-fee') }}
                                 </th>
                                 <th>
-                                    Total
+                                    {{ trans('common.total') }}
                                 </th>
                             </tr>
                         </thead>
@@ -148,7 +148,7 @@
                                     </td>
                                     <td>
                                         @if((int)ceil($order_item->unit_price) == 0)
-                                        FREE
+                                        {{ trans('commmon.free') }}
                                         @else
                                        {{money($order_item->unit_price, $order->event->currency)}}
                                         @endif
@@ -164,7 +164,7 @@
                                     </td>
                                     <td>
                                         @if((int)ceil($order_item->unit_price) == 0)
-                                        FREE
+                                            {{ trans('commmon.free') }}
                                         @else
                                         {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
                                         @endif
@@ -180,7 +180,7 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <b>Sub Total</b>
+                                    <b>{{ trans('commmon.sub-total') }}</b>
                                 </td>
                                 <td colspan="2">
                                     {{money($order->total_amount, $order->event->currency)}}
@@ -195,7 +195,7 @@
                                     <td>
                                     </td>
                                     <td>
-                                        <b>Refunded Amount</b>
+                                        <b>{{ trans('common.refunded-amount') }}</b>
                                     </td>
                                     <td colspan="2">
                                         {{money($order->amount_refunded, $order->event->currency)}}
@@ -209,7 +209,7 @@
                                     <td>
                                     </td>
                                     <td>
-                                        <b>Total</b>
+                                        <b>{{ trans('common.total') }}</b>
                                     </td>
                                     <td colspan="2">
                                         {{money($order->total_amount - $order->amount_refunded, $order->event->currency)}}
@@ -222,7 +222,7 @@
                 </div>
 
                 <h3>
-                    Order Attendees
+                    {{ trans('common.order-attendees') }}
                 </h3>
 
                 <div class="table-responsive">
@@ -240,7 +240,7 @@
                                 </td>
                                 <td>
                                     @if($attendee->is_cancelled)
-                                        Cancelled
+                                        {{ trans('common.cancelled') }}
                                     @endif
                                 </td>
                             </tr>
