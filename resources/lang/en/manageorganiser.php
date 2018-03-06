@@ -110,8 +110,15 @@ return [
     /*
       Events.blade.php
 
-  */
+   */
     'search-events' => 'Search Events..',
     'created' => 'Created',
+    /*
+       SelectOrganiser.blade.php
+
+    */
+    'continue-to' => 'Continue to:',
+    'or' => 'Or',
+    'create-new-organiser' => 'Create New Organiser',
 
 ];
