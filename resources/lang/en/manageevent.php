@@ -246,6 +246,15 @@ return [
     'event-visible-public' => 'This event is not visible to the public.',
     'click-here-to-live' => 'Click here to make it live',
     'event-page' => 'Event Page',
+    /*
+    Partials/TopNav.blade.php
+
+   */
+    'event-attendees' => 'Event Attendees',
+    'print-attendee-list' => 'Print Attendee List',
+    'export' => 'Export',
+    'resend-ticket'=> 'Resend Ticket',
+    'download-pdf-ticket'=> 'Download PDF Ticket',
 
 
 ];
