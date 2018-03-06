@@ -95,6 +95,17 @@ return [
     'organiser-page-preview' => 'Organiser Page Preview',
     'save-changes' => 'Save Changes',
 
+    /*
+       Customize.blade.php
 
+   */
+    'sales-volume' => 'Sales Volume',
+    'event-calendar' => 'Event Calendar',
+    'upcoming-events' => 'Upcoming Events',
+    'no-events-comeup' => 'You have no events coming up.',
+    'click-create-event' => 'You can click here to create an event.',
+    'recent-orders' => 'Recent Orders',
+    'registered' => 'registered',
+    'no-recent-orders' => 'Looks like there are no recent orders.',
 
 ];
