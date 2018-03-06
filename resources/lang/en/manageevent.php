@@ -130,6 +130,15 @@ return [
     'message-content' => 'Message Content',
     'send-copy-to' => 'Send a copy to',
     'send-reply-to' => 'The attendee will be instructed to send any reply to',
+    /*
+         Modals/MessageAttendees.blade.php
 
-
+      */
+    'message-attendees' => 'Message Attendees',
+    'new-message' => 'New Message',
+    'sent-message' => 'Sent Messages',
+    'send-to' => 'Send To',
+    'schedule-send-time' => 'Schedule Send Time',
+    'leave-blank-send' => 'Leave blank to send immediately.',
+    'sent-any-messages' => 'You have not sent any messages for this event.',
 ];

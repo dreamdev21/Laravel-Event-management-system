@@ -6,12 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 class="modal-title">
                     <i class="ico-envelope"></i>
-                    Message Attendees</h3>
+                    {{ trans('manageevent.message-attendees') }}</h3>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#new_message" data-toggle="tab">New Message</a></li>
-                    <li><a href="#sent_messages" data-toggle="tab">Sent Messages</a></li>
+                    <li class="active"><a href="#new_message" data-toggle="tab">{{ trans('manageevent.new-message') }}</a></li>
+                    <li><a href="#sent_messages" data-toggle="tab">{{ trans('manageevent.sent-message') }}</a></li>
                 </ul>
 
                 <div class="tab-content panel">
@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    {!! Form::label('subject', 'Message Subject', array('class'=>'control-label required')) !!}
+                                    {!! Form::label('subject', trans('manageevent.message-subject'), array('class'=>'control-label required')) !!}
                                     {!!  Form::text('subject', Input::old('subject'),
                                         array(
                                         'class'=>'form-control'
@@ -35,7 +35,7 @@
                                         ))  !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('recipients', 'Send To', array('class'=>'control-label required')) !!}
+                                    {!! Form::label('recipients', trans('manageevent.send-to'), array('class'=>'control-label required')) !!}
                                     {!!  Form::select('recipients', [
                                             'all' => 'All Event Attendees'
                                         ] + ['Attendees with ticket type' => $tickets] ,
@@ -45,13 +45,13 @@
                                 </div>
 
                                 <div class="form-group hide">
-                                    {!! Form::label('sent_time', 'Schedule Send Time', array('class'=>'control-label required')) !!}
+                                    {!! Form::label('sent_time', trans('manageevent.schedule-send-time'), array('class'=>'control-label required')) !!}
                                     {!!  Form::text('sent_time', Input::old('sent_time'),
                                         array(
                                         'class'=>'form-control'
                                         ))  !!}
                                     <div class="help-block">
-                                        Leave blank to send immediately.
+                                        {{ trans('manageevent.leave-blank-send') }}
                                     </div>
                                 </div>
                             </div>
@@ -69,12 +69,12 @@
                                             <tr>
                                                 <td style="width: 100px;">
                                                     <h5>
-                                                        <b>Date</b>
+                                                        <b>{{ trans('manageevent.date') }}</b>
                                                     </h5>
                                                 </td>
                                                 <td>
                                                     <h5>
-                                                        <b>Message</b>
+                                                        <b>{{ trans('manageevent.message') }}</b>
                                                     </h5>
                                                 </td>
                                             </tr>
@@ -102,7 +102,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                You have not sent any messages for this event.
+                                {{ trans('manageevent.sent-any-messages') }}
                             </div>
                         @endif
                     </div>
