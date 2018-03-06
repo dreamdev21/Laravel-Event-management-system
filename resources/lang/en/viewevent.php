@@ -31,8 +31,15 @@ return [
     'event-dashboard' => 'Event Dashboard',
     'organiser-dashboard' => 'Organiser Dashboard',
     /*
-        Partials/EventFooterSection.blade.php
+        Partials/EventHeaderSection.blade.php
 
     */
+
+    'event-is-not-public' => 'This event is not visible to the public ',
+    'publish-event' => 'Publish Event',
+    'presents' => 'Presents',
+    'tickets' => 'TICKETS',
+    'details' => 'DETAILS',
+    'location' => 'LOCATION',
 
 ];

@@ -2,7 +2,7 @@
 <section id="goLiveBar">
     <div class="container">
                 @if(!$event->is_live)
-                This event is not visible to the public - <a style="background-color: green; border-color: green;" class="btn btn-success btn-xs" href="{{route('MakeEventLive' , ['event_id' => $event->id])}}" >Publish Event</a>
+                {{ trans('viewevent.event-is-not-public') }} - <a style="background-color: green; border-color: green;" class="btn btn-success btn-xs" href="{{route('MakeEventLive' , ['event_id' => $event->id])}}" >{{ trans('viewevent.publish-event') }}</a>
                 @endif
     </div>
 </section>
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div onclick="window.location='{{$event->event_url}}#organiser'" class="event_organizer">
-                    <b>{{$event->organiser->name}}</b> Presents
+                    <b>{{$event->organiser->name}}</b> {{ trans('viewevent.presents') }}
                 </div>
             </div>
         </div>
@@ -44,13 +44,13 @@
             <div class="event_buttons">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
-                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#tickets">TICKETS</a>
+                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#tickets">{{ trans('viewevent.tickets') }}</a>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#details">DETAILS</a>
+                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#details">{{ trans('viewevent.details') }}</a>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#location">LOCATION</a>
+                        <a class="btn btn-event-link btn-lg" href="{{{$event->event_url}}}#location">{{ trans('viewevent.location') }}</a>
                     </div>
                 </div>
             </div>
