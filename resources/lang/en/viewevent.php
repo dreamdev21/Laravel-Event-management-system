@@ -64,7 +64,12 @@ return [
     'confirm-email-sent' => ' and a confirmation email have been sent to you.',
     'payment-instructions' => 'Payment Instructions',
     'alert-info-awaiting-payment' => 'This order is awaiting payment. Please read the below instructions on how to make payment.',
+    /*
+       EventNotLive.blade.php
 
+   */
+    'event-not-live' => 'Event Not Live',
+    'event-page-not-avaliable' => 'This event page is not available to the public.',
 
 
 ];
