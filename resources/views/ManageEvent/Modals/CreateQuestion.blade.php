@@ -15,12 +15,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-question"></i>
-                    Create Question</h3>
+                    {{ trans('manageevent.create-question') }}</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="question-title" class="required">
-                        Question
+                        {{ trans('manageevent.question') }}
                     </label>
                     {!! Form::text('title', '', [
                         'id' => 'question-title',
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label for="question-type">
-                        Question Type
+                        {{trans('manageevent.question-type')}}
                     </label>
 
                     <select id="question-type" class="form-control" name="question_type_id"
@@ -45,7 +45,7 @@
 
 
                 <fieldset id="question-options" class="hide">
-                    <h4>Question Options</h4>
+                    <h4>{{ trans('manageevent.question-options') }}</h4>
                     <table class="table table-bordered table-condensed">
                         <tbody>
                         <tr>
@@ -61,7 +61,7 @@
                                            <span id="add-question-option" class="btn btn-success btn-xs"
                                                  onclick="addQuestionOption();">
                                                <i class="ico-plus"></i>
-                                               Add another option
+                                               {{ trans('manageevent.add-another-options') }}
                                            </span>
                             </td>
                         </tr>
@@ -72,12 +72,12 @@
                 <div class="form-group">
                     <div class="custom-checkbox">
                         {!! Form::checkbox('is_required', 'yes', false, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
-                        {!! Form::label('is_required', 'Make this a required question') !!}
+                        {!! Form::label('is_required', trans('manageevent.require-question')) !!}
                     </div>
                 </div>
 
                 <h4>
-                    Require this question for ticket(s):
+                    {{ trans('manageevent.require-question-for-ticket') }}
                 </h4>
                 <div class="form-group">
 
@@ -92,8 +92,8 @@
 
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-                {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit('Save Question', ['class'=>"btn btn-success"]) !!}
+                {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                {!! Form::submit(trans('manageevent.save-question'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
     </div>

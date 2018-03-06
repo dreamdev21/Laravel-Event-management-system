@@ -15,7 +15,7 @@
 @section('blankslate-body')
     <button data-invoke="modal" data-modal-id='CreateQuestion' data-href="{{route('showCreateEventQuestion', array('event_id'=>$event->id))}}" href='javascript:void(0);'  class=' btn btn-success mt5 btn-lg' type="button" >
         <i class="ico-question"></i>
-        Create Question
+        {{ trans('manageevent.create-question') }}
     </button>
 @stop
 

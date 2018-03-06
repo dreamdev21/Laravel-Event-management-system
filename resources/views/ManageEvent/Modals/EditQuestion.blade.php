@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="question-type">
-                                Question Type
+                                {{trans('manageevent.question-type')}}
                             </label>
 
                             <select id="question-type" class="form-control" name="question_type_id" onchange="changeQuestionType(this);">
@@ -41,7 +41,7 @@
                             </select>
                         </div>
                         <fieldset id="question-options" class="{{ $question->question_type->has_options ? '' : 'hide' }}" >
-                            <h4>Question Options</h4>
+                            <h4>{{ trans('manageevent.question-options') }}</h4>
                             <table class="table table-condensed table-bordered">
                                 <tbody>
                                 @if(count($question->options))
@@ -68,7 +68,7 @@
                                        <td colspan="2">
                                            <span id="add-question-option" class="btn btn-success btn-xs" onclick="addQuestionOption();">
                                                <i class="ico-plus"></i>
-                                               Add another option
+                                               {{ trans('manageevent.add-another-options') }}
                                            </span>
                                        </td>
                                     </tr>
@@ -79,13 +79,13 @@
                         <div class="form-group">
                             <div class="custom-checkbox ">
                             {!! Form::checkbox('is_required', 1, $question->is_required, ['data-toggle' => 'toggle', 'id' => 'is_required']) !!}
-                            {!! Form::label('is_required', 'Make this a required question') !!}
+                            {!! Form::label('is_required', trans('manageevent.require-question')) !!}
                                 </div>
                         </div>
 
                         <div class="form-group">
                             <label>
-                                Require this question for ticket(s):
+                                {{ trans('manageevent.require-question-for-ticket') }}
                             </label>
                             @foreach ($event->tickets as $ticket)
                                 <div class="custom-checkbox mb5">
@@ -100,7 +100,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                 {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit('Save Question', ['class'=>"btn btn-success"]) !!}
+                {!! Form::submit(trans('manageevent.save-question'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
     </div>

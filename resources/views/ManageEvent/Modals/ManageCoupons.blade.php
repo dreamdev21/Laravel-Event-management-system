@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>
-                                        Question Type
+                                        {{trans('manageevent.question-type')}}
                                     </label>
                                     <select class="form-control" name="question_type_id">
                                         <option value="1">
@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>
-                                        Question Options
+                                        {{ trans('manageevent.question-options') }}
                                     </label>
                                     <input placeholder="e.g option 1, option 2, option 3" class="form-control" type="text" name="options" />
                                     <div class="help-block">
@@ -76,7 +76,7 @@
                                 <div class="col-md-12">
                                     <span class="checkbox custom-checkbox">
                                         <input type="checkbox" id="requiredq" value="option1">
-                                        <label for="requiredq">&nbsp; Make this a required question</label>
+                                        <label for="requiredq">&nbsp; {{ trans('manageevent.require-question') }}</label>
                                     </span>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                         <div class="form-group no-border">
                             <div class="col-sm-12">
                                 <button  class="btn btn-danger deleteThis float-right">Delete Question</button>
-                                <button type="submit" class="btn btn-success float-right">Save Question</button>
+                                <button type="submit" class="btn btn-success float-right">{{ trans('manageevent.save-question') }}</button>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     Close
                 </a>
                 <a href="" class="btn btn-success">
-                    Create Question
+                    {{ trans('manageevent.create-question') }}
                 </a>
                 <button data-modal-id="CreateTicket" href="javascript:void(0);"  data-href="{{route('showCreateTicket', array('event_id'=>$event->id))}}" class="loadModal btn btn-success" type="button" ><i class="ico-ticket"></i> Create Ticket</button>
             </div>

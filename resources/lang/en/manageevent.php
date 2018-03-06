@@ -31,5 +31,16 @@ return [
     'refunded-text' => 'All :attribute of this order has been refunded.',
     'refunded-cannot' => "Sorry, you can't refund :attribute payments here. You will have to do it on their website.",
     'confirm-order-cancel' => 'Confirm Order Cancel',
+    /*
+           Modals/CreateQuestion.blade.php
 
+       */
+    'create-question' => 'Create Question',
+    'question' => 'Question',
+    'question-type' => 'Question Type',
+    'question-options' => 'Question Options',
+    'add-another-options' => 'Add another option',
+    'require-question' => 'Make this a required question',
+    'require-question-for-ticket' => 'Require this question for ticket(s):',
+    'save-question' => 'Save Question',
 ];
