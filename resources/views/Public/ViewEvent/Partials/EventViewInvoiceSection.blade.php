@@ -1,7 +1,7 @@
 <section id="order_form" class="container">
     <div class="row">
         <h1 class="section_head">
-            Order Details
+            {{ trans('common.order-details') }}
         </h1>
     </div>
     <div class="row">
@@ -21,11 +21,11 @@
                         <div class="panel-body">
                             <ul class="list-table">
                                 <li class="text-left">
-                                    <h4 class="semibold nm">Invoice / December Period</h4>
+                                    <h4 class="semibold nm">{{ trans('common.invoice') }} / December Period</h4>
                                     <p class="semibold text-muted nm">December 22nd, 2014 - October 8th, 2014</p>
                                 </li>
                                 <li class="text-right">
-                                    <p class="semibold text-primary nm">Invoice ID : #{{$order->id}}</p>
+                                    <p class="semibold text-primary nm">{{ trans('common.invoice') }} ID : #{{$order->id}}</p>
                                 </li>
                             </ul>
                         </div>
@@ -36,10 +36,10 @@
                                 <thead>
                                     <tr>
                                         <th width="5%"></th>
-                                        <th>Ticket Title</th>
-                                        <th width="15%" class="text-center">Quantity</th>
-                                        <th width="15%" class="text-center">Price</th>
-                                        <th width="15%" class="text-center">Total</th>
+                                        <th>{{ trans('common.ticket-title') }}</th>
+                                        <th width="15%" class="text-center">{{ trans('common.quantity') }}</th>
+                                        <th width="15%" class="text-center">{{ trans('common.price') }}</th>
+                                        <th width="15%" class="text-center">{{ trans('common.total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,7 +62,7 @@
                         <div class="panel-footer">
                             <ul class="list-table pa10">
                                 <li>
-                                    <h5 class="semibold nm">SUB TOTAL</h5>
+                                    <h5 class="semibold nm">{{ trans('common.sub-total') }}</h5>
                                 </li>
                                 <li class="text-right">
                                     <h3 class="semibold nm">$10,140.00</h3>
@@ -74,7 +74,7 @@
                         <div class="panel-footer">
                             <ul class="list-table pa10">
                                 <li>
-                                    <h5 class="semibold nm">TAXES &amp; FEES</h5>
+                                    <h5 class="semibold nm">{{ trans('common.tax-fee') }}</h5>
                                 </li>
                                 <li class="text-right">
                                     <h3 class="semibold nm">$60.00</h3>
@@ -86,7 +86,7 @@
                         <div class="panel-footer">
                             <ul class="list-table pa10">
                                 <li>
-                                    <h5 class="semibold nm">TOTAL PAYABLE</h5>
+                                    <h5 class="semibold nm">{{ trans('common.total-payable') }}</h5>
                                 </li>
                                 <li class="text-right">
                                     <h3 class="semibold nm text-success">$10,200.00</h3>

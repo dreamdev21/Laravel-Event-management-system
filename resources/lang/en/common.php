@@ -28,6 +28,15 @@ return [
     'your-message' => 'Your Message',
     'send-message' => 'Send Message',
     'register' => 'Register',
+    'order-details' => 'Order Details',
+    'invoice' => 'Invoice',
+    'ticket-title' => 'Ticket Title',
+    'quantity' => 'Quantity',
+    'price' => 'Price',
+    'total' => 'Total',
+    'sub-total' => 'SUB TOTAL',
+    'tax-fee' => 'TAXES &amp; FEES',
+    'total-payable' => 'TOTAL PAYABLE',
 
 
     /*
