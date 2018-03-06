@@ -49,6 +49,13 @@ return [
     'ticket-type' => 'Ticket Type',
     'order-ref' => 'Order Ref.',
     'attendee-ref' => 'Attendee Ref.',
+    'old-password' => 'Old Password',
+    'new-password' => 'New Password',
+    'confirm-new-password' => 'Confirm New Password',
+    'change-password' => 'Change Password',
+    'cancel' => 'Cancel',
+    'save-details' => 'Save Details',
+
 
 
 
