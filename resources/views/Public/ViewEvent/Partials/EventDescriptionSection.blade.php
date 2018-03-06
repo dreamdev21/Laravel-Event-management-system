@@ -1,7 +1,7 @@
 <section id="details" class="container">
     <div class="row">
         <h1 class="section_head">
-            Event Details
+            {{ trans('viewevent.event-details') }}
         </h1>
     </div>
     <div class="row">

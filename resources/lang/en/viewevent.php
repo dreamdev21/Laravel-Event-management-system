@@ -16,9 +16,23 @@ return [
     'copy-buyer-detail' => 'Copy buyer details to all ticket holders',
     'ticket-holder' => 'Ticket Holder Information',
     'ticket-holder-detail' => ' Ticket Holder :attribute Details ',
-    '' => '',
-    '' => '',
     'copy-buyer-detail' => 'Copy buyer details to all ticket holders',
 
-   
+    /*
+        Partials/EventDescriptionSection.blade.php
+    */
+
+    'event-details' => 'Event Details',
+    /*
+        Partials/EventFooterSection.blade.php
+
+    */
+
+    'event-dashboard' => 'Event Dashboard',
+    'organiser-dashboard' => 'Organiser Dashboard',
+    /*
+        Partials/EventFooterSection.blade.php
+
+    */
+
 ];

@@ -9,12 +9,10 @@
 
                 @if(Utils::userOwns($event))
                 &bull;
-                <a class="adminLink " href="{{route('showEventDashboard' , ['event_id' => $event->id])}}">Event
-                    Dashboard</a>
+                <a class="adminLink " href="{{route('showEventDashboard' , ['event_id' => $event->id])}}">{{ trans('viewevent.event-dashboard') }}</a>
                 &bull;
                 <a class="adminLink "
-                   href="{{route('showOrganiserDashboard' , ['organiser_id' => $event->organiser->id])}}">Organiser
-                    Dashboard</a>
+                   href="{{route('showOrganiserDashboard' , ['organiser_id' => $event->organiser->id])}}">{{ trans('viewevent.organiser-dashboard') }}</a>
                 @endif
             </div>
         </div>
