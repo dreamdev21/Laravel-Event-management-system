@@ -121,7 +121,15 @@ return [
     'payment-gateway' => 'Payment Gateway',
     'print-tickets' => 'Print Tickets',
     'resend-tickets' => 'Resend Tickets',
+    /*
+      Modals/MessageAttendee.blade.php
 
+   */
+    'message' => 'Message',
+    'message-subject' => 'Mesage Subject',
+    'message-content' => 'Message Content',
+    'send-copy-to' => 'Send a copy to',
+    'send-reply-to' => 'The attendee will be instructed to send any reply to',
 
 
 ];

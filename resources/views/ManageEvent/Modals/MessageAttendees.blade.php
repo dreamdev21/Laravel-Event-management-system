@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {!! Form::label('message', 'Message Content', array('class'=>'control-label required')) !!}
+                                    {!! Form::label('message', trans('manageevent.message-content'), array('class'=>'control-label required')) !!}
                                     {!!  Form::textarea('message', Input::old('message'),
                                         array(
                                         'class'=>'form-control',
@@ -110,7 +110,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                 {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit('Send Message', ['class'=>"btn btn-success"]) !!}
+                {!! Form::submit(trans('common.send-message'), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
         {!! Form::close() !!}
