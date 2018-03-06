@@ -5,16 +5,16 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            {!! Form::label('is_live', 'Event Visibility', array('class'=>'control-label required')) !!}
+            {!! Form::label('is_live', trans('manageevent.event-visibility'), array('class'=>'control-label required')) !!}
             {!!  Form::select('is_live', [
-            '1' => 'Make event visible to the public.',
-            '0' => 'Hide event from the public.'],null,
+            '1' => trans('manageevent.make-event-visible'),
+            '0' => trans('manageevent.hide-event-visible')],null,
                                         array(
                                         'class'=>'form-control'
                                         ))  !!}
         </div>
         <div class="form-group">
-            {!! Form::label('title', 'Event Title', array('class'=>'control-label required')) !!}
+            {!! Form::label('title', trans('manageorganiser.event-title'), array('class'=>'control-label required')) !!}
             {!!  Form::text('title', Input::old('title'),
                                         array(
                                         'class'=>'form-control',
@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-           {!! Form::label('description', 'Event Description', array('class'=>'control-label')) !!}
+           {!! Form::label('description', trans('manageorganiser.event-description'), array('class'=>'control-label')) !!}
             {!!  Form::textarea('description', Input::old('description'),
                                         array(
                                         'class'=>'form-control editable',
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group address-automatic" style="display:{{$event->location_is_manual ? 'none' : 'block'}};">
-            {!! Form::label('name', 'Venue Name', array('class'=>'control-label required ')) !!}
+            {!! Form::label('name', trans('manageorganiser.venue-name'), array('class'=>'control-label required ')) !!}
             {!!  Form::text('venue_name_full', Input::old('venue_name_full'),
                                         array(
                                         'class'=>'form-control geocomplete location_field',
@@ -62,21 +62,21 @@
 
         <div class="address-manual" style="display:{{$event->location_is_manual ? 'block' : 'none'}};">
             <div class="form-group">
-                {!! Form::label('location_venue_name', 'Venue Name', array('class'=>'control-label required ')) !!}
+                {!! Form::label('location_venue_name', trans('manageorganiser.venue-name'), array('class'=>'control-label required ')) !!}
                 {!!  Form::text('location_venue_name', $event->venue_name, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: The Crab Shack'
                             ])  !!}
             </div>
             <div class="form-group">
-                {!! Form::label('location_address_line_1', 'Address Line 1', array('class'=>'control-label')) !!}
+                {!! Form::label('location_address_line_1', trans('manageorganiser.address-line-1'), array('class'=>'control-label')) !!}
                 {!!  Form::text('location_address_line_1', $event->location_address_line_1, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: 45 Grafton St.'
                             ])  !!}
             </div>
             <div class="form-group">
-                {!! Form::label('location_address_line_2', 'Address Line 2', array('class'=>'control-label')) !!}
+                {!! Form::label('location_address_line_2', trans('manageorganiser.address-line-2'), array('class'=>'control-label')) !!}
                 {!!  Form::text('location_address_line_2', $event->location_address_line_2, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: Dublin.'
@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('location_state', 'City', array('class'=>'control-label')) !!}
+                        {!! Form::label('location_state', trans('manageorganiser.city'), array('class'=>'control-label')) !!}
                         {!!  Form::text('location_state', $event->location_state, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: Dublin.'
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('location_post_code', 'Post Code', array('class'=>'control-label')) !!}
+                        {!! Form::label('location_post_code', trans('manageorganiser.post-code'), array('class'=>'control-label')) !!}
                         {!!  Form::text('location_post_code', $event->location_post_code, [
                                         'class'=>'form-control location_field',
                                         'placeholder'=>'E.g: 94568.'
@@ -114,7 +114,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {!! Form::label('start_date', 'Event Start Date', array('class'=>'required control-label')) !!}
+                    {!! Form::label('start_date', trans('manageorganiser.event-start-date'), array('class'=>'required control-label')) !!}
                     {!!  Form::text('start_date', $event->getFormattedDate('start_date'),
                                                         [
                                                     'class'=>'form-control start hasDatepicker ',
@@ -129,7 +129,7 @@
 
             <div class="col-sm-6 ">
                 <div class="form-group">
-                    {!!  Form::label('end_date', 'Event End Date',
+                    {!!  Form::label('end_date', trans('manageorganiser.event-end-date'),
                                         [
                                     'class'=>'required control-label '
                                 ])  !!}
@@ -148,17 +148,17 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                   {!! Form::label('event_image', 'Event Flyer', array('class'=>'control-label ')) !!}
+                   {!! Form::label('event_image', trans('manageevent.event-flyer'), array('class'=>'control-label ')) !!}
                    {!! Form::styledFile('event_image', 1) !!}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="float-l">
                     @if($event->images->count())
-                    {!! Form::label('', 'Current Event Flyer', array('class'=>'control-label ')) !!}
+                    {!! Form::label('', trans('manageevent.current-event-flyer'), array('class'=>'control-label ')) !!}
                     <div class="form-group">
                         <div class="well well-sm well-small">
-                           {!! Form::label('remove_current_image', 'Delete?', array('class'=>'control-label ')) !!}
+                           {!! Form::label('remove_current_image', trans('manageevent.delete-question'), array('class'=>'control-label ')) !!}
                            {!! Form::checkbox('remove_current_image') !!}
 
                         </div>
@@ -175,7 +175,7 @@
     <div class="col-md-12">
         <div class="panel-footer mt15 text-right">
            {!! Form::hidden('organiser_id', $event->organiser_id) !!}
-           {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+           {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
         </div>
     </div>
     {!! Form::close() !!}

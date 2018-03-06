@@ -330,7 +330,7 @@
                     </div>
 
                     <div class="panel-footer mt15 text-right">
-                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                        {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                     </div>
 
                     {!! Form::close() !!}
@@ -398,12 +398,12 @@
                             </div>
                             <div class="panel-footer mt15 text-right">
                                 <span class="uploadProgress" style="display:none;"></span>
-                                {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                                {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                             </div>
 
                             <div class="panel-footer ar hide">
                                 {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                                {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                                {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                             </div>
 
                             {!! Form::close() !!}
@@ -453,7 +453,7 @@
                         </div>
                     </div>
                     <div class="panel-footer mt15 text-right">
-                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                        {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -520,7 +520,7 @@
 
 
                     <div class="panel-footer mt15 text-right">
-                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                        {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                     </div>
 
                     {!! Form::close() !!}
@@ -587,7 +587,7 @@
                         </div>
                     </div>
                     <div class="panel-footer mt15 text-right">
-                        {!! Form::submit('Save Changes', ['class'=>"btn btn-success"]) !!}
+                        {!! Form::submit(trans('manageevent.save-changes'), ['class'=>"btn btn-success"]) !!}
                     </div>
 
                     {!! Form::close() !!}

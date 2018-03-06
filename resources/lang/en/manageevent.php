@@ -168,5 +168,14 @@ return [
     'ico-users' => 'ico-users',
     'no-attendees-yet' => 'No Attendees Yet',
     'attendees-will-appear-here' => 'Attendees will appear here once they successfully registered for your event, or, you can manually invite attendees yourself.',
+    /*
+      Partials/EditEventForm.blade.php
 
+   */
+    'event-visibility' => 'Event Visibility',
+    'make-event-visible' => 'Make event visible to the public.',
+    'hide-event-visible' => 'Hide event from the public.',
+    'event-flyer' => 'Event Flyer',
+    'current-event-flyer' => 'Current Event Flyer',
+    'delete-question' => 'Delete?',
 ];
