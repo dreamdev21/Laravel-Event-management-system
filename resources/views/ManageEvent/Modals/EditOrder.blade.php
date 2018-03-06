@@ -21,13 +21,13 @@
                 <h3>Order Details</h3>
                 <div class="row">
                     <div class="col-xs-12">
-                        <label for="first_name" class="form-control-label">First Name</label>
+                        <label for="first_name" class="form-control-label">{{ trans('common.first-name') }}</label>
                         <input type="text" name="first_name" class="form-control" value="{{ $order->first_name }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <label for="last_name" class="form-control-label">Last Name</label>
+                        <label for="last_name" class="form-control-label">{{ trans('common.last-name') }}</label>
                         <input type="text" name="last_name" class="form-control" value="{{ $order->last_name }}">
                     </div>
                 </div>

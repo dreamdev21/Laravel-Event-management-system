@@ -44,9 +44,9 @@ return [
     'require-question-for-ticket' => 'Require this question for ticket(s):',
     'save-question' => 'Save Question',
     /*
-           Modals/CreateTicketblade.php
+       Modals/CreateTicket.blade.php
 
-       */
+   */
     'create-ticket' => 'Create Ticket',
     'ticket-title' => 'Ticket Title',
     'ticket-price' => 'Ticket Price',
@@ -58,4 +58,9 @@ return [
     'max-ticket-per-order' => 'Max Tickets Per Order',
     'hide-ticket' => 'Hide this ticket',
     'more-options' => 'More Options',
+    /*
+       Modals/EditAttendee.blade.php
+
+   */
+    'edit-attendee' => 'Edit Attendee',
 ];

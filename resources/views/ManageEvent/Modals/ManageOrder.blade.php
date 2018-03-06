@@ -40,10 +40,10 @@
                 <div class="p0 well bgcolor-white order_overview">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6">
-                            <b>First Name</b><br> {{$order->first_name}}
+                            <b>{{ trans('common.first-name') }}</b><br> {{$order->first_name}}
                         </div>
                         <div class="col-sm-6 col-xs-6">
-                            <b>Last Name</b><br> {{$order->last_name}}
+                            <b>{{ trans('common.last-name') }}</b><br> {{$order->last_name}}
                         </div>
 
                         <div class="col-sm-6 col-xs-6">
