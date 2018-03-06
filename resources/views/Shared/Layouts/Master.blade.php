@@ -84,7 +84,7 @@
                     <li>
                         <a href="{{route('showCreateOrganiser')}}">
                             <i class="ico ico-plus"></i>
-                            Create Organiser
+                            {{ trans('shared.create-organiser') }}
                         </a>
                     </li>
                     @foreach($organisers as $org)
@@ -100,17 +100,17 @@
 
                     <li>
                         <a data-href="{{route('showEditUser')}}" data-modal-id="EditUser"
-                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon ico-user"></span>My Profile</a>
+                           class="loadModal editUserModal" href="javascript:void(0);"><span class="icon ico-user"></span>{{ trans('shared.my-profile') }}</a>
                     </li>
                     <li class="divider"></li>
                     <li><a data-href="{{route('showEditAccount')}}" data-modal-id="EditAccount" class="loadModal"
-                           href="javascript:void(0);"><span class="icon ico-cog"></span>Account Settings</a></li>
+                           href="javascript:void(0);"><span class="icon ico-cog"></span>{{ trans('shared.account-settings') }}</a></li>
 
 
                     <li class="divider"></li>
-                    <li><a target="_blank" href="https://www.attendize.com/feedback.php?v={{ config('attendize.version') }}"><span class="icon ico-megaphone"></span>Feedback / Bug Report</a></li>
+                    <li><a target="_blank" href="https://www.attendize.com/feedback.php?v={{ config('attendize.version') }}"><span class="icon ico-megaphone"></span>{{ trans('shared.feedback-bugreport') }}</a></li>
                     <li class="divider"></li>
-                    <li><a href="{{route('logout')}}"><span class="icon ico-exit"></span>Sign Out</a></li>
+                    <li><a href="{{route('logout')}}"><span class="icon ico-exit"></span>{{ trans('shared.sign-out') }}</a></li>
                 </ul>
             </li>
         </ul>
