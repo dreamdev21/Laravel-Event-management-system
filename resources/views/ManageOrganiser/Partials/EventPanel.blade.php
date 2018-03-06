@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li class="event-organiser">
-                By <a href='{{route('showOrganiserDashboard', ['organiser_id' => $event->organiser->id])}}'>{{{$event->organiser->name}}}</a>
+                {{ trans('manageorganiser.by') }} <a href='{{route('showOrganiserDashboard', ['organiser_id' => $event->organiser->id])}}'>{{{$event->organiser->name}}}</a>
             </li>
         </ul>
 
@@ -26,14 +26,14 @@
             <li>
                 <div class="section">
                     <h4 class="nm">{{$event->tickets->sum('quantity_sold')}}</h4>
-                    <p class="nm text-muted">Tickets Sold</p>
+                    <p class="nm text-muted">{{ trans('manageorganiser.tickets-sold') }}</p>
                 </div>
             </li>
 
             <li>
                 <div class="section">
                     <h4 class="nm">{{{money($event->sales_volume + $event->organiser_fees_volume, $event->currency)}}}</h4>
-                    <p class="nm text-muted">Revenue</p>
+                    <p class="nm text-muted">{{ trans('manageorganiser.revenue') }}</p>
                 </div>
             </li>
         </ul>
@@ -42,13 +42,13 @@
         <ul class="nav nav-section nav-justified">
             <li>
                 <a href="{{route('showEventCustomize', ['event_id' => $event->id])}}">
-                    <i class="ico-edit"></i> Edit
+                    <i class="ico-edit"></i> {{ trans('manageorganiser.edit') }}
                 </a>
             </li>
 
             <li>
                 <a href="{{route('showEventDashboard', ['event_id' => $event->id])}}">
-                    <i class="ico-cog"></i> Manage
+                    <i class="ico-cog"></i> {{ trans('manageorganiser.manage') }}
                 </a>
             </li>
         </ul>

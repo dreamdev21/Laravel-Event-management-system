@@ -32,6 +32,14 @@ return [
     'select-organiser' => 'Select Organiser',
     'create-an-organiser' => 'Create an organiser',
 
+    /*
+        Partials/EventPanel.blade.php
 
+    */
+    'by' => 'By',
+    'tickets-sold' => 'Tickets Sold',
+    'revenue' => 'Revenue',
+    'edit' => 'Edit',
+    'manage' => 'Manage',
 
 ];
