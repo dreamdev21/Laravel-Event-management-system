@@ -2,15 +2,15 @@
 
 
 @section('blankslate-icon-class')
-    ico-users
+    {{ trans('manageevent.ico-users') }}
 @stop
 
 @section('blankslate-title')
-    No Attendees Yet
+    {{ trans('manageevent.no-attendees-yet') }}
 @stop
 
 @section('blankslate-text')
-    Attendees will appear here once they successfully registered for your event, or, you can manually invite attendees yourself.
+    {{ trans('manageevent.attendees-will-appear-here') }}
 @stop
 
 @section('blankslate-body')

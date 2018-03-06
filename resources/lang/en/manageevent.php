@@ -161,6 +161,12 @@ return [
     'attendee-details' => 'Attendee Details',
     'answer' => 'Answer',
     'no-answers' => 'Sorry, there are no answers to this question yet.',
+    /*
+      Partials/AttendeesBlankSlate.blade.php
 
+   */
+    'ico-users' => 'ico-users',
+    'no-attendees-yet' => 'No Attendees Yet',
+    'attendees-will-appear-here' => 'Attendees will appear here once they successfully registered for your event, or, you can manually invite attendees yourself.',
 
 ];
