@@ -6,8 +6,7 @@
             }
         </style>
         <div class="alert alert-warning top_of_page_alert">
-            This event is not visible to the public. <a href="{{route('MakeEventLive', ['event_id' => $event->id])}}">Click
-                here to make it live</a> .
+            {{ trans('manageevent.event-visible-public') }} <a href="{{route('MakeEventLive', ['event_id' => $event->id])}}">{{ trans('manageevent.click-here-to-live') }}</a> .
         </div>
     @endif
 @stop
@@ -24,7 +23,7 @@
     <li class="nav-button">
         <a target="_blank" href="{{$event->event_url}}">
             <span>
-                <i class="ico-eye2"></i>&nbsp;Event Page
+                <i class="ico-eye2"></i>&nbsp;{{ trans('manageevent.event-page') }}
             </span>
         </a>
     </li>

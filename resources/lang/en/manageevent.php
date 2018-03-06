@@ -239,4 +239,13 @@ return [
     'no-ticket-yet' => 'No Tickets Yet',
     'create-first-ticket' => 'Create your first ticket by clicking the button below.',
 
+    /*
+    Partials/TopNav.blade.php
+
+   */
+    'event-visible-public' => 'This event is not visible to the public.',
+    'click-here-to-live' => 'Click here to make it live',
+    'event-page' => 'Event Page',
+
+
 ];
