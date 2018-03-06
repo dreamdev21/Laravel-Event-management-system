@@ -13,6 +13,11 @@ return [
     |
     */
 
+    'woops' => 'Whoops!',
+    '404-missing' => 'Looks like the page you are looking for no longer exists or has moved.',
+    /*
+       Login page
+       */
     'email' => 'Email',
     'password'     => 'Password',
     'password-confirmation'     => 'Password again',

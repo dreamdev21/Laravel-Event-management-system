@@ -3,21 +3,26 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Pagination Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the paginator library to build
-    | the simple pagination links. You are free to change them to anything
-    | you want to customize your views to better match your application.
-    |
-    */
+        BlankSlate.blade.php
+    /*
 
+    Master.blade.php
+    */
     'create-organiser' => 'Create Organiser',
     'my-profile' => 'My Profile',
     'account-settings' => 'Account Settings',
     'feedback-bugreport' => 'Feedback / Bug Report',
     'sign-out' => 'Sign Out',
 
+    /*
+    MasterWithoutMenus.blade.php
+    */
 
+    /*
+    Modal.blade.php
+    */
+
+    /*
+    MasterWithoutMenus.blade.php
+    */
 ];

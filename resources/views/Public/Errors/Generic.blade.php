@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>
-            Whoops!
+            {{ trans('common.woops') }}
         </title>
         <style>
             body {
@@ -21,7 +21,7 @@
     </head>
     <body>
         <div class="missing">
-            <h2>Whoops!</h2>
+            <h2>{{ trans('common.woops') }}</h2>
             {{$message}}
         </div>
     </body>

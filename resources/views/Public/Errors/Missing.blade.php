@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>
-            Whoops!
+            {{ trans('common.woops') }}
         </title>
         <style>
             body {
@@ -22,7 +22,7 @@
     <body>
         <div class="missing">
             <h2>404!</h2>
-            Looks like the page you are looking for no longer exists or has moved.
+            {{ trans('common.404-missing') }}
         </div>
     </body>
 </html>
