@@ -247,7 +247,7 @@ return [
     'click-here-to-live' => 'Click here to make it live',
     'event-page' => 'Event Page',
     /*
-    Partials/TopNav.blade.php
+    Attendees.blade.php
 
    */
     'event-attendees' => 'Event Attendees',
@@ -255,6 +255,16 @@ return [
     'export' => 'Export',
     'resend-ticket'=> 'Resend Ticket',
     'download-pdf-ticket'=> 'Download PDF Ticket',
+    /*
+       CheckIn.blade.php
+
+      */
+    'all-attendees' => 'All Attendees',
+    'no-attendees-matching' => 'No Attendees matching',
+    'awaiting-payment' => 'Awaiting Payment',
+    'scan-another-ticket' => 'Scan another ticket',
+
+
 
 
 ];

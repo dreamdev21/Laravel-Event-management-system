@@ -59,6 +59,8 @@ return [
     'amount' => 'Amount',
     'refunded' => 'Refunded',
     'time' => 'Time',
+    'for' => 'for',
+    'scanning' => 'Scanning',
 
 
 
