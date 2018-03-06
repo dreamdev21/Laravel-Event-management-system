@@ -27,6 +27,7 @@ return [
     'your-email' => 'Your E-mail Address',
     'your-message' => 'Your Message',
     'send-message' => 'Send Message',
+    'register' => 'Register',
 
 
     /*

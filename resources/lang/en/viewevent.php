@@ -46,4 +46,19 @@ return [
 
     */
     'contact' => 'Contact',
+    /*
+        Partials/EventTicketsSection.blade.php
+
+    */
+    'event-has' => 'This event has',
+    'currently-not-on-sale' => 'Currently Not On Sale',
+    'sold-out' => 'Sold Out',
+    'sales-not-started' => 'Sales Have Not Started',
+    'sales-have-ended' => 'Sales Have Ended',
+    'offline-payment-method-available' => 'Offline Payment Methods Available',
+    'tickets-unavalible' => 'Tickets are currently unavailable.',
+
+
+
+
 ];

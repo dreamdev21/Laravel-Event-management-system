@@ -1,13 +1,13 @@
 <section id="tickets" class="container">
     <div class="row">
         <h1 class='section_head'>
-            Tickets
+            {{ trans('viewevent.tickets') }}
         </h1>
     </div>
 
     @if($event->start_date->isPast())
         <div class="alert alert-boring">
-            This event has {{($event->end_date->isFuture() ? 'already started' : 'ended')}}.
+            {{ trans('viewevent.event-has') }}{{($event->end_date->isFuture() ? 'already started' : 'ended')}}.
         </div>
     @else
 
@@ -35,7 +35,7 @@
                                         <td style="width:180px; text-align: right;">
                                             <div class="ticket-pricing" style="margin-right: 20px;">
                                                 @if($ticket->is_free)
-                                                    FREE
+                                                    {{ trans('viewevent.free') }}
                                                     <meta property="price" content="0">
                                                 @else
                                                     <?php
@@ -53,7 +53,7 @@
                                             @if($ticket->is_paused)
 
                                                 <span class="text-danger">
-                                    Currently Not On Sale
+                                    {{ trans('viewevent.currently-not-on-sale') }}
                                 </span>
 
                                             @else
@@ -61,15 +61,15 @@
                                                 @if($ticket->sale_status === config('attendize.ticket_status_sold_out'))
                                                     <span class="text-danger" property="availability"
                                                           content="http://schema.org/SoldOut">
-                                    Sold Out
+                                    {{ trans('viewevent.sold-out') }}
                                 </span>
                                                 @elseif($ticket->sale_status === config('attendize.ticket_status_before_sale_date'))
                                                     <span class="text-danger">
-                                    Sales Have Not Started
+                                    {{  trans('viewevent.sales-not-started') }}
                                 </span>
                                                 @elseif($ticket->sale_status === config('attendize.ticket_status_after_sale_date'))
                                                     <span class="text-danger">
-                                    Sales Have Ended
+                                    {{ trans('sales-have-ended') }}
                                 </span>
                                                 @else
                                                     {!! Form::hidden('tickets[]', $ticket->id) !!}
@@ -99,14 +99,14 @@
                                                 @if($event->enable_offline_payments)
 
                                                     <div class="help-block" style="font-size: 11px;">
-                                                        Offline Payment Methods Available
+                                                        {{ trans('viewevent.offline-payment-method-available') }}
                                                     </div>
                                                 @endif
 
                                             </div>
 
                                         @endif
-                                        {!!Form::submit('Register', ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+                                        {!!Form::submit(trans('common.register'), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
                                     </td>
                                 </tr>
                             </table>
@@ -120,7 +120,7 @@
         @else
 
             <div class="alert alert-boring">
-                Tickets are currently unavailable.
+                {{ trans('viewevent.tickets-unavalible') }}
             </div>
 
         @endif
