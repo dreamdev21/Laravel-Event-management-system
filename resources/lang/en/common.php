@@ -15,6 +15,15 @@ return [
 
     'woops' => 'Whoops!',
     '404-missing' => 'Looks like the page you are looking for no longer exists or has moved.',
+    'top' => 'Top',
+    'payment-information' => 'Payment Information',
+    'offline-payment-instruction' => 'Offline Payment Instructions',
+    'card-number' => 'Card Number',
+    'expiry-month' => 'Expiry Month',
+    'expiry-year' => 'Expiry Year',
+    'cvc-number' => 'CVC Number',
+    'checkout' => 'Checkout',
+    /*
     /*
        Login page
        */
