@@ -3,7 +3,7 @@
 @section('title')
     @parent
 
-    Event Surveys
+    {{ trans('manageevent.event-surveys') }}
 @stop
 
 @section('top_nav')
@@ -16,7 +16,7 @@
 
 @section('page_title')
     <i class='ico-clipboard4 mr5'></i>
-    Event Surveys
+    {{ trans('manageevent.event-surveys') }}
 @stop
 
 @section('head')

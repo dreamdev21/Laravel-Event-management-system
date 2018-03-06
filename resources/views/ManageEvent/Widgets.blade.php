@@ -3,7 +3,7 @@
 @section('title')
 @parent
 
-Event Widgets
+{{ trans('manageevent.event-widget') }}
 @stop
 
 @section('top_nav')
@@ -16,7 +16,7 @@ Event Widgets
 
 @section('page_title')
 <i class='ico-code mr5'></i>
-Event Surveys
+{{ trans('manageevent.event-surveys') }}
 @stop
 
 @section('head')
@@ -40,7 +40,7 @@ Event Surveys
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4>HTML Embed Code</h4>
+                        <h4>{{  trans('manageevent.html-embed-code') }}</h4>
                             <textarea rows="7" onfocus="this.select();"
                                       class="form-control">{{$event->embed_html_code}}</textarea>
                     </div>

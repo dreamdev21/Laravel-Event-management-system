@@ -206,11 +206,14 @@ return [
     'event-tools' => 'Event Tools',
     'widgets' => 'Widgets',
     /*
-     Partials/Widget.blade.php
+     Widget.blade.php
 
     */
     'simply-copy-paste' => 'Simply copy and paste the HTML provided into your website wherever you would like the widget to appear.',
     'embed-preivew' => 'Embed Preview',
+    'event-widget' => 'Event Widgets',
+    'event-surveys' => 'Event Surveys',
+    'html-embed-code' => 'HTML Embed Code',
 
 
 ];
