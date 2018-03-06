@@ -62,4 +62,15 @@ return [
    */
     'organiser-page' => 'Organiser Page',
 
+
+
+
+    /*
+       CreateOrganiser.blade.php
+
+   */
+    'create-organiser' => 'Create Organiser',
+    'alert-info-ajax' => 'Before you create events you\'ll need to create an organiser. An organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.',
+
+
 ];

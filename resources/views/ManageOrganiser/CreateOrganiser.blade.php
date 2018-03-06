@@ -22,19 +22,19 @@
                     <div class="logo">
                         {!!HTML::image('assets/images/logo-dark.png')!!}
                     </div>
-                    <h2>Create Organiser</h2>
+                    <h2>{{ trans('manageorganiser.create-organiser') }}</h2>
 
                     {!! Form::open(array('url' => route('postCreateOrganiser'), 'class' => 'ajax')) !!}
                     @if(@$_GET['first_run'] == '1')
                         <div class="alert alert-info">
-                            Before you create events you'll need to create an organiser. An organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.
+                            {{ trans('manageorganiser.alert-info-ajax') }}
                         </div>
                     @endif
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Organiser Name', array('class'=>'required control-label ')) !!}
+                                {!! Form::label('name', trans('manageorganiser.organiser-name'), array('class'=>'required control-label ')) !!}
                                 {!!  Form::text('name', Input::old('name'),
                                             array(
                                             'class'=>'form-control'
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('email', 'Organiser Email', array('class'=>'control-label required')) !!}
+                                {!! Form::label('email', trans('manageorganiser.organiser-email'), array('class'=>'control-label required')) !!}
                                 {!!  Form::text('email', Input::old('email'),
                                             array(
                                             'class'=>'form-control ',
@@ -57,7 +57,7 @@
 
 
                     <div class="form-group">
-                        {!! Form::label('about', 'Organiser Description', array('class'=>'control-label ')) !!}
+                        {!! Form::label('about', trans('manageorganiser.organiser-description'), array('class'=>'control-label ')) !!}
                         {!!  Form::textarea('about', Input::old('about'),
                                     array(
                                     'class'=>'form-control ',
@@ -68,7 +68,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('facebook', 'Organiser Facebook', array('class'=>'control-label ')) !!}
+                                {!! Form::label('facebook', trans('manageorganiser.organiser-facebook'), array('class'=>'control-label ')) !!}
 
                                 <div class="input-group">
                                     <span style="background-color: #eee;" class="input-group-addon">facebook.com/</span>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('twitter', 'Organiser Twitter', array('class'=>'control-label ')) !!}
+                                {!! Form::label('twitter', trans('manageorganiser.organiser-twitter'), array('class'=>'control-label ')) !!}
 
                                 <div class="input-group">
                                     <span style="background-color: #eee;" class="input-group-addon">twitter.com/</span>
@@ -97,11 +97,11 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('organiser_logo', 'Organiser Logo', array('class'=>'control-label ')) !!}
+                        {!! Form::label('organiser_logo', trans('manageorganiser.organiser-logo'), array('class'=>'control-label ')) !!}
                         {!! Form::styledFile('organiser_logo') !!}
                     </div>
 
-                    {!! Form::submit('Create Organiser', ['class'=>" btn-block btn btn-success"]) !!}
+                    {!! Form::submit(trans('manageorganiser.create-organiser'), ['class'=>" btn-block btn btn-success"]) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
