@@ -45,7 +45,7 @@ Event Surveys
                                       class="form-control">{{$event->embed_html_code}}</textarea>
                     </div>
                     <div class="col-md-6">
-                        <h4>{{ trans('manageeventmanageevent.instructions') }}</h4>
+                        <h4>{{ trans('manageevent.instructions') }}</h4>
 
                         <p>
                             Simply copy and paste the HTML provided into your website wherever you would like the widget to appear.

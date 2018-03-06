@@ -203,5 +203,6 @@ return [
     'customize' => 'Customize',
     'check-in' => 'Check-In',
     'surveys' => 'Surveys',
+    'event-tools' => 'Event Tools',
     'widgets' => 'Widgets',
 ];

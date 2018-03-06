@@ -48,7 +48,7 @@
                 </a>
             </li>
         </ul>
-        <h5 class="heading">Event Tools</h5>
+        <h5 class="heading">{{ trans('manageevent.event-tools') }}</h5>
         <ul id="nav_event" class="topmenu">
             <li class="{{ Request::is('*check_in*') ? 'active' : '' }}">
                 <a href="{{route('showChechIn', array('event_id' => $event->id))}}">
