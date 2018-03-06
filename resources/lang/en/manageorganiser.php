@@ -71,6 +71,30 @@ return [
    */
     'create-organiser' => 'Create Organiser',
     'alert-info-ajax' => 'Before you create events you\'ll need to create an organiser. An organiser is simply whoever is organising the event. It can be anyone, from a person to an organisation.',
+    /*
+           Customize.blade.php
+
+       */
+    'organiser-event' => 'Organiser Events',
+    'events' => 'Events',
+    'organiser-settings' => 'Organiser Settings',
+    'organiser-page-design' => 'Organiser Page Design',
+    'enable-public-page' => 'Enable Public Organiser Page',
+    'select-value1' => 'Make organiser page visible to the public',
+    'select-value2' => 'Hide organiser page from the public.',
+    'help-block' => 'Organiser pages contain a public list of past and upcoming events.',
+    'current-logo' => 'Current Logo',
+    'delete-logo' => 'Delete Logo?',
+    'organiser-logo' => 'Organiser Logo',
+    'organiser-logo-help' => 'We recommend a square image, as this will look best on printed tickets and event pages.',
+    'save-organiser' => 'Save Organiser',
+    'organiser-design' => 'Organiser Design',
+    'header-background-color' => 'Header Background Color',
+    'text-color' => 'Text Color',
+    'background-color' => 'Background Color',
+    'organiser-page-preview' => 'Organiser Page Preview',
+    'save-changes' => 'Save Changes',
+
 
 
 ];
