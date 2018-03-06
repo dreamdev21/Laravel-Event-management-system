@@ -11,24 +11,24 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-cart"></i>
-                    Order: <b>{{$order->order_reference}}</b></h3>
+                    {{ trans('manageevent.order') }} <b>{{$order->order_reference}}</b></h3>
             </div>
             <div class="modal-body">
 
                 @if($order->is_refunded || $order->is_partially_refunded)
                  <div class="alert alert-info">
-                   {{money($order->amount_refunded, $order->event->currency)}} of this order has been refunded.
+                     {{ trans('manageevent.refunded-text',[attribute(money($order->amount_refunded, $order->event->currency))]) }}
                 </div>
                 @endif
 
                 @if(!$order->is_payment_received)
                     <div class="alert alert-info">
-                        This order is awaiting payment.
+                        {{ trans('manageevent.awaiting-payment') }}
                     </div>
-                    <a data-id="{{ $order->id }}" data-route="{{ route('postMarkPaymentReceived', ['order_id' => $order->id]) }}" class="btn btn-primary btn-sm markPaymentReceived" href="javascript:void(0);">Mark Payment Received</a>
+                    <a data-id="{{ $order->id }}" data-route="{{ route('postMarkPaymentReceived', ['order_id' => $order->id]) }}" class="btn btn-primary btn-sm markPaymentReceived" href="javascript:void(0);">{{ trans('manageevent.mark-payment') }}</a>
                 @endif
 
-                <h3>Order Overview</h3>
+                <h3>{{ trans('manageevent.order-overview') }}</h3>
                 <style>
                     .order_overview b {
                         text-transform: uppercase;
@@ -47,50 +47,50 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-6">
-                            <b>Amount</b><br>{{money($order->total_amount, $order->event->currency)}}
+                            <b>{{ trans('common.amount') }}</b><br>{{money($order->total_amount, $order->event->currency)}}
                         </div>
 
                         <div class="col-sm-6 col-xs-6">
-                            <b>Reference</b><br> {{$order->order_reference}}
+                            <b>{{ trans('manageevent.reference') }}</b><br> {{$order->order_reference}}
                         </div>
                         <div class="col-sm-6 col-xs-6">
-                            <b>Date</b><br> {{$order->created_at->toDateTimeString()}}
+                            <b>{{ trans('manageevent.date') }}</b><br> {{$order->created_at->toDateTimeString()}}
                         </div>
                         <div class="col-sm-6 col-xs-6">
-                            <b>Email</b><br> {{$order->email}}
+                            <b>{{ trans('common.email') }}</b><br> {{$order->email}}
                         </div>
 
                         @if($order->transaction_id)
                         <div class="col-sm-6 col-xs-6">
-                            <b>Transaction ID</b><br> {{$order->transaction_id}}
+                            <b>{{ trans('manageevent.transaction-id') }}</b><br> {{$order->transaction_id}}
                         </div>
                         <div class="col-sm-6 col-xs-6">
-                            <b>Payment Gateway</b><br> <a href="{{ $order->payment_gateway->provider_url }}" target="_blank">{{$order->payment_gateway->provider_name}}</a>
+                            <b>{{ trans('manageevent.payment-gateway') }}</b><br> <a href="{{ $order->payment_gateway->provider_url }}" target="_blank">{{$order->payment_gateway->provider_name}}</a>
                         </div>
                         @endif
 
                     </div>
                 </div>
 
-                <h3>Order Items</h3>
+                <h3>{{ trans('common.order-items') }}</h3>
                 <div class="well nopad bgcolor-white p0">
                     <div class="table-responsive">
                         <table class="table table-hover" >
                             <thead>
                             <th>
-                                Ticket
+                                {{ trans('common.ticket') }}
                             </th>
                             <th>
-                                Quantity
+                                {{ trans('common.quantity') }}
                             </th>
                             <th>
-                                Price
+                                {{ trans('common.price') }}
                             </th>
                             <th>
-                                Booking Fee
+                                {{ trans('common.booking-fee') }}
                             </th>
                             <th>
-                                Total
+                                {{ trans('common.total') }}
                             </th>
                             </thead>
                             <tbody>
@@ -104,7 +104,7 @@
                                     </td>
                                     <td>
                                         @if((int)ceil($order_item->unit_price) == 0)
-                                        FREE
+                                        {{ trans('viewevent.free') }}
                                         @else
                                        {{money($order_item->unit_price, $order->event->currency)}}
                                         @endif
@@ -120,7 +120,7 @@
                                     </td>
                                     <td>
                                         @if((int)ceil($order_item->unit_price) == 0)
-                                        FREE
+                                        {{ trans('viewevent.free') }}
                                         @else
                                         {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
                                         @endif
@@ -136,7 +136,7 @@
                                     <td>
                                     </td>
                                     <td>
-                                        <b>Sub Total</b>
+                                        <b>{{ trans('common.sub-total') }}</b>
                                     </td>
                                     <td colspan="2">
                                         {{money($order->total_amount, $order->event->currency)}}
@@ -149,7 +149,7 @@
                 </div>
 
                 <h3>
-                    Order Attendees
+                    {{ trans('common.order-attendees') }}
                 </h3>
                 <div class="well nopad bgcolor-white p0">
 
@@ -161,12 +161,12 @@
                                     <td>
                                         @if($attendee->is_cancelled)
                                         <span class="label label-warning">
-                                            Cancelled
+                                            {{ trans('common.cancelled') }}
                                         </span>
                                         @endif
                                         @if($attendee->is_refunded)
                                             <span class="label label-danger">
-                                                Refunded
+                                                {{  trans('common.refunded') }}
                                             </span>
                                         @endif
                                         {{$attendee->first_name}}
@@ -191,9 +191,9 @@
                 <a href="javascript:void(0);" data-modal-id="edit-order-{{ $order->id }}" data-href="{{route('showEditOrder', ['order_id'=>$order->id])}}" title="Edit Order" class="btn btn-info loadModal">
                     Edit
                 </a>
-                <a class="btn btn-primary" target="_blank" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">Print Tickets</a>
-                <span class="pauseTicketSales btn btn-success" data-id="{{$order->id}}" data-route="{{route('resendOrder', ['order_id'=>$order->id])}}">Resend Tickets</span>
-               {!! Form::button('Close', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                <a class="btn btn-primary" target="_blank" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">{{  trans('manageevent.print-tickets') }}</a>
+                <span class="pauseTicketSales btn btn-success" data-id="{{$order->id}}" data-route="{{route('resendOrder', ['order_id'=>$order->id])}}">{{ trans('manageevent.resend-tickets') }}</span>
+               {!! Form::button(trans('common.close'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
             </div>
         </div><!-- /end modal content-->
     </div>

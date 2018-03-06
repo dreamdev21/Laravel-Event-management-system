@@ -108,6 +108,19 @@ return [
     'instructions' => 'Instructions',
     'use-comma' => 'Please use a comma to separate options.',
     'delete-question' => 'Delete Question',
+    /*
+      Modals/ManageOrders.blade.php
+
+   */
+    'awaiting-payment' => 'This order is awaiting payment.',
+    'mark-payment' => 'Mark Payment Received',
+    'order-overview' => 'Order Overview',
+    'reference' => 'Reference',
+    'date' => 'Date',
+    'transaction-id' => 'Transaction ID',
+    'payment-gateway' => 'Payment Gateway',
+    'print-tickets' => 'Print Tickets',
+    'resend-tickets' => 'Resend Tickets',
 
 
 

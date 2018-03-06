@@ -56,6 +56,8 @@ return [
     'cancel' => 'Cancel',
     'save-details' => 'Save Details',
     'close' => 'Close',
+    'amount' => 'Amount',
+    'refunded' => 'Refunded',
 
 
 

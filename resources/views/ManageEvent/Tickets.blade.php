@@ -147,7 +147,7 @@
                                 <li>
                                     <div class="section">
                                         <h4 class="nm hint--top"
-                                            title="{{money($ticket->sales_volume, $event->currency)}} + {{money($ticket->organiser_fees_volume, $event->currency)}} Organiser Booking Fees">
+                                            title="{{money($ticket->sales_volume, $event->currency)}} + {{money($ticket->organiser_fees_volume, $event->currency)}} Organiser {{ trans('common.booking-fee') }}">
                                             {{money($ticket->sales_volume + $ticket->organiser_fees_volume, $event->currency)}}
                                             <sub title="Doesn't account for refunds.">*</sub>
                                         </h4>

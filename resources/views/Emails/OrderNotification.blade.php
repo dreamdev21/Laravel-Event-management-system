@@ -19,7 +19,7 @@ Order Date: <b>{{$order->created_at->toDayDateTimeString()}}</b><br>
 Order Email: <b>{{$order->email}}</b><br>
 
 
-<h3>Order Items</h3>
+<h3>{{ trans('common.order-items') }}</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
 
     <table style="width:100%; margin:10px;">
@@ -34,7 +34,7 @@ Order Email: <b>{{$order->email}}</b><br>
                 Price
             </th>
             <th>
-                Booking Fee
+                {{ trans('common.booking-fee') }}
             </th>
             <th>
                 Total
@@ -82,7 +82,7 @@ Order Email: <b>{{$order->email}}</b><br>
             <td>
             </td>
             <td>
-                <b>Sub Total</b>
+                <b>{{ trans('common.sub-total') }}</b>
             </td>
             <td colspan="2">
                 {{money($order->total_amount, $order->event->currency)}}

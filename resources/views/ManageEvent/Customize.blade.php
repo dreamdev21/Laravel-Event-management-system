@@ -429,7 +429,7 @@
 
                     <div class="well">
                         These are optional fees you can include in the cost of each ticket. This charge will appear on
-                        buyer's invoices as '<b>BOOKING FEES</b>'.
+                        buyer's invoices as '<b>{{ trans('common.booking-fee') }}</b>'.
                     </div>
 
                     <div class="form-group">
