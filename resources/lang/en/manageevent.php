@@ -141,4 +141,9 @@ return [
     'schedule-send-time' => 'Schedule Send Time',
     'leave-blank-send' => 'Leave blank to send immediately.',
     'sent-any-messages' => 'You have not sent any messages for this event.',
+    /*
+     Modals/MessageOrder.blade.php
+
+  */
+    'order-instructed-to-send' => 'The order contact will be instructed to send any reply to',
 ];

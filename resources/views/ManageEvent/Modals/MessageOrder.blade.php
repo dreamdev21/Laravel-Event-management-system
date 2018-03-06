@@ -6,10 +6,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-envelope"></i>
-                    Message {{{$order->full_name}}}
+                    {{ trans('manageevent.message') }} {{{$order->full_name}}}
                     <br>
                     <span style="font-size: 17px;">
-                        Order: #{{$order->order_reference}}
+                        {{ trans('manageevent.order') }} #{{$order->order_reference}}
                     </span>
                 </h3>
             </div>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="help-block">
-                    The order contact will be instructed to send any reply to <b>{{$order->event->organiser->email}}</b>
+                    {{ trans('manageevent.order-instructed-to-send') }} <b>{{$order->event->organiser->email}}</b>
                 </div>
 
             </div> <!-- /end modal body-->
