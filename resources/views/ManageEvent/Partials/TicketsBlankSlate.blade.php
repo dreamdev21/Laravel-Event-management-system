@@ -1,15 +1,15 @@
 @extends('Shared.Layouts.BlankSlate')
 
 @section('blankslate-icon-class')
-    ico-ticket
+    {{ trans('manageevent.ico-ticket') }}
 @stop
 
 @section('blankslate-title')
-    No Tickets Yet
+    {{ trans('manageevent.no-ticket-yet') }}
 @stop
 
 @section('blankslate-text')
-    Create your first ticket by clicking the button below.
+    {{ trans('manageevent.create-first-ticket') }}
 @stop
 
 @section('blankslate-body')

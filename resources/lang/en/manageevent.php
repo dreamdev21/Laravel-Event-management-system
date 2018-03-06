@@ -231,6 +231,12 @@ return [
     'demo-location' => 'Demo Location',
     'bill-blogs' => 'Bill Blogs',
     'general-adminssion' => 'General Admission',
+    /*
+    Partials/TicketBlankSlate.blade.php
 
+   */
+    'ico-ticket' => 'ico-ticket',
+    'no-ticket-yet' => 'No Tickets Yet',
+    'create-first-ticket' => 'Create your first ticket by clicking the button below.',
 
 ];
