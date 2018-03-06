@@ -29,13 +29,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-cart2"></i>
-                    Cancel Order: <b>#{{$order->order_reference}}</b></h3>
+                    {{ trans('manageevent.cancel-order') }} <b>#{{$order->order_reference}}</b></h3>
             </div>
             <div class="modal-body">
 
                 @if($attendees->count())
                     <div class="help-block">
-                        Select any attendee tickets you wish to cancel.
+                        {{ trans('manageevent.select-attendee') }}
                     </div>
 
                     <div class="well bgcolor-white p0">
@@ -59,7 +59,7 @@
                                         </div>
                                     </td>
                                     <td colspan="3">
-                                        Select All
+                                        {{ trans('manageevent.select-all') }}
                                     </td>
                                 </tr>
                                 @foreach($attendees as $attendee)
@@ -90,7 +90,7 @@
 
                 @else
                     <div class="alert alert-info cancelOrderOption">
-                        All attendees in this order have been cancelled.
+                        {{ trans('manageevent.all-order-cancelled') }}
                     </div>
                 @endif
 
@@ -105,7 +105,7 @@
                                 <div class="checkbox">
                                     <label>
                                         {!!Form::checkbox('refund_order', 'on')!!}
-                                        Refund this order?
+                                        {{ trans('manageevent.refund-this-order') }}
                                     </label>
                                 </div>
                             </div>
@@ -120,11 +120,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-11">
-                                            <b>Issue full refund</b>
+                                            <b>{{ trans('manageevent.issue-full-refund') }}</b>
 
                                             <div class="help-text">
-                                                Refund the
-                                                entire {{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency))}}
+                                                {{ trans('manageevent.refund-the-entire') }}{{(money($order->organiser_amount - $order->amount_refunded, $order->event->currency))}}
                                             </div>
                                         </div>
                                     </div>
@@ -138,12 +137,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-11">
-                                            <b>Issue partial refund</b>
+                                            <b>{{ trans('manageevent.issue-partial-refund') }}</b>
 
                                             <div class="refund_amount">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        Refund amount:
+                                                        {{ trans('manageevent.refund-amount') }}
                                                     </div>
                                                     <div class="col-sm-8">
                                                         <input type="text" name="refund_amount" class="form-control"
@@ -161,15 +160,14 @@
                     @else
 
                         <div class="alert alert-info">
-                            All {{money($order->amount, $order->event->currency)}} of this order has been
-                            refunded.
+                            {{ trans('manageevent.refunded-text', ['attribute' => money($order->amount, $order->event->currency) ]) }}
                         </div>
 
                     @endif
                 </div>
                         @else
                         <div class="alert alert-info">
-                            Sorry, you can't refund <b>{{ $order->payment_gateway->provider_name }}</b> payments here. You will have to do it on their website.
+                            {{ trans('manageevent.refunded-cannot', ['attribute' => $order->payment_gateway->provider_name ]) }}
                         </div>
                         @endif
 
@@ -179,8 +177,8 @@
 
             @if($attendees->count() || !$order->is_refunded)
                 <div class="modal-footer">
-                    {!! Form::button('Cancel', ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                    {!! Form::submit('Confirm Order Cancel', ['class'=>"btn btn-primary"]) !!}
+                    {!! Form::button(trans('common.cancel'), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                    {!! Form::submit(trans('common.confirm-order-cancel'), ['class'=>"btn btn-primary"]) !!}
                 </div>
             @endif
         </div>
