@@ -56,12 +56,12 @@ return [
     'cancel' => 'Cancel',
     'save-details' => 'Save Details',
     'close' => 'Close',
-    'amount' => 'Amount',
     'refunded' => 'Refunded',
     'time' => 'Time',
     'for' => 'for',
     'scanning' => 'Scanning',
     'general' => 'General',
+    'status' => 'Status',
 
 
 

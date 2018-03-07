@@ -322,7 +322,7 @@ return [
     'show-id-barcode' => "Show 1D barcode on tickets",
     'ticket-preview' => "Ticket Preview",
     /*
-     Partials/Dashboard.blade.php
+     Dashboard.blade.php
 
     */
     'sales-volume' => 'Sales Volume',
@@ -338,7 +338,14 @@ return [
     'generate-affiliate-link' => 'Generate Affiliate Link',
     'edit-organiser-fees' => 'Edit Organiser Fees',
     'select-from-venues' => 'Select From Existing Venues',
+    /*
+    Orders.blade.php
 
+   */
+    'event-orders' => 'Event Orders',
+    'show-30-orders' => 'Showing 30 orders out of',
+    'order-date' => 'Order Date',
+    'refund-cancel' => 'Refund / Cancel',
 
 
 
