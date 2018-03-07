@@ -61,6 +61,7 @@ return [
     'time' => 'Time',
     'for' => 'for',
     'scanning' => 'Scanning',
+    'general' => 'General',
 
 
 

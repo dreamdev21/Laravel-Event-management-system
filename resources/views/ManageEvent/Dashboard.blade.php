@@ -299,7 +299,7 @@
                 <div class="panel-body">
 
                     <a href="" class="btn-link btn">
-                        Edit Event Page Design <i class="ico ico-arrow-right3"></i>
+                        {{ trans('managevent.event-page-design') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
                         {{ trans('manageevent.create-ticket') }} <i class="ico ico-arrow-right3"></i>
