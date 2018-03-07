@@ -103,6 +103,9 @@ return [
     'email-address-required'        =>"E-mail address is required.",
     'email-address-use-already'        =>"E-mail already in use for this account.",
 
-
+    /*
+        ManageAccountController.php
+    */
+    'error-woop-unknown-problem'        =>"Whoops! An unknown error has occurred. Please try again or contact support if the problem persists.",
 
 ];

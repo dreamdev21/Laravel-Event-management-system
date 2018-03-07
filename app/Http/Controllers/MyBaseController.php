@@ -27,7 +27,7 @@ class MyBaseController extends Controller
              */
             'DateFormat'          => 'dd-MM-yyyy',
             'DateTimeFormat'      => 'dd-MM-yyyy hh:mm',
-            'GenericErrorMessage' => 'Whoops! An unknown error has occurred. Please try again or contact support if the problem persists.'
+            'GenericErrorMessage' => trans('controllermessages.error-woop-unknown-problem')
         ]);
 
         /*
