@@ -351,6 +351,10 @@ return [
 
    */
     'print-attendees-event' => 'Attendees for event:',
+    /*
+    Promote.blade.php
 
+   */
+    'promote-event' => 'Promote Event',
 
 ];
