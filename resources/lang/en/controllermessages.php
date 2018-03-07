@@ -138,4 +138,13 @@ return [
     */
     'fill-in-your-email-password'        =>"Please fill in your email and password",
     'email-password-incorrect'        =>"Your username/password combination was incorrect",
+    /*
+       UserSignupController.php
+    */
+    'you-can-login'        =>"Success! You can now login.",
+    'confirmation-code-missing'        =>"The confirmation code is missing or malformed.",
+    'email-verified'        =>"Success! Your email is now verified. You can now login.",
+
+
+
 ];

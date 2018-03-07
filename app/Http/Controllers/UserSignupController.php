@@ -70,7 +70,7 @@ class UserSignupController extends Controller
                 });
         }
 
-        session()->flash('message', 'Success! You can now login.');
+        session()->flash('message', trans('controllermessages.you-can-login'));
 
         return redirect('login');
     }
@@ -87,7 +87,7 @@ class UserSignupController extends Controller
 
         if (!$user) {
             return view('Public.Errors.Generic', [
-                'message' => 'The confirmation code is missing or malformed.',
+                'message' => trans('controllermessages.confirmation-code-missing'),
             ]);
         }
 
@@ -95,7 +95,7 @@ class UserSignupController extends Controller
         $user->confirmation_code = null;
         $user->save();
 
-        session()->flash('message', 'Success! Your email is now verified. You can now login.');
+        session()->flash('message', trans('controllermessages.email-verified'));
 
         return redirect()->route('login');
     }
