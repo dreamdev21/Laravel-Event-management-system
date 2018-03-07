@@ -66,7 +66,13 @@ return [
     'order-has-updated'        =>"The order has been updated.",
     'refund-amount-contain-numbers'        =>"Refund amount must only contain numbers.",
     'order-payment-status-updated'        =>"Order Payment Status Successfully Updated.",
-
+    /*
+    EventOrdersController.php
+    */
+    'invalid-ticket'        =>"Invalid Ticket! Please try again.",
+    'check-in-all-tickets'        =>"Check in all tickets associated to this order",
+    'attendee-has-checked'        =>"Warning: This attendee has already been checked in at ",
+    'attendee-check-in'        =>" Attendee(s) Checked in.",
 
 
 ];

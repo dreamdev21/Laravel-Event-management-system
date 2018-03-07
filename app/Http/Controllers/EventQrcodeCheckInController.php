@@ -59,7 +59,7 @@ class EventQrcodeCheckInController extends Controller
             ])->first();
 
         if (is_null($attendee)) {
-            return response()->json(['status' => 'error', 'message' => "Invalid Ticket! Please try again."]);
+            return response()->json(['status' => 'error', 'message' => trans('controllermessages.invailid-ticket-try-again')]);
         }
 
         $relatedAttendesCount = Attendee::where('id', '!=', $attendee->id)
@@ -72,13 +72,13 @@ class EventQrcodeCheckInController extends Controller
         if ($relatedAttendesCount >= 1) {
             $confirmOrderTicketsRoute = route('confirmCheckInOrderTickets', [$event->id, $attendee->order_id]);
 
-            $appendedText = '<br><br><form class="ajax" action="' . $confirmOrderTicketsRoute . '" method="POST">' . csrf_field() . '<button class="btn btn-primary btn-sm" type="submit"><i class="ico-ticket"></i> Check in all tickets associated to this order</button></form>';
+            $appendedText = '<br><br><form class="ajax" action="' . $confirmOrderTicketsRoute . '" method="POST">' . csrf_field() . '<button class="btn btn-primary btn-sm" type="submit"><i class="ico-ticket"></i> '.trans("controllermessages.check-in-all-tickets").'</button></form>';
         }
 
         if ($attendee->has_arrived) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Warning: This attendee has already been checked in at ' . $attendee->arrival_time->format('H:i A, F j') . '.' . $appendedText
+                'message' => trans('controllermessages.attendee-has-checked') . $attendee->arrival_time->format('H:i A, F j') . '.' . $appendedText
             ]);
         }
 
@@ -108,7 +108,7 @@ class EventQrcodeCheckInController extends Controller
             ->update(['has_arrived' => true, 'arrival_time' => Carbon::now()]);
 
         return response()->json([
-            'message' => $updateRowsCount . ' Attendee(s) Checked in.'
+            'message' => $updateRowsCount . trans('controllermessages.attendee-check-in')
         ]);
     }
 }
