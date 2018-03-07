@@ -21,8 +21,8 @@
 </head>
 <body>
 <div class="missing">
-    <h2>We'll be back soon</h2>
-    We're currently making improvements to our website.
+    <h2>{{ trans('errors.we-back-soon') }}</h2>
+    {{ trans('errors.we-making-improvements') }}
 </div>
 </body>
 </html>
