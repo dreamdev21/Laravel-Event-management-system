@@ -13,4 +13,21 @@ return [
     'version-information' => 'Version Information',
     'licence-information' => 'Licence Information',
 
+    /*
+       Partials/PaymentGatewayOptions.blade.php
+
+   */
+    'default-payment-gateway' => 'Default Payment Gateway',
+    'stripe-settings' => 'Stripe Settings',
+    'stripe-secret-key' => 'Stripe Secret Key',
+    'stripe-pub-key' => 'Stripe Publishable Key',
+    'paypal-settings' => 'PayPal Settings',
+    'paypal-username' => 'PayPal Username',
+    'paypal-password' => 'PayPal Password',
+    'paypal-signature' => 'PayPal Signature',
+    'branding-name' => 'Branding Name',
+    'mastercard-gateway' => 'Mastercard Internet Gateway Service Settings',
+    'save-payment-details' => 'Save Payment Details',
+
+
 ];
