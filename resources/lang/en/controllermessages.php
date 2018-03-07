@@ -92,4 +92,17 @@ return [
     'ticket-failed-delete'        =>"Ticket Failed to delete",
     'quantity-available-cannot'        =>"Quantity available can't be less the amount sold or reserved.",
     'ticket-order-updated'        =>"Ticket Order Successfully Updated",
+    /*
+        ManageAccountController.php
+    */
+    'error-connecting-stripe'        =>"There was an error connecting your Stripe account. Please try again.",
+    'success-connecting-stripe'        =>"You have successfully connected your Stripe account.",
+    'account-successfully-updated'        =>"Account Successfully Updated",
+    'payment-info-success'        =>"Payment Information Successfully Updated",
+    'enter-valid-address'        =>"Please enter a valid E-mail address.",
+    'email-address-required'        =>"E-mail address is required.",
+    'email-address-use-already'        =>"E-mail already in use for this account.",
+
+
+
 ];
