@@ -35,7 +35,7 @@
 <body>
   <div id="main">
     <header id="header">
-      <h2 class="text-center"><img style="width: 40px;" class="logo" alt="Attendize" src="{{ asset('/assets/images/logo-dark.png') }}"/><br><span style="font-size: 0.7em;">Check In: <strong>{{ $event->title }}</strong></span></h2>
+      <h2 class="text-center"><img style="width: 40px;" class="logo" alt="Attendize" src="{{ asset('/assets/images/logo-dark.png') }}"/><br><span style="font-size: 0.7em;">{{ trans('manageevent.check-in') }} <strong>{{ $event->title }}</strong></span></h2>
     </header>
 
     <hr>
@@ -46,7 +46,7 @@
             <div class="col-md-6 col-md-offset-3 col-xs-12">
                 <div class="alert alert-success alert-dismissible text-center" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p><strong>Success</strong>: {{ session('success_message') }}</p>
+                    <p><strong>{{ trans('common.success') }}</strong>: {{ session('success_message') }}</p>
                 </div>
             </div>
         </div>
@@ -69,12 +69,12 @@
         </tr>
         <tr>
           <td colspan="3" align="center">
-            <p id="help-text">Put the QR code in front of your Camera (Not too close)</p>
+            <p id="help-text">{{ trans('manageevent.qr-code-front-camera') }}</p>
           </td>
         </tr>
         <tr>
           <td colspan="3" align="center">
-            <p style="position: relative; bottom: -2em;"><a onclick="event.preventDefault(); workingAway = false; load();" href="{{ Request::url() }}"><i class="fa fa-refresh"></i> Scan another ticket</a></p>
+            <p style="position: relative; bottom: -2em;"><a onclick="event.preventDefault(); workingAway = false; load();" href="{{ Request::url() }}"><i class="fa fa-refresh"></i> {{ trans('manageevent.scan-another-ticket') }}</a></p>
             <div id="result"></div>
           </td>
         </tr>

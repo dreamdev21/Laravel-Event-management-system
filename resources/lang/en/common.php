@@ -64,6 +64,7 @@ return [
     'status' => 'Status',
     'purchase-date' => 'Purchase Date',
     'arrived' => 'Arrived',
+    'success' => 'Success',
 
 
 
