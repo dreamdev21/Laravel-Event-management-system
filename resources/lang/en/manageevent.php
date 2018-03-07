@@ -321,6 +321,7 @@ return [
     'ticket-sub-text-color' => "Ticket Sub Text Color",
     'show-id-barcode' => "Show 1D barcode on tickets",
     'ticket-preview' => "Ticket Preview",
+    'save-changes' => "Save Changes",
     /*
      Dashboard.blade.php
 

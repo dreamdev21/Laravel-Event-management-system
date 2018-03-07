@@ -187,7 +187,7 @@
                     class="{{($tab == 'general' || !$tab) ? 'active' : ''}}"><a href="#general" data-toggle="tab">{{ trans('common.general') }}</a>
                 </li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'design'])}}"
-                    class="{{$tab == 'design' ? 'active' : ''}}"><a href="#design" data-toggle="tab">{{ trans('managevent.event-page-design') }}</a></li>
+                    class="{{$tab == 'design' ? 'active' : ''}}"><a href="#design" data-toggle="tab">{{ trans('manageevent.event-page-design') }}</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'order_page'])}}"
                     class="{{$tab == 'order_page' ? 'active' : ''}}"><a href="#order_page" data-toggle="tab">{{ trans('manageevent.order-form') }}</a></li>
 
