@@ -102,7 +102,7 @@ class EventCheckInController extends MyBaseController
         if ((($checking == 'in') && ($attendee->has_arrived == 1)) || (($checking == 'out') && ($attendee->has_arrived == 0))) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Attendee Already Checked ' . (($checking == 'in') ? 'In (at ' . $attendee->arrival_time->format('H:i A, F j') . ')' : 'Out') . '!',
+                'message' => trans('controllermessages.attendee-already-checked')  . (($checking == 'in') ? 'In (at ' . $attendee->arrival_time->format('H:i A, F j') . ')' : 'Out') . '!',
                 'checked' => $checking,
                 'id'      => $attendee->id,
             ]);
@@ -115,7 +115,7 @@ class EventCheckInController extends MyBaseController
         return response()->json([
             'status'  => 'success',
             'checked' => $checking,
-            'message' => 'Attendee Successfully Checked ' . (($checking == 'in') ? 'In' : 'Out'),
+            'message' => trans('controllermessages.attendee-successfully-checked') . (($checking == 'in') ? 'In' : 'Out'),
             'id'      => $attendee->id,
         ]);
     }
@@ -153,7 +153,7 @@ class EventCheckInController extends MyBaseController
         if (is_null($attendee)) {
             return response()->json([
                 'status'  => 'error',
-                'message' => "Invalid Ticket! Please try again."
+                'message' => trans('controllermessages.invailid-ticket-try-again')
             ]);
         }
 
@@ -177,7 +177,7 @@ class EventCheckInController extends MyBaseController
         if ($attendee->has_arrived) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Attendee already checked in at ' . $attendee->arrival_time->format('H:i A, F j') . $appendedText
+                'message' => trans('controllermessages.attendee-already-checked') . $attendee->arrival_time->format('H:i A, F j') . $appendedText
             ]);
         }
 
@@ -208,7 +208,7 @@ class EventCheckInController extends MyBaseController
         ]);
 
         return response()->json([
-            'message' => $updateRowsCount . ' Attendee(s) Checked in.'
+            'message' => $updateRowsCount . trans('controllermessages.attendees-checked-in')
         ]);
     }
 

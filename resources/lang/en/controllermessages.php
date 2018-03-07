@@ -16,4 +16,15 @@ return [
     'successfully-cancelled-attenddee'        =>"Successfully Cancelled Attenddee",
     'ticket-successfully-resent'        =>"Ticket Successfully Resent",
 
+    /*
+    EventCheckInController.php
+    */
+    'attendee-already-checked'        =>"Attendee Already Checked",
+    'attendee-successfully-checked'        =>"Attendee Successfully Checked",
+    'invailid-ticket-try-again'        =>"Invalid Ticket! Please try again.",
+    'attendees-checked-in'        =>" Attendee(s) Checked in.",
+
+
+
+
 ];
