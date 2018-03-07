@@ -346,7 +346,11 @@ return [
     'show-30-orders' => 'Showing 30 orders out of',
     'order-date' => 'Order Date',
     'refund-cancel' => 'Refund / Cancel',
+    /*
+    PrintAttendees.blade.php
 
+   */
+    'print-attendees-event' => 'Attendees for event:',
 
 
 ];

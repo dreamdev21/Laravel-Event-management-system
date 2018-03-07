@@ -62,6 +62,8 @@ return [
     'scanning' => 'Scanning',
     'general' => 'General',
     'status' => 'Status',
+    'purchase-date' => 'Purchase Date',
+    'arrived' => 'Arrived',
 
 
 

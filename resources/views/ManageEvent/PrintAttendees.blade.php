@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>
-            Attendees
+            {{ trans('manageevent.attendees') }}
         </title>
 
         <!--Style-->
@@ -19,18 +19,18 @@
     </head>
     <body style="background-color: #FFFFFF;" onload="window.print();">
         <div class="well" style="border:none; margin: 0;">
-            <b>{{$attendees->count()}}</b> Attendees for event: <b>{{{$event->title}}}</b> ({{$event->start_date->toDayDateTimeString()}})<br>
+            <b>{{$attendees->count()}}</b> {{ trans('manageevent.print-attendees-event') }} <b>{{{$event->title}}}</b> ({{$event->start_date->toDayDateTimeString()}})<br>
         </div>
 
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Ticket</th>
+                    <th>{{ trans('common.name') }}</th>
+                    <th>{{ trans('common.email') }}</th>
+                    <th>{{ trans('common.ticket') }}</th>
                     <th>{{ trans('manageevent.order-ref') }}</th>
-                    <th>Purchase Date</th>
-                    <th>Arrived</th>
+                    <th>{{ trans('common.purchase-date') }}</th>
+                    <th>{{ trans('common.arrived') }}</th>
                 </tr>
             </thead>
             <tbody>
