@@ -43,6 +43,10 @@ return [
     'error-processing-payment'        =>"Sorry, there was an error processing your payment. Please try again.",
     'you-cancelled-payment'        =>"You cancelled your payment. You may try again.",
     'error-problem-processing-order'        =>"Whoops! There was a problem processing your order. Please try again.",
+    'give-name-for-event'        =>"You must give a name for the event organiser.",
+    'issue-finding-organiser'        =>"There was an issue finding the organiser.",
+    'event-successfully-update'        =>"Event Successfully Updated",
+    'problem-uploading-image'        =>"There was a problem uploading your image.",
 
 
 ];
