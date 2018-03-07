@@ -73,6 +73,15 @@ return [
     'check-in-all-tickets'        =>"Check in all tickets associated to this order",
     'attendee-has-checked'        =>"Warning: This attendee has already been checked in at ",
     'attendee-check-in'        =>" Attendee(s) Checked in.",
-
+    /*
+        EventOrdersController.php
+    */
+    'successfully-created-question'        =>"Successfully Created Question",
+    'refreshing'        =>"Refreshing..",
+    'successfully-edited-question'        =>"Successfully Edited Question",
+    'successfully-deleted-question'        =>"Question Successfully Deleted",
+    'cannot-deleted-question'        =>"This question can't be deleted",
+    'woop-wrong'        =>"Whoops! Looks like something went wrong. Please try again.",
+    'question-order-updated'        =>"Question Order Successfully Updated",
 
 ];

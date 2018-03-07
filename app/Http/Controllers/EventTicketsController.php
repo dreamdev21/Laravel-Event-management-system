@@ -154,7 +154,7 @@ class EventTicketsController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $ticket->id,
-            'message' => 'Whoops! Looks like something went wrong. Please try again.',
+            'message' => trans('controllermessages.woop-wrong'),
         ]);
     }
 
@@ -196,7 +196,7 @@ class EventTicketsController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $ticket->id,
-            'message' => 'Whoops! Looks like something went wrong. Please try again.',
+            'message' => trans('controllermessages.woop-wrong'),
         ]);
     }
 

@@ -99,11 +99,11 @@ class EventSurveyController extends MyBaseController
 
         $event->questions()->attach($question->id);
 
-        session()->flash('message', 'Successfully Created Question');
+        session()->flash('message', trans('controllermessages.successfully-created-question'));
 
         return response()->json([
             'status'      => 'success',
-            'message'     => 'Refreshing..',
+            'message'     => trans('controllermessages.refreshing'),
             'redirectUrl' => '',
         ]);
     }
@@ -178,11 +178,11 @@ class EventSurveyController extends MyBaseController
 
         $question->tickets()->sync($ticket_ids);
 
-        session()->flash('message', 'Successfully Edited Question');
+        session()->flash('message', trans('controllermessages.successfully-edited-question'));
 
         return response()->json([
             'status'      => 'success',
-            'message'     => 'Refreshing..',
+            'message'     => trans('controllermessages.refreshing'),
             'redirectUrl' => '',
         ]);
 
@@ -205,11 +205,11 @@ class EventSurveyController extends MyBaseController
 
         if ($question->delete()) {
 
-            session()->flash('message', 'Question Successfully Deleted');
+            session()->flash('message', trans('controllermessages.successfully-deleted-question'));
 
             return response()->json([
                 'status'      => 'success',
-                'message'     => 'Refreshing..',
+                'message'     => trans('controllermessages.refreshing'),
                 'redirectUrl' => '',
             ]);
         }
@@ -217,7 +217,7 @@ class EventSurveyController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $question->id,
-            'message' => 'This question can\'t be deleted.',
+            'message' => trans('controllermessages.cannot-deleted-question'),
         ]);
     }
 
@@ -304,7 +304,7 @@ class EventSurveyController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $question->id,
-            'message' => 'Whoops! Looks like something went wrong. Please try again.',
+            'message' => trans('controllermessages.woop-wrong'),
         ]);
     }
 
@@ -329,7 +329,7 @@ class EventSurveyController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Question Order Successfully Updated',
+            'message' => trans('controllermessages.question-order-updated'),
         ]);
     }
 }
