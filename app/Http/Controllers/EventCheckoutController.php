@@ -62,7 +62,7 @@ class EventCheckoutController extends Controller
         if (!$request->has('tickets')) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'No tickets selected',
+                'message' => trans('controllermessages.no-tickets-selected'),
             ]);
         }
 
@@ -110,8 +110,8 @@ class EventCheckoutController extends Controller
             ];
 
             $quantity_available_validation_messages = [
-                'ticket_' . $ticket_id . '.max' => 'The maximum number of tickets you can register is ' . $ticket_quantity_remaining,
-                'ticket_' . $ticket_id . '.min' => 'You must select at least ' . $ticket->min_per_person . ' tickets.',
+                'ticket_' . $ticket_id . '.max' => trans('controllermessages.max-register'). $ticket_quantity_remaining,
+                'ticket_' . $ticket_id . '.min' => trans('controllermessages.min-register',['attribute' => $ticket->min_per_person ]),
             ];
 
             $validator = Validator::make(['ticket_' . $ticket_id => (int)$request->get('ticket_' . $ticket_id)],
@@ -156,10 +156,10 @@ class EventCheckoutController extends Controller
                 $validation_rules['ticket_holder_last_name.' . $i . '.' . $ticket_id] = ['required'];
                 $validation_rules['ticket_holder_email.' . $i . '.' . $ticket_id] = ['required', 'email'];
 
-                $validation_messages['ticket_holder_first_name.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s first name is required';
-                $validation_messages['ticket_holder_last_name.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s last name is required';
-                $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s email is required';
-                $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.email'] = 'Ticket holder ' . ($i + 1) . '\'s email appears to be invalid';
+                $validation_messages['ticket_holder_first_name.' . $i . '.' . $ticket_id . '.required'] = trans('controllermessages.ticket-holder-firstname',['attribute' => ($i + 1) ]);
+                $validation_messages['ticket_holder_last_name.' . $i . '.' . $ticket_id . '.required'] = trans('controllermessages.ticket-holder-lastname',['attribute' => ($i + 1) ]);
+                $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.required'] = trans('controllermessages.ticket-holder-email',['attribute' => ($i + 1) ]);
+                $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.email'] = trans('controllermessages.ticket-holder-emaill-appear',['attribute' => ($i + 1) ]);
 
                 /*
                  * Validation rules for custom questions
@@ -168,7 +168,7 @@ class EventCheckoutController extends Controller
 
                     if ($question->is_required && $question->is_enabled) {
                         $validation_rules['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id] = ['required'];
-                        $validation_messages['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id . '.required'] = "This question is required";
+                        $validation_messages['ticket_holder_questions.' . $ticket_id . '.' . $i . '.' . $question->id . '.required'] = trans('controllermessages.this-question-required');
                     }
 
                 }
@@ -180,7 +180,7 @@ class EventCheckoutController extends Controller
         if (empty($tickets)) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'No tickets selected.',
+                'message' => trans('controllermessages.no-tickets-selected'),
             ]);
         }
 
@@ -224,7 +224,7 @@ class EventCheckoutController extends Controller
         /*
          * Maybe display something prettier than this?
          */
-        exit('Please enable Javascript in your browser.');
+        exit(trans('controllermessages.javascript-enable'));
     }
 
     /**
@@ -274,7 +274,7 @@ class EventCheckoutController extends Controller
         if (!session()->get('ticket_order_' . $event_id)) {
             return response()->json([
                 'status'      => 'error',
-                'message'     => 'Your session has expired.',
+                'message'     => trans('controllermessages.session-expired'),
                 'redirectUrl' => route('showEventPage', [
                     'event_id' => $event_id,
                 ])
@@ -327,7 +327,7 @@ class EventCheckoutController extends Controller
                 $transaction_data = [
                         'amount'      => ($ticket_order['order_total'] + $ticket_order['organiser_booking_fee']),
                         'currency'    => $event->currency->code,
-                        'description' => 'Order for customer: ' . $request->get('order_email'),
+                        'description' => trans('controllermessages.order-for-customer') . $request->get('order_email'),
                     ];
 
 
@@ -367,14 +367,14 @@ class EventCheckoutController extends Controller
                         ];
 
                         // Order description in MIGS is only 34 characters long; so we need a short description
-                        $transaction_data['description'] = "Ticket sales " . $transaction_data['transactionId'];
+                        $transaction_data['description'] = trans('controllermessages.ticket-sales') . $transaction_data['transactionId'];
 
                         break;
                     default:
                         Log::error('No payment gateway configured.');
                         return repsonse()->json([
                             'status'  => 'error',
-                            'message' => 'No payment gateway configured.'
+                            'message' => trans('controllermessages.no-payment-gateway-configured')
                         ]);
                         break;
                 }
@@ -422,7 +422,7 @@ class EventCheckoutController extends Controller
                 }
             } catch (\Exeption $e) {
                 Log::error($e);
-                $error = 'Sorry, there was an error processing your payment. Please try again.';
+                $error = trans('controllermessages.error-processing-payment');
             }
 
             if ($error) {
@@ -454,7 +454,7 @@ class EventCheckoutController extends Controller
     {
 
         if ($request->get('is_payment_cancelled') == '1') {
-            session()->flash('message', 'You cancelled your payment. You may try again.');
+            session()->flash('message', trans('controllermessages.you-cancelled-payment'));
             return response()->redirectToRoute('showEventCheckout', [
                 'event_id'             => $event_id,
                 'is_payment_cancelled' => 1,
@@ -661,7 +661,7 @@ class EventCheckoutController extends Controller
 
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Whoops! There was a problem processing your order. Please try again.'
+                'message' => trans('controllermessages.error-problem-processing-order')
             ]);
 
         }
