@@ -321,6 +321,23 @@ return [
     'ticket-sub-text-color' => "Ticket Sub Text Color",
     'show-id-barcode' => "Show 1D barcode on tickets",
     'ticket-preview' => "Ticket Preview",
+    /*
+     Partials/Dashboard.blade.php
+
+    */
+    'sales-volume' => 'Sales Volume',
+    'event-views' => 'Event Views',
+    'ticket-sales-volume' => 'Ticket Sales Volume',
+    'event-page-visits' => 'Event Page Visits',
+    'registrations-by-ticket' => 'Registrations By Ticket',
+    'event-is-on-now' => 'This event is on now',
+    'event-url' => 'Event URL',
+    'share-event' => 'Share Event',
+    'quick-links' => 'Quick Links',
+    'website-embed-code' => 'Website Embed Code',
+    'generate-affiliate-link' => 'Generate Affiliate Link',
+    'edit-organiser-fees' => 'Edit Organiser Fees',
+
 
 
 

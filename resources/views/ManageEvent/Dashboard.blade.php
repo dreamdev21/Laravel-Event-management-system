@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Dashboard
+    {{ trans('manageorganiser.dashboard') }}
 @stop
 
 
@@ -40,25 +40,25 @@
         <div class="col-sm-3">
             <div class="stat-box">
                 <h3>{{ money($event->sales_volume + $event->organiser_fees_volume, $event->currency) }}</h3>
-                <span>Sales Volume</span>
+                <span>{{ trans('manageevent.sales-volume') }}</span>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="stat-box">
                 <h3>{{ $event->orders->count() }}</h3>
-                <span>Orders</span>
+                <span>{{ trans('manageevent.orders') }}</span>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="stat-box">
                 <h3>{{ $event->tickets->sum('quantity_sold') }}</h3>
-                <span>Tickets Sold</span>
+                <span>{{ trans('manageorganiser.tickets-sold') }}</span>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="stat-box">
                 <h3>{{ $event->stats->sum('views') }}</h3>
-                <span>Event Views</span>
+                <span>{{ trans('manageevent.event-views') }}</span>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                     <div class="panel">
                         <div class="panel-heading panel-default">
                             <h3 class="panel-title">
-                                Tickets Sold
+                                {{ trans('manageorganiser.tickets-sold') }}
                         <span style="color: green; float: right;">
                             {{$event->tickets->sum('quantity_sold')}} Total
                         </span>
@@ -96,10 +96,10 @@
                     <div class="panel">
                         <div class="panel-heading panel-default">
                             <h3 class="panel-title">
-                                Ticket Sales Volume
+                                {{ trans('manageevent.ticket-sales-volume') }}
                                 <span style="color: green; float: right;">
                                     {{money($event->sales_volume + $event->organiser_fees_volume, $event->currency)}}
-                                    Total
+                                    {{ trans('viewevent.total') }}
                                 </span>
                             </h3>
                         </div>
@@ -119,9 +119,9 @@
                     <div class="panel">
                         <div class="panel-heading panel-default">
                             <h3 class="panel-title">
-                                Event Page Visits
+                                {{ trans('manageevent.event-page-visits') }}
                                 <span style="color: green; float: right;">
-                                    {{$event->stats->sum('views')}} Total
+                                    {{$event->stats->sum('views')}} {{ trans('viewevent.total') }}
                                 </span>
                             </h3>
                         </div>
@@ -136,7 +136,7 @@
                     <div class="panel">
                         <div class="panel-heading panel-default">
                             <h3 class="panel-title">
-                                Registrations By Ticket
+                                {{ trans('manageevent.registrations-by-ticket') }}
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -154,7 +154,7 @@
                 <div class="panel-body">
                     <i class="ico ico-clock"></i>
                     @if($event->happening_now)
-                        This event is on now
+                        {{ trans('manageevent.event-is-on-now') }}
                     @else
                         <span id="countdown"></span>
                     @endif
@@ -164,7 +164,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <i class="ico-link mr5 ellipsis"></i>
-                        Event URL
+                        {{ trans('manageevent.event-url') }}
                     </h3>
                 </div>
 
@@ -177,7 +177,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <i class="ico-share mr5 ellipsis"></i>
-                        Share Event
+                        {{ trans('manageevent.share-event') }}
                     </h3>
                 </div>
 
@@ -292,7 +292,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <i class="ico-link mr5 ellipsis"></i>
-                        Quick Links
+                        {{ trans('manageevent.quick-links') }}
                     </h3>
                 </div>
 
@@ -305,13 +305,13 @@
                         {{ trans('manageevent.create-ticket') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
-                        Website Embed Code <i class="ico ico-arrow-right3"></i>
+                        {{ trans('manageevent.website-embed-code') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
-                        Generate Affiliate Link <i class="ico ico-arrow-right3"></i>
+                        {{ trans('manageevent.generate-affiliate-link') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                     <a href="" class="btn-link btn">
-                        Edit Organiser Fees <i class="ico ico-arrow-right3"></i>
+                        {{ trans('manageevent.edit-organiser-fees') }} <i class="ico ico-arrow-right3"></i>
                     </a>
                 </div>
 
