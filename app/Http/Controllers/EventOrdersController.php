@@ -273,7 +273,7 @@ class EventOrdersController extends MyBaseController
                     $order->save();
                 } catch (\Exeption $e) {
                     Log::error($e);
-                    $error_message = 'There has been a problem processing your refund. Please check your information and try again.';
+                    $error_message = trans('controllermessages.processing-refund-try-again');
                 }
             }
 
@@ -446,7 +446,7 @@ class EventOrdersController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Message Successfully Sent',
+            'message' => trans('controllermessages.message-successfully-sent'),
         ]);
     }
 

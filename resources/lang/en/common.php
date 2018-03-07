@@ -79,6 +79,7 @@ return [
     'about' => 'About',
     'timezone' => 'Timezone',
     'default-currency' => 'Default Currency',
+    'edit' => 'Edit',
 
 
 

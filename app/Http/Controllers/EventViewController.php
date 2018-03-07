@@ -121,7 +121,7 @@ class EventViewController extends Controller
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Message Successfully Sent',
+            'message' => trans('controllermessages.message-successfully-sent'),
         ]);
     }
 
