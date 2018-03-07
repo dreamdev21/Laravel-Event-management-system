@@ -373,5 +373,13 @@ return [
     'export-answers' => 'Export Answers',
     'question-title' => 'Question Title',
     'required' => 'Required',
+    /*
+     Tickets.blade.php
+
+    */
+    'event-tickets' => 'Event Tickets',
+    'coupon-codes' => 'Coupon Codes',
+    'ticket-sales-paused' => 'Ticket Sales Paused',
+
 
 ];

@@ -68,6 +68,11 @@ return [
     'responses' => 'Responses',
     'answers' => 'Answers',
     'delete' => 'Delete',
+    'sold' => 'Sold',
+    'remaining' => 'Remaining',
+    'Revenue' => 'revenue',
+    'resume' => 'Resume',
+    'pause' => 'Pause',
 
 
 
