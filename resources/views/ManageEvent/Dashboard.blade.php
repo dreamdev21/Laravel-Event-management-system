@@ -10,7 +10,7 @@
     @include('ManageEvent.Partials.TopNav')
 @stop
 
-@section('page_title', '<i class="ico-home2"></i>&nbsp;Event Dashboard')
+@section('page_title', '<i class="ico-home2"></i>&nbsp;{{ trans("viewevent.event-dashboard") }}')
 
 @section('menu')
     @include('ManageEvent.Partials.Sidebar')
@@ -399,7 +399,7 @@
         var now = new Date();
         var countdown = document.getElementById("countdown");
         if (target_date < now) {
-            countdown.innerHTML = 'This event has started.';
+            countdown.innerHTML = {{ trans('manageevent.event-has-started') }};
         } else {
 
             var days, hours, minutes, seconds;

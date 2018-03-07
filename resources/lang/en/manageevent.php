@@ -338,6 +338,7 @@ return [
     'generate-affiliate-link' => 'Generate Affiliate Link',
     'edit-organiser-fees' => 'Edit Organiser Fees',
     'select-from-venues' => 'Select From Existing Venues',
+    'event-has-started' => 'This event has started.',
     /*
     Orders.blade.php
 

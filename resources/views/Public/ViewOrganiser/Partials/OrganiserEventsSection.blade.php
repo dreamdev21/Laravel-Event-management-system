@@ -3,13 +3,13 @@
         <div class="col-xs-12 col-md-8">
             @include('Public.ViewOrganiser.Partials.EventListingPanel',
                 [
-                    'panel_title' => 'Upcoming Events',
+                    'panel_title' => trans('manageorganiser.upcoming-events'),
                     'events'      => $upcoming_events
                 ]
             )
             @include('Public.ViewOrganiser.Partials.EventListingPanel',
                 [
-                    'panel_title' => 'Past Events',
+                    'panel_title' => trans('manageorganiser.past-events'),
                     'events'      => $past_events
                 ]
             )

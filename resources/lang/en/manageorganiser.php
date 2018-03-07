@@ -31,6 +31,7 @@ return [
     'additinal-organiser-option' => 'Additional Organiser Options',
     'select-organiser' => 'Select Organiser',
     'create-an-organiser' => 'Create an organiser',
+    'past-events' => 'Past Events',
 
     /*
         Partials/EventPanel.blade.php
