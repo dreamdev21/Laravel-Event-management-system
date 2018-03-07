@@ -113,7 +113,7 @@ class EventTicketsController extends MyBaseController
 
         $ticket->save();
 
-        session()->flash('message', 'Successfully Created Ticket');
+        session()->flash('message', trans('controllermessages.successfully-created-ticket'));
 
         return response()->json([
             'status'      => 'success',
@@ -142,7 +142,7 @@ class EventTicketsController extends MyBaseController
         if ($ticket->save()) {
             return response()->json([
                 'status'  => 'success',
-                'message' => 'Ticket Successfully Updated',
+                'message' => trans('controllermessages.successfully-updated-ticket'),
                 'id'      => $ticket->id,
             ]);
         }
@@ -176,7 +176,7 @@ class EventTicketsController extends MyBaseController
         if ($ticket->quantity_sold > 0) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Sorry, you can\'t delete this ticket as some have already been sold',
+                'message' => trans('controllermessages.cannot-delete-ticket'),
                 'id'      => $ticket->id,
             ]);
         }
@@ -184,12 +184,12 @@ class EventTicketsController extends MyBaseController
         if ($ticket->delete()) {
             return response()->json([
                 'status'  => 'success',
-                'message' => 'Ticket Successfully Deleted',
+                'message' => trans('controllermessages.cannot-delete-ticket'),
                 'id'      => $ticket->id,
             ]);
         }
 
-        Log::error('Ticket Failed to delete', [
+        Log::error(trans('controllermessages.ticket-failed-delete'), [
             'ticket' => $ticket,
         ]);
 
@@ -219,7 +219,7 @@ class EventTicketsController extends MyBaseController
             'integer',
             'min:' . ($ticket->quantity_sold + $ticket->quantity_reserved)
         ];
-        $validation_messages['quantity_available.min'] = 'Quantity available can\'t be less the amount sold or reserved.';
+        $validation_messages['quantity_available.min'] = trans('controllermessages.quantity-available-cannot');
 
         $ticket->rules = $validation_rules + $ticket->rules;
         $ticket->messages = $validation_messages + $ticket->messages;
@@ -275,7 +275,7 @@ class EventTicketsController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Ticket Order Successfully Updated',
+            'message' => trans('controllermessages.ticket-order-updated'),
         ]);
     }
 }

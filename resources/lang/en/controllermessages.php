@@ -61,7 +61,7 @@ return [
     'ensure-uploading-image-larger'        =>"Please ensure the image is not larger than 2.5MB",
     'event-page-updated'        =>"Event Page Successfully Updated",
     /*
-    EventOrdersController.php
+    EventPromoteController.php
     */
     'order-has-updated'        =>"The order has been updated.",
     'refund-amount-contain-numbers'        =>"Refund amount must only contain numbers.",
@@ -74,7 +74,7 @@ return [
     'attendee-has-checked'        =>"Warning: This attendee has already been checked in at ",
     'attendee-check-in'        =>" Attendee(s) Checked in.",
     /*
-        EventOrdersController.php
+        EventSurveyController.php
     */
     'successfully-created-question'        =>"Successfully Created Question",
     'refreshing'        =>"Refreshing..",
@@ -83,5 +83,13 @@ return [
     'cannot-deleted-question'        =>"This question can't be deleted",
     'woop-wrong'        =>"Whoops! Looks like something went wrong. Please try again.",
     'question-order-updated'        =>"Question Order Successfully Updated",
-
+    /*
+        EventTicketsController.php
+    */
+    'successfully-created-ticket'        =>"Successfully Created Ticket",
+    'cannot-delete-ticket'        =>"Sorry, you can't delete this ticket as some have already been sold",
+    'cannot-delete-ticket'        =>"Ticket Successfully Deleted",
+    'ticket-failed-delete'        =>"Ticket Failed to delete",
+    'quantity-available-cannot'        =>"Quantity available can't be less the amount sold or reserved.",
+    'ticket-order-updated'        =>"Ticket Order Successfully Updated",
 ];
