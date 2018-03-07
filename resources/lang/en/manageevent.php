@@ -358,12 +358,20 @@ return [
     'promote-event' => 'Promote Event',
 
     /*
-        QRcodeCheckIn.blade.php
+    QRcodeCheckIn.blade.php
 
-       */
+   */
     'check-in' => 'Check In:',
     'qr-code-front-camera' => 'Put the QR code in front of your Camera (Not too close)',
     'scan-another-ticket' => 'Scan another ticket',
 
+    /*
+    Surveys.blade.php
+
+   */
+    'add-question' => 'Add question',
+    'export-answers' => 'Export Answers',
+    'question-title' => 'Question Title',
+    'required' => 'Required',
 
 ];

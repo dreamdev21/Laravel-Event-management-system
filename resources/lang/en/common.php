@@ -65,6 +65,9 @@ return [
     'purchase-date' => 'Purchase Date',
     'arrived' => 'Arrived',
     'success' => 'Success',
+    'responses' => 'Responses',
+    'answers' => 'Answers',
+    'delete' => 'Delete',
 
 
 

@@ -32,13 +32,13 @@
                 <button class="loadModal btn btn-success" type="button" data-modal-id="CreateQuestion"
                         href="javascript:void(0);"
                         data-href="{{route('showCreateEventQuestion', ['event_id' => $event->id])}}">
-                    <i class="ico-question"></i> Add question
+                    <i class="ico-question"></i> {{ trans('manageevent.add-question') }}
                 </button>
             </div>
 
             <div class="btn-group btn-group btn-group-responsive">
                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                    <i class="ico-users"></i> Export Answers <span class="caret"></span>
+                    <i class="ico-users"></i> {{ trans('manageevent.export-answers') }} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{route('showExportAnswers', ['event_id'=>$event->id,'export_as'=>'xlsx'])}}">Excel
@@ -143,16 +143,16 @@
                             </th>
 
                             <th>
-                                Question Title
+                                {{ trans('manageevent.question-title') }}
                             </th>
                             <th>
-                                Required
+                                {{ trans('manageevent.required') }}
                             </th>
                             <th>
-                                Status
+                                {{ trans('common.status') }}
                             </th>
                             <th>
-                                # Responses
+                                # {{ trans('common.responses') }}
                             </th>
                             <th>
 
@@ -170,7 +170,7 @@
                                     <td>
                                         {{ $question->title }}<br>
                                         <span style="font-size: 11px; color: #888;"
-                                              class="muted">Tickets: {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}</span>
+                                              class="muted">{{ trans('common.tickets') }}: {{implode(', ', array_column($question->tickets->toArray(), 'title'))}}</span>
                                     </td>
                                     <td>
                                         {{ $question->is_required ? 'Yes' : 'No' }}
@@ -192,11 +192,11 @@
                                         <a class="btn btn-xs btn-primary loadModal" data-modal-id="EditQuestion"
                                            href="javascript:void(0);"
                                            data-href="{{route('showEditEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id])}}">
-                                            Edit
+                                            {{ trans('common.edit') }}
                                         </a>
                                         <a class="btn btn-xs btn-primary loadModal" href="javascript:void(0);"
                                            data-href="{{route('showEventQuestionAnswers', ['event_id' => $event->id, 'question_id' => $question->id])}}">
-                                            Answers
+                                            {{ trans('common.answers') }}
                                         </a>
                                         <a class="btn btn-xs btn-primary enableQuestion" href="javascript:void(0);"
                                            data-route="{{ route('postEnableQuestion', ['event_id' => $event->id, 'question_id' => $question->id]) }}"
@@ -209,7 +209,7 @@
                                            data-route="{{ route('postDeleteEventQuestion', ['event_id' => $event->id, 'question_id' => $question->id]) }}"
                                            data-type="question" href="javascript:void(0);"
                                            class="deleteThis btn btn-xs btn-danger">
-                                            Delete
+                                            {{ trans('common.delete') }}
                                         </a>
 
                                     </td>
