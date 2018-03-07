@@ -179,7 +179,7 @@ class EventOrdersController extends MyBaseController
         $order->update();
 
 
-        \Session::flash('message', 'The order has been updated');
+        \Session::flash('message', trans('controllermessages.order-has-updated'));
 
         return response()->json([
             'status'      => 'success',
@@ -201,7 +201,7 @@ class EventOrdersController extends MyBaseController
             'refund_amount' => ['numeric'],
         ];
         $messages = [
-            'refund_amount.integer' => 'Refund amount must only contain numbers.',
+            'refund_amount.integer' => trans('controllermessages.refund-amount-contain-numbers'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -466,7 +466,7 @@ class EventOrdersController extends MyBaseController
 
         $order->save();
 
-        session()->flash('message', 'Order Payment Status Successfully Updated');
+        session()->flash('message', trans('controllermessages.order-payment-status-updated'));
 
         return response()->json([
             'status' => 'success',

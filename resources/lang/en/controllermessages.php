@@ -60,5 +60,13 @@ return [
     'ensure-uploading-image'        =>"Please ensure you are uploading an image (JPG, PNG, JPEG)",
     'ensure-uploading-image-larger'        =>"Please ensure the image is not larger than 2.5MB",
     'event-page-updated'        =>"Event Page Successfully Updated",
+    /*
+    EventOrdersController.php
+    */
+    'order-has-updated'        =>"The order has been updated.",
+    'refund-amount-contain-numbers'        =>"Refund amount must only contain numbers.",
+    'order-payment-status-updated'        =>"Order Payment Status Successfully Updated.",
+
+
 
 ];
