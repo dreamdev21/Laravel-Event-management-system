@@ -61,7 +61,7 @@ class OrganiserCustomizeController extends MyBaseController
 
         $organiser->save();
 
-        session()->flash('message', 'Successfully Updated Organiser');
+        session()->flash('message', trans('controllermessages.successfully-updated-organiser'));
 
         return response()->json([
             'status'      => 'success',
@@ -86,7 +86,7 @@ class OrganiserCustomizeController extends MyBaseController
             'page_text_color'      => ['required'],
         ];
         $messages = [
-            'page_header_bg_color.required' => 'Please enter a header background color.',
+            'page_header_bg_color.required' => trans('controllermessages.enter-header-background'),
             'page_bg_color.required'        => trans('controllermessages.enter-background-color'),
         ];
 
@@ -107,7 +107,7 @@ class OrganiserCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Organiser Design Successfully Updated',
+            'message' => trans('controllermessages.organiser-design-updated'),
         ]);
     }
 }

@@ -104,8 +104,33 @@ return [
     'email-address-use-already'        =>"E-mail already in use for this account.",
 
     /*
-        ManageAccountController.php
+        MyBaseController.php
     */
     'error-woop-unknown-problem'        =>"Whoops! An unknown error has occurred. Please try again or contact support if the problem persists.",
-
+    /*
+        MyBaseController.php
+    */
+    'successfully-created-organiser'        =>"Successfully Created Organiser.",
+    /*
+        MyBaseController.php
+    */
+    'successfully-updated-organiser'        =>"Successfully Updated Organiser",
+    'enter-header-background'        =>"Please enter a header background color.",
+    'organiser-design-updated'        =>"Organiser Design Successfully Updated",
+    'successfully-created-organiser'        =>"Successfully Created Organiser.",
+    /*
+        RemindersController.php
+    */
+    'your-password-reset-link'        =>"Your Password Reset Link",
+    'password-successfully-reset'        =>"Password Successfully Reset",
+    /*
+        UserController.php
+    */
+    'enter-valid-email'        =>"Please enter a valid E-mail address.",
+    'email-required'        =>"E-mail address is required.",
+    'password-incorrect'        =>"This password is incorrect.",
+    'email-already-use'        =>"This E-mail is already in use.",
+    'enter-firstname'        =>"Please enter your first name.",
+    'enter-lastname'        =>"Please enter your last name.",
+    'successfully-saved-details'        =>"Successfully Saved Details",
 ];

@@ -60,7 +60,7 @@ class OrganiserController extends MyBaseController
 
         $organiser->save();
 
-        session()->flash('message', 'Successfully Created Organiser.');
+        session()->flash('message', trans('controllermessages.successfully-created-organiser'));
 
         return response()->json([
             'status'      => 'success',
