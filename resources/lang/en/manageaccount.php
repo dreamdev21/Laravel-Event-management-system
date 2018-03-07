@@ -28,6 +28,11 @@ return [
     'branding-name' => 'Branding Name',
     'mastercard-gateway' => 'Mastercard Internet Gateway Service Settings',
     'save-payment-details' => 'Save Payment Details',
+    /*
+        Partials/PaymentGatewayOptions.blade.php
+
+    */
+    'account-payment' => 'Account / Payment',
 
 
 ];

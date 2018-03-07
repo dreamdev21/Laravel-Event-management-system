@@ -2,11 +2,11 @@
 
 @section('title')
 @parent
-Event Attendees
+{{ trans('manageevent.event-attendees') }}
 @stop
 
 
 @section('page_title')
 <i class="ico-users"></i>
-Account / Payment
+{{ trans('manageaccount.account-payment') }}
 @stop
