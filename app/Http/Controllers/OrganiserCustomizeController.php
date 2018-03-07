@@ -87,7 +87,7 @@ class OrganiserCustomizeController extends MyBaseController
         ];
         $messages = [
             'page_header_bg_color.required' => 'Please enter a header background color.',
-            'page_bg_color.required'        => 'Please enter a background color.',
+            'page_bg_color.required'        => trans('controllermessages.enter-background-color'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

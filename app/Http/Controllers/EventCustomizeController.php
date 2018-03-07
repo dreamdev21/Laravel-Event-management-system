@@ -85,7 +85,7 @@ class EventCustomizeController extends MyBaseController
         ];
 
         $messages = [
-            'social_share_text.max' => 'Please keep the text under 3000 characters.',
+            'social_share_text.max' => trans('controllermessages.keep-under-3000'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -108,7 +108,7 @@ class EventCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Social Settings Successfully Updated',
+            'message' => trans('controllermessages.social-setting-update'),
         ]);
 
     }
@@ -132,7 +132,7 @@ class EventCustomizeController extends MyBaseController
             'is_1d_barcode_enabled' => ['required'],
         ];
         $messages = [
-            'ticket_bg_color.required' => 'Please enter a background color.',
+            'ticket_bg_color.required' => trans('controllermessages.enter-background-color'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -154,7 +154,7 @@ class EventCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Ticket Settings Updated',
+            'message' => trans('controllermessages.ticket-setting-updated'),
         ]);
     }
 
@@ -174,9 +174,9 @@ class EventCustomizeController extends MyBaseController
             'organiser_fee_fixed'      => ['numeric', 'between:0,100'],
         ];
         $messages = [
-            'organiser_fee_percentage.numeric' => 'Please enter a value between 0 and 100',
-            'organiser_fee_fixed.numeric'      => 'Please check the format. It should be in the format 0.00.',
-            'organiser_fee_fixed.between'      => 'Please enter a value between 0 and 100.',
+            'organiser_fee_percentage.numeric' => trans('controllermessages.value-0-100'),
+            'organiser_fee_fixed.numeric'      => trans('controllermessages.check-format'),
+            'organiser_fee_fixed.between'      => trans('controllermessages.value-0-100'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -194,7 +194,7 @@ class EventCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Order Page Successfully Updated',
+            'message' => trans('controllermessages.order-page-updated'),
         ]);
     }
 
@@ -230,7 +230,7 @@ class EventCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Order Page Successfully Updated',
+            'message' => trans('controllermessages.order-page-updated'),
         ]);
     }
 
@@ -249,8 +249,8 @@ class EventCustomizeController extends MyBaseController
             'bg_image_path' => ['mimes:jpeg,jpg,png', 'max:4000'],
         ];
         $messages = [
-            'bg_image_path.mimes' => 'Please ensure you are uploading an image (JPG, PNG, JPEG)',
-            'bg_image_path.max'   => 'Please ensure the image is not larger than 2.5MB',
+            'bg_image_path.mimes' => trans('contorllermessages.ensure-uploading-image'),
+            'bg_image_path.max'   => trans('contorllermessages.ensure-uploading-image-larger'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -302,7 +302,7 @@ class EventCustomizeController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Event Page Successfully Updated',
+            'message' => trans('controllermessages.event-page-updated'),
             'runThis' => 'document.getElementById(\'previewIframe\').contentWindow.location.reload(true);',
         ]);
     }
