@@ -337,6 +337,7 @@ return [
     'website-embed-code' => 'Website Embed Code',
     'generate-affiliate-link' => 'Generate Affiliate Link',
     'edit-organiser-fees' => 'Edit Organiser Fees',
+    'select-from-venues' => 'Select From Existing Venues',
 
 
 

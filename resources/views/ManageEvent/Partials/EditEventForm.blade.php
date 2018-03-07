@@ -107,7 +107,7 @@
 
         <div class="clearfix" style="margin-top:-10px; padding: 5px; padding-top: 0px;">
             <span class="pull-right">
-                or <a data-clear-field=".location_field" data-toggle-class=".address-automatic, .address-manual" data-show-less-text="{{$event->location_is_manual ? 'Enter Address Manually' : 'Select From Existing Venues'}}" href="javascript:void(0);" class="show-more-options clear_location">{{$event->location_is_manual ? 'Select From Existing Venues' : 'Enter Address Manually'}}</a>
+                or <a data-clear-field=".location_field" data-toggle-class=".address-automatic, .address-manual" data-show-less-text="{{$event->location_is_manual ? trans('manageevent.enter-address') : trans('manageevent.select-from-venues')}}" href="javascript:void(0);" class="show-more-options clear_location">{{$event->location_is_manual ? 'Select From Existing Venues' : 'Enter Address Manually'}}</a>
             </span>
         </div>
 
