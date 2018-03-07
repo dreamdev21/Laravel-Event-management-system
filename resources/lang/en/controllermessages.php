@@ -133,4 +133,9 @@ return [
     'enter-firstname'        =>"Please enter your first name.",
     'enter-lastname'        =>"Please enter your last name.",
     'successfully-saved-details'        =>"Successfully Saved Details",
+    /*
+        UserLoginController.php
+    */
+    'fill-in-your-email-password'        =>"Please fill in your email and password",
+    'email-password-incorrect'        =>"Your username/password combination was incorrect",
 ];
