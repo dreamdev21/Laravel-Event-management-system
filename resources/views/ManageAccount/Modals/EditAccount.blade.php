@@ -23,17 +23,17 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-cogs"></i>
-                    Account</h3>
+                    {{ trans('common.account') }}</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
                         <!-- tab -->
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#general_account" data-toggle="tab">General</a></li>
-                            <li><a href="#payment_account" data-toggle="tab">Payment</a></li>
-                            <li><a href="#users_account" data-toggle="tab">Users</a></li>
-                            <li><a href="#about" data-toggle="tab">About</a></li>
+                            <li class="active"><a href="#general_account" data-toggle="tab">{{ trans('common.general') }}</a></li>
+                            <li><a href="#payment_account" data-toggle="tab">{{ trans('common.payment') }}</a></li>
+                            <li><a href="#users_account" data-toggle="tab">{{ trans('common.users') }}</a></li>
+                            <li><a href="#about" data-toggle="tab">{{ trans('common.about') }}</a></li>
                         </ul>
                         <div class="tab-content panel">
                             <div class="tab-pane active" id="general_account">
@@ -61,7 +61,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {!! Form::label('email', 'Email', array('class'=>'control-label required')) !!}
+                                            {!! Form::label('email', trans('common.email'), array('class'=>'control-label required')) !!}
                                             {!!  Form::text('email', Input::old('email'),
                                         array(
                                         'class'=>'form-control'
@@ -72,13 +72,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('timezone_id', 'Timezone', array('class'=>'control-label required')) !!}
+                                            {!! Form::label('timezone_id', trans('common.timezone'), array('class'=>'control-label required')) !!}
                                             {!! Form::select('timezone_id', $timezones, $account->timezone_id, ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('currency_id', 'Default Currency', array('class'=>'control-label required')) !!}
+                                            {!! Form::label('currency_id', trans('common.default-currency'), array('class'=>'control-label required')) !!}
                                             {!! Form::select('currency_id', $currencies, $account->currency_id, ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="panel-footer">
-                                            {!! Form::submit('Save Account Details', ['class' => 'btn btn-success pull-right']) !!}
+                                            {!! Form::submit(trans('manageaccount.save-account-details'), ['class' => 'btn btn-success pull-right']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -124,11 +124,11 @@
                                                 <div class="input-group">
                                                     {!! Form::text('email', '',  ['class' => 'form-control', 'placeholder' => trans('manageevent.email-address')]) !!}
                                                     <span class="input-group-btn">
-                                                          {!!Form::submit('Add User', ['class' => 'btn btn-primary'])!!}
+                                                          {!!Form::submit(trans('manageaccount.add-user'), ['class' => 'btn btn-primary'])!!}
                                                     </span>
                                                 </div>
                                                 <span class="help-block">
-                                                    Added users will receive further instruction via email.
+                                                    {{ trans('manageaccount.added-users-email') }}
                                                 </span>
                                             </td>
 
@@ -141,7 +141,7 @@
                             </div>
                             <div class="tab-pane " id="about">
                                 <h4>
-                                    Version Information
+                                    {{ trans('manageaccount.version-information') }}
                                 </h4>
                                 <p>
                                     @if($version_info['is_outdated'])
@@ -152,7 +152,7 @@
                                 </p>
 
                                 <h4>
-                                    Licence Information
+                                    {{ trans('manageaccount.licence-information') }}
                                 </h4>
                                 <p>
                                     Attendize is licenced under the <b><a target="_blank"

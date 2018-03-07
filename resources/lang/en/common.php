@@ -73,6 +73,12 @@ return [
     'Revenue' => 'revenue',
     'resume' => 'Resume',
     'pause' => 'Pause',
+    'account' => 'Account',
+    'payment' => 'Payment',
+    'users' => 'Users',
+    'about' => 'About',
+    'timezone' => 'Timezone',
+    'default-currency' => 'Default Currency',
 
 
 
