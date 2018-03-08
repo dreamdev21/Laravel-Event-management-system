@@ -7,7 +7,7 @@ Sign Up
 @section('content')
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
-            {!! Form::open(array('url' => 'signup', 'class' => 'panel')) !!}
+            {!! Form::open(array('url' => App::getLocale().'/signup', 'class' => 'panel')) !!}
             <div class="panel-body">
                 <div class="logo">
                    {!! HTML::image('assets/images/logo-dark.png') !!}

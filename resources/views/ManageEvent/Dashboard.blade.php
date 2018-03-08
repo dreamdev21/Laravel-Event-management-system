@@ -399,7 +399,7 @@
         var now = new Date();
         var countdown = document.getElementById("countdown");
         if (target_date < now) {
-            countdown.innerHTML = {{ trans('manageevent.event-has-started') }};
+            countdown.innerHTML = '{{ trans('manageevent.event-has-started') }}';
         } else {
 
             var days, hours, minutes, seconds;

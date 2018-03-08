@@ -1,7 +1,7 @@
 @extends('Shared.Layouts.MasterWithoutMenus')
 
 @section('title')
-Forgot Password
+{{ trans('common.forgot-password') }}
 @stop
 
 @section('content')
