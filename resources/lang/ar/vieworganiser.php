@@ -3,8 +3,19 @@
 return [
 
 
-    'tickets' => 'التذاكر',
+    /*
+        Partials/EventListingPanel.blade.php
+
+    */
+    'tickets' => 'تذاكر',
     'information' => 'معلومات',
-    'no-display' => 'لا يوجد :attribute للعرض.',
+    'no-display' => ' للعرض :attribute ليس هناك',
+    /*
+        Partials/EventListingPanel.blade.php
+
+    */
+    'tickets' => 'تذاكر',
+    'information' => 'معلومات',
+    'no-display' => 'للعرض :attribute ليس هناك',
 
 ];

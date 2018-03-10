@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Le mot de passe doit être de six caractères minimum et correspondre à la confirmation.',
-    'user'     => "Utilisateur inconnu avec cet adresse email.",
-    'token'    => 'Le lien de reinitialisation est incorrect.',
-    'sent'     => 'Un lien de réinitialisation vous a été envoyé par email !',
-    'reset'    => 'Votre mot de passe a été réinitialisé !',
+    'password' => '.يجب أن تتكون كلمات المرور من ستة أحرف على الأقل ومطابقة للتأكيد',
+    'user'     => ".لم يتم العثور على مستخدم بهذا البريد الإلكتروني ",
+    'token'    => '.رمز إعادة تعيين كلمة السر هذا غير صالح',
+    'sent'     => '!تم ارسال رابط إعادة تعيين كلمة المرور الخاصة بك الى بريدك الالكتروني ',
+    'reset'    => '!تم إعادة تعيين كلمة المرور الخاصة بك',
 
 ];

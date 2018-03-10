@@ -63,7 +63,7 @@
                     {{$organiser->attendees->count()}}
                 </h3>
             <span>
-                Tickets Sold{{ trans('manageorganiser.tickets-sold') }}
+                {{ trans('manageorganiser.tickets-sold') }}
             </span>
             </div>
         </div>
