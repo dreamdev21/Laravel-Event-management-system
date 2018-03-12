@@ -361,7 +361,7 @@ return [
     QRcodeCheckIn.blade.php
 
    */
-    'check-in' => ': تسجيل',
+    'check-in' => ' تسجيل',
     'qr-code-front-camera' => '(ضع رمز الاستجابة السريعة امام الكاميرا (لا تقربها كثيرا)',
     'scan-another-ticket' => 'مسح تذكرة أخرى',
 

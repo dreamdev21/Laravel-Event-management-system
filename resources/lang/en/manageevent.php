@@ -363,7 +363,7 @@ return [
     QRcodeCheckIn.blade.php
 
    */
-    'check-in' => 'Check In:',
+    'check-in' => 'Check In',
     'qr-code-front-camera' => 'Put the QR code in front of your Camera (Not too close)',
     'scan-another-ticket' => 'Scan another ticket',
 
