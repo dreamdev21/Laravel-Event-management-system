@@ -80,7 +80,19 @@ if (App::getLocale() == "ar"){
                 }
             </style>
         @endif
-
+        <?php if (App::getLocale() == "ar"){
+            echo ' <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" rel="stylesheet"/>';
+        }
+        ?>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Cairo');
+            body{
+                font-family: 'Cairo', sans-serif;
+            }
+            body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+                font-family: 'Cairo', sans-serif;
+            }
+        </style>
     </head>
     <body class="attendize">
         <div id="event_page_wrap" vocab="http://schema.org/" typeof="Event">

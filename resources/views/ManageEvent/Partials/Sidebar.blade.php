@@ -1,4 +1,10 @@
-<aside class="sidebar sidebar-left sidebar-menu">
+<aside class="sidebar sidebar-<?php
+if (App::getLocale() == "ar"){
+    echo 'right';
+}else{
+    echo 'left';
+}
+?> sidebar-menu">
     <section class="content">
         <h5 class="heading">{{ trans('manageevent.main-menu') }}</h5>
         <ul id="nav_main" class="topmenu">
