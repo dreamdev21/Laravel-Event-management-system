@@ -38,6 +38,65 @@
         echo ' <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" rel="stylesheet"/>';
     }
     ?>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Cairo');
+        body{
+            font-family: 'Cairo', sans-serif;
+        }
+        body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            font-family: 'Cairo', sans-serif !important;
+        }
+       <?php
+            if (App::getLocale() == "ar"){
+                echo '
+                @media (min-width: 992px){
+                    .sidebar.sidebar-menu+#main {
+                        padding-right: 220px !important;
+                        padding-left: 0px !important;
+                    }
+                    .sidebar.sidebar-right.sidebar-menu {
+                        position: absolute;
+                        padding-top: 65px;
+                        bottom: auto;
+                        min-height: 100%;
+                    }
+                    #header.navbar>.navbar-toolbar {
+                        position: unset;
+                        margin-right: 220px;
+                        margin-left: 0px;
+                        height: 65px;
+                    }
+                    #header.navbar>.navbar-header {
+                        background-color: #2e3254;
+                        height: 65px;
+                        float: right;
+                    }
+                }
+                @media (max-width: 992px){
+                    .sidebar.sidebar-right {
+                        right: -220px;
+                    }
+                }
+                .totop {
+                    position: fixed;
+                    z-index: 998;
+                    bottom: 10px;
+                    right:0px;
+                    left: 25px;
+                    display: block;
+                    width: 80px;
+                    height: 40px;
+                    line-height: 40px;
+                    background-color: rgba(46,50,84,0.8);
+                    color: rgba(255,255,255,0.8);
+                    text-align: center;
+                    text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
+                    font-size: 16px;
+                }
+                ';
+            }
+        ?>
+    </style>
     <!--/Style-->
 
     @yield('head')
@@ -165,6 +224,32 @@
     @endif
 
 </script>
+
+
+
+<?php
+
+if (App::getLocale() == "ar"){
+    echo "<script>
+            $(document.body).on('click', '.toggleSidebar', function (e) {
+                $('html').toggleClass('sidebar-open-rtl');
+                e.preventDefault();
+            });
+        </script>
+        ";
+}else{
+    echo "<script>
+            $(document.body).on('click', '.toggleSidebar', function (e) {
+                $('html').toggleClass('sidebar-open-ltr');
+                e.preventDefault();
+            });
+        </script>
+    ";
+}
+
+?>
+
+
 <!--/JS-->
 @yield('foot')
 

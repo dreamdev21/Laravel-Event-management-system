@@ -8997,11 +8997,7 @@ $.cf = {
 
     });
 
-    /* Responsive sidebar */
-    $(document.body).on('click', '.toggleSidebar', function (e) {
-        $('html').toggleClass('sidebar-open-ltr');
-        e.preventDefault();
-    });
+
 
     /* Scroll to top */
     $(window).scroll(function () {
